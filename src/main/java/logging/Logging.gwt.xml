@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module>
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.resources.Resources"/>
+    <inherits name="com.google.gwt.logging.Logging"/>
+    <inherits name="io.clickhandler.GwtLumberjack"/>
+
+    <inherits name="elemental.Elemental"/>
+    <inherits name="javax.inject.Inject"/>
+    <inherits name="dagger.Dagger"/>
+
+    <source path="client"/>
+</module>

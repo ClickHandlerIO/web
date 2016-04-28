@@ -1,0 +1,86 @@
+// Clipboard Events
+        onCopy?: ClipboardEventHandler;
+        onCut?: ClipboardEventHandler;
+        onPaste?: ClipboardEventHandler;
+
+        // Composition Events
+        onCompositionEnd?: CompositionEventHandler;
+        onCompositionStart?: CompositionEventHandler;
+        onCompositionUpdate?: CompositionEventHandler;
+
+        // Focus Events
+        onFocus?: FocusEventHandler;
+        onBlur?: FocusEventHandler;
+
+        // Form Events
+        onChange?: FormEventHandler;
+        onInput?: FormEventHandler;
+        onSubmit?: FormEventHandler;
+
+        // Image Events
+        onLoad?: ReactEventHandler;
+        onError?: ReactEventHandler; // also a Media Event
+
+        // Keyboard Events
+        onKeyDown?: KeyboardEventHandler;
+        onKeyPress?: KeyboardEventHandler;
+        onKeyUp?: KeyboardEventHandler;
+
+        // Media Events
+        onAbort?: ReactEventHandler;
+        onCanPlay?: ReactEventHandler;
+        onCanPlayThrough?: ReactEventHandler;
+        onDurationChange?: ReactEventHandler;
+        onEmptied?: ReactEventHandler;
+        onEncrypted?: ReactEventHandler;
+        onEnded?: ReactEventHandler;
+        onLoadedData?: ReactEventHandler;
+        onLoadedMetadata?: ReactEventHandler;
+        onLoadStart?: ReactEventHandler;
+        onPause?: ReactEventHandler;
+        onPlay?: ReactEventHandler;
+        onPlaying?: ReactEventHandler;
+        onProgress?: ReactEventHandler;
+        onRateChange?: ReactEventHandler;
+        onSeeked?: ReactEventHandler;
+        onSeeking?: ReactEventHandler;
+        onStalled?: ReactEventHandler;
+        onSuspend?: ReactEventHandler;
+        onTimeUpdate?: ReactEventHandler;
+        onVolumeChange?: ReactEventHandler;
+        onWaiting?: ReactEventHandler;
+
+        // MouseEvents
+        onClick?: MouseEventHandler;
+        onContextMenu?: MouseEventHandler;
+        onDoubleClick?: MouseEventHandler;
+        onDrag?: DragEventHandler;
+        onDragEnd?: DragEventHandler;
+        onDragEnter?: DragEventHandler;
+        onDragExit?: DragEventHandler;
+        onDragLeave?: DragEventHandler;
+        onDragOver?: DragEventHandler;
+        onDragStart?: DragEventHandler;
+        onDrop?: DragEventHandler;
+        onMouseDown?: MouseEventHandler;
+        onMouseEnter?: MouseEventHandler;
+        onMouseLeave?: MouseEventHandler;
+        onMouseMove?: MouseEventHandler;
+        onMouseOut?: MouseEventHandler;
+        onMouseOver?: MouseEventHandler;
+        onMouseUp?: MouseEventHandler;
+
+        // Selection Events
+        onSelect?: ReactEventHandler;
+
+        // Touch Events
+        onTouchCancel?: TouchEventHandler;
+        onTouchEnd?: TouchEventHandler;
+        onTouchMove?: TouchEventHandler;
+        onTouchStart?: TouchEventHandler;
+
+        // UI Events
+        onScroll?: UIEventHandler;
+
+        // Wheel Events
+        onWheel?: WheelEventHandler;
