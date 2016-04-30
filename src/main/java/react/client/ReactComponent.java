@@ -22,16 +22,16 @@ public interface ReactComponent<P, S> {
     @JsProperty
     P getProps();
 
+    @JsOverlay
+    default P props() {
+        return getProps();
+    }
+
     /**
      * @return
      */
     @JsProperty
     S getState();
-
-    /**
-     * @param state
-     */
-    void setState(S state);
 
     /**
      * @param stateCallback
@@ -40,6 +40,16 @@ public interface ReactComponent<P, S> {
     default void setState(Func.Run1<S> stateCallback) {
         setState(stateCallback, null);
     }
+
+    @JsOverlay
+    default S state() {
+        return getState();
+    }
+
+    /**
+     * @param state
+     */
+    void setState(S state);
 
     /**
      * @param name

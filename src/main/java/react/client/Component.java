@@ -150,6 +150,16 @@ public abstract class Component<P, S> {
     }
 
     @JsIgnore
+    public StyleProps styleProps() {
+        return new StyleProps();
+    }
+
+    @JsIgnore
+    public StyleProps css() {
+        return new StyleProps();
+    }
+
+    @JsIgnore
     public ReactElement $() {
         return createElement();
     }

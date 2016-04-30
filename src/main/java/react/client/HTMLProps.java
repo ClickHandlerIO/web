@@ -999,6 +999,13 @@ public class HTMLProps<T> extends DOMProps<T> {
     }
 
     @JsIgnore
+    public StyleProps style() {
+        if (style == null)
+            style = new StyleProps();
+        return style;
+    }
+
+    @JsIgnore
     public HTMLProps<T> style(StyleProps value) {
         this.style = value;
         return this;
