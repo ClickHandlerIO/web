@@ -10,8 +10,8 @@
 .idea/*
 .idea
 !.idea/codeStyleSettings.xml
-.idea/compiler.xml
-.idea/misc.xml
+.idea/compiler
+.idea/misc
 
 # Generated Sources
 target
