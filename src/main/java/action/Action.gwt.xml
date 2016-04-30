@@ -11,8 +11,8 @@
     <inherits name="dagger.Dagger"/>
 
     <!--super dev mode detection-->
-    <replace-with class='io.clickhandler.web.reactGwt.client.util.SuperDevModeActiveIndicator'>
-        <when-type-is class='io.clickhandler.web.reactGwt.client.util.SuperDevModeIndicator'/>
+    <replace-with class='common.client.SuperDevModeActiveIndicator'>
+        <when-type-is class='common.client.SuperDevModeIndicator'/>
         <when-property-is name='superdevmode' value='on'/>
     </replace-with>
 
