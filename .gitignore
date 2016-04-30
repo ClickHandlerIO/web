@@ -8,7 +8,10 @@
 # IntelliJ
 *.iml
 .idea/*
+.idea
 !.idea/codeStyleSettings.xml
+.idea/compiler.xml
+.idea/misc.xml
 
 # Generated Sources
 target
