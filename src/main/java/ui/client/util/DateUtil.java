@@ -1,7 +1,7 @@
 package ui.client.util;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 
 import java.util.Date;
 

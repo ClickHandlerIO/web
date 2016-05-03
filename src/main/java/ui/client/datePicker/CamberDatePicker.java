@@ -4,7 +4,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import common.client.Func;
 import ui.client.util.UUID;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.BaseProps;

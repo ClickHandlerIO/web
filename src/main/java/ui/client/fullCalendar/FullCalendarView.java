@@ -1,6 +1,6 @@
 package ui.client.fullCalendar;
 
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 

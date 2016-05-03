@@ -4,7 +4,7 @@ import com.google.gwt.user.client.Window;
 import common.client.Func;
 import common.client.Jso;
 import elemental.html.DivElement;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;

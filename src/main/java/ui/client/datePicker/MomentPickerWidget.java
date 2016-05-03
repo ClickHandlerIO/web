@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 
 import java.util.Date;
 

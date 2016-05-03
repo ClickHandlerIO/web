@@ -2,6 +2,7 @@
 
 <module>
     <inherits name="react.React"/>
+    <inherits name="moment.Moment" />
     <source path="client"/>
     <source path="resources" />
 </module>

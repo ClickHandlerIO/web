@@ -21,5 +21,6 @@ public interface ReactElement<T, P extends BaseProps> {
     @JsProperty
     Object getRef(); // todo ?
 
+    @JsProperty
     void setRef(Func.Call1<Object, Object> callback); // todo is this needed?
 }

@@ -1,5 +1,6 @@
 package react.client;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
@@ -25,4 +26,10 @@ public interface BaseProps {
 
     @JsProperty
     void setRef(Object value);
+
+    @JsOverlay
+    default <T> BaseProps ref(Ref<T> ref) {
+        setRef(ref.getName());
+        return this;
+    }
 }

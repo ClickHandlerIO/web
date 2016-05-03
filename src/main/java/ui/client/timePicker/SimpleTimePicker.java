@@ -1,7 +1,7 @@
 package ui.client.timePicker;
 
 import common.client.Func;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.*;

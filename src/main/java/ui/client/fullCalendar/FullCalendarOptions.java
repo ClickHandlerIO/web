@@ -2,7 +2,7 @@ package ui.client.fullCalendar;
 
 import com.google.gwt.dom.client.NativeEvent;
 import common.client.Func;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 

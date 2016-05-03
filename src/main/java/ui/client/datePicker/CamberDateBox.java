@@ -7,7 +7,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import common.client.Func;
 import ui.client.util.DateUtil;
 import ui.client.util.UUID;
-import io.clickhandler.momentGwt.client.Moment;
+import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.BaseProps;
