@@ -2,12 +2,13 @@ package react.client;
 
 import common.client.Func;
 import common.client.Jso;
-import jsinterop.annotations.JsIgnore;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 
-@JsType
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class HTMLProps<T> extends DOMProps<T> {
     @JsProperty
     public boolean defaultChecked;
@@ -292,37 +293,37 @@ public class HTMLProps<T> extends DOMProps<T> {
     @JsProperty
     public boolean unselectable;
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> children(Object children) {
-        super.children(children);
+    
+    @JsOverlay
+    public final HTMLProps<T> children(Object children) {
+        this.children = children;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> key(Object key) {
-        super.key(key);
+    
+    @JsOverlay
+    public final HTMLProps<T> key(Object key) {
+        this.key = key;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> ref(String ref) {
-        super.ref(ref);
+    
+    @JsOverlay
+    public final HTMLProps<T> ref(String ref) {
+        this.ref = ref;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> ref(Func.Run1<T> ref) {
-        super.ref(ref);
+    
+    @JsOverlay
+    public final HTMLProps<T> ref(Func.Run1<T> ref) {
+        this.ref = ref;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> ref(final Ref<T> ref) {
+    
+    @JsOverlay
+    public final HTMLProps<T> ref(final Ref<T> ref) {
         if (ref == null) {
             return this;
         }
@@ -330,689 +331,689 @@ public class HTMLProps<T> extends DOMProps<T> {
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> set(String name, String value) {
+    @JsOverlay
+    public final HTMLProps<T> set(String name, String value) {
         if (value != null) {
             Jso.set(this, name, value);
         }
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> defaultChecked(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> defaultChecked(boolean value) {
         this.defaultChecked = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> defaultValue(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> defaultValue(Object value) {
         this.defaultValue = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> accept(String value) {
+    @JsOverlay
+    public final HTMLProps<T> accept(String value) {
         this.accept = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> acceptCharset(String value) {
+    @JsOverlay
+    public final HTMLProps<T> acceptCharset(String value) {
         this.acceptCharset = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> accessKey(String value) {
+    @JsOverlay
+    public final HTMLProps<T> accessKey(String value) {
         this.accessKey = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> action(String value) {
+    @JsOverlay
+    public final HTMLProps<T> action(String value) {
         this.action = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> allowFullScreen(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> allowFullScreen(boolean value) {
         this.allowFullScreen = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> allowTransparency(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> allowTransparency(boolean value) {
         this.allowTransparency = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> alt(String value) {
+    @JsOverlay
+    public final HTMLProps<T> alt(String value) {
         this.alt = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> async(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> async(boolean value) {
         this.async = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoComplete(String value) {
+    @JsOverlay
+    public final HTMLProps<T> autoComplete(String value) {
         this.autoComplete = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoFocus(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> autoFocus(boolean value) {
         this.autoFocus = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoPlay(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> autoPlay(boolean value) {
         this.autoPlay = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> capture(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> capture(boolean value) {
         this.capture = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> cellPadding(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> cellPadding(Object value) {
         this.cellPadding = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> cellSpacing(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> cellSpacing(Object value) {
         this.cellSpacing = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> charSet(String value) {
+    @JsOverlay
+    public final HTMLProps<T> charSet(String value) {
         this.charSet = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> challenge(String value) {
+    @JsOverlay
+    public final HTMLProps<T> challenge(String value) {
         this.challenge = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> checked(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> checked(boolean value) {
         this.checked = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> classID(String value) {
+    @JsOverlay
+    public final HTMLProps<T> classID(String value) {
         this.classID = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> className(String value) {
+    @JsOverlay
+    public final HTMLProps<T> className(String value) {
         this.className = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> cols(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> cols(Number value) {
         this.cols = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> colSpan(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> colSpan(Number value) {
         this.colSpan = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> content(String value) {
+    @JsOverlay
+    public final HTMLProps<T> content(String value) {
         this.content = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> contentEditable(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> contentEditable(boolean value) {
         this.contentEditable = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> contextMenu(String value) {
+    @JsOverlay
+    public final HTMLProps<T> contextMenu(String value) {
         this.contextMenu = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> controls(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> controls(boolean value) {
         this.controls = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> coords(String value) {
+    @JsOverlay
+    public final HTMLProps<T> coords(String value) {
         this.coords = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> crossOrigin(String value) {
+    @JsOverlay
+    public final HTMLProps<T> crossOrigin(String value) {
         this.crossOrigin = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> data(String value) {
+    @JsOverlay
+    public final HTMLProps<T> data(String value) {
         this.data = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> dateTime(String value) {
+    @JsOverlay
+    public final HTMLProps<T> dateTime(String value) {
         this.dateTime = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> _default(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> _default(boolean value) {
         this._default = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> defer(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> defer(boolean value) {
         this.defer = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> dir(String value) {
+    @JsOverlay
+    public final HTMLProps<T> dir(String value) {
         this.dir = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> disabled(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> disabled(boolean value) {
         this.disabled = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> download(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> download(Object value) {
         this.download = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> draggable(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> draggable(boolean value) {
         this.draggable = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> encType(String value) {
+    @JsOverlay
+    public final HTMLProps<T> encType(String value) {
         this.encType = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> form(String value) {
+    @JsOverlay
+    public final HTMLProps<T> form(String value) {
         this.form = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> formAction(String value) {
+    @JsOverlay
+    public final HTMLProps<T> formAction(String value) {
         this.formAction = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> formEncType(String value) {
+    @JsOverlay
+    public final HTMLProps<T> formEncType(String value) {
         this.formEncType = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> formMethod(String value) {
+    @JsOverlay
+    public final HTMLProps<T> formMethod(String value) {
         this.formMethod = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> formNoValidate(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> formNoValidate(boolean value) {
         this.formNoValidate = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> formTarget(String value) {
+    @JsOverlay
+    public final HTMLProps<T> formTarget(String value) {
         this.formTarget = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> frameBorder(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> frameBorder(Object value) {
         this.frameBorder = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> headers(String value) {
+    @JsOverlay
+    public final HTMLProps<T> headers(String value) {
         this.headers = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> height(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> height(Object value) {
         this.height = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> hidden(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> hidden(boolean value) {
         this.hidden = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> high(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> high(Number value) {
         this.high = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> href(String value) {
+    @JsOverlay
+    public final HTMLProps<T> href(String value) {
         this.href = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> hrefLang(String value) {
+    @JsOverlay
+    public final HTMLProps<T> hrefLang(String value) {
         this.hrefLang = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> htmlFor(String value) {
+    @JsOverlay
+    public final HTMLProps<T> htmlFor(String value) {
         this.htmlFor = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> httpEquiv(String value) {
+    @JsOverlay
+    public final HTMLProps<T> httpEquiv(String value) {
         this.httpEquiv = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> icon(String value) {
+    @JsOverlay
+    public final HTMLProps<T> icon(String value) {
         this.icon = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> id(String value) {
+    @JsOverlay
+    public final HTMLProps<T> id(String value) {
         this.id = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> inputMode(String value) {
+    @JsOverlay
+    public final HTMLProps<T> inputMode(String value) {
         this.inputMode = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> integrity(String value) {
+    @JsOverlay
+    public final HTMLProps<T> integrity(String value) {
         this.integrity = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> is(String value) {
+    @JsOverlay
+    public final HTMLProps<T> is(String value) {
         this.is = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> keyParams(String value) {
+    @JsOverlay
+    public final HTMLProps<T> keyParams(String value) {
         this.keyParams = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> keyType(String value) {
+    @JsOverlay
+    public final HTMLProps<T> keyType(String value) {
         this.keyType = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> kind(String value) {
+    @JsOverlay
+    public final HTMLProps<T> kind(String value) {
         this.kind = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> label(String value) {
+    @JsOverlay
+    public final HTMLProps<T> label(String value) {
         this.label = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> lang(String value) {
+    @JsOverlay
+    public final HTMLProps<T> lang(String value) {
         this.lang = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> list(String value) {
+    @JsOverlay
+    public final HTMLProps<T> list(String value) {
         this.list = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> loop(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> loop(boolean value) {
         this.loop = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> low(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> low(Number value) {
         this.low = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> manifest(String value) {
+    @JsOverlay
+    public final HTMLProps<T> manifest(String value) {
         this.manifest = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> marginHeight(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> marginHeight(Number value) {
         this.marginHeight = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> marginWidth(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> marginWidth(Number value) {
         this.marginWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> max(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> max(Object value) {
         this.max = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> maxLength(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> maxLength(Number value) {
         this.maxLength = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> media(String value) {
+    @JsOverlay
+    public final HTMLProps<T> media(String value) {
         this.media = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> mediaGroup(String value) {
+    @JsOverlay
+    public final HTMLProps<T> mediaGroup(String value) {
         this.mediaGroup = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> method(String value) {
+    @JsOverlay
+    public final HTMLProps<T> method(String value) {
         this.method = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> min(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> min(Object value) {
         this.min = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> minLength(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> minLength(Number value) {
         this.minLength = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> multiple(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> multiple(boolean value) {
         this.multiple = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> muted(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> muted(boolean value) {
         this.muted = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> name(String value) {
+    @JsOverlay
+    public final HTMLProps<T> name(String value) {
         this.name = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> noValidate(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> noValidate(boolean value) {
         this.noValidate = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> open(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> open(boolean value) {
         this.open = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> optimum(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> optimum(Number value) {
         this.optimum = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> pattern(String value) {
+    @JsOverlay
+    public final HTMLProps<T> pattern(String value) {
         this.pattern = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> placeholder(String value) {
+    @JsOverlay
+    public final HTMLProps<T> placeholder(String value) {
         this.placeholder = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> poster(String value) {
+    @JsOverlay
+    public final HTMLProps<T> poster(String value) {
         this.poster = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> preload(String value) {
+    @JsOverlay
+    public final HTMLProps<T> preload(String value) {
         this.preload = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> radioGroup(String value) {
+    @JsOverlay
+    public final HTMLProps<T> radioGroup(String value) {
         this.radioGroup = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> readOnly(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> readOnly(boolean value) {
         this.readOnly = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> rel(String value) {
+    @JsOverlay
+    public final HTMLProps<T> rel(String value) {
         this.rel = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> required(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> required(boolean value) {
         this.required = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> role(String value) {
+    @JsOverlay
+    public final HTMLProps<T> role(String value) {
         this.role = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> rows(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> rows(Number value) {
         this.rows = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> rowSpan(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> rowSpan(Number value) {
         this.rowSpan = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> sandbox(String value) {
+    @JsOverlay
+    public final HTMLProps<T> sandbox(String value) {
         this.sandbox = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> scope(String value) {
+    @JsOverlay
+    public final HTMLProps<T> scope(String value) {
         this.scope = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> scoped(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> scoped(boolean value) {
         this.scoped = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> scrolling(String value) {
+    @JsOverlay
+    public final HTMLProps<T> scrolling(String value) {
         this.scrolling = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> seamless(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> seamless(boolean value) {
         this.seamless = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> selected(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> selected(boolean value) {
         this.selected = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> shape(String value) {
+    @JsOverlay
+    public final HTMLProps<T> shape(String value) {
         this.shape = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> size(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> size(Number value) {
         this.size = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> sizes(String value) {
+    @JsOverlay
+    public final HTMLProps<T> sizes(String value) {
         this.sizes = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> span(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> span(Number value) {
         this.span = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> spellCheck(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> spellCheck(boolean value) {
         this.spellCheck = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> src(String value) {
+    @JsOverlay
+    public final HTMLProps<T> src(String value) {
         this.src = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> srcDoc(String value) {
+    @JsOverlay
+    public final HTMLProps<T> srcDoc(String value) {
         this.srcDoc = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> srcLang(String value) {
+    @JsOverlay
+    public final HTMLProps<T> srcLang(String value) {
         this.srcLang = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> srcSet(String value) {
+    @JsOverlay
+    public final HTMLProps<T> srcSet(String value) {
         this.srcSet = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> start(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> start(Number value) {
         this.start = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> step(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> step(Object value) {
         this.step = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps style() {
+    @JsOverlay
+    public final StyleProps style() {
         if (style == null)
             style = new StyleProps();
         return style;
     }
 
-    @JsIgnore
-    public HTMLProps<T> style(StyleProps value) {
+    @JsOverlay
+    public final HTMLProps<T> style(StyleProps value) {
         this.style = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> style(Func.Run1<StyleProps> callback) {
+    @JsOverlay
+    public final HTMLProps<T> style(Func.Run1<StyleProps> callback) {
         if (callback == null) {
             return this;
         }
@@ -1021,624 +1022,624 @@ public class HTMLProps<T> extends DOMProps<T> {
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> summary(String value) {
+    @JsOverlay
+    public final HTMLProps<T> summary(String value) {
         this.summary = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> tabIndex(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> tabIndex(Number value) {
         this.tabIndex = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> target(String value) {
+    @JsOverlay
+    public final HTMLProps<T> target(String value) {
         this.target = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> title(String value) {
+    @JsOverlay
+    public final HTMLProps<T> title(String value) {
         this.title = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> type(String value) {
+    @JsOverlay
+    public final HTMLProps<T> type(String value) {
         this.type = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> useMap(String value) {
+    @JsOverlay
+    public final HTMLProps<T> useMap(String value) {
         this.useMap = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> value(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> value(Object value) {
         this.value = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> width(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> width(Object value) {
         this.width = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> wmode(String value) {
+    @JsOverlay
+    public final HTMLProps<T> wmode(String value) {
         this.wmode = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> wrap(String value) {
+    @JsOverlay
+    public final HTMLProps<T> wrap(String value) {
         this.wrap = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> about(String value) {
+    @JsOverlay
+    public final HTMLProps<T> about(String value) {
         this.about = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> datatype(String value) {
+    @JsOverlay
+    public final HTMLProps<T> datatype(String value) {
         this.datatype = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> inlist(Object value) {
+    @JsOverlay
+    public final HTMLProps<T> inlist(Object value) {
         this.inlist = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> prefix(String value) {
+    @JsOverlay
+    public final HTMLProps<T> prefix(String value) {
         this.prefix = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> property(String value) {
+    @JsOverlay
+    public final HTMLProps<T> property(String value) {
         this.property = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> resource(String value) {
+    @JsOverlay
+    public final HTMLProps<T> resource(String value) {
         this.resource = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> typeof(String value) {
+    @JsOverlay
+    public final HTMLProps<T> typeof(String value) {
         this.typeof = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> vocab(String value) {
+    @JsOverlay
+    public final HTMLProps<T> vocab(String value) {
         this.vocab = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoCapitalize(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> autoCapitalize(boolean value) {
         this.autoCapitalize = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoCorrect(String value) {
+    @JsOverlay
+    public final HTMLProps<T> autoCorrect(String value) {
         this.autoCorrect = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> autoSave(String value) {
+    @JsOverlay
+    public final HTMLProps<T> autoSave(String value) {
         this.autoSave = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> color(String value) {
+    @JsOverlay
+    public final HTMLProps<T> color(String value) {
         this.color = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> itemProp(String value) {
+    @JsOverlay
+    public final HTMLProps<T> itemProp(String value) {
         this.itemProp = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> itemScope(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> itemScope(boolean value) {
         this.itemScope = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> itemType(String value) {
+    @JsOverlay
+    public final HTMLProps<T> itemType(String value) {
         this.itemType = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> itemID(String value) {
+    @JsOverlay
+    public final HTMLProps<T> itemID(String value) {
         this.itemID = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> itemRef(String value) {
+    @JsOverlay
+    public final HTMLProps<T> itemRef(String value) {
         this.itemRef = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> results(Number value) {
+    @JsOverlay
+    public final HTMLProps<T> results(Number value) {
         this.results = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> security(String value) {
+    @JsOverlay
+    public final HTMLProps<T> security(String value) {
         this.security = value;
         return this;
     }
 
-    @JsIgnore
-    public HTMLProps<T> unselectable(boolean value) {
+    @JsOverlay
+    public final HTMLProps<T> unselectable(boolean value) {
         this.unselectable = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCopy(ClipboardEventHandler value) {
-        super.onCopy(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCopy(ClipboardEventHandler value) {
+        this.onCopy = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCut(ClipboardEventHandler value) {
-        super.onCut(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCut(ClipboardEventHandler value) {
+        this.onCut = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onPaste(ClipboardEventHandler value) {
-        super.onPaste(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onPaste(ClipboardEventHandler value) {
+        this.onPaste = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCompositionEnd(CompositionEventHandler value) {
-        super.onCompositionEnd(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCompositionEnd(CompositionEventHandler value) {
+        this.onCompositionEnd = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCompositionStart(CompositionEventHandler value) {
-        super.onCompositionStart(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCompositionStart(CompositionEventHandler value) {
+        this.onCompositionStart = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCompositionUpdate(CompositionEventHandler value) {
-        super.onCompositionUpdate(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCompositionUpdate(CompositionEventHandler value) {
+        this.onCompositionUpdate = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onFocus(FocusEventHandler value) {
-        super.onFocus(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onFocus(FocusEventHandler value) {
+        this.onFocus = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onBlur(FocusEventHandler value) {
-        super.onBlur(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onBlur(FocusEventHandler value) {
+        this.onBlur = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onChange(FormEventHandler value) {
-        super.onChange(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onChange(FormEventHandler value) {
+        this.onChange = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onInput(FormEventHandler value) {
-        super.onInput(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onInput(FormEventHandler value) {
+        this.onInput = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onSubmit(FormEventHandler value) {
-        super.onSubmit(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onSubmit(FormEventHandler value) {
+        this.onSubmit = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onLoad(ReactEventHandler value) {
-        super.onLoad(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onLoad(ReactEventHandler value) {
+        this.onLoad = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onError(ReactEventHandler value) {
-        super.onError(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onError(ReactEventHandler value) {
+        this.onError = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onKeyDown(KeyboardEventHandler value) {
-        super.onKeyDown(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onKeyDown(KeyboardEventHandler value) {
+        this.onKeyDown = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onKeyPress(KeyboardEventHandler value) {
-        super.onKeyPress(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onKeyPress(KeyboardEventHandler value) {
+        this.onKeyPress = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onKeyUp(KeyboardEventHandler value) {
-        super.onKeyUp(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onKeyUp(KeyboardEventHandler value) {
+        this.onKeyUp = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onAbort(ReactEventHandler value) {
-        super.onAbort(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onAbort(ReactEventHandler value) {
+        this.onAbort = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCanPlay(ReactEventHandler value) {
-        super.onCanPlay(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCanPlay(ReactEventHandler value) {
+        this.onCanPlay = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onCanPlayThrough(ReactEventHandler value) {
-        super.onCanPlayThrough(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onCanPlayThrough(ReactEventHandler value) {
+        this.onCanPlayThrough = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDurationChange(ReactEventHandler value) {
-        super.onDurationChange(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDurationChange(ReactEventHandler value) {
+        this.onDurationChange = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onEmptied(ReactEventHandler value) {
-        super.onEmptied(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onEmptied(ReactEventHandler value) {
+        this.onEmptied = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onEncrypted(ReactEventHandler value) {
-        super.onEncrypted(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onEncrypted(ReactEventHandler value) {
+        this.onEncrypted = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onEnded(ReactEventHandler value) {
-        super.onEnded(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onEnded(ReactEventHandler value) {
+        this.onEnded = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onLoadedData(ReactEventHandler value) {
-        super.onLoadedData(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onLoadedData(ReactEventHandler value) {
+        this.onLoadedData = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onLoadedMetadata(ReactEventHandler value) {
-        super.onLoadedMetadata(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onLoadedMetadata(ReactEventHandler value) {
+        this.onLoadedMetadata = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onLoadStart(ReactEventHandler value) {
-        super.onLoadStart(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onLoadStart(ReactEventHandler value) {
+        this.onLoadStart = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onPause(ReactEventHandler value) {
-        super.onPause(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onPause(ReactEventHandler value) {
+        this.onPause = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onPlay(ReactEventHandler value) {
-        super.onPlay(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onPlay(ReactEventHandler value) {
+        this.onPlay = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onPlaying(ReactEventHandler value) {
-        super.onPlaying(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onPlaying(ReactEventHandler value) {
+        this.onPlaying = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onProgress(ReactEventHandler value) {
-        super.onProgress(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onProgress(ReactEventHandler value) {
+        this.onProgress = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onRateChange(ReactEventHandler value) {
-        super.onRateChange(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onRateChange(ReactEventHandler value) {
+        this.onRateChange = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onSeeked(ReactEventHandler value) {
-        super.onSeeked(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onSeeked(ReactEventHandler value) {
+        this.onSeeked = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onSeeking(ReactEventHandler value) {
-        super.onSeeking(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onSeeking(ReactEventHandler value) {
+        this.onSeeking = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onStalled(ReactEventHandler value) {
-        super.onStalled(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onStalled(ReactEventHandler value) {
+        this.onStalled = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onSuspend(ReactEventHandler value) {
-        super.onSuspend(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onSuspend(ReactEventHandler value) {
+        this.onSuspend = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onTimeUpdate(ReactEventHandler value) {
-        super.onTimeUpdate(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onTimeUpdate(ReactEventHandler value) {
+        this.onTimeUpdate = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onVolumeChange(ReactEventHandler value) {
-        super.onVolumeChange(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onVolumeChange(ReactEventHandler value) {
+        this.onVolumeChange = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onWaiting(ReactEventHandler value) {
-        super.onWaiting(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onWaiting(ReactEventHandler value) {
+        this.onWaiting = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onClick(MouseEventHandler value) {
-        super.onClick(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onClick(MouseEventHandler value) {
+        this.onClick = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onContextMenu(MouseEventHandler value) {
-        super.onContextMenu(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onContextMenu(MouseEventHandler value) {
+        this.onContextMenu = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDoubleClick(MouseEventHandler value) {
-        super.onDoubleClick(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDoubleClick(MouseEventHandler value) {
+        this.onDoubleClick = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDrag(DragEventHandler value) {
-        super.onDrag(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDrag(DragEventHandler value) {
+        this.onDrag = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragEnd(DragEventHandler value) {
-        super.onDragEnd(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragEnd(DragEventHandler value) {
+        this.onDragEnd = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragEnter(DragEventHandler value) {
-        super.onDragEnter(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragEnter(DragEventHandler value) {
+        this.onDragEnter = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragExit(DragEventHandler value) {
-        super.onDragExit(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragExit(DragEventHandler value) {
+        this.onDragExit = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragLeave(DragEventHandler value) {
-        super.onDragLeave(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragLeave(DragEventHandler value) {
+        this.onDragLeave = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragOver(DragEventHandler value) {
-        super.onDragOver(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragOver(DragEventHandler value) {
+        this.onDragOver = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDragStart(DragEventHandler value) {
-        super.onDragStart(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDragStart(DragEventHandler value) {
+        this.onDragStart = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onDrop(DragEventHandler value) {
-        super.onDrop(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onDrop(DragEventHandler value) {
+        this.onDrop = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseDown(MouseEventHandler value) {
-        super.onMouseDown(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseDown(MouseEventHandler value) {
+        this.onMouseDown = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseEnter(MouseEventHandler value) {
-        super.onMouseEnter(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseEnter(MouseEventHandler value) {
+        this.onMouseEnter = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseLeave(MouseEventHandler value) {
-        super.onMouseLeave(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseLeave(MouseEventHandler value) {
+        this.onMouseLeave = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseMove(MouseEventHandler value) {
-        super.onMouseMove(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseMove(MouseEventHandler value) {
+        this.onMouseMove = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseOut(MouseEventHandler value) {
-        super.onMouseOut(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseOut(MouseEventHandler value) {
+        this.onMouseOut = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseOver(MouseEventHandler value) {
-        super.onMouseOver(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseOver(MouseEventHandler value) {
+        this.onMouseOver = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onMouseUp(MouseEventHandler value) {
-        super.onMouseUp(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onMouseUp(MouseEventHandler value) {
+        this.onMouseUp = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onSelect(ReactEventHandler value) {
-        super.onSelect(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onSelect(ReactEventHandler value) {
+        this.onSelect = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onTouchCancel(TouchEventHandler value) {
-        super.onTouchCancel(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onTouchCancel(TouchEventHandler value) {
+        this.onTouchCancel = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onTouchEnd(TouchEventHandler value) {
-        super.onTouchEnd(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onTouchEnd(TouchEventHandler value) {
+        this.onTouchEnd = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onTouchMove(TouchEventHandler value) {
-        super.onTouchMove(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onTouchMove(TouchEventHandler value) {
+        this.onTouchMove = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onTouchStart(TouchEventHandler value) {
-        super.onTouchStart(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onTouchStart(TouchEventHandler value) {
+        this.onTouchStart = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onScroll(UIEventHandler value) {
-        super.onScroll(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onScroll(UIEventHandler value) {
+        this.onScroll = value;
         return this;
     }
 
-    @Override
-    @JsIgnore
-    public HTMLProps<T> onWheel(WheelEventHandler value) {
-        super.onWheel(value);
+    
+    @JsOverlay
+    public final HTMLProps<T> onWheel(WheelEventHandler value) {
+        this.onWheel = value;
         return this;
     }
 }

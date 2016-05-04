@@ -53,7 +53,7 @@ public abstract class RoutesBuilder {
                 new Route()
                     .path(proxy.path())
                     .onEnter((nextState, replaceState) -> {
-                        proxy.toArgs(nextState.getLocation().getQuery());
+                        proxy.toArgs(nextState.location.getQuery());
 
                         if (proxy.onEnter(nextState, replaceState)) {
                             routeGatekeeperProvider.get().onEnter(proxy, nextState, replaceState);

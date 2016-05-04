@@ -46,7 +46,7 @@ public class Select2 extends Component<Select2.Props, Select2.State> {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public Props getDefaultProps(ReactComponent<Props, State> $this) {
+    public Props getDefaultProps() {
         Props p = Jso.create();
         p.setStyle(new StyleProps().width("100%"));
         p.disabled(false);
@@ -54,8 +54,8 @@ public class Select2 extends Component<Select2.Props, Select2.State> {
     }
 
     @Override
-    public State getInitialState(ReactComponent<Props, State> $this) {
-        State s = super.getInitialState($this);
+    public State getInitialState() {
+        State s = super.getInitialState();
         s.setValue(new HashMap<>());
         return s;
     }

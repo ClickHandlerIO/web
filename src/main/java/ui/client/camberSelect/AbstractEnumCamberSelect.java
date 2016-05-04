@@ -14,8 +14,8 @@ public abstract class AbstractEnumCamberSelect<E extends Enum<E>, P extends Abst
     public abstract E[] getValues();
 
     @Override
-    public P getDefaultProps(ReactComponent<P, State<E>> $this) {
-        P p = super.getDefaultProps($this);
+    public P getDefaultProps() {
+        P p = super.getDefaultProps();
         p.setMinimumResultsForSearch(-1.);
         p.setDebounceDisabled(true);
         return p;

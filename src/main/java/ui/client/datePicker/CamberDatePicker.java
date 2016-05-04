@@ -41,8 +41,8 @@ public class CamberDatePicker extends Component<CamberDatePicker.Props, CamberDa
 
 
     @Override
-    public State getInitialState(ReactComponent<Props, State> $this) {
-        State s = super.getInitialState($this);
+    public State getInitialState() {
+        State s = super.getInitialState();
         s.setGuid(UUID.uuid());
         s.setPicker(new MomentPickerWidget());
         return s;

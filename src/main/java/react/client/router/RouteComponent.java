@@ -40,7 +40,7 @@ public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends Route
 
         // Set Route Leave Hook.
         getRouter($this).setRouteLeaveHook(
-            $this.getProps().getRoute(),
+            $this.props.route,
             nextLocation -> routerWillLeave($this, nextLocation)
         );
     }

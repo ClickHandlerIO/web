@@ -134,7 +134,7 @@ public abstract class AbstractCamberBasicSelect<VALUE, P extends AbstractCamberB
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public P getDefaultProps(ReactComponent<P, State<VALUE>> $this) {
+    public P getDefaultProps() {
         P props = Jso.create();
         props.setAllowClear(true);
         props.setPlaceholder("");
@@ -142,7 +142,7 @@ public abstract class AbstractCamberBasicSelect<VALUE, P extends AbstractCamberB
     }
 
     @Override
-    public State<VALUE> getInitialState(ReactComponent<P, State<VALUE>> $this) {
+    public State<VALUE> getInitialState() {
         State<VALUE> state = Jso.create();
         state.setDataMap(new HashMap<>());
         state.setSelectedDataMap(new HashMap<>());

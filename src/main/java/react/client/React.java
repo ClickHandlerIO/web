@@ -13,7 +13,7 @@ public class React {
      * @return
      */
     @JsMethod(namespace = "React", name = "createClass")
-    public static native Object createClass(Object object);
+    public static native <T> ReactClass<T> createClass(Object object);
 
     @JsMethod(namespace = "React", name = "createElement")
     public static native ReactElement createElement(Object component, Object props);

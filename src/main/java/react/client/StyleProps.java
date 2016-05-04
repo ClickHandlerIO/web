@@ -1,11 +1,12 @@
 package react.client;
 
-import jsinterop.annotations.JsIgnore;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 
-@JsType
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class StyleProps {
     @JsProperty
     public Object backgroundColor;
@@ -546,1616 +547,1616 @@ public class StyleProps {
     @JsProperty
     public Object writingMode;
 
-    @JsIgnore
-    public StyleProps backgroundColor(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundColor(Object value) {
         this.backgroundColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxFlex(Number value) {
+    @JsOverlay
+    public final StyleProps boxFlex(Number value) {
         this.boxFlex = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxFlexGroup(Number value) {
+    @JsOverlay
+    public final StyleProps boxFlexGroup(Number value) {
         this.boxFlexGroup = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnCount(Number value) {
+    @JsOverlay
+    public final StyleProps columnCount(Number value) {
         this.columnCount = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flex(Object value) {
+    @JsOverlay
+    public final StyleProps flex(Object value) {
         this.flex = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexGrow(Number value) {
+    @JsOverlay
+    public final StyleProps flexGrow(Number value) {
         this.flexGrow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexShrink(Number value) {
+    @JsOverlay
+    public final StyleProps flexShrink(Number value) {
         this.flexShrink = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontWeight(Object value) {
+    @JsOverlay
+    public final StyleProps fontWeight(Object value) {
         this.fontWeight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps lineClamp(Number value) {
+    @JsOverlay
+    public final StyleProps lineClamp(Number value) {
         this.lineClamp = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps lineHeight(Object value) {
+    @JsOverlay
+    public final StyleProps lineHeight(Object value) {
         this.lineHeight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps opacity(Number value) {
+    @JsOverlay
+    public final StyleProps opacity(Number value) {
         this.opacity = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps order(Number value) {
+    @JsOverlay
+    public final StyleProps order(Number value) {
         this.order = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps orphans(Number value) {
+    @JsOverlay
+    public final StyleProps orphans(Number value) {
         this.orphans = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps widows(Number value) {
+    @JsOverlay
+    public final StyleProps widows(Number value) {
         this.widows = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps zIndex(Number value) {
+    @JsOverlay
+    public final StyleProps zIndex(Number value) {
         this.zIndex = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps zoom(Number value) {
+    @JsOverlay
+    public final StyleProps zoom(Number value) {
         this.zoom = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontSize(Object value) {
+    @JsOverlay
+    public final StyleProps fontSize(Object value) {
         this.fontSize = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fillOpacity(Number value) {
+    @JsOverlay
+    public final StyleProps fillOpacity(Number value) {
         this.fillOpacity = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps strokeOpacity(Number value) {
+    @JsOverlay
+    public final StyleProps strokeOpacity(Number value) {
         this.strokeOpacity = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps strokeWidth(Number value) {
+    @JsOverlay
+    public final StyleProps strokeWidth(Number value) {
         this.strokeWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps alignContent(Object value) {
+    @JsOverlay
+    public final StyleProps alignContent(Object value) {
         this.alignContent = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps alignItems(Object value) {
+    @JsOverlay
+    public final StyleProps alignItems(Object value) {
         this.alignItems = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps alignSelf(Object value) {
+    @JsOverlay
+    public final StyleProps alignSelf(Object value) {
         this.alignSelf = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps alignmentAdjust(Object value) {
+    @JsOverlay
+    public final StyleProps alignmentAdjust(Object value) {
         this.alignmentAdjust = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps alignmentBaseline(Object value) {
+    @JsOverlay
+    public final StyleProps alignmentBaseline(Object value) {
         this.alignmentBaseline = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps animationDelay(Object value) {
+    @JsOverlay
+    public final StyleProps animationDelay(Object value) {
         this.animationDelay = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps animationDirection(Object value) {
+    @JsOverlay
+    public final StyleProps animationDirection(Object value) {
         this.animationDirection = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps animationIterationCount(Object value) {
+    @JsOverlay
+    public final StyleProps animationIterationCount(Object value) {
         this.animationIterationCount = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps animationName(Object value) {
+    @JsOverlay
+    public final StyleProps animationName(Object value) {
         this.animationName = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps animationPlayState(Object value) {
+    @JsOverlay
+    public final StyleProps animationPlayState(Object value) {
         this.animationPlayState = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps appearance(Object value) {
+    @JsOverlay
+    public final StyleProps appearance(Object value) {
         this.appearance = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backfaceVisibility(Object value) {
+    @JsOverlay
+    public final StyleProps backfaceVisibility(Object value) {
         this.backfaceVisibility = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundBlendMode(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundBlendMode(Object value) {
         this.backgroundBlendMode = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundComposite(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundComposite(Object value) {
         this.backgroundComposite = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundImage(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundImage(Object value) {
         this.backgroundImage = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundOrigin(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundOrigin(Object value) {
         this.backgroundOrigin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundPositionX(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundPositionX(Object value) {
         this.backgroundPositionX = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps backgroundRepeat(Object value) {
+    @JsOverlay
+    public final StyleProps backgroundRepeat(Object value) {
         this.backgroundRepeat = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps baselineShift(Object value) {
+    @JsOverlay
+    public final StyleProps baselineShift(Object value) {
         this.baselineShift = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps behavior(Object value) {
+    @JsOverlay
+    public final StyleProps behavior(Object value) {
         this.behavior = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps border(Object value) {
+    @JsOverlay
+    public final StyleProps border(Object value) {
         this.border = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderBottomLeftRadius(Object value) {
+    @JsOverlay
+    public final StyleProps borderBottomLeftRadius(Object value) {
         this.borderBottomLeftRadius = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderBottomRightRadius(Object value) {
+    @JsOverlay
+    public final StyleProps borderBottomRightRadius(Object value) {
         this.borderBottomRightRadius = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderBottomWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderBottomWidth(Object value) {
         this.borderBottomWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderCollapse(Object value) {
+    @JsOverlay
+    public final StyleProps borderCollapse(Object value) {
         this.borderCollapse = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderColor(Object value) {
+    @JsOverlay
+    public final StyleProps borderColor(Object value) {
         this.borderColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderCornerShape(Object value) {
+    @JsOverlay
+    public final StyleProps borderCornerShape(Object value) {
         this.borderCornerShape = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderImageSource(Object value) {
+    @JsOverlay
+    public final StyleProps borderImageSource(Object value) {
         this.borderImageSource = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderImageWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderImageWidth(Object value) {
         this.borderImageWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderLeft(Object value) {
+    @JsOverlay
+    public final StyleProps borderLeft(Object value) {
         this.borderLeft = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderLeftColor(Object value) {
+    @JsOverlay
+    public final StyleProps borderLeftColor(Object value) {
         this.borderLeftColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderLeftStyle(Object value) {
+    @JsOverlay
+    public final StyleProps borderLeftStyle(Object value) {
         this.borderLeftStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderLeftWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderLeftWidth(Object value) {
         this.borderLeftWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderRight(Object value) {
+    @JsOverlay
+    public final StyleProps borderRight(Object value) {
         this.borderRight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderRightColor(Object value) {
+    @JsOverlay
+    public final StyleProps borderRightColor(Object value) {
         this.borderRightColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderRightStyle(Object value) {
+    @JsOverlay
+    public final StyleProps borderRightStyle(Object value) {
         this.borderRightStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderRightWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderRightWidth(Object value) {
         this.borderRightWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderSpacing(Object value) {
+    @JsOverlay
+    public final StyleProps borderSpacing(Object value) {
         this.borderSpacing = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderStyle(Object value) {
+    @JsOverlay
+    public final StyleProps borderStyle(Object value) {
         this.borderStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTop(Object value) {
+    @JsOverlay
+    public final StyleProps borderTop(Object value) {
         this.borderTop = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTopColor(Object value) {
+    @JsOverlay
+    public final StyleProps borderTopColor(Object value) {
         this.borderTopColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTopLeftRadius(Object value) {
+    @JsOverlay
+    public final StyleProps borderTopLeftRadius(Object value) {
         this.borderTopLeftRadius = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTopRightRadius(Object value) {
+    @JsOverlay
+    public final StyleProps borderTopRightRadius(Object value) {
         this.borderTopRightRadius = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTopStyle(Object value) {
+    @JsOverlay
+    public final StyleProps borderTopStyle(Object value) {
         this.borderTopStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderTopWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderTopWidth(Object value) {
         this.borderTopWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps borderWidth(Object value) {
+    @JsOverlay
+    public final StyleProps borderWidth(Object value) {
         this.borderWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxAlign(Object value) {
+    @JsOverlay
+    public final StyleProps boxAlign(Object value) {
         this.boxAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxDecorationBreak(Object value) {
+    @JsOverlay
+    public final StyleProps boxDecorationBreak(Object value) {
         this.boxDecorationBreak = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxDirection(Object value) {
+    @JsOverlay
+    public final StyleProps boxDirection(Object value) {
         this.boxDirection = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxLineProgression(Object value) {
+    @JsOverlay
+    public final StyleProps boxLineProgression(Object value) {
         this.boxLineProgression = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxLines(Object value) {
+    @JsOverlay
+    public final StyleProps boxLines(Object value) {
         this.boxLines = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps boxOrdinalGroup(Object value) {
+    @JsOverlay
+    public final StyleProps boxOrdinalGroup(Object value) {
         this.boxOrdinalGroup = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps breakAfter(Object value) {
+    @JsOverlay
+    public final StyleProps breakAfter(Object value) {
         this.breakAfter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps breakBefore(Object value) {
+    @JsOverlay
+    public final StyleProps breakBefore(Object value) {
         this.breakBefore = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps breakInside(Object value) {
+    @JsOverlay
+    public final StyleProps breakInside(Object value) {
         this.breakInside = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps clear(Object value) {
+    @JsOverlay
+    public final StyleProps clear(Object value) {
         this.clear = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps clip(Object value) {
+    @JsOverlay
+    public final StyleProps clip(Object value) {
         this.clip = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps clipRule(Object value) {
+    @JsOverlay
+    public final StyleProps clipRule(Object value) {
         this.clipRule = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps color(Object value) {
+    @JsOverlay
+    public final StyleProps color(Object value) {
         this.color = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnFill(Object value) {
+    @JsOverlay
+    public final StyleProps columnFill(Object value) {
         this.columnFill = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnGap(Object value) {
+    @JsOverlay
+    public final StyleProps columnGap(Object value) {
         this.columnGap = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnRule(Object value) {
+    @JsOverlay
+    public final StyleProps columnRule(Object value) {
         this.columnRule = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnRuleColor(Object value) {
+    @JsOverlay
+    public final StyleProps columnRuleColor(Object value) {
         this.columnRuleColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnRuleWidth(Object value) {
+    @JsOverlay
+    public final StyleProps columnRuleWidth(Object value) {
         this.columnRuleWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnSpan(Object value) {
+    @JsOverlay
+    public final StyleProps columnSpan(Object value) {
         this.columnSpan = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columnWidth(Object value) {
+    @JsOverlay
+    public final StyleProps columnWidth(Object value) {
         this.columnWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps columns(Object value) {
+    @JsOverlay
+    public final StyleProps columns(Object value) {
         this.columns = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps counterIncrement(Object value) {
+    @JsOverlay
+    public final StyleProps counterIncrement(Object value) {
         this.counterIncrement = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps counterReset(Object value) {
+    @JsOverlay
+    public final StyleProps counterReset(Object value) {
         this.counterReset = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps cue(Object value) {
+    @JsOverlay
+    public final StyleProps cue(Object value) {
         this.cue = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps cueAfter(Object value) {
+    @JsOverlay
+    public final StyleProps cueAfter(Object value) {
         this.cueAfter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps direction(Object value) {
+    @JsOverlay
+    public final StyleProps direction(Object value) {
         this.direction = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps display(Object value) {
+    @JsOverlay
+    public final StyleProps display(Object value) {
         this.display = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fill(Object value) {
+    @JsOverlay
+    public final StyleProps fill(Object value) {
         this.fill = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fillRule(Object value) {
+    @JsOverlay
+    public final StyleProps fillRule(Object value) {
         this.fillRule = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps filter(Object value) {
+    @JsOverlay
+    public final StyleProps filter(Object value) {
         this.filter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexAlign(Object value) {
+    @JsOverlay
+    public final StyleProps flexAlign(Object value) {
         this.flexAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexBasis(Object value) {
+    @JsOverlay
+    public final StyleProps flexBasis(Object value) {
         this.flexBasis = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexDirection(Object value) {
+    @JsOverlay
+    public final StyleProps flexDirection(Object value) {
         this.flexDirection = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexFlow(Object value) {
+    @JsOverlay
+    public final StyleProps flexFlow(Object value) {
         this.flexFlow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexItemAlign(Object value) {
+    @JsOverlay
+    public final StyleProps flexItemAlign(Object value) {
         this.flexItemAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexLinePack(Object value) {
+    @JsOverlay
+    public final StyleProps flexLinePack(Object value) {
         this.flexLinePack = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flexOrder(Object value) {
+    @JsOverlay
+    public final StyleProps flexOrder(Object value) {
         this.flexOrder = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps _float(Object value) {
+    @JsOverlay
+    public final StyleProps _float(Object value) {
         this._float = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps flowFrom(Object value) {
+    @JsOverlay
+    public final StyleProps flowFrom(Object value) {
         this.flowFrom = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps font(Object value) {
+    @JsOverlay
+    public final StyleProps font(Object value) {
         this.font = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontFamily(Object value) {
+    @JsOverlay
+    public final StyleProps fontFamily(Object value) {
         this.fontFamily = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontKerning(Object value) {
+    @JsOverlay
+    public final StyleProps fontKerning(Object value) {
         this.fontKerning = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontSizeAdjust(Object value) {
+    @JsOverlay
+    public final StyleProps fontSizeAdjust(Object value) {
         this.fontSizeAdjust = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontStretch(Object value) {
+    @JsOverlay
+    public final StyleProps fontStretch(Object value) {
         this.fontStretch = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontStyle(Object value) {
+    @JsOverlay
+    public final StyleProps fontStyle(Object value) {
         this.fontStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontSynthesis(Object value) {
+    @JsOverlay
+    public final StyleProps fontSynthesis(Object value) {
         this.fontSynthesis = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontVariant(Object value) {
+    @JsOverlay
+    public final StyleProps fontVariant(Object value) {
         this.fontVariant = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps fontVariantAlternates(Object value) {
+    @JsOverlay
+    public final StyleProps fontVariantAlternates(Object value) {
         this.fontVariantAlternates = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridArea(Object value) {
+    @JsOverlay
+    public final StyleProps gridArea(Object value) {
         this.gridArea = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridColumn(Object value) {
+    @JsOverlay
+    public final StyleProps gridColumn(Object value) {
         this.gridColumn = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridColumnEnd(Object value) {
+    @JsOverlay
+    public final StyleProps gridColumnEnd(Object value) {
         this.gridColumnEnd = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridColumnStart(Object value) {
+    @JsOverlay
+    public final StyleProps gridColumnStart(Object value) {
         this.gridColumnStart = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridRow(Object value) {
+    @JsOverlay
+    public final StyleProps gridRow(Object value) {
         this.gridRow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridRowEnd(Object value) {
+    @JsOverlay
+    public final StyleProps gridRowEnd(Object value) {
         this.gridRowEnd = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridRowPosition(Object value) {
+    @JsOverlay
+    public final StyleProps gridRowPosition(Object value) {
         this.gridRowPosition = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridRowSpan(Object value) {
+    @JsOverlay
+    public final StyleProps gridRowSpan(Object value) {
         this.gridRowSpan = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridTemplateAreas(Object value) {
+    @JsOverlay
+    public final StyleProps gridTemplateAreas(Object value) {
         this.gridTemplateAreas = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridTemplateColumns(Object value) {
+    @JsOverlay
+    public final StyleProps gridTemplateColumns(Object value) {
         this.gridTemplateColumns = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps gridTemplateRows(Object value) {
+    @JsOverlay
+    public final StyleProps gridTemplateRows(Object value) {
         this.gridTemplateRows = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps height(Object value) {
+    @JsOverlay
+    public final StyleProps height(Object value) {
         this.height = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps hyphenateLimitChars(Object value) {
+    @JsOverlay
+    public final StyleProps hyphenateLimitChars(Object value) {
         this.hyphenateLimitChars = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps hyphenateLimitLines(Object value) {
+    @JsOverlay
+    public final StyleProps hyphenateLimitLines(Object value) {
         this.hyphenateLimitLines = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps hyphenateLimitZone(Object value) {
+    @JsOverlay
+    public final StyleProps hyphenateLimitZone(Object value) {
         this.hyphenateLimitZone = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps hyphens(Object value) {
+    @JsOverlay
+    public final StyleProps hyphens(Object value) {
         this.hyphens = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps imeMode(Object value) {
+    @JsOverlay
+    public final StyleProps imeMode(Object value) {
         this.imeMode = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps layoutGrid(Object value) {
+    @JsOverlay
+    public final StyleProps layoutGrid(Object value) {
         this.layoutGrid = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps layoutGridChar(Object value) {
+    @JsOverlay
+    public final StyleProps layoutGridChar(Object value) {
         this.layoutGridChar = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps layoutGridLine(Object value) {
+    @JsOverlay
+    public final StyleProps layoutGridLine(Object value) {
         this.layoutGridLine = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps layoutGridMode(Object value) {
+    @JsOverlay
+    public final StyleProps layoutGridMode(Object value) {
         this.layoutGridMode = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps layoutGridType(Object value) {
+    @JsOverlay
+    public final StyleProps layoutGridType(Object value) {
         this.layoutGridType = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps left(Object value) {
+    @JsOverlay
+    public final StyleProps left(Object value) {
         this.left = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps letterSpacing(Object value) {
+    @JsOverlay
+    public final StyleProps letterSpacing(Object value) {
         this.letterSpacing = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps lineBreak(Object value) {
+    @JsOverlay
+    public final StyleProps lineBreak(Object value) {
         this.lineBreak = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps listStyle(Object value) {
+    @JsOverlay
+    public final StyleProps listStyle(Object value) {
         this.listStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps listStyleImage(Object value) {
+    @JsOverlay
+    public final StyleProps listStyleImage(Object value) {
         this.listStyleImage = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps listStylePosition(Object value) {
+    @JsOverlay
+    public final StyleProps listStylePosition(Object value) {
         this.listStylePosition = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps listStyleType(Object value) {
+    @JsOverlay
+    public final StyleProps listStyleType(Object value) {
         this.listStyleType = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps margin(Object value) {
+    @JsOverlay
+    public final StyleProps margin(Object value) {
         this.margin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marginBottom(Object value) {
+    @JsOverlay
+    public final StyleProps marginBottom(Object value) {
         this.marginBottom = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marginLeft(Object value) {
+    @JsOverlay
+    public final StyleProps marginLeft(Object value) {
         this.marginLeft = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marginRight(Object value) {
+    @JsOverlay
+    public final StyleProps marginRight(Object value) {
         this.marginRight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marginTop(Object value) {
+    @JsOverlay
+    public final StyleProps marginTop(Object value) {
         this.marginTop = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marqueeDirection(Object value) {
+    @JsOverlay
+    public final StyleProps marqueeDirection(Object value) {
         this.marqueeDirection = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps marqueeStyle(Object value) {
+    @JsOverlay
+    public final StyleProps marqueeStyle(Object value) {
         this.marqueeStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps mask(Object value) {
+    @JsOverlay
+    public final StyleProps mask(Object value) {
         this.mask = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskBorder(Object value) {
+    @JsOverlay
+    public final StyleProps maskBorder(Object value) {
         this.maskBorder = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskBorderRepeat(Object value) {
+    @JsOverlay
+    public final StyleProps maskBorderRepeat(Object value) {
         this.maskBorderRepeat = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskBorderSlice(Object value) {
+    @JsOverlay
+    public final StyleProps maskBorderSlice(Object value) {
         this.maskBorderSlice = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskBorderSource(Object value) {
+    @JsOverlay
+    public final StyleProps maskBorderSource(Object value) {
         this.maskBorderSource = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskBorderWidth(Object value) {
+    @JsOverlay
+    public final StyleProps maskBorderWidth(Object value) {
         this.maskBorderWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskClip(Object value) {
+    @JsOverlay
+    public final StyleProps maskClip(Object value) {
         this.maskClip = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maskOrigin(Object value) {
+    @JsOverlay
+    public final StyleProps maskOrigin(Object value) {
         this.maskOrigin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maxFontSize(Object value) {
+    @JsOverlay
+    public final StyleProps maxFontSize(Object value) {
         this.maxFontSize = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maxHeight(Object value) {
+    @JsOverlay
+    public final StyleProps maxHeight(Object value) {
         this.maxHeight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps maxWidth(Object value) {
+    @JsOverlay
+    public final StyleProps maxWidth(Object value) {
         this.maxWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps minWidth(Object value) {
+    @JsOverlay
+    public final StyleProps minWidth(Object value) {
         this.minWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps outline(Object value) {
+    @JsOverlay
+    public final StyleProps outline(Object value) {
         this.outline = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps outlineColor(Object value) {
+    @JsOverlay
+    public final StyleProps outlineColor(Object value) {
         this.outlineColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps outlineOffset(Object value) {
+    @JsOverlay
+    public final StyleProps outlineOffset(Object value) {
         this.outlineOffset = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps overflow(Object value) {
+    @JsOverlay
+    public final StyleProps overflow(Object value) {
         this.overflow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps overflowStyle(Object value) {
+    @JsOverlay
+    public final StyleProps overflowStyle(Object value) {
         this.overflowStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps overflowX(Object value) {
+    @JsOverlay
+    public final StyleProps overflowX(Object value) {
         this.overflowX = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps padding(Object value) {
+    @JsOverlay
+    public final StyleProps padding(Object value) {
         this.padding = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps paddingBottom(Object value) {
+    @JsOverlay
+    public final StyleProps paddingBottom(Object value) {
         this.paddingBottom = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps paddingLeft(Object value) {
+    @JsOverlay
+    public final StyleProps paddingLeft(Object value) {
         this.paddingLeft = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps paddingRight(Object value) {
+    @JsOverlay
+    public final StyleProps paddingRight(Object value) {
         this.paddingRight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps paddingTop(Object value) {
+    @JsOverlay
+    public final StyleProps paddingTop(Object value) {
         this.paddingTop = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pageBreakAfter(Object value) {
+    @JsOverlay
+    public final StyleProps pageBreakAfter(Object value) {
         this.pageBreakAfter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pageBreakBefore(Object value) {
+    @JsOverlay
+    public final StyleProps pageBreakBefore(Object value) {
         this.pageBreakBefore = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pageBreakInside(Object value) {
+    @JsOverlay
+    public final StyleProps pageBreakInside(Object value) {
         this.pageBreakInside = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pause(Object value) {
+    @JsOverlay
+    public final StyleProps pause(Object value) {
         this.pause = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pauseAfter(Object value) {
+    @JsOverlay
+    public final StyleProps pauseAfter(Object value) {
         this.pauseAfter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pauseBefore(Object value) {
+    @JsOverlay
+    public final StyleProps pauseBefore(Object value) {
         this.pauseBefore = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps perspective(Object value) {
+    @JsOverlay
+    public final StyleProps perspective(Object value) {
         this.perspective = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps perspectiveOrigin(Object value) {
+    @JsOverlay
+    public final StyleProps perspectiveOrigin(Object value) {
         this.perspectiveOrigin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps pointerEvents(Object value) {
+    @JsOverlay
+    public final StyleProps pointerEvents(Object value) {
         this.pointerEvents = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps position(Object value) {
+    @JsOverlay
+    public final StyleProps position(Object value) {
         this.position = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps punctuationTrim(Object value) {
+    @JsOverlay
+    public final StyleProps punctuationTrim(Object value) {
         this.punctuationTrim = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps quotes(Object value) {
+    @JsOverlay
+    public final StyleProps quotes(Object value) {
         this.quotes = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps regionFragment(Object value) {
+    @JsOverlay
+    public final StyleProps regionFragment(Object value) {
         this.regionFragment = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps restAfter(Object value) {
+    @JsOverlay
+    public final StyleProps restAfter(Object value) {
         this.restAfter = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps restBefore(Object value) {
+    @JsOverlay
+    public final StyleProps restBefore(Object value) {
         this.restBefore = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps right(Object value) {
+    @JsOverlay
+    public final StyleProps right(Object value) {
         this.right = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps rubyAlign(Object value) {
+    @JsOverlay
+    public final StyleProps rubyAlign(Object value) {
         this.rubyAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps rubyPosition(Object value) {
+    @JsOverlay
+    public final StyleProps rubyPosition(Object value) {
         this.rubyPosition = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps shapeImageThreshold(Object value) {
+    @JsOverlay
+    public final StyleProps shapeImageThreshold(Object value) {
         this.shapeImageThreshold = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps shapeInside(Object value) {
+    @JsOverlay
+    public final StyleProps shapeInside(Object value) {
         this.shapeInside = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps shapeMargin(Object value) {
+    @JsOverlay
+    public final StyleProps shapeMargin(Object value) {
         this.shapeMargin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps shapeOutside(Object value) {
+    @JsOverlay
+    public final StyleProps shapeOutside(Object value) {
         this.shapeOutside = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps speak(Object value) {
+    @JsOverlay
+    public final StyleProps speak(Object value) {
         this.speak = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps speakAs(Object value) {
+    @JsOverlay
+    public final StyleProps speakAs(Object value) {
         this.speakAs = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps tabSize(Object value) {
+    @JsOverlay
+    public final StyleProps tabSize(Object value) {
         this.tabSize = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps tableLayout(Object value) {
+    @JsOverlay
+    public final StyleProps tableLayout(Object value) {
         this.tableLayout = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textAlign(Object value) {
+    @JsOverlay
+    public final StyleProps textAlign(Object value) {
         this.textAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textAlignLast(Object value) {
+    @JsOverlay
+    public final StyleProps textAlignLast(Object value) {
         this.textAlignLast = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecoration(Object value) {
+    @JsOverlay
+    public final StyleProps textDecoration(Object value) {
         this.textDecoration = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationColor(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationColor(Object value) {
         this.textDecorationColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationLine(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationLine(Object value) {
         this.textDecorationLine = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationLineThrough(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationLineThrough(Object value) {
         this.textDecorationLineThrough = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationNone(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationNone(Object value) {
         this.textDecorationNone = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationOverline(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationOverline(Object value) {
         this.textDecorationOverline = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationSkip(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationSkip(Object value) {
         this.textDecorationSkip = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationStyle(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationStyle(Object value) {
         this.textDecorationStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textDecorationUnderline(Object value) {
+    @JsOverlay
+    public final StyleProps textDecorationUnderline(Object value) {
         this.textDecorationUnderline = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textEmphasis(Object value) {
+    @JsOverlay
+    public final StyleProps textEmphasis(Object value) {
         this.textEmphasis = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textEmphasisColor(Object value) {
+    @JsOverlay
+    public final StyleProps textEmphasisColor(Object value) {
         this.textEmphasisColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textEmphasisStyle(Object value) {
+    @JsOverlay
+    public final StyleProps textEmphasisStyle(Object value) {
         this.textEmphasisStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textHeight(Object value) {
+    @JsOverlay
+    public final StyleProps textHeight(Object value) {
         this.textHeight = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textIndent(Object value) {
+    @JsOverlay
+    public final StyleProps textIndent(Object value) {
         this.textIndent = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textJustifyTrim(Object value) {
+    @JsOverlay
+    public final StyleProps textJustifyTrim(Object value) {
         this.textJustifyTrim = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textKashidaSpace(Object value) {
+    @JsOverlay
+    public final StyleProps textKashidaSpace(Object value) {
         this.textKashidaSpace = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textLineThrough(Object value) {
+    @JsOverlay
+    public final StyleProps textLineThrough(Object value) {
         this.textLineThrough = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textLineThroughColor(Object value) {
+    @JsOverlay
+    public final StyleProps textLineThroughColor(Object value) {
         this.textLineThroughColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textLineThroughMode(Object value) {
+    @JsOverlay
+    public final StyleProps textLineThroughMode(Object value) {
         this.textLineThroughMode = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textLineThroughStyle(Object value) {
+    @JsOverlay
+    public final StyleProps textLineThroughStyle(Object value) {
         this.textLineThroughStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textLineThroughWidth(Object value) {
+    @JsOverlay
+    public final StyleProps textLineThroughWidth(Object value) {
         this.textLineThroughWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverflow(Object value) {
+    @JsOverlay
+    public final StyleProps textOverflow(Object value) {
         this.textOverflow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverline(Object value) {
+    @JsOverlay
+    public final StyleProps textOverline(Object value) {
         this.textOverline = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverlineColor(Object value) {
+    @JsOverlay
+    public final StyleProps textOverlineColor(Object value) {
         this.textOverlineColor = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverlineMode(Object value) {
+    @JsOverlay
+    public final StyleProps textOverlineMode(Object value) {
         this.textOverlineMode = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverlineStyle(Object value) {
+    @JsOverlay
+    public final StyleProps textOverlineStyle(Object value) {
         this.textOverlineStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textOverlineWidth(Object value) {
+    @JsOverlay
+    public final StyleProps textOverlineWidth(Object value) {
         this.textOverlineWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textRendering(Object value) {
+    @JsOverlay
+    public final StyleProps textRendering(Object value) {
         this.textRendering = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textScript(Object value) {
+    @JsOverlay
+    public final StyleProps textScript(Object value) {
         this.textScript = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textShadow(Object value) {
+    @JsOverlay
+    public final StyleProps textShadow(Object value) {
         this.textShadow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textTransform(Object value) {
+    @JsOverlay
+    public final StyleProps textTransform(Object value) {
         this.textTransform = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textUnderlinePosition(Object value) {
+    @JsOverlay
+    public final StyleProps textUnderlinePosition(Object value) {
         this.textUnderlinePosition = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps textUnderlineStyle(Object value) {
+    @JsOverlay
+    public final StyleProps textUnderlineStyle(Object value) {
         this.textUnderlineStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps top(Object value) {
+    @JsOverlay
+    public final StyleProps top(Object value) {
         this.top = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps touchAction(Object value) {
+    @JsOverlay
+    public final StyleProps touchAction(Object value) {
         this.touchAction = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transform(Object value) {
+    @JsOverlay
+    public final StyleProps transform(Object value) {
         this.transform = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transformOrigin(Object value) {
+    @JsOverlay
+    public final StyleProps transformOrigin(Object value) {
         this.transformOrigin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transformOriginZ(Object value) {
+    @JsOverlay
+    public final StyleProps transformOriginZ(Object value) {
         this.transformOriginZ = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transformStyle(Object value) {
+    @JsOverlay
+    public final StyleProps transformStyle(Object value) {
         this.transformStyle = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transition(Object value) {
+    @JsOverlay
+    public final StyleProps transition(Object value) {
         this.transition = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transitionDelay(Object value) {
+    @JsOverlay
+    public final StyleProps transitionDelay(Object value) {
         this.transitionDelay = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transitionDuration(Object value) {
+    @JsOverlay
+    public final StyleProps transitionDuration(Object value) {
         this.transitionDuration = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transitionProperty(Object value) {
+    @JsOverlay
+    public final StyleProps transitionProperty(Object value) {
         this.transitionProperty = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps transitionTimingFunction(Object value) {
+    @JsOverlay
+    public final StyleProps transitionTimingFunction(Object value) {
         this.transitionTimingFunction = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps unicodeBidi(Object value) {
+    @JsOverlay
+    public final StyleProps unicodeBidi(Object value) {
         this.unicodeBidi = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps unicodeRange(Object value) {
+    @JsOverlay
+    public final StyleProps unicodeRange(Object value) {
         this.unicodeRange = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps userFocus(Object value) {
+    @JsOverlay
+    public final StyleProps userFocus(Object value) {
         this.userFocus = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps userInput(Object value) {
+    @JsOverlay
+    public final StyleProps userInput(Object value) {
         this.userInput = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps verticalAlign(Object value) {
+    @JsOverlay
+    public final StyleProps verticalAlign(Object value) {
         this.verticalAlign = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps visibility(Object value) {
+    @JsOverlay
+    public final StyleProps visibility(Object value) {
         this.visibility = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceBalance(Object value) {
+    @JsOverlay
+    public final StyleProps voiceBalance(Object value) {
         this.voiceBalance = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceDuration(Object value) {
+    @JsOverlay
+    public final StyleProps voiceDuration(Object value) {
         this.voiceDuration = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceFamily(Object value) {
+    @JsOverlay
+    public final StyleProps voiceFamily(Object value) {
         this.voiceFamily = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voicePitch(Object value) {
+    @JsOverlay
+    public final StyleProps voicePitch(Object value) {
         this.voicePitch = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceRange(Object value) {
+    @JsOverlay
+    public final StyleProps voiceRange(Object value) {
         this.voiceRange = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceRate(Object value) {
+    @JsOverlay
+    public final StyleProps voiceRate(Object value) {
         this.voiceRate = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceStress(Object value) {
+    @JsOverlay
+    public final StyleProps voiceStress(Object value) {
         this.voiceStress = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps voiceVolume(Object value) {
+    @JsOverlay
+    public final StyleProps voiceVolume(Object value) {
         this.voiceVolume = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps whiteSpace(Object value) {
+    @JsOverlay
+    public final StyleProps whiteSpace(Object value) {
         this.whiteSpace = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps whiteSpaceTreatment(Object value) {
+    @JsOverlay
+    public final StyleProps whiteSpaceTreatment(Object value) {
         this.whiteSpaceTreatment = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps width(Object value) {
+    @JsOverlay
+    public final StyleProps width(Object value) {
         this.width = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wordBreak(Object value) {
+    @JsOverlay
+    public final StyleProps wordBreak(Object value) {
         this.wordBreak = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wordSpacing(Object value) {
+    @JsOverlay
+    public final StyleProps wordSpacing(Object value) {
         this.wordSpacing = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wordWrap(Object value) {
+    @JsOverlay
+    public final StyleProps wordWrap(Object value) {
         this.wordWrap = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wrapFlow(Object value) {
+    @JsOverlay
+    public final StyleProps wrapFlow(Object value) {
         this.wrapFlow = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wrapMargin(Object value) {
+    @JsOverlay
+    public final StyleProps wrapMargin(Object value) {
         this.wrapMargin = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps wrapOption(Object value) {
+    @JsOverlay
+    public final StyleProps wrapOption(Object value) {
         this.wrapOption = value;
         return this;
     }
 
-    @JsIgnore
-    public StyleProps writingMode(Object value) {
+    @JsOverlay
+    public final StyleProps writingMode(Object value) {
         this.writingMode = value;
         return this;
     }

@@ -1,6 +1,7 @@
 package ui.client;
 
 import common.client.Func;
+import common.client.Jso;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -261,6 +262,12 @@ public class RaisedButton extends ExternalComponent<RaisedButton.Props> {
         @JsOverlay
         default Props onTouchTap(Func.Run onTouchTap) {
             setOnTouchTap(onTouchTap);
+            return this;
+        }
+
+        @JsOverlay
+        default Props onTouchTap(Func.Run1<TouchEvent> onTouchTap) {
+            Jso.set(this, "onTouchTap", onTouchTap);
             return this;
         }
 

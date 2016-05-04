@@ -1,58 +1,52 @@
 package react.client.router;
 
 import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
-import react.client.BaseProps;
+import react.client.ComponentProps;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface RouteProps<T> extends BaseProps {
-    /**
-     * The Router's history history.
-     * <p/>
-     * Useful mostly for transitioning around with this.props.history.pushState(state, path, query)
-     *
-     * @return
-     */
-    @JsProperty
-    History getHistory();
-
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class RouteProps<T> extends ComponentProps {
     /**
      * @return
      */
-    @JsProperty
-    Location<T> getLocation();
+    public Location<T> location;
 
     /**
      * The dynamic segments of the URL.
      *
      * @return
      */
-    @JsProperty
-    Object getParams();
+    public Object params;
 
     /**
      * The route that rendered this component.
      *
      * @return
      */
-    @JsProperty
-    Route getRoute();
+    public Route route;
 
     /**
      * @return
      */
-    @JsProperty
-    Object getRouteParams();
+    public Object routeParams;
 
     /**
      * @return Query Params
      */
     @JsOverlay
-    default T getQueryParams() {
-        return getLocation().getQuery();
+    public final T getQueryParams() {
+        return location.getQuery();
+    }
+
+    /**
+     * @return Query Params
+     */
+    @JsOverlay
+    public final T queryParams() {
+        return location.getQuery();
     }
 }

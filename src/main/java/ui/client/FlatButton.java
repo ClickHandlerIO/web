@@ -1,6 +1,7 @@
 package ui.client;
 
 import common.client.Func;
+import common.client.Jso;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -253,8 +254,14 @@ public class FlatButton extends ExternalComponent<FlatButton.Props> {
         }
 
         @JsOverlay
-        default Props touchStart(TouchEventHandler onTouchStart) {
+        default Props onTouchStart(TouchEventHandler onTouchStart) {
             setOnTouchStart(onTouchStart);
+            return this;
+        }
+
+        @JsOverlay
+        default Props onTouchTap(Func.Run1<TouchEvent> onTouchTap) {
+            Jso.set(this, "onTouchTap", onTouchTap);
             return this;
         }
 

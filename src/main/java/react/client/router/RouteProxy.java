@@ -203,7 +203,7 @@ public class RouteProxy<T> {
      * @param replaceState
      */
     protected boolean onEnter(RouteProps nextState, ReplaceStateFunction replaceState) {
-        return onEnter(toArgs(nextState.getLocation()), nextState, replaceState);
+        return onEnter(toArgs(nextState.location), nextState, replaceState);
     }
 
     /**

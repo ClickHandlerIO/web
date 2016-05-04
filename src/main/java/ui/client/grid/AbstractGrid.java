@@ -168,8 +168,8 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public State<D> getInitialState(ReactComponent<P, State<D>> $this) {
-        State<D> s = super.getInitialState($this);
+    public State<D> getInitialState() {
+        State<D> s = super.getInitialState();
         s.setColumns(Arrays.asList(getColumns()));
         s.setData(new ArrayList<>());
         s.setPageIdx(0.);
@@ -179,8 +179,8 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     }
 
     @Override
-    public P getDefaultProps(ReactComponent<P, State<D>> $this) {
-        P p = super.getDefaultProps($this);
+    public P getDefaultProps() {
+        P p = super.getDefaultProps();
         p.setLoadWhenMounted(true);
         p.setReorderEnabled(false);
         p.setSelectionEnabled(false);

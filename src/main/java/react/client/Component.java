@@ -29,8 +29,10 @@ public abstract class Component<P, S> {
     /**
      * Lifecycle
      */
-    public Func.Call<P> getDefaultProps = Func.bind(this::getDefaultProps);
-    public Func.Call<S> getInitialState = Func.bind(this::getInitialState);
+    public Func.Call getDefaultProps = Func.bind(this::getDefaultPropsInternal);
+    //    public Func.Run getDefaultProps = this::getDefaultProps;
+    public Func.Call getInitialState = Func.bind(this::getInitialStateInternal);
+    //    public Func.Run getInitialState = this::getInitialState;
     public Func.Run componentDidMount = Func.bind(this::componentDidMountInternal);
     public Func.Run1<P> componentWillReceiveProps = Func.bind(this::componentWillReceivePropsInternal);
     public Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.bind(this::shouldComponentUpdateInternal);
@@ -50,10 +52,9 @@ public abstract class Component<P, S> {
     @Inject
     protected Bus bus;
     public Func.Run componentWillMount = Func.bind(this::componentWillMountInternal);
-
     // Shorthand syntax
     @JsIgnore
-    private ReactClass<P> reactClass;
+    private ReactClass reactClass;
     @JsIgnore
     private Logger logger;
 
@@ -65,9 +66,9 @@ public abstract class Component<P, S> {
     }
 
     @JsIgnore
-    public ReactClass<P> getReactClass() {
+    public ReactClass getReactClass() {
         if (reactClass == null) {
-            reactClass = (ReactClass<P>) React.createClass(this);
+            reactClass = React.createClass(this);
         }
         return reactClass;
     }
@@ -204,7 +205,7 @@ public abstract class Component<P, S> {
     @JsIgnore
     private void componentWillMountInternal(final ReactComponent<P, S> $this) {
         log.trace("componentWillMount");
-        Jso.set($this, React.BUS, new BusDelegate(bus));
+        $this.bus = new BusDelegate(bus);
         componentWillMount($this);
     }
 
@@ -214,7 +215,7 @@ public abstract class Component<P, S> {
         try {
             componentDidMount($this);
         } finally {
-            intakeProps($this, $this.getProps());
+            intakeProps($this, $this.props);
         }
     }
 
@@ -265,12 +266,22 @@ public abstract class Component<P, S> {
     }
 
     @JsIgnore
-    public P getDefaultProps(ReactComponent<P, S> $this) {
+    private P getDefaultPropsInternal(Object $this) {
+        return getDefaultProps();
+    }
+
+    @JsIgnore
+    public P getDefaultProps() {
         return Jso.create();
     }
 
     @JsIgnore
-    public S getInitialState(ReactComponent<P, S> $this) {
+    private S getInitialStateInternal(Object $this) {
+        return getInitialState();
+    }
+
+    @JsIgnore
+    public S getInitialState() {
         return Jso.create();
     }
 
@@ -322,6 +333,14 @@ public abstract class Component<P, S> {
     protected void addChildContextTypes(ContextTypes contextTypes) {
     }
 
+    protected ReactElement[] array(ReactElement... elements) {
+        return elements;
+    }
+
+    protected String[] array(String... elements) {
+        return elements;
+    }
+
     @JsType
     public static class ContextTypes {
         @JsIgnore
@@ -335,4 +354,3 @@ public abstract class Component<P, S> {
         }
     }
 }
-

@@ -9,6 +9,8 @@
     <inherits name="elemental.Elemental"/>
     <inherits name="javax.inject.Inject"/>
     <inherits name="dagger.Dagger"/>
+    <inherits name="common.Common"/>
+    <inherits name="action.Action"/>
 
     <source path="client"/>
 </module>

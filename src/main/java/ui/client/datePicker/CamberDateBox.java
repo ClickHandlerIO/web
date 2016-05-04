@@ -43,20 +43,12 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
 
 
     @Override
-    public State getInitialState(final ReactComponent<Props, State> $this) {
-        State s = super.getInitialState($this);
+    public State getInitialState() {
+        State s = super.getInitialState();
         s.setGuid(UUID.uuid());
 
         DateBox widget = new DateBox();
         widget.setFireNullValues(true);
-        widget.addValueChangeHandler(e -> {
-            if ($this.getProps().getOnMomentChanged() != null) {
-                $this.getProps().getOnMomentChanged().run(e.getValue() == null ? null : DateUtil.fromBrowserAdjustedDate(e.getValue()));
-            }
-        });
-        if ($this.getProps().getWidth() != null) {
-            widget.setWidth($this.getProps().getWidth());
-        }
         s.setDateBox(widget);
 
         return s;
@@ -74,6 +66,7 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
     @Override
     protected void intakeProps(ReactComponent<Props, State> $this, Props nextProps) {
         super.intakeProps($this, nextProps);
+
         DateBox widget = $this.getState().getDateBox();
         widget.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(nextProps.getFormat())));
         widget.setValue(nextProps.getMoment() == null ? null : DateUtil.toBrowserAdjustedDate(nextProps.getMoment()), false);

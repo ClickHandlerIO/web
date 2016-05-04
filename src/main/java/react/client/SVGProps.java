@@ -1,11 +1,12 @@
 package react.client;
 
-import jsinterop.annotations.JsIgnore;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 
-@JsType
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class SVGProps<T> extends HTMLProps<T> {
     @JsProperty
     public String clipPath;
@@ -118,332 +119,332 @@ public class SVGProps<T> extends HTMLProps<T> {
     @JsProperty
     public Object y;
 
-    @JsIgnore
-    public SVGProps<T> clipPath(String value) {
+    @JsOverlay
+    public final SVGProps<T> clipPath(String value) {
         this.clipPath = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> cx(Object value) {
+    @JsOverlay
+    public final SVGProps<T> cx(Object value) {
         this.cx = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> cy(Object value) {
+    @JsOverlay
+    public final SVGProps<T> cy(Object value) {
         this.cy = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> d(String value) {
+    @JsOverlay
+    public final SVGProps<T> d(String value) {
         this.d = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> dx(Object value) {
+    @JsOverlay
+    public final SVGProps<T> dx(Object value) {
         this.dx = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> dy(Object value) {
+    @JsOverlay
+    public final SVGProps<T> dy(Object value) {
         this.dy = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fill(String value) {
+    @JsOverlay
+    public final SVGProps<T> fill(String value) {
         this.fill = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fillOpacity(Object value) {
+    @JsOverlay
+    public final SVGProps<T> fillOpacity(Object value) {
         this.fillOpacity = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fontFamily(String value) {
+    @JsOverlay
+    public final SVGProps<T> fontFamily(String value) {
         this.fontFamily = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fontSize(Object value) {
+    @JsOverlay
+    public final SVGProps<T> fontSize(Object value) {
         this.fontSize = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fx(Object value) {
+    @JsOverlay
+    public final SVGProps<T> fx(Object value) {
         this.fx = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> fy(Object value) {
+    @JsOverlay
+    public final SVGProps<T> fy(Object value) {
         this.fy = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> gradientTransform(String value) {
+    @JsOverlay
+    public final SVGProps<T> gradientTransform(String value) {
         this.gradientTransform = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> gradientUnits(String value) {
+    @JsOverlay
+    public final SVGProps<T> gradientUnits(String value) {
         this.gradientUnits = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> markerEnd(String value) {
+    @JsOverlay
+    public final SVGProps<T> markerEnd(String value) {
         this.markerEnd = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> markerMid(String value) {
+    @JsOverlay
+    public final SVGProps<T> markerMid(String value) {
         this.markerMid = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> markerStart(String value) {
+    @JsOverlay
+    public final SVGProps<T> markerStart(String value) {
         this.markerStart = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> offset(Object value) {
+    @JsOverlay
+    public final SVGProps<T> offset(Object value) {
         this.offset = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> opacity(Object value) {
+    @JsOverlay
+    public final SVGProps<T> opacity(Object value) {
         this.opacity = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> patternContentUnits(String value) {
+    @JsOverlay
+    public final SVGProps<T> patternContentUnits(String value) {
         this.patternContentUnits = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> patternUnits(String value) {
+    @JsOverlay
+    public final SVGProps<T> patternUnits(String value) {
         this.patternUnits = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> points(String value) {
+    @JsOverlay
+    public final SVGProps<T> points(String value) {
         this.points = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> preserveAspectRatio(String value) {
+    @JsOverlay
+    public final SVGProps<T> preserveAspectRatio(String value) {
         this.preserveAspectRatio = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> r(Object value) {
+    @JsOverlay
+    public final SVGProps<T> r(Object value) {
         this.r = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> rx(Object value) {
+    @JsOverlay
+    public final SVGProps<T> rx(Object value) {
         this.rx = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> ry(Object value) {
+    @JsOverlay
+    public final SVGProps<T> ry(Object value) {
         this.ry = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> spreadMethod(String value) {
+    @JsOverlay
+    public final SVGProps<T> spreadMethod(String value) {
         this.spreadMethod = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> stopColor(String value) {
+    @JsOverlay
+    public final SVGProps<T> stopColor(String value) {
         this.stopColor = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> stopOpacity(Object value) {
+    @JsOverlay
+    public final SVGProps<T> stopOpacity(Object value) {
         this.stopOpacity = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> stroke(String value) {
+    @JsOverlay
+    public final SVGProps<T> stroke(String value) {
         this.stroke = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> strokeDasharray(String value) {
+    @JsOverlay
+    public final SVGProps<T> strokeDasharray(String value) {
         this.strokeDasharray = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> strokeLinecap(String value) {
+    @JsOverlay
+    public final SVGProps<T> strokeLinecap(String value) {
         this.strokeLinecap = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> strokeMiterlimit(String value) {
+    @JsOverlay
+    public final SVGProps<T> strokeMiterlimit(String value) {
         this.strokeMiterlimit = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> strokeOpacity(Object value) {
+    @JsOverlay
+    public final SVGProps<T> strokeOpacity(Object value) {
         this.strokeOpacity = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> strokeWidth(Object value) {
+    @JsOverlay
+    public final SVGProps<T> strokeWidth(Object value) {
         this.strokeWidth = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> textAnchor(String value) {
+    @JsOverlay
+    public final SVGProps<T> textAnchor(String value) {
         this.textAnchor = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> transform(String value) {
+    @JsOverlay
+    public final SVGProps<T> transform(String value) {
         this.transform = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> version(String value) {
+    @JsOverlay
+    public final SVGProps<T> version(String value) {
         this.version = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> viewBox(String value) {
+    @JsOverlay
+    public final SVGProps<T> viewBox(String value) {
         this.viewBox = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> x1(Object value) {
+    @JsOverlay
+    public final SVGProps<T> x1(Object value) {
         this.x1 = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> x2(Object value) {
+    @JsOverlay
+    public final SVGProps<T> x2(Object value) {
         this.x2 = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> x(Object value) {
+    @JsOverlay
+    public final SVGProps<T> x(Object value) {
         this.x = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkActuate(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkActuate(String value) {
         this.xlinkActuate = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkArcrole(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkArcrole(String value) {
         this.xlinkArcrole = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkHref(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkHref(String value) {
         this.xlinkHref = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkRole(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkRole(String value) {
         this.xlinkRole = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkShow(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkShow(String value) {
         this.xlinkShow = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkTitle(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkTitle(String value) {
         this.xlinkTitle = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xlinkType(String value) {
+    @JsOverlay
+    public final SVGProps<T> xlinkType(String value) {
         this.xlinkType = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xmlBase(String value) {
+    @JsOverlay
+    public final SVGProps<T> xmlBase(String value) {
         this.xmlBase = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xmlLang(String value) {
+    @JsOverlay
+    public final SVGProps<T> xmlLang(String value) {
         this.xmlLang = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> xmlSpace(String value) {
+    @JsOverlay
+    public final SVGProps<T> xmlSpace(String value) {
         this.xmlSpace = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> y1(Object value) {
+    @JsOverlay
+    public final SVGProps<T> y1(Object value) {
         this.y1 = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> y2(Object value) {
+    @JsOverlay
+    public final SVGProps<T> y2(Object value) {
         this.y2 = value;
         return this;
     }
 
-    @JsIgnore
-    public SVGProps<T> y(Object value) {
+    @JsOverlay
+    public final SVGProps<T> y(Object value) {
         this.y = value;
         return this;
     }
