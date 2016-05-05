@@ -4,7 +4,9 @@ import common.client.Func;
 import common.client.Jso;
 import logging.client.Logger;
 
-
+/**
+ * @param <P>
+ */
 public abstract class ExternalComponent<P> {
 
     protected final Logger log = Logger.get(getClass());

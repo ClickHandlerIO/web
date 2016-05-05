@@ -82,20 +82,17 @@ public class WsDispatcher {
     }
 
     public <T> void simulatePush(String address, T event) {
-        final WsEnvelope envelope = WsEnvelope.Factory.create()
-            .method(WsEnvelope.Constants.PUSH)
+        data(WsEncoding.encode(new WsMessage(WsHeader.Factory.create()
+            .method(WsHeader.Constants.PUSH)
             .type(address)
-            .body(JSON.stringify(event))
-            .code(200);
-
-        data(JSON.stringify(envelope));
+            .code(200), JSON.stringify(event))));
     }
 
     public void simulateData(String json) {
         data(json);
     }
 
-    public void simulate(WsEnvelope envelope) {
+    public void simulate(WsHeader envelope) {
         if (envelope != null) data(JSON.stringify(envelope));
     }
 
@@ -188,35 +185,34 @@ public class WsDispatcher {
      * @param payload
      */
     private void data(String payload) {
-        // Parse envelope.
-        final WsEnvelope envelope = WsEnvelope.Factory.parse(payload);
+        final WsMessage message = WsEncoding.decode(payload);
 
-        if (envelope == null) {
+        if (message == null) {
             return;
         }
 
-        // Publish a new WsEnvelopeEvent to the Bus.
-        bus.publish(new WsEnvelopeEvent(this, envelope));
+        // Publish a new WsMessageEvent to the Bus.
+        bus.publish(new WsMessageEvent(this, message));
 
-        switch ((int) envelope.method()) {
-            case WsEnvelope.Constants.IN:
+        switch ((int) message.header.method()) {
+            case WsHeader.Constants.IN:
                 // Incoming request.
                 break;
-            case WsEnvelope.Constants.OUT:
+            case WsHeader.Constants.OUT:
                 // It's a response.
-                final Outgoing call = calls.remove(envelope.id());
+                final Outgoing call = calls.remove(message.header.id());
                 if (call != null) {
-                    Try.silent(call.callback, envelope);
+                    Try.silent(call.callback, message);
                 }
                 break;
-            case WsEnvelope.Constants.PUSH:
+            case WsHeader.Constants.PUSH:
                 // It's a push event.
                 // Fire on main event bus.
-                String type = envelope.type();
+                String type = message.header.type();
                 if (type == null) type = "";
                 else type = type.trim();
 
-                String body = envelope.body();
+                String body = message.body;
                 if (body == null) body = "";
                 else body = body.trim();
 
@@ -239,10 +235,10 @@ public class WsDispatcher {
             pendingQueue.add(call);
         } else {
             try {
-                calls.put(call.envelope.id(), call);
+                calls.put(call.message.header.id(), call);
 
                 try {
-                    webSocket.send(JSON.stringify(call.envelope));
+                    webSocket.send(WsEncoding.encode(call.message));
                 } catch (Throwable e) {
                     pendingQueue.add(call);
                 }
@@ -358,21 +354,20 @@ public class WsDispatcher {
                         int timeoutMillis,
                         String type,
                         String payload,
-                        Func.Run1<WsEnvelope> callback,
+                        Func.Run1<WsMessage> callback,
                         Func.Run timeoutCallback) {
-        final WsEnvelope envelope = WsEnvelope.Factory.create(
-            WsEnvelope.Constants.IN,
+        final WsHeader header = WsHeader.Factory.create(
+            WsHeader.Constants.IN,
             nextId(),
             0,
-            type,
-            payload
+            type
         );
         final Outgoing call = new Outgoing(
             inType,
             outType,
             new Date().getTime(),
             timeoutMillis,
-            envelope,
+            new WsMessage(header, payload),
             callback,
             timeoutCallback
         );
@@ -394,8 +389,8 @@ public class WsDispatcher {
         private final Bus.TypeName outType;
         private final long started;
         private final int timeoutMillis;
-        private final WsEnvelope envelope;
-        private final Func.Run1<WsEnvelope> callback;
+        private final WsMessage message;
+        private final Func.Run1<WsMessage> callback;
         private final Func.Run timeoutCallback;
         private int tries = 0;
 
@@ -403,14 +398,14 @@ public class WsDispatcher {
                         Bus.TypeName outType,
                         long started,
                         int timeoutMillis,
-                        WsEnvelope envelope,
-                        Func.Run1<WsEnvelope> callback,
+                        WsMessage message,
+                        Func.Run1<WsMessage> callback,
                         Func.Run timeoutCallback) {
             this.inType = inType;
             this.outType = outType;
             this.started = started;
             this.timeoutMillis = timeoutMillis;
-            this.envelope = envelope;
+            this.message = message;
             this.callback = callback;
             this.timeoutCallback = timeoutCallback;
         }
@@ -459,8 +454,8 @@ public class WsDispatcher {
                     null,
                     new Date().getTime(),
                     DEFAULT_SUB_TIMEOUT,
-                    WsEnvelope.Factory.create(WsEnvelope.Constants.USUB, nextId(), 0, name, null),
-                    envelope -> setState(envelope.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED),
+                    new WsMessage(WsHeader.Factory.create(WsHeader.Constants.USUB, nextId(), 0, name), null),
+                    message -> setState(message.header.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED),
                     () -> setState(SubState.NOT_REGISTERED)
                 )
             );
@@ -490,14 +485,14 @@ public class WsDispatcher {
                     null,
                     new Date().getTime(),
                     DEFAULT_SUB_TIMEOUT,
-                    WsEnvelope.Factory.create(WsEnvelope.Constants.SUB, nextId(), 0, name, null),
-                    envelope -> {
+                    new WsMessage(WsHeader.Factory.create(WsHeader.Constants.SUB, nextId(), 0, name), null),
+                    message -> {
                         // Was it a valid subscription.
-                        if (envelope.code() == 404) {
+                        if (message.header.code() == 404) {
                             removeHandler();
                             return;
                         }
-                        setState(envelope.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED);
+                        setState(message.header.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED);
                     },
                     () -> setState(SubState.NOT_REGISTERED)
                 )

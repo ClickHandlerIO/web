@@ -8,7 +8,7 @@ import jsinterop.annotations.JsType;
  * Wasabi Envelope
  */
 @JsType(isNative = true)
-public interface WsEnvelope {
+public interface WsHeader {
     @JsProperty(name = "m")
     double getM();
 
@@ -33,12 +33,6 @@ public interface WsEnvelope {
     @JsProperty(name = "t")
     void setT(String t);
 
-    @JsProperty(name = "b")
-    String getB();
-
-    @JsProperty(name = "b")
-    void setB(String c);
-
     @JsOverlay
     default double method() {
         return this.getM();
@@ -60,56 +54,44 @@ public interface WsEnvelope {
     }
 
     @JsOverlay
-    default String body() {
-        return this.getB();
-    }
-
-    @JsOverlay
-    default WsEnvelope method(final double method) {
+    default WsHeader method(final double method) {
         this.setM(method);
         return this;
     }
 
     @JsOverlay
-    default WsEnvelope id(final double id) {
+    default WsHeader id(final double id) {
         this.setI(id);
         return this;
     }
 
     @JsOverlay
-    default WsEnvelope code(final double code) {
+    default WsHeader code(final double code) {
         this.setC(code);
         return this;
     }
 
     @JsOverlay
-    default WsEnvelope type(final String type) {
+    default WsHeader type(final String type) {
         this.setT(type);
         return this;
     }
 
-    @JsOverlay
-    default WsEnvelope body(final String body) {
-        this.setB(body);
-        return this;
-    }
-
     class Factory {
-        public static native WsEnvelope create() /*-{
+        public static native WsHeader create() /*-{
             return {};
         }-*/;
 
-        public static native WsEnvelope parse(String json) /*-{
+        public static native WsHeader parse(String json) /*-{
             return $wnd.JSON.parse(json);
         }-*/;
 
-        public static WsEnvelope create(double method, double id, double code, String type, String body) {
+        public static WsHeader create(double method, double id, double code, String type) {
             return create()
                 .method(method)
                 .id(id)
                 .code(code)
-                .type(type)
-                .body(body);
+                .type(type);
         }
     }
 

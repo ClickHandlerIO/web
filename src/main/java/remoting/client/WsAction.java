@@ -72,14 +72,14 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
             // Serialize request.
             stringify(request),
             // Handle response.
-            envelope -> {
-                if (envelope == null) {
+            message -> {
+                if (message == null) {
                     return;
                 }
-                if (envelope.code() != 200) {
-                    error(new StatusCodeException((int) envelope.code()));
+                if (message.header.code() != 200) {
+                    error(new StatusCodeException((int) message.header.code()));
                 } else {
-                    OUT out = parseOut(envelope.body());
+                    OUT out = parseOut(message.body);
                     try {
                         respond(out);
                     } finally {
