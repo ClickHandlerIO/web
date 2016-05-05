@@ -4,6 +4,10 @@ package common.client;
  *
  */
 public interface Jso {
+    static Jso $() {
+        return Native.create();
+    }
+
     static <T> T create() {
         return Native.create();
     }

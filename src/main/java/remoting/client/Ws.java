@@ -23,6 +23,7 @@ public class Ws {
     private boolean connecting;
     private boolean closing;
     private boolean autoConnect = true;
+    private boolean forceClosed = false;
     private int connectRetryMillis = 2500;
     private Timer connectTimer;
 
@@ -45,6 +46,10 @@ public class Ws {
     }
 
     public void close() {
+        close(true);
+    }
+
+    public void close(boolean forceClosed) {
         if (webSocket == null || closing) {
             return;
         }
@@ -60,7 +65,7 @@ public class Ws {
     }
 
     public void connect() {
-        if (connecting || !autoConnect) {
+        if (connected || connecting || !autoConnect) {
             return;
         }
 
@@ -73,11 +78,11 @@ public class Ws {
 
         wireOnClose(webSocket, event -> {
             onClose();
-
         });
 
         wireOnError(webSocket, event -> {
             connected = false;
+            close(false);
             Try.silent(errorCallback);
         });
 
@@ -98,6 +103,7 @@ public class Ws {
 
     private void onClose() {
         connected = false;
+        connecting = false;
         closing = false;
         Try.silent(closedCallback);
 
@@ -106,10 +112,15 @@ public class Ws {
             return;
         }
 
-        ensureCancelTimer();
+        if (forceClosed) {
+            forceClosed = false;
+            Try.run(() -> connect());
+        } else {
+            ensureConnectTimer();
+        }
     }
 
-    private void ensureCancelTimer() {
+    private void ensureConnectTimer() {
         if (connectTimer != null) {
             return;
         }
