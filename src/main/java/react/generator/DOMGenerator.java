@@ -140,6 +140,48 @@ public class DOMGenerator {
             this.elementClassName = elementClassName;
         }
 
+//        public void generate(StringBuilder sb) {
+//            sb.append("static ReactElement ").append(name).append("() {\n");
+//            sb.append("return create(\"").append(name).append("\");\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(String value) {\n");
+//            sb.append("return create(\"").append(name).append("\", value);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(Object... children) {\n");
+//            sb.append("return create(\"").append(name).append("\", children);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, String html) {\n");
+//            sb.append("return create(\"").append(name).append("\", callback, html);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props) {\n");
+//            sb.append("return create(\"").append(name).append("\", props);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props, String html) {\n");
+//            sb.append("return create(\"").append(name).append("\", props, html);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props, Object... children) {\n");
+//            sb.append("return create(\"").append(name).append("\", props, children);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Func.Run1<ChildList> childrenCallback) {\n");
+//            sb.append("return create(\"").append(name).append("\", callback, childrenCallback);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback) {\n");
+//            sb.append("return create(\"").append(name).append("\", callback);\n");
+//            sb.append("}\n");
+//
+//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Object... children) {\n");
+//            sb.append("return create(\"").append(name).append("\", callback, children);\n");
+//            sb.append("}\n");
+//        }
+
         public void generate(StringBuilder sb) {
             sb.append("static ReactElement ").append(name).append("() {\n");
             sb.append("return create(\"").append(name).append("\");\n");
@@ -149,36 +191,68 @@ public class DOMGenerator {
             sb.append("return create(\"").append(name).append("\", value);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Object... children) {\n");
+            sb.append("static ReactElement ").append(name).append("(ReactElement child) {\n");
+            sb.append("return create(\"").append(name).append("\", child);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(ReactElement... children) {\n");
             sb.append("return create(\"").append(name).append("\", children);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, String html) {\n");
-            sb.append("return create(\"").append(name).append("\", callback, html);\n");
+
+            sb.append("static ReactElement ").append(name).append("(StyleProps style) {\n");
+            sb.append("return create(\"").append(name).append("\", style != null ? style.lift() : new HTMLProps());\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props) {\n");
+            sb.append("static ReactElement ").append(name).append("(StyleProps style, String text) {\n");
+            sb.append("return create(\"").append(name).append("\", style != null ? style.lift() : new HTMLProps(), text);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(StyleProps style, ReactElement child) {\n");
+            sb.append("return create(\"").append(name).append("\", style != null ? style.lift() : new HTMLProps(), child);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(StyleProps style, ReactElement... children) {\n");
+            sb.append("return create(\"").append(name).append("\", style != null ? style.lift() : new HTMLProps(), children);\n");
+            sb.append("}\n");
+
+
+
+            sb.append("static ReactElement ").append(name).append("(HTMLProps props) {\n");
             sb.append("return create(\"").append(name).append("\", props);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props, String html) {\n");
-            sb.append("return create(\"").append(name).append("\", props, html);\n");
+            sb.append("static ReactElement ").append(name).append("(HTMLProps props, String text) {\n");
+            sb.append("return create(\"").append(name).append("\", props, text);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(HTMLProps<").append(elementClassName).append("> props, Object... children) {\n");
+            sb.append("static ReactElement ").append(name).append("(HTMLProps props, ReactElement child) {\n");
+            sb.append("return create(\"").append(name).append("\", props, child);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(HTMLProps props, ReactElement... children) {\n");
             sb.append("return create(\"").append(name).append("\", props, children);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Func.Run1<ChildList> childrenCallback) {\n");
-            sb.append("return create(\"").append(name).append("\", callback, childrenCallback);\n");
-            sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback) {\n");
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback) {\n");
             sb.append("return create(\"").append(name).append("\", callback);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Object... children) {\n");
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, String text) {\n");
+            sb.append("return create(\"").append(name).append("\", callback, text);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, ReactElement child) {\n");
+            sb.append("return create(\"").append(name).append("\", callback, child);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, ReactElement... children) {\n");
             sb.append("return create(\"").append(name).append("\", callback, children);\n");
+            sb.append("}\n");
+
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {\n");
+            sb.append("return create(\"").append(name).append("\", callback, childrenCallback);\n");
             sb.append("}\n");
         }
 

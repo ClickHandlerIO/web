@@ -1,9 +1,9 @@
 package ui.client.timePicker;
 
 import common.client.Func;
-import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import moment.client.Moment;
 import react.client.*;
 
 import javax.inject.Inject;
@@ -31,37 +31,38 @@ public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTi
 
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div($ -> $.className("flex-row align-items-center"),
-            timePickerHourSelect.$($ -> {
-                $.setAllowClear(false);
-                $.setStyle(new StyleProps().width("65px"));
-                $.setValue($this.getState().getHours());
-                $.setOnValueChanged(v -> {
-                    $this.setState(s -> s.setHours(v));
-                    fireUpdate($this, v, $this.getState().getMinutes(), $this.getState().getMeridian());
-                });
-            }),
-            div($ -> $.style(s -> s.margin("0 5px")), ":"),
-            timePickerMinute15Select.$($ -> {
-                $.setAllowClear(false);
-                $.setStyle(new StyleProps().width("65px"));
-                $.setValue($this.getState().getMinutes());
-                $.setOnValueChanged(v -> {
-                    $this.setState(s -> s.setMinutes(v));
-                    fireUpdate($this, $this.getState().getHours(), v, $this.getState().getMeridian());
-                });
-            }),
-            div($ -> $.style(s -> s.width("5px"))),
-            timePickerMeridianSelect.$($ -> {
-                $.setAllowClear(false);
-                $.setStyle(new StyleProps().width("75px"));
-                $.setValue($this.getState().getMeridian());
-                $.setOnValueChanged(v -> {
-                    $this.setState(s -> s.setMeridian(v));
-                    fireUpdate($this, $this.getState().getHours(), $this.getState().getMinutes(), v);
-                });
-            })
-        );
+        return
+            div(className("flex-row align-items-center"),
+                timePickerHourSelect.$($ -> {
+                    $.setAllowClear(false);
+                    $.setStyle(new StyleProps().width("65px"));
+                    $.setValue($this.getState().getHours());
+                    $.setOnValueChanged(v -> {
+                        $this.setState(s -> s.setHours(v));
+                        fireUpdate($this, v, $this.getState().getMinutes(), $this.getState().getMeridian());
+                    });
+                }),
+                div(style().margin("0 5px"), ":"),
+                timePickerMinute15Select.$($ -> {
+                    $.setAllowClear(false);
+                    $.setStyle(new StyleProps().width("65px"));
+                    $.setValue($this.getState().getMinutes());
+                    $.setOnValueChanged(v -> {
+                        $this.setState(s -> s.setMinutes(v));
+                        fireUpdate($this, $this.getState().getHours(), v, $this.getState().getMeridian());
+                    });
+                }),
+                div(style().width("5px").lift()),
+                timePickerMeridianSelect.$($ -> {
+                    $.setAllowClear(false);
+                    $.setStyle(new StyleProps().width("75px"));
+                    $.setValue($this.getState().getMeridian());
+                    $.setOnValueChanged(v -> {
+                        $this.setState(s -> s.setMeridian(v));
+                        fireUpdate($this, $this.getState().getHours(), $this.getState().getMinutes(), v);
+                    });
+                })
+            );
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

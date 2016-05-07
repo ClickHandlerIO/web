@@ -68,6 +68,10 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
 
     protected abstract ReactElement renderCell(ReactComponent<P, S> $this, D data, List<GridColumn> columns);
 
+    protected StyleProps applyColumnSizing(String columnId, List<GridColumn> columns) {
+        return applyColumnSizing(new StyleProps(), columnId, columns);
+    }
+
     protected StyleProps applyColumnSizing(StyleProps style, String columnId, List<GridColumn> columns) {
         if (style == null) {
             style = new StyleProps();

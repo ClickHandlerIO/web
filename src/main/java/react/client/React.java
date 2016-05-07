@@ -24,6 +24,9 @@ public class React {
     @JsMethod(namespace = "React", name = "createElement")
     public static native ReactElement createElement(Object component, Object props, Object... children);
 
+    @JsMethod(namespace = "React", name = "createElement")
+    public static native ReactElement createElement(Object component, Object props, ReactElement... children);
+
 //    {
 //        if (children == null) {
 //            return React.createElement(component, props);

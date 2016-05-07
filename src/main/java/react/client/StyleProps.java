@@ -6,6 +6,7 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 
+@SuppressWarnings("all")
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class StyleProps {
     @JsProperty
@@ -546,6 +547,13 @@ public class StyleProps {
     public Object wrapOption;
     @JsProperty
     public Object writingMode;
+
+    @JsOverlay
+    public final HTMLProps lift() {
+        final HTMLProps props = new HTMLProps();
+        props.style = this;
+        return props;
+    }
 
     @JsOverlay
     public final StyleProps backgroundColor(Object value) {

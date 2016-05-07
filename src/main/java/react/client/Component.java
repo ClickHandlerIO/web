@@ -1,5 +1,6 @@
 package react.client;
 
+import com.google.gwt.dom.client.InputElement;
 import common.client.Bus;
 import common.client.BusDelegate;
 import common.client.Func;
@@ -9,14 +10,17 @@ import elemental.dom.Document;
 import elemental.html.Console;
 import elemental.html.Window;
 import jsinterop.annotations.JsIgnore;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import logging.client.Logger;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 @JsType
-public abstract class Component<P, S> {
+public abstract class Component<P, S> implements Jso {
     @JsIgnore
     protected final Console console = Browser.getWindow().getConsole();
     @JsIgnore
@@ -333,24 +337,98 @@ public abstract class Component<P, S> {
     protected void addChildContextTypes(ContextTypes contextTypes) {
     }
 
+    /**
+     * @param elements
+     * @return
+     */
+    @JsIgnore
     protected ReactElement[] array(ReactElement... elements) {
         return elements;
     }
 
+    /**
+     * @param elements
+     * @return
+     */
+    @JsIgnore
     protected String[] array(String... elements) {
         return elements;
     }
 
-    @JsType
+    /**
+     * @param elements
+     * @return
+     */
+    @JsIgnore
+    protected ReactElement[] array(List<ReactElement> elements) {
+        if (elements == null) {
+            return null;
+        }
+
+        return elements.toArray(new ReactElement[elements.size()]);
+    }
+
+    @JsIgnore
+    public String getInputValue(SyntheticEvent event) {
+        try {
+            return ((InputElement) event.getTarget()).getValue();
+        } catch (Throwable e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param className
+     * @param <T>
+     * @return
+     */
+    @JsIgnore
+    protected HTMLProps className(String className) {
+        final HTMLProps props = new HTMLProps();
+        return props.className(className);
+    }
+
+    /**
+     * @param key
+     * @param <T>
+     * @return
+     */
+    @JsIgnore
+    protected <T> HTMLProps key(String key) {
+        final HTMLProps props = new HTMLProps();
+        return props.key(key);
+    }
+
+    /**
+     * @param ref
+     * @param <T>
+     * @return
+     */
+    @JsIgnore
+    protected <T> HTMLProps ref(Ref<T> ref) {
+        final HTMLProps props = new HTMLProps();
+        return props.ref(ref);
+    }
+
+    /**
+     * @return
+     */
+    @JsIgnore
+    protected StyleProps style() {
+        return new StyleProps();
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
     public static class ContextTypes {
-        @JsIgnore
-        public <T> T get(String name) {
+        @JsOverlay
+        public final <T> T get(String name) {
             return Jso.get(this, name);
         }
 
-        @JsIgnore
-        public <T> void set(String name, T value) {
+        @JsOverlay
+        public final <T> ContextTypes set(String name, T value) {
             Jso.set(this, name, value);
+            return this;
         }
     }
 }

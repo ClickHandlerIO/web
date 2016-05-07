@@ -1,93 +1,66 @@
 package remoting.client;
 
 import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
  * Wasabi Envelope
  */
-@JsType(isNative = true)
-public interface WsHeader {
-    @JsProperty(name = "m")
-    double getM();
-
-    @JsProperty(name = "m")
-    void setM(double m);
-
-    @JsProperty(name = "i")
-    double getI();
-
-    @JsProperty(name = "i")
-    void setI(double i);
-
-    @JsProperty(name = "c")
-    double getC();
-
-    @JsProperty(name = "c")
-    void setC(double c);
-
-    @JsProperty(name = "t")
-    String getT();
-
-    @JsProperty(name = "t")
-    void setT(String t);
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class WsHeader {
+    public double m;
+    public double i;
+    public double c;
+    public String t;
 
     @JsOverlay
-    default double method() {
-        return this.getM();
+    public final double method() {
+        return this.m;
     }
 
     @JsOverlay
-    default double id() {
-        return this.getI();
+    public final double id() {
+        return this.i;
     }
 
     @JsOverlay
-    default double code() {
-        return this.getC();
+    public final double code() {
+        return this.c;
     }
 
     @JsOverlay
-    default String type() {
-        return this.getT();
+    public final String type() {
+        return this.t;
     }
 
     @JsOverlay
-    default WsHeader method(final double method) {
-        this.setM(method);
+    public final WsHeader method(final double method) {
+        this.m = method;
         return this;
     }
 
     @JsOverlay
-    default WsHeader id(final double id) {
-        this.setI(id);
+    public final WsHeader id(final double id) {
+        this.i = id;
         return this;
     }
 
     @JsOverlay
-    default WsHeader code(final double code) {
-        this.setC(code);
+    public final WsHeader code(final double code) {
+        this.c = code;
         return this;
     }
 
     @JsOverlay
-    default WsHeader type(final String type) {
-        this.setT(type);
+    public final WsHeader type(final String type) {
+        this.t = type;
         return this;
     }
 
-    class Factory {
-        public static native WsHeader create() /*-{
-            return {};
-        }-*/;
-
-        public static native WsHeader parse(String json) /*-{
-            return $wnd.JSON.parse(json);
-        }-*/;
-
+    public static class Factory {
         public static WsHeader create(double method, double id, double code, String type) {
-            return create()
+            return new WsHeader()
                 .method(method)
                 .id(id)
                 .code(code)
@@ -95,7 +68,7 @@ public interface WsHeader {
         }
     }
 
-    class Constants {
+    public static class Constants {
         // Direction
         public static final int OUT = 0;
         public static final int IN = 1;

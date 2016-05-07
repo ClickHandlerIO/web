@@ -82,7 +82,7 @@ public class WsDispatcher {
     }
 
     public <T> void simulatePush(String address, T event) {
-        data(WsEncoding.encode(new WsMessage(WsHeader.Factory.create()
+        data(WsEncoding.encode(new WsMessage(new WsHeader()
             .method(WsHeader.Constants.PUSH)
             .type(address)
             .code(200), JSON.stringify(event))));

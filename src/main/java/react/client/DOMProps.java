@@ -7,7 +7,7 @@ import jsinterop.annotations.JsType;
 
 
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
-public class DOMProps<T> {
+public class DOMProps {
     @JsProperty
     public Object children;
     @JsProperty
@@ -142,8 +142,8 @@ public class DOMProps<T> {
     public WheelEventHandler onWheel;
 
     @JsOverlay
-    public final Object children() {
-        return this.children;
+    public final ReactElement children() {
+        return (ReactElement) this.children;
     }
 
     @JsOverlay

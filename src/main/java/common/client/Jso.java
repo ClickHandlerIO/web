@@ -1,21 +1,24 @@
 package common.client;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsType;
+
 /**
  *
  */
+@JsType(isNative = true)
 public interface Jso {
-    static Jso $() {
-        return Native.create();
-    }
-
+    @JsOverlay
     static <T> T create() {
         return Native.create();
     }
 
+    @JsOverlay
     static <T> T create(Class<T> cls) {
         return Native.create();
     }
 
+    @JsOverlay
     static <T> T create(Class<T> cls, Func.Run1<T> callback) {
         final T jso = create();
         if (callback != null) {
@@ -24,6 +27,7 @@ public interface Jso {
         return jso;
     }
 
+    @JsOverlay
     static void iterate(Object obj, Func.Run2<String, Object> callback) {
         Native.iterate(obj, callback);
     }
@@ -34,6 +38,7 @@ public interface Jso {
      * @param <T>
      * @return
      */
+    @JsOverlay
     static <T> T get(Object obj, String name) {
         return Native.get(obj, name);
     }
@@ -45,6 +50,7 @@ public interface Jso {
      * @param <T>
      * @return
      */
+    @JsOverlay
     static <T> T set(Object obj, String name, Object value) {
         return Native.set(obj, name, value);
     }
@@ -56,6 +62,7 @@ public interface Jso {
      * @param <T>
      * @return
      */
+    @JsOverlay
     static <T> T call(Object obj, String name, Object... args) {
         return Native.call(obj, name, args);
     }
@@ -66,6 +73,7 @@ public interface Jso {
      * @param <T>
      * @return
      */
+    @JsOverlay
     static void delete(Object obj, String name) {
         Native.delete(obj, name);
     }
@@ -74,6 +82,7 @@ public interface Jso {
      * @param obj
      * @param nativeClass
      */
+    @JsOverlay
     static void extend(Object obj, String nativeClass) {
         String[] parts = nativeClass.split("[.]");
         extend_(obj, parts);
@@ -83,6 +92,7 @@ public interface Jso {
      * @param obj
      * @param nativeClass
      */
+    @JsOverlay
     static void extend_(Object obj, String[] nativeClass) {
         Native.extend_(obj, nativeClass);
     }
@@ -93,27 +103,67 @@ public interface Jso {
      * @param <T>
      * @return
      */
+    @JsOverlay
     static <T> T copy(Object nativeObject, Object javaPrototype) {
         return Native.copy(nativeObject, javaPrototype);
     }
 
+    @JsOverlay
     static void assign(Object target, Object sources) {
         Native.assign(target, sources);
     }
 
+    @JsOverlay
     static boolean isSameType(Object obj1, Object obj2) {
         return Native.isSameType(obj1, obj2);
     }
 
+    /**
+     * @param value
+     * @return
+     */
+    @JsOverlay
+    default boolean isTrue(Boolean value) {
+        return value == Boolean.TRUE;
+    }
+
+    /**
+     * @param arr
+     * @param <T>
+     * @return
+     */
+    @JsOverlay
+    default <T> boolean isSet(T[] arr) {
+        return arr != null && arr.length > 0;
+    }
+
+    /**
+     * @param arr
+     * @param callback
+     * @param <T>
+     */
+    @JsOverlay
+    default <T> void forEach(T[] arr, Func.Run1<T> callback) {
+        if (!isSet(arr))
+            return;
+
+        for (int i = 0; i < arr.length; i++) {
+            callback.run(arr[i]);
+        }
+    }
+
+    @JsOverlay
     default <T> T get(String name) {
         return get(this, name);
     }
 
+    @JsOverlay
     default Jso set(String name, Object value) {
         set(this, name, value);
         return this;
     }
 
+    @JsOverlay
     default boolean delete(String name) {
         return Native.delete(this, name);
     }
