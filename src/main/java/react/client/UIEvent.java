@@ -11,7 +11,7 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class UIEvent extends SyntheticEvent {
     public double detail;
-    public Object view;
+    public AbstractView view;
 
     @JsOverlay
     public final double getDetail() {
@@ -19,7 +19,7 @@ public class UIEvent extends SyntheticEvent {
     }
 
     @JsOverlay
-    public final Object getView() {
+    public final AbstractView getView() {
         return view;
     }
 }
