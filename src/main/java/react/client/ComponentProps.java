@@ -14,6 +14,11 @@ public class ComponentProps {
     public Object ref;
 
     @JsOverlay
+    public final ReactElement children() {
+        return (ReactElement)children;
+    }
+
+    @JsOverlay
     public final <T> ComponentProps ref(Ref<T> ref) {
         this.ref = ref.getName();
         return this;

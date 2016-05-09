@@ -135,12 +135,52 @@ public interface DOM {
         );
     }
 
+    static ReactElement create(String tagName,
+                               HTMLProps props,
+                               Func.Run1<ChildList> childrenCallback) {
+        final ChildList components = new ChildList();
+        childrenCallback.run(components);
+
+//        switch (components.list.size()) {
+//            case 0:
+//                return React.createElement(tagName, props);
+//            case 1:
+//                return React.createElement(tagName, props, components.list.get(0));
+//            default:
+//                return React.createElement(ta)
+//        }
+
+        return React.createElement(
+            tagName,
+            props,
+            components.toArray()
+        );
+    }
+
     static ReactElement create(String tagName, HTMLProps props, String html) {
         return React.createElement(
             tagName,
             props,
             html
         );
+    }
+
+    static ReactElement create(String tagName, PropsAndChildren callback) {
+        final HTMLProps props = new HTMLProps();
+        final ChildList children = new ChildList();
+
+        callback.run(props, children);
+
+        return React.createElement(
+            tagName,
+            props,
+            children.toArray()
+        );
+    }
+
+    @JsFunction
+    interface PropsAndChildren {
+        void run(HTMLProps props, ChildList children);
     }
 
     static ReactElement a() {
@@ -179,6 +219,9 @@ public interface DOM {
     static ReactElement a(HTMLProps props, ReactElement... children) {
         return create("a", props, children);
     }
+    static ReactElement a(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("a", props, childrenCallback);
+    }
     static ReactElement a(Func.Run1<HTMLProps> callback) {
         return create("a", callback);
     }
@@ -193,6 +236,9 @@ public interface DOM {
     }
     static ReactElement a(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("a", callback, childrenCallback);
+    }
+    static ReactElement a(PropsAndChildren callback) {
+        return create("a", callback);
     }
     static ReactElement abbr() {
         return create("abbr");
@@ -230,6 +276,9 @@ public interface DOM {
     static ReactElement abbr(HTMLProps props, ReactElement... children) {
         return create("abbr", props, children);
     }
+    static ReactElement abbr(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("abbr", props, childrenCallback);
+    }
     static ReactElement abbr(Func.Run1<HTMLProps> callback) {
         return create("abbr", callback);
     }
@@ -244,6 +293,9 @@ public interface DOM {
     }
     static ReactElement abbr(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("abbr", callback, childrenCallback);
+    }
+    static ReactElement abbr(PropsAndChildren callback) {
+        return create("abbr", callback);
     }
     static ReactElement address() {
         return create("address");
@@ -281,6 +333,9 @@ public interface DOM {
     static ReactElement address(HTMLProps props, ReactElement... children) {
         return create("address", props, children);
     }
+    static ReactElement address(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("address", props, childrenCallback);
+    }
     static ReactElement address(Func.Run1<HTMLProps> callback) {
         return create("address", callback);
     }
@@ -295,6 +350,9 @@ public interface DOM {
     }
     static ReactElement address(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("address", callback, childrenCallback);
+    }
+    static ReactElement address(PropsAndChildren callback) {
+        return create("address", callback);
     }
     static ReactElement area() {
         return create("area");
@@ -332,6 +390,9 @@ public interface DOM {
     static ReactElement area(HTMLProps props, ReactElement... children) {
         return create("area", props, children);
     }
+    static ReactElement area(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("area", props, childrenCallback);
+    }
     static ReactElement area(Func.Run1<HTMLProps> callback) {
         return create("area", callback);
     }
@@ -346,6 +407,9 @@ public interface DOM {
     }
     static ReactElement area(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("area", callback, childrenCallback);
+    }
+    static ReactElement area(PropsAndChildren callback) {
+        return create("area", callback);
     }
     static ReactElement article() {
         return create("article");
@@ -383,6 +447,9 @@ public interface DOM {
     static ReactElement article(HTMLProps props, ReactElement... children) {
         return create("article", props, children);
     }
+    static ReactElement article(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("article", props, childrenCallback);
+    }
     static ReactElement article(Func.Run1<HTMLProps> callback) {
         return create("article", callback);
     }
@@ -397,6 +464,9 @@ public interface DOM {
     }
     static ReactElement article(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("article", callback, childrenCallback);
+    }
+    static ReactElement article(PropsAndChildren callback) {
+        return create("article", callback);
     }
     static ReactElement aside() {
         return create("aside");
@@ -434,6 +504,9 @@ public interface DOM {
     static ReactElement aside(HTMLProps props, ReactElement... children) {
         return create("aside", props, children);
     }
+    static ReactElement aside(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("aside", props, childrenCallback);
+    }
     static ReactElement aside(Func.Run1<HTMLProps> callback) {
         return create("aside", callback);
     }
@@ -448,6 +521,9 @@ public interface DOM {
     }
     static ReactElement aside(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("aside", callback, childrenCallback);
+    }
+    static ReactElement aside(PropsAndChildren callback) {
+        return create("aside", callback);
     }
     static ReactElement audio() {
         return create("audio");
@@ -485,6 +561,9 @@ public interface DOM {
     static ReactElement audio(HTMLProps props, ReactElement... children) {
         return create("audio", props, children);
     }
+    static ReactElement audio(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("audio", props, childrenCallback);
+    }
     static ReactElement audio(Func.Run1<HTMLProps> callback) {
         return create("audio", callback);
     }
@@ -499,6 +578,9 @@ public interface DOM {
     }
     static ReactElement audio(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("audio", callback, childrenCallback);
+    }
+    static ReactElement audio(PropsAndChildren callback) {
+        return create("audio", callback);
     }
     static ReactElement b() {
         return create("b");
@@ -536,6 +618,9 @@ public interface DOM {
     static ReactElement b(HTMLProps props, ReactElement... children) {
         return create("b", props, children);
     }
+    static ReactElement b(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("b", props, childrenCallback);
+    }
     static ReactElement b(Func.Run1<HTMLProps> callback) {
         return create("b", callback);
     }
@@ -550,6 +635,9 @@ public interface DOM {
     }
     static ReactElement b(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("b", callback, childrenCallback);
+    }
+    static ReactElement b(PropsAndChildren callback) {
+        return create("b", callback);
     }
     static ReactElement base() {
         return create("base");
@@ -587,6 +675,9 @@ public interface DOM {
     static ReactElement base(HTMLProps props, ReactElement... children) {
         return create("base", props, children);
     }
+    static ReactElement base(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("base", props, childrenCallback);
+    }
     static ReactElement base(Func.Run1<HTMLProps> callback) {
         return create("base", callback);
     }
@@ -601,6 +692,9 @@ public interface DOM {
     }
     static ReactElement base(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("base", callback, childrenCallback);
+    }
+    static ReactElement base(PropsAndChildren callback) {
+        return create("base", callback);
     }
     static ReactElement bdi() {
         return create("bdi");
@@ -638,6 +732,9 @@ public interface DOM {
     static ReactElement bdi(HTMLProps props, ReactElement... children) {
         return create("bdi", props, children);
     }
+    static ReactElement bdi(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("bdi", props, childrenCallback);
+    }
     static ReactElement bdi(Func.Run1<HTMLProps> callback) {
         return create("bdi", callback);
     }
@@ -652,6 +749,9 @@ public interface DOM {
     }
     static ReactElement bdi(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("bdi", callback, childrenCallback);
+    }
+    static ReactElement bdi(PropsAndChildren callback) {
+        return create("bdi", callback);
     }
     static ReactElement bdo() {
         return create("bdo");
@@ -689,6 +789,9 @@ public interface DOM {
     static ReactElement bdo(HTMLProps props, ReactElement... children) {
         return create("bdo", props, children);
     }
+    static ReactElement bdo(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("bdo", props, childrenCallback);
+    }
     static ReactElement bdo(Func.Run1<HTMLProps> callback) {
         return create("bdo", callback);
     }
@@ -703,6 +806,9 @@ public interface DOM {
     }
     static ReactElement bdo(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("bdo", callback, childrenCallback);
+    }
+    static ReactElement bdo(PropsAndChildren callback) {
+        return create("bdo", callback);
     }
     static ReactElement big() {
         return create("big");
@@ -740,6 +846,9 @@ public interface DOM {
     static ReactElement big(HTMLProps props, ReactElement... children) {
         return create("big", props, children);
     }
+    static ReactElement big(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("big", props, childrenCallback);
+    }
     static ReactElement big(Func.Run1<HTMLProps> callback) {
         return create("big", callback);
     }
@@ -754,6 +863,9 @@ public interface DOM {
     }
     static ReactElement big(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("big", callback, childrenCallback);
+    }
+    static ReactElement big(PropsAndChildren callback) {
+        return create("big", callback);
     }
     static ReactElement blockquote() {
         return create("blockquote");
@@ -791,6 +903,9 @@ public interface DOM {
     static ReactElement blockquote(HTMLProps props, ReactElement... children) {
         return create("blockquote", props, children);
     }
+    static ReactElement blockquote(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("blockquote", props, childrenCallback);
+    }
     static ReactElement blockquote(Func.Run1<HTMLProps> callback) {
         return create("blockquote", callback);
     }
@@ -805,6 +920,9 @@ public interface DOM {
     }
     static ReactElement blockquote(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("blockquote", callback, childrenCallback);
+    }
+    static ReactElement blockquote(PropsAndChildren callback) {
+        return create("blockquote", callback);
     }
     static ReactElement body() {
         return create("body");
@@ -842,6 +960,9 @@ public interface DOM {
     static ReactElement body(HTMLProps props, ReactElement... children) {
         return create("body", props, children);
     }
+    static ReactElement body(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("body", props, childrenCallback);
+    }
     static ReactElement body(Func.Run1<HTMLProps> callback) {
         return create("body", callback);
     }
@@ -856,6 +977,9 @@ public interface DOM {
     }
     static ReactElement body(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("body", callback, childrenCallback);
+    }
+    static ReactElement body(PropsAndChildren callback) {
+        return create("body", callback);
     }
     static ReactElement br() {
         return create("br");
@@ -893,6 +1017,9 @@ public interface DOM {
     static ReactElement br(HTMLProps props, ReactElement... children) {
         return create("br", props, children);
     }
+    static ReactElement br(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("br", props, childrenCallback);
+    }
     static ReactElement br(Func.Run1<HTMLProps> callback) {
         return create("br", callback);
     }
@@ -907,6 +1034,9 @@ public interface DOM {
     }
     static ReactElement br(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("br", callback, childrenCallback);
+    }
+    static ReactElement br(PropsAndChildren callback) {
+        return create("br", callback);
     }
     static ReactElement button() {
         return create("button");
@@ -944,6 +1074,9 @@ public interface DOM {
     static ReactElement button(HTMLProps props, ReactElement... children) {
         return create("button", props, children);
     }
+    static ReactElement button(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("button", props, childrenCallback);
+    }
     static ReactElement button(Func.Run1<HTMLProps> callback) {
         return create("button", callback);
     }
@@ -958,6 +1091,9 @@ public interface DOM {
     }
     static ReactElement button(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("button", callback, childrenCallback);
+    }
+    static ReactElement button(PropsAndChildren callback) {
+        return create("button", callback);
     }
     static ReactElement canvas() {
         return create("canvas");
@@ -995,6 +1131,9 @@ public interface DOM {
     static ReactElement canvas(HTMLProps props, ReactElement... children) {
         return create("canvas", props, children);
     }
+    static ReactElement canvas(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("canvas", props, childrenCallback);
+    }
     static ReactElement canvas(Func.Run1<HTMLProps> callback) {
         return create("canvas", callback);
     }
@@ -1009,6 +1148,9 @@ public interface DOM {
     }
     static ReactElement canvas(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("canvas", callback, childrenCallback);
+    }
+    static ReactElement canvas(PropsAndChildren callback) {
+        return create("canvas", callback);
     }
     static ReactElement caption() {
         return create("caption");
@@ -1046,6 +1188,9 @@ public interface DOM {
     static ReactElement caption(HTMLProps props, ReactElement... children) {
         return create("caption", props, children);
     }
+    static ReactElement caption(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("caption", props, childrenCallback);
+    }
     static ReactElement caption(Func.Run1<HTMLProps> callback) {
         return create("caption", callback);
     }
@@ -1060,6 +1205,9 @@ public interface DOM {
     }
     static ReactElement caption(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("caption", callback, childrenCallback);
+    }
+    static ReactElement caption(PropsAndChildren callback) {
+        return create("caption", callback);
     }
     static ReactElement cite() {
         return create("cite");
@@ -1097,6 +1245,9 @@ public interface DOM {
     static ReactElement cite(HTMLProps props, ReactElement... children) {
         return create("cite", props, children);
     }
+    static ReactElement cite(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("cite", props, childrenCallback);
+    }
     static ReactElement cite(Func.Run1<HTMLProps> callback) {
         return create("cite", callback);
     }
@@ -1111,6 +1262,9 @@ public interface DOM {
     }
     static ReactElement cite(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("cite", callback, childrenCallback);
+    }
+    static ReactElement cite(PropsAndChildren callback) {
+        return create("cite", callback);
     }
     static ReactElement code() {
         return create("code");
@@ -1148,6 +1302,9 @@ public interface DOM {
     static ReactElement code(HTMLProps props, ReactElement... children) {
         return create("code", props, children);
     }
+    static ReactElement code(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("code", props, childrenCallback);
+    }
     static ReactElement code(Func.Run1<HTMLProps> callback) {
         return create("code", callback);
     }
@@ -1162,6 +1319,9 @@ public interface DOM {
     }
     static ReactElement code(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("code", callback, childrenCallback);
+    }
+    static ReactElement code(PropsAndChildren callback) {
+        return create("code", callback);
     }
     static ReactElement col() {
         return create("col");
@@ -1199,6 +1359,9 @@ public interface DOM {
     static ReactElement col(HTMLProps props, ReactElement... children) {
         return create("col", props, children);
     }
+    static ReactElement col(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("col", props, childrenCallback);
+    }
     static ReactElement col(Func.Run1<HTMLProps> callback) {
         return create("col", callback);
     }
@@ -1213,6 +1376,9 @@ public interface DOM {
     }
     static ReactElement col(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("col", callback, childrenCallback);
+    }
+    static ReactElement col(PropsAndChildren callback) {
+        return create("col", callback);
     }
     static ReactElement colgroup() {
         return create("colgroup");
@@ -1250,6 +1416,9 @@ public interface DOM {
     static ReactElement colgroup(HTMLProps props, ReactElement... children) {
         return create("colgroup", props, children);
     }
+    static ReactElement colgroup(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("colgroup", props, childrenCallback);
+    }
     static ReactElement colgroup(Func.Run1<HTMLProps> callback) {
         return create("colgroup", callback);
     }
@@ -1264,6 +1433,9 @@ public interface DOM {
     }
     static ReactElement colgroup(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("colgroup", callback, childrenCallback);
+    }
+    static ReactElement colgroup(PropsAndChildren callback) {
+        return create("colgroup", callback);
     }
     static ReactElement data() {
         return create("data");
@@ -1301,6 +1473,9 @@ public interface DOM {
     static ReactElement data(HTMLProps props, ReactElement... children) {
         return create("data", props, children);
     }
+    static ReactElement data(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("data", props, childrenCallback);
+    }
     static ReactElement data(Func.Run1<HTMLProps> callback) {
         return create("data", callback);
     }
@@ -1315,6 +1490,9 @@ public interface DOM {
     }
     static ReactElement data(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("data", callback, childrenCallback);
+    }
+    static ReactElement data(PropsAndChildren callback) {
+        return create("data", callback);
     }
     static ReactElement datalist() {
         return create("datalist");
@@ -1352,6 +1530,9 @@ public interface DOM {
     static ReactElement datalist(HTMLProps props, ReactElement... children) {
         return create("datalist", props, children);
     }
+    static ReactElement datalist(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("datalist", props, childrenCallback);
+    }
     static ReactElement datalist(Func.Run1<HTMLProps> callback) {
         return create("datalist", callback);
     }
@@ -1366,6 +1547,9 @@ public interface DOM {
     }
     static ReactElement datalist(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("datalist", callback, childrenCallback);
+    }
+    static ReactElement datalist(PropsAndChildren callback) {
+        return create("datalist", callback);
     }
     static ReactElement dd() {
         return create("dd");
@@ -1403,6 +1587,9 @@ public interface DOM {
     static ReactElement dd(HTMLProps props, ReactElement... children) {
         return create("dd", props, children);
     }
+    static ReactElement dd(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("dd", props, childrenCallback);
+    }
     static ReactElement dd(Func.Run1<HTMLProps> callback) {
         return create("dd", callback);
     }
@@ -1417,6 +1604,9 @@ public interface DOM {
     }
     static ReactElement dd(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("dd", callback, childrenCallback);
+    }
+    static ReactElement dd(PropsAndChildren callback) {
+        return create("dd", callback);
     }
     static ReactElement del() {
         return create("del");
@@ -1454,6 +1644,9 @@ public interface DOM {
     static ReactElement del(HTMLProps props, ReactElement... children) {
         return create("del", props, children);
     }
+    static ReactElement del(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("del", props, childrenCallback);
+    }
     static ReactElement del(Func.Run1<HTMLProps> callback) {
         return create("del", callback);
     }
@@ -1468,6 +1661,9 @@ public interface DOM {
     }
     static ReactElement del(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("del", callback, childrenCallback);
+    }
+    static ReactElement del(PropsAndChildren callback) {
+        return create("del", callback);
     }
     static ReactElement details() {
         return create("details");
@@ -1505,6 +1701,9 @@ public interface DOM {
     static ReactElement details(HTMLProps props, ReactElement... children) {
         return create("details", props, children);
     }
+    static ReactElement details(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("details", props, childrenCallback);
+    }
     static ReactElement details(Func.Run1<HTMLProps> callback) {
         return create("details", callback);
     }
@@ -1519,6 +1718,9 @@ public interface DOM {
     }
     static ReactElement details(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("details", callback, childrenCallback);
+    }
+    static ReactElement details(PropsAndChildren callback) {
+        return create("details", callback);
     }
     static ReactElement dfn() {
         return create("dfn");
@@ -1556,6 +1758,9 @@ public interface DOM {
     static ReactElement dfn(HTMLProps props, ReactElement... children) {
         return create("dfn", props, children);
     }
+    static ReactElement dfn(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("dfn", props, childrenCallback);
+    }
     static ReactElement dfn(Func.Run1<HTMLProps> callback) {
         return create("dfn", callback);
     }
@@ -1570,6 +1775,9 @@ public interface DOM {
     }
     static ReactElement dfn(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("dfn", callback, childrenCallback);
+    }
+    static ReactElement dfn(PropsAndChildren callback) {
+        return create("dfn", callback);
     }
     static ReactElement dialog() {
         return create("dialog");
@@ -1607,6 +1815,9 @@ public interface DOM {
     static ReactElement dialog(HTMLProps props, ReactElement... children) {
         return create("dialog", props, children);
     }
+    static ReactElement dialog(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("dialog", props, childrenCallback);
+    }
     static ReactElement dialog(Func.Run1<HTMLProps> callback) {
         return create("dialog", callback);
     }
@@ -1621,6 +1832,9 @@ public interface DOM {
     }
     static ReactElement dialog(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("dialog", callback, childrenCallback);
+    }
+    static ReactElement dialog(PropsAndChildren callback) {
+        return create("dialog", callback);
     }
     static ReactElement div() {
         return create("div");
@@ -1658,6 +1872,9 @@ public interface DOM {
     static ReactElement div(HTMLProps props, ReactElement... children) {
         return create("div", props, children);
     }
+    static ReactElement div(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("div", props, childrenCallback);
+    }
     static ReactElement div(Func.Run1<HTMLProps> callback) {
         return create("div", callback);
     }
@@ -1672,6 +1889,9 @@ public interface DOM {
     }
     static ReactElement div(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("div", callback, childrenCallback);
+    }
+    static ReactElement div(PropsAndChildren callback) {
+        return create("div", callback);
     }
     static ReactElement dl() {
         return create("dl");
@@ -1709,6 +1929,9 @@ public interface DOM {
     static ReactElement dl(HTMLProps props, ReactElement... children) {
         return create("dl", props, children);
     }
+    static ReactElement dl(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("dl", props, childrenCallback);
+    }
     static ReactElement dl(Func.Run1<HTMLProps> callback) {
         return create("dl", callback);
     }
@@ -1723,6 +1946,9 @@ public interface DOM {
     }
     static ReactElement dl(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("dl", callback, childrenCallback);
+    }
+    static ReactElement dl(PropsAndChildren callback) {
+        return create("dl", callback);
     }
     static ReactElement dt() {
         return create("dt");
@@ -1760,6 +1986,9 @@ public interface DOM {
     static ReactElement dt(HTMLProps props, ReactElement... children) {
         return create("dt", props, children);
     }
+    static ReactElement dt(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("dt", props, childrenCallback);
+    }
     static ReactElement dt(Func.Run1<HTMLProps> callback) {
         return create("dt", callback);
     }
@@ -1774,6 +2003,9 @@ public interface DOM {
     }
     static ReactElement dt(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("dt", callback, childrenCallback);
+    }
+    static ReactElement dt(PropsAndChildren callback) {
+        return create("dt", callback);
     }
     static ReactElement em() {
         return create("em");
@@ -1811,6 +2043,9 @@ public interface DOM {
     static ReactElement em(HTMLProps props, ReactElement... children) {
         return create("em", props, children);
     }
+    static ReactElement em(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("em", props, childrenCallback);
+    }
     static ReactElement em(Func.Run1<HTMLProps> callback) {
         return create("em", callback);
     }
@@ -1825,6 +2060,9 @@ public interface DOM {
     }
     static ReactElement em(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("em", callback, childrenCallback);
+    }
+    static ReactElement em(PropsAndChildren callback) {
+        return create("em", callback);
     }
     static ReactElement embed() {
         return create("embed");
@@ -1862,6 +2100,9 @@ public interface DOM {
     static ReactElement embed(HTMLProps props, ReactElement... children) {
         return create("embed", props, children);
     }
+    static ReactElement embed(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("embed", props, childrenCallback);
+    }
     static ReactElement embed(Func.Run1<HTMLProps> callback) {
         return create("embed", callback);
     }
@@ -1876,6 +2117,9 @@ public interface DOM {
     }
     static ReactElement embed(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("embed", callback, childrenCallback);
+    }
+    static ReactElement embed(PropsAndChildren callback) {
+        return create("embed", callback);
     }
     static ReactElement fieldset() {
         return create("fieldset");
@@ -1913,6 +2157,9 @@ public interface DOM {
     static ReactElement fieldset(HTMLProps props, ReactElement... children) {
         return create("fieldset", props, children);
     }
+    static ReactElement fieldset(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("fieldset", props, childrenCallback);
+    }
     static ReactElement fieldset(Func.Run1<HTMLProps> callback) {
         return create("fieldset", callback);
     }
@@ -1927,6 +2174,9 @@ public interface DOM {
     }
     static ReactElement fieldset(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("fieldset", callback, childrenCallback);
+    }
+    static ReactElement fieldset(PropsAndChildren callback) {
+        return create("fieldset", callback);
     }
     static ReactElement figcaption() {
         return create("figcaption");
@@ -1964,6 +2214,9 @@ public interface DOM {
     static ReactElement figcaption(HTMLProps props, ReactElement... children) {
         return create("figcaption", props, children);
     }
+    static ReactElement figcaption(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("figcaption", props, childrenCallback);
+    }
     static ReactElement figcaption(Func.Run1<HTMLProps> callback) {
         return create("figcaption", callback);
     }
@@ -1978,6 +2231,9 @@ public interface DOM {
     }
     static ReactElement figcaption(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("figcaption", callback, childrenCallback);
+    }
+    static ReactElement figcaption(PropsAndChildren callback) {
+        return create("figcaption", callback);
     }
     static ReactElement figure() {
         return create("figure");
@@ -2015,6 +2271,9 @@ public interface DOM {
     static ReactElement figure(HTMLProps props, ReactElement... children) {
         return create("figure", props, children);
     }
+    static ReactElement figure(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("figure", props, childrenCallback);
+    }
     static ReactElement figure(Func.Run1<HTMLProps> callback) {
         return create("figure", callback);
     }
@@ -2029,6 +2288,9 @@ public interface DOM {
     }
     static ReactElement figure(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("figure", callback, childrenCallback);
+    }
+    static ReactElement figure(PropsAndChildren callback) {
+        return create("figure", callback);
     }
     static ReactElement footer() {
         return create("footer");
@@ -2066,6 +2328,9 @@ public interface DOM {
     static ReactElement footer(HTMLProps props, ReactElement... children) {
         return create("footer", props, children);
     }
+    static ReactElement footer(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("footer", props, childrenCallback);
+    }
     static ReactElement footer(Func.Run1<HTMLProps> callback) {
         return create("footer", callback);
     }
@@ -2080,6 +2345,9 @@ public interface DOM {
     }
     static ReactElement footer(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("footer", callback, childrenCallback);
+    }
+    static ReactElement footer(PropsAndChildren callback) {
+        return create("footer", callback);
     }
     static ReactElement form() {
         return create("form");
@@ -2117,6 +2385,9 @@ public interface DOM {
     static ReactElement form(HTMLProps props, ReactElement... children) {
         return create("form", props, children);
     }
+    static ReactElement form(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("form", props, childrenCallback);
+    }
     static ReactElement form(Func.Run1<HTMLProps> callback) {
         return create("form", callback);
     }
@@ -2131,6 +2402,9 @@ public interface DOM {
     }
     static ReactElement form(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("form", callback, childrenCallback);
+    }
+    static ReactElement form(PropsAndChildren callback) {
+        return create("form", callback);
     }
     static ReactElement h1() {
         return create("h1");
@@ -2168,6 +2442,9 @@ public interface DOM {
     static ReactElement h1(HTMLProps props, ReactElement... children) {
         return create("h1", props, children);
     }
+    static ReactElement h1(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h1", props, childrenCallback);
+    }
     static ReactElement h1(Func.Run1<HTMLProps> callback) {
         return create("h1", callback);
     }
@@ -2182,6 +2459,9 @@ public interface DOM {
     }
     static ReactElement h1(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h1", callback, childrenCallback);
+    }
+    static ReactElement h1(PropsAndChildren callback) {
+        return create("h1", callback);
     }
     static ReactElement h2() {
         return create("h2");
@@ -2219,6 +2499,9 @@ public interface DOM {
     static ReactElement h2(HTMLProps props, ReactElement... children) {
         return create("h2", props, children);
     }
+    static ReactElement h2(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h2", props, childrenCallback);
+    }
     static ReactElement h2(Func.Run1<HTMLProps> callback) {
         return create("h2", callback);
     }
@@ -2233,6 +2516,9 @@ public interface DOM {
     }
     static ReactElement h2(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h2", callback, childrenCallback);
+    }
+    static ReactElement h2(PropsAndChildren callback) {
+        return create("h2", callback);
     }
     static ReactElement h3() {
         return create("h3");
@@ -2270,6 +2556,9 @@ public interface DOM {
     static ReactElement h3(HTMLProps props, ReactElement... children) {
         return create("h3", props, children);
     }
+    static ReactElement h3(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h3", props, childrenCallback);
+    }
     static ReactElement h3(Func.Run1<HTMLProps> callback) {
         return create("h3", callback);
     }
@@ -2284,6 +2573,9 @@ public interface DOM {
     }
     static ReactElement h3(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h3", callback, childrenCallback);
+    }
+    static ReactElement h3(PropsAndChildren callback) {
+        return create("h3", callback);
     }
     static ReactElement h4() {
         return create("h4");
@@ -2321,6 +2613,9 @@ public interface DOM {
     static ReactElement h4(HTMLProps props, ReactElement... children) {
         return create("h4", props, children);
     }
+    static ReactElement h4(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h4", props, childrenCallback);
+    }
     static ReactElement h4(Func.Run1<HTMLProps> callback) {
         return create("h4", callback);
     }
@@ -2335,6 +2630,9 @@ public interface DOM {
     }
     static ReactElement h4(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h4", callback, childrenCallback);
+    }
+    static ReactElement h4(PropsAndChildren callback) {
+        return create("h4", callback);
     }
     static ReactElement h5() {
         return create("h5");
@@ -2372,6 +2670,9 @@ public interface DOM {
     static ReactElement h5(HTMLProps props, ReactElement... children) {
         return create("h5", props, children);
     }
+    static ReactElement h5(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h5", props, childrenCallback);
+    }
     static ReactElement h5(Func.Run1<HTMLProps> callback) {
         return create("h5", callback);
     }
@@ -2386,6 +2687,9 @@ public interface DOM {
     }
     static ReactElement h5(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h5", callback, childrenCallback);
+    }
+    static ReactElement h5(PropsAndChildren callback) {
+        return create("h5", callback);
     }
     static ReactElement h6() {
         return create("h6");
@@ -2423,6 +2727,9 @@ public interface DOM {
     static ReactElement h6(HTMLProps props, ReactElement... children) {
         return create("h6", props, children);
     }
+    static ReactElement h6(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("h6", props, childrenCallback);
+    }
     static ReactElement h6(Func.Run1<HTMLProps> callback) {
         return create("h6", callback);
     }
@@ -2437,6 +2744,9 @@ public interface DOM {
     }
     static ReactElement h6(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("h6", callback, childrenCallback);
+    }
+    static ReactElement h6(PropsAndChildren callback) {
+        return create("h6", callback);
     }
     static ReactElement head() {
         return create("head");
@@ -2474,6 +2784,9 @@ public interface DOM {
     static ReactElement head(HTMLProps props, ReactElement... children) {
         return create("head", props, children);
     }
+    static ReactElement head(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("head", props, childrenCallback);
+    }
     static ReactElement head(Func.Run1<HTMLProps> callback) {
         return create("head", callback);
     }
@@ -2488,6 +2801,9 @@ public interface DOM {
     }
     static ReactElement head(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("head", callback, childrenCallback);
+    }
+    static ReactElement head(PropsAndChildren callback) {
+        return create("head", callback);
     }
     static ReactElement header() {
         return create("header");
@@ -2525,6 +2841,9 @@ public interface DOM {
     static ReactElement header(HTMLProps props, ReactElement... children) {
         return create("header", props, children);
     }
+    static ReactElement header(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("header", props, childrenCallback);
+    }
     static ReactElement header(Func.Run1<HTMLProps> callback) {
         return create("header", callback);
     }
@@ -2539,6 +2858,9 @@ public interface DOM {
     }
     static ReactElement header(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("header", callback, childrenCallback);
+    }
+    static ReactElement header(PropsAndChildren callback) {
+        return create("header", callback);
     }
     static ReactElement hr() {
         return create("hr");
@@ -2576,6 +2898,9 @@ public interface DOM {
     static ReactElement hr(HTMLProps props, ReactElement... children) {
         return create("hr", props, children);
     }
+    static ReactElement hr(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("hr", props, childrenCallback);
+    }
     static ReactElement hr(Func.Run1<HTMLProps> callback) {
         return create("hr", callback);
     }
@@ -2590,6 +2915,9 @@ public interface DOM {
     }
     static ReactElement hr(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("hr", callback, childrenCallback);
+    }
+    static ReactElement hr(PropsAndChildren callback) {
+        return create("hr", callback);
     }
     static ReactElement html() {
         return create("html");
@@ -2627,6 +2955,9 @@ public interface DOM {
     static ReactElement html(HTMLProps props, ReactElement... children) {
         return create("html", props, children);
     }
+    static ReactElement html(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("html", props, childrenCallback);
+    }
     static ReactElement html(Func.Run1<HTMLProps> callback) {
         return create("html", callback);
     }
@@ -2641,6 +2972,9 @@ public interface DOM {
     }
     static ReactElement html(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("html", callback, childrenCallback);
+    }
+    static ReactElement html(PropsAndChildren callback) {
+        return create("html", callback);
     }
     static ReactElement i() {
         return create("i");
@@ -2678,6 +3012,9 @@ public interface DOM {
     static ReactElement i(HTMLProps props, ReactElement... children) {
         return create("i", props, children);
     }
+    static ReactElement i(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("i", props, childrenCallback);
+    }
     static ReactElement i(Func.Run1<HTMLProps> callback) {
         return create("i", callback);
     }
@@ -2692,6 +3029,9 @@ public interface DOM {
     }
     static ReactElement i(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("i", callback, childrenCallback);
+    }
+    static ReactElement i(PropsAndChildren callback) {
+        return create("i", callback);
     }
     static ReactElement iframe() {
         return create("iframe");
@@ -2729,6 +3069,9 @@ public interface DOM {
     static ReactElement iframe(HTMLProps props, ReactElement... children) {
         return create("iframe", props, children);
     }
+    static ReactElement iframe(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("iframe", props, childrenCallback);
+    }
     static ReactElement iframe(Func.Run1<HTMLProps> callback) {
         return create("iframe", callback);
     }
@@ -2743,6 +3086,9 @@ public interface DOM {
     }
     static ReactElement iframe(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("iframe", callback, childrenCallback);
+    }
+    static ReactElement iframe(PropsAndChildren callback) {
+        return create("iframe", callback);
     }
     static ReactElement img() {
         return create("img");
@@ -2780,6 +3126,9 @@ public interface DOM {
     static ReactElement img(HTMLProps props, ReactElement... children) {
         return create("img", props, children);
     }
+    static ReactElement img(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("img", props, childrenCallback);
+    }
     static ReactElement img(Func.Run1<HTMLProps> callback) {
         return create("img", callback);
     }
@@ -2794,6 +3143,9 @@ public interface DOM {
     }
     static ReactElement img(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("img", callback, childrenCallback);
+    }
+    static ReactElement img(PropsAndChildren callback) {
+        return create("img", callback);
     }
     static ReactElement input() {
         return create("input");
@@ -2831,6 +3183,9 @@ public interface DOM {
     static ReactElement input(HTMLProps props, ReactElement... children) {
         return create("input", props, children);
     }
+    static ReactElement input(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("input", props, childrenCallback);
+    }
     static ReactElement input(Func.Run1<HTMLProps> callback) {
         return create("input", callback);
     }
@@ -2845,6 +3200,9 @@ public interface DOM {
     }
     static ReactElement input(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("input", callback, childrenCallback);
+    }
+    static ReactElement input(PropsAndChildren callback) {
+        return create("input", callback);
     }
     static ReactElement ins() {
         return create("ins");
@@ -2882,6 +3240,9 @@ public interface DOM {
     static ReactElement ins(HTMLProps props, ReactElement... children) {
         return create("ins", props, children);
     }
+    static ReactElement ins(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("ins", props, childrenCallback);
+    }
     static ReactElement ins(Func.Run1<HTMLProps> callback) {
         return create("ins", callback);
     }
@@ -2896,6 +3257,9 @@ public interface DOM {
     }
     static ReactElement ins(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("ins", callback, childrenCallback);
+    }
+    static ReactElement ins(PropsAndChildren callback) {
+        return create("ins", callback);
     }
     static ReactElement kbd() {
         return create("kbd");
@@ -2933,6 +3297,9 @@ public interface DOM {
     static ReactElement kbd(HTMLProps props, ReactElement... children) {
         return create("kbd", props, children);
     }
+    static ReactElement kbd(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("kbd", props, childrenCallback);
+    }
     static ReactElement kbd(Func.Run1<HTMLProps> callback) {
         return create("kbd", callback);
     }
@@ -2947,6 +3314,9 @@ public interface DOM {
     }
     static ReactElement kbd(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("kbd", callback, childrenCallback);
+    }
+    static ReactElement kbd(PropsAndChildren callback) {
+        return create("kbd", callback);
     }
     static ReactElement keygen() {
         return create("keygen");
@@ -2984,6 +3354,9 @@ public interface DOM {
     static ReactElement keygen(HTMLProps props, ReactElement... children) {
         return create("keygen", props, children);
     }
+    static ReactElement keygen(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("keygen", props, childrenCallback);
+    }
     static ReactElement keygen(Func.Run1<HTMLProps> callback) {
         return create("keygen", callback);
     }
@@ -2998,6 +3371,9 @@ public interface DOM {
     }
     static ReactElement keygen(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("keygen", callback, childrenCallback);
+    }
+    static ReactElement keygen(PropsAndChildren callback) {
+        return create("keygen", callback);
     }
     static ReactElement label() {
         return create("label");
@@ -3035,6 +3411,9 @@ public interface DOM {
     static ReactElement label(HTMLProps props, ReactElement... children) {
         return create("label", props, children);
     }
+    static ReactElement label(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("label", props, childrenCallback);
+    }
     static ReactElement label(Func.Run1<HTMLProps> callback) {
         return create("label", callback);
     }
@@ -3049,6 +3428,9 @@ public interface DOM {
     }
     static ReactElement label(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("label", callback, childrenCallback);
+    }
+    static ReactElement label(PropsAndChildren callback) {
+        return create("label", callback);
     }
     static ReactElement legend() {
         return create("legend");
@@ -3086,6 +3468,9 @@ public interface DOM {
     static ReactElement legend(HTMLProps props, ReactElement... children) {
         return create("legend", props, children);
     }
+    static ReactElement legend(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("legend", props, childrenCallback);
+    }
     static ReactElement legend(Func.Run1<HTMLProps> callback) {
         return create("legend", callback);
     }
@@ -3100,6 +3485,9 @@ public interface DOM {
     }
     static ReactElement legend(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("legend", callback, childrenCallback);
+    }
+    static ReactElement legend(PropsAndChildren callback) {
+        return create("legend", callback);
     }
     static ReactElement li() {
         return create("li");
@@ -3137,6 +3525,9 @@ public interface DOM {
     static ReactElement li(HTMLProps props, ReactElement... children) {
         return create("li", props, children);
     }
+    static ReactElement li(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("li", props, childrenCallback);
+    }
     static ReactElement li(Func.Run1<HTMLProps> callback) {
         return create("li", callback);
     }
@@ -3151,6 +3542,9 @@ public interface DOM {
     }
     static ReactElement li(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("li", callback, childrenCallback);
+    }
+    static ReactElement li(PropsAndChildren callback) {
+        return create("li", callback);
     }
     static ReactElement link() {
         return create("link");
@@ -3188,6 +3582,9 @@ public interface DOM {
     static ReactElement link(HTMLProps props, ReactElement... children) {
         return create("link", props, children);
     }
+    static ReactElement link(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("link", props, childrenCallback);
+    }
     static ReactElement link(Func.Run1<HTMLProps> callback) {
         return create("link", callback);
     }
@@ -3202,6 +3599,9 @@ public interface DOM {
     }
     static ReactElement link(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("link", callback, childrenCallback);
+    }
+    static ReactElement link(PropsAndChildren callback) {
+        return create("link", callback);
     }
     static ReactElement main() {
         return create("main");
@@ -3239,6 +3639,9 @@ public interface DOM {
     static ReactElement main(HTMLProps props, ReactElement... children) {
         return create("main", props, children);
     }
+    static ReactElement main(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("main", props, childrenCallback);
+    }
     static ReactElement main(Func.Run1<HTMLProps> callback) {
         return create("main", callback);
     }
@@ -3253,6 +3656,9 @@ public interface DOM {
     }
     static ReactElement main(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("main", callback, childrenCallback);
+    }
+    static ReactElement main(PropsAndChildren callback) {
+        return create("main", callback);
     }
     static ReactElement map() {
         return create("map");
@@ -3290,6 +3696,9 @@ public interface DOM {
     static ReactElement map(HTMLProps props, ReactElement... children) {
         return create("map", props, children);
     }
+    static ReactElement map(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("map", props, childrenCallback);
+    }
     static ReactElement map(Func.Run1<HTMLProps> callback) {
         return create("map", callback);
     }
@@ -3304,6 +3713,9 @@ public interface DOM {
     }
     static ReactElement map(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("map", callback, childrenCallback);
+    }
+    static ReactElement map(PropsAndChildren callback) {
+        return create("map", callback);
     }
     static ReactElement mark() {
         return create("mark");
@@ -3341,6 +3753,9 @@ public interface DOM {
     static ReactElement mark(HTMLProps props, ReactElement... children) {
         return create("mark", props, children);
     }
+    static ReactElement mark(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("mark", props, childrenCallback);
+    }
     static ReactElement mark(Func.Run1<HTMLProps> callback) {
         return create("mark", callback);
     }
@@ -3355,6 +3770,9 @@ public interface DOM {
     }
     static ReactElement mark(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("mark", callback, childrenCallback);
+    }
+    static ReactElement mark(PropsAndChildren callback) {
+        return create("mark", callback);
     }
     static ReactElement menu() {
         return create("menu");
@@ -3392,6 +3810,9 @@ public interface DOM {
     static ReactElement menu(HTMLProps props, ReactElement... children) {
         return create("menu", props, children);
     }
+    static ReactElement menu(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("menu", props, childrenCallback);
+    }
     static ReactElement menu(Func.Run1<HTMLProps> callback) {
         return create("menu", callback);
     }
@@ -3406,6 +3827,9 @@ public interface DOM {
     }
     static ReactElement menu(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("menu", callback, childrenCallback);
+    }
+    static ReactElement menu(PropsAndChildren callback) {
+        return create("menu", callback);
     }
     static ReactElement menuitem() {
         return create("menuitem");
@@ -3443,6 +3867,9 @@ public interface DOM {
     static ReactElement menuitem(HTMLProps props, ReactElement... children) {
         return create("menuitem", props, children);
     }
+    static ReactElement menuitem(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("menuitem", props, childrenCallback);
+    }
     static ReactElement menuitem(Func.Run1<HTMLProps> callback) {
         return create("menuitem", callback);
     }
@@ -3457,6 +3884,9 @@ public interface DOM {
     }
     static ReactElement menuitem(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("menuitem", callback, childrenCallback);
+    }
+    static ReactElement menuitem(PropsAndChildren callback) {
+        return create("menuitem", callback);
     }
     static ReactElement meta() {
         return create("meta");
@@ -3494,6 +3924,9 @@ public interface DOM {
     static ReactElement meta(HTMLProps props, ReactElement... children) {
         return create("meta", props, children);
     }
+    static ReactElement meta(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("meta", props, childrenCallback);
+    }
     static ReactElement meta(Func.Run1<HTMLProps> callback) {
         return create("meta", callback);
     }
@@ -3508,6 +3941,9 @@ public interface DOM {
     }
     static ReactElement meta(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("meta", callback, childrenCallback);
+    }
+    static ReactElement meta(PropsAndChildren callback) {
+        return create("meta", callback);
     }
     static ReactElement meter() {
         return create("meter");
@@ -3545,6 +3981,9 @@ public interface DOM {
     static ReactElement meter(HTMLProps props, ReactElement... children) {
         return create("meter", props, children);
     }
+    static ReactElement meter(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("meter", props, childrenCallback);
+    }
     static ReactElement meter(Func.Run1<HTMLProps> callback) {
         return create("meter", callback);
     }
@@ -3559,6 +3998,9 @@ public interface DOM {
     }
     static ReactElement meter(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("meter", callback, childrenCallback);
+    }
+    static ReactElement meter(PropsAndChildren callback) {
+        return create("meter", callback);
     }
     static ReactElement nav() {
         return create("nav");
@@ -3596,6 +4038,9 @@ public interface DOM {
     static ReactElement nav(HTMLProps props, ReactElement... children) {
         return create("nav", props, children);
     }
+    static ReactElement nav(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("nav", props, childrenCallback);
+    }
     static ReactElement nav(Func.Run1<HTMLProps> callback) {
         return create("nav", callback);
     }
@@ -3610,6 +4055,9 @@ public interface DOM {
     }
     static ReactElement nav(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("nav", callback, childrenCallback);
+    }
+    static ReactElement nav(PropsAndChildren callback) {
+        return create("nav", callback);
     }
     static ReactElement noscript() {
         return create("noscript");
@@ -3647,6 +4095,9 @@ public interface DOM {
     static ReactElement noscript(HTMLProps props, ReactElement... children) {
         return create("noscript", props, children);
     }
+    static ReactElement noscript(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("noscript", props, childrenCallback);
+    }
     static ReactElement noscript(Func.Run1<HTMLProps> callback) {
         return create("noscript", callback);
     }
@@ -3661,6 +4112,9 @@ public interface DOM {
     }
     static ReactElement noscript(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("noscript", callback, childrenCallback);
+    }
+    static ReactElement noscript(PropsAndChildren callback) {
+        return create("noscript", callback);
     }
     static ReactElement object() {
         return create("object");
@@ -3698,6 +4152,9 @@ public interface DOM {
     static ReactElement object(HTMLProps props, ReactElement... children) {
         return create("object", props, children);
     }
+    static ReactElement object(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("object", props, childrenCallback);
+    }
     static ReactElement object(Func.Run1<HTMLProps> callback) {
         return create("object", callback);
     }
@@ -3712,6 +4169,9 @@ public interface DOM {
     }
     static ReactElement object(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("object", callback, childrenCallback);
+    }
+    static ReactElement object(PropsAndChildren callback) {
+        return create("object", callback);
     }
     static ReactElement ol() {
         return create("ol");
@@ -3749,6 +4209,9 @@ public interface DOM {
     static ReactElement ol(HTMLProps props, ReactElement... children) {
         return create("ol", props, children);
     }
+    static ReactElement ol(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("ol", props, childrenCallback);
+    }
     static ReactElement ol(Func.Run1<HTMLProps> callback) {
         return create("ol", callback);
     }
@@ -3763,6 +4226,9 @@ public interface DOM {
     }
     static ReactElement ol(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("ol", callback, childrenCallback);
+    }
+    static ReactElement ol(PropsAndChildren callback) {
+        return create("ol", callback);
     }
     static ReactElement optgroup() {
         return create("optgroup");
@@ -3800,6 +4266,9 @@ public interface DOM {
     static ReactElement optgroup(HTMLProps props, ReactElement... children) {
         return create("optgroup", props, children);
     }
+    static ReactElement optgroup(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("optgroup", props, childrenCallback);
+    }
     static ReactElement optgroup(Func.Run1<HTMLProps> callback) {
         return create("optgroup", callback);
     }
@@ -3814,6 +4283,9 @@ public interface DOM {
     }
     static ReactElement optgroup(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("optgroup", callback, childrenCallback);
+    }
+    static ReactElement optgroup(PropsAndChildren callback) {
+        return create("optgroup", callback);
     }
     static ReactElement option() {
         return create("option");
@@ -3851,6 +4323,9 @@ public interface DOM {
     static ReactElement option(HTMLProps props, ReactElement... children) {
         return create("option", props, children);
     }
+    static ReactElement option(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("option", props, childrenCallback);
+    }
     static ReactElement option(Func.Run1<HTMLProps> callback) {
         return create("option", callback);
     }
@@ -3865,6 +4340,9 @@ public interface DOM {
     }
     static ReactElement option(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("option", callback, childrenCallback);
+    }
+    static ReactElement option(PropsAndChildren callback) {
+        return create("option", callback);
     }
     static ReactElement output() {
         return create("output");
@@ -3902,6 +4380,9 @@ public interface DOM {
     static ReactElement output(HTMLProps props, ReactElement... children) {
         return create("output", props, children);
     }
+    static ReactElement output(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("output", props, childrenCallback);
+    }
     static ReactElement output(Func.Run1<HTMLProps> callback) {
         return create("output", callback);
     }
@@ -3916,6 +4397,9 @@ public interface DOM {
     }
     static ReactElement output(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("output", callback, childrenCallback);
+    }
+    static ReactElement output(PropsAndChildren callback) {
+        return create("output", callback);
     }
     static ReactElement p() {
         return create("p");
@@ -3953,6 +4437,9 @@ public interface DOM {
     static ReactElement p(HTMLProps props, ReactElement... children) {
         return create("p", props, children);
     }
+    static ReactElement p(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("p", props, childrenCallback);
+    }
     static ReactElement p(Func.Run1<HTMLProps> callback) {
         return create("p", callback);
     }
@@ -3967,6 +4454,9 @@ public interface DOM {
     }
     static ReactElement p(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("p", callback, childrenCallback);
+    }
+    static ReactElement p(PropsAndChildren callback) {
+        return create("p", callback);
     }
     static ReactElement param() {
         return create("param");
@@ -4004,6 +4494,9 @@ public interface DOM {
     static ReactElement param(HTMLProps props, ReactElement... children) {
         return create("param", props, children);
     }
+    static ReactElement param(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("param", props, childrenCallback);
+    }
     static ReactElement param(Func.Run1<HTMLProps> callback) {
         return create("param", callback);
     }
@@ -4018,6 +4511,9 @@ public interface DOM {
     }
     static ReactElement param(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("param", callback, childrenCallback);
+    }
+    static ReactElement param(PropsAndChildren callback) {
+        return create("param", callback);
     }
     static ReactElement picture() {
         return create("picture");
@@ -4055,6 +4551,9 @@ public interface DOM {
     static ReactElement picture(HTMLProps props, ReactElement... children) {
         return create("picture", props, children);
     }
+    static ReactElement picture(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("picture", props, childrenCallback);
+    }
     static ReactElement picture(Func.Run1<HTMLProps> callback) {
         return create("picture", callback);
     }
@@ -4069,6 +4568,9 @@ public interface DOM {
     }
     static ReactElement picture(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("picture", callback, childrenCallback);
+    }
+    static ReactElement picture(PropsAndChildren callback) {
+        return create("picture", callback);
     }
     static ReactElement pre() {
         return create("pre");
@@ -4106,6 +4608,9 @@ public interface DOM {
     static ReactElement pre(HTMLProps props, ReactElement... children) {
         return create("pre", props, children);
     }
+    static ReactElement pre(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("pre", props, childrenCallback);
+    }
     static ReactElement pre(Func.Run1<HTMLProps> callback) {
         return create("pre", callback);
     }
@@ -4120,6 +4625,9 @@ public interface DOM {
     }
     static ReactElement pre(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("pre", callback, childrenCallback);
+    }
+    static ReactElement pre(PropsAndChildren callback) {
+        return create("pre", callback);
     }
     static ReactElement progress() {
         return create("progress");
@@ -4157,6 +4665,9 @@ public interface DOM {
     static ReactElement progress(HTMLProps props, ReactElement... children) {
         return create("progress", props, children);
     }
+    static ReactElement progress(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("progress", props, childrenCallback);
+    }
     static ReactElement progress(Func.Run1<HTMLProps> callback) {
         return create("progress", callback);
     }
@@ -4171,6 +4682,9 @@ public interface DOM {
     }
     static ReactElement progress(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("progress", callback, childrenCallback);
+    }
+    static ReactElement progress(PropsAndChildren callback) {
+        return create("progress", callback);
     }
     static ReactElement q() {
         return create("q");
@@ -4208,6 +4722,9 @@ public interface DOM {
     static ReactElement q(HTMLProps props, ReactElement... children) {
         return create("q", props, children);
     }
+    static ReactElement q(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("q", props, childrenCallback);
+    }
     static ReactElement q(Func.Run1<HTMLProps> callback) {
         return create("q", callback);
     }
@@ -4222,6 +4739,9 @@ public interface DOM {
     }
     static ReactElement q(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("q", callback, childrenCallback);
+    }
+    static ReactElement q(PropsAndChildren callback) {
+        return create("q", callback);
     }
     static ReactElement rp() {
         return create("rp");
@@ -4259,6 +4779,9 @@ public interface DOM {
     static ReactElement rp(HTMLProps props, ReactElement... children) {
         return create("rp", props, children);
     }
+    static ReactElement rp(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("rp", props, childrenCallback);
+    }
     static ReactElement rp(Func.Run1<HTMLProps> callback) {
         return create("rp", callback);
     }
@@ -4273,6 +4796,9 @@ public interface DOM {
     }
     static ReactElement rp(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("rp", callback, childrenCallback);
+    }
+    static ReactElement rp(PropsAndChildren callback) {
+        return create("rp", callback);
     }
     static ReactElement rt() {
         return create("rt");
@@ -4310,6 +4836,9 @@ public interface DOM {
     static ReactElement rt(HTMLProps props, ReactElement... children) {
         return create("rt", props, children);
     }
+    static ReactElement rt(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("rt", props, childrenCallback);
+    }
     static ReactElement rt(Func.Run1<HTMLProps> callback) {
         return create("rt", callback);
     }
@@ -4324,6 +4853,9 @@ public interface DOM {
     }
     static ReactElement rt(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("rt", callback, childrenCallback);
+    }
+    static ReactElement rt(PropsAndChildren callback) {
+        return create("rt", callback);
     }
     static ReactElement ruby() {
         return create("ruby");
@@ -4361,6 +4893,9 @@ public interface DOM {
     static ReactElement ruby(HTMLProps props, ReactElement... children) {
         return create("ruby", props, children);
     }
+    static ReactElement ruby(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("ruby", props, childrenCallback);
+    }
     static ReactElement ruby(Func.Run1<HTMLProps> callback) {
         return create("ruby", callback);
     }
@@ -4375,6 +4910,9 @@ public interface DOM {
     }
     static ReactElement ruby(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("ruby", callback, childrenCallback);
+    }
+    static ReactElement ruby(PropsAndChildren callback) {
+        return create("ruby", callback);
     }
     static ReactElement s() {
         return create("s");
@@ -4412,6 +4950,9 @@ public interface DOM {
     static ReactElement s(HTMLProps props, ReactElement... children) {
         return create("s", props, children);
     }
+    static ReactElement s(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("s", props, childrenCallback);
+    }
     static ReactElement s(Func.Run1<HTMLProps> callback) {
         return create("s", callback);
     }
@@ -4426,6 +4967,9 @@ public interface DOM {
     }
     static ReactElement s(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("s", callback, childrenCallback);
+    }
+    static ReactElement s(PropsAndChildren callback) {
+        return create("s", callback);
     }
     static ReactElement samp() {
         return create("samp");
@@ -4463,6 +5007,9 @@ public interface DOM {
     static ReactElement samp(HTMLProps props, ReactElement... children) {
         return create("samp", props, children);
     }
+    static ReactElement samp(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("samp", props, childrenCallback);
+    }
     static ReactElement samp(Func.Run1<HTMLProps> callback) {
         return create("samp", callback);
     }
@@ -4477,6 +5024,9 @@ public interface DOM {
     }
     static ReactElement samp(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("samp", callback, childrenCallback);
+    }
+    static ReactElement samp(PropsAndChildren callback) {
+        return create("samp", callback);
     }
     static ReactElement script() {
         return create("script");
@@ -4514,6 +5064,9 @@ public interface DOM {
     static ReactElement script(HTMLProps props, ReactElement... children) {
         return create("script", props, children);
     }
+    static ReactElement script(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("script", props, childrenCallback);
+    }
     static ReactElement script(Func.Run1<HTMLProps> callback) {
         return create("script", callback);
     }
@@ -4528,6 +5081,9 @@ public interface DOM {
     }
     static ReactElement script(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("script", callback, childrenCallback);
+    }
+    static ReactElement script(PropsAndChildren callback) {
+        return create("script", callback);
     }
     static ReactElement section() {
         return create("section");
@@ -4565,6 +5121,9 @@ public interface DOM {
     static ReactElement section(HTMLProps props, ReactElement... children) {
         return create("section", props, children);
     }
+    static ReactElement section(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("section", props, childrenCallback);
+    }
     static ReactElement section(Func.Run1<HTMLProps> callback) {
         return create("section", callback);
     }
@@ -4579,6 +5138,9 @@ public interface DOM {
     }
     static ReactElement section(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("section", callback, childrenCallback);
+    }
+    static ReactElement section(PropsAndChildren callback) {
+        return create("section", callback);
     }
     static ReactElement select() {
         return create("select");
@@ -4616,6 +5178,9 @@ public interface DOM {
     static ReactElement select(HTMLProps props, ReactElement... children) {
         return create("select", props, children);
     }
+    static ReactElement select(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("select", props, childrenCallback);
+    }
     static ReactElement select(Func.Run1<HTMLProps> callback) {
         return create("select", callback);
     }
@@ -4630,6 +5195,9 @@ public interface DOM {
     }
     static ReactElement select(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("select", callback, childrenCallback);
+    }
+    static ReactElement select(PropsAndChildren callback) {
+        return create("select", callback);
     }
     static ReactElement small() {
         return create("small");
@@ -4667,6 +5235,9 @@ public interface DOM {
     static ReactElement small(HTMLProps props, ReactElement... children) {
         return create("small", props, children);
     }
+    static ReactElement small(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("small", props, childrenCallback);
+    }
     static ReactElement small(Func.Run1<HTMLProps> callback) {
         return create("small", callback);
     }
@@ -4681,6 +5252,9 @@ public interface DOM {
     }
     static ReactElement small(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("small", callback, childrenCallback);
+    }
+    static ReactElement small(PropsAndChildren callback) {
+        return create("small", callback);
     }
     static ReactElement source() {
         return create("source");
@@ -4718,6 +5292,9 @@ public interface DOM {
     static ReactElement source(HTMLProps props, ReactElement... children) {
         return create("source", props, children);
     }
+    static ReactElement source(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("source", props, childrenCallback);
+    }
     static ReactElement source(Func.Run1<HTMLProps> callback) {
         return create("source", callback);
     }
@@ -4732,6 +5309,9 @@ public interface DOM {
     }
     static ReactElement source(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("source", callback, childrenCallback);
+    }
+    static ReactElement source(PropsAndChildren callback) {
+        return create("source", callback);
     }
     static ReactElement span() {
         return create("span");
@@ -4769,6 +5349,9 @@ public interface DOM {
     static ReactElement span(HTMLProps props, ReactElement... children) {
         return create("span", props, children);
     }
+    static ReactElement span(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("span", props, childrenCallback);
+    }
     static ReactElement span(Func.Run1<HTMLProps> callback) {
         return create("span", callback);
     }
@@ -4783,6 +5366,9 @@ public interface DOM {
     }
     static ReactElement span(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("span", callback, childrenCallback);
+    }
+    static ReactElement span(PropsAndChildren callback) {
+        return create("span", callback);
     }
     static ReactElement strong() {
         return create("strong");
@@ -4820,6 +5406,9 @@ public interface DOM {
     static ReactElement strong(HTMLProps props, ReactElement... children) {
         return create("strong", props, children);
     }
+    static ReactElement strong(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("strong", props, childrenCallback);
+    }
     static ReactElement strong(Func.Run1<HTMLProps> callback) {
         return create("strong", callback);
     }
@@ -4834,6 +5423,9 @@ public interface DOM {
     }
     static ReactElement strong(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("strong", callback, childrenCallback);
+    }
+    static ReactElement strong(PropsAndChildren callback) {
+        return create("strong", callback);
     }
     static ReactElement style() {
         return create("style");
@@ -4871,6 +5463,9 @@ public interface DOM {
     static ReactElement style(HTMLProps props, ReactElement... children) {
         return create("style", props, children);
     }
+    static ReactElement style(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("style", props, childrenCallback);
+    }
     static ReactElement style(Func.Run1<HTMLProps> callback) {
         return create("style", callback);
     }
@@ -4885,6 +5480,9 @@ public interface DOM {
     }
     static ReactElement style(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("style", callback, childrenCallback);
+    }
+    static ReactElement style(PropsAndChildren callback) {
+        return create("style", callback);
     }
     static ReactElement sub() {
         return create("sub");
@@ -4922,6 +5520,9 @@ public interface DOM {
     static ReactElement sub(HTMLProps props, ReactElement... children) {
         return create("sub", props, children);
     }
+    static ReactElement sub(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("sub", props, childrenCallback);
+    }
     static ReactElement sub(Func.Run1<HTMLProps> callback) {
         return create("sub", callback);
     }
@@ -4936,6 +5537,9 @@ public interface DOM {
     }
     static ReactElement sub(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("sub", callback, childrenCallback);
+    }
+    static ReactElement sub(PropsAndChildren callback) {
+        return create("sub", callback);
     }
     static ReactElement summary() {
         return create("summary");
@@ -4973,6 +5577,9 @@ public interface DOM {
     static ReactElement summary(HTMLProps props, ReactElement... children) {
         return create("summary", props, children);
     }
+    static ReactElement summary(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("summary", props, childrenCallback);
+    }
     static ReactElement summary(Func.Run1<HTMLProps> callback) {
         return create("summary", callback);
     }
@@ -4987,6 +5594,9 @@ public interface DOM {
     }
     static ReactElement summary(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("summary", callback, childrenCallback);
+    }
+    static ReactElement summary(PropsAndChildren callback) {
+        return create("summary", callback);
     }
     static ReactElement sup() {
         return create("sup");
@@ -5024,6 +5634,9 @@ public interface DOM {
     static ReactElement sup(HTMLProps props, ReactElement... children) {
         return create("sup", props, children);
     }
+    static ReactElement sup(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("sup", props, childrenCallback);
+    }
     static ReactElement sup(Func.Run1<HTMLProps> callback) {
         return create("sup", callback);
     }
@@ -5038,6 +5651,9 @@ public interface DOM {
     }
     static ReactElement sup(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("sup", callback, childrenCallback);
+    }
+    static ReactElement sup(PropsAndChildren callback) {
+        return create("sup", callback);
     }
     static ReactElement table() {
         return create("table");
@@ -5075,6 +5691,9 @@ public interface DOM {
     static ReactElement table(HTMLProps props, ReactElement... children) {
         return create("table", props, children);
     }
+    static ReactElement table(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("table", props, childrenCallback);
+    }
     static ReactElement table(Func.Run1<HTMLProps> callback) {
         return create("table", callback);
     }
@@ -5089,6 +5708,9 @@ public interface DOM {
     }
     static ReactElement table(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("table", callback, childrenCallback);
+    }
+    static ReactElement table(PropsAndChildren callback) {
+        return create("table", callback);
     }
     static ReactElement tbody() {
         return create("tbody");
@@ -5126,6 +5748,9 @@ public interface DOM {
     static ReactElement tbody(HTMLProps props, ReactElement... children) {
         return create("tbody", props, children);
     }
+    static ReactElement tbody(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("tbody", props, childrenCallback);
+    }
     static ReactElement tbody(Func.Run1<HTMLProps> callback) {
         return create("tbody", callback);
     }
@@ -5140,6 +5765,9 @@ public interface DOM {
     }
     static ReactElement tbody(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("tbody", callback, childrenCallback);
+    }
+    static ReactElement tbody(PropsAndChildren callback) {
+        return create("tbody", callback);
     }
     static ReactElement td() {
         return create("td");
@@ -5177,6 +5805,9 @@ public interface DOM {
     static ReactElement td(HTMLProps props, ReactElement... children) {
         return create("td", props, children);
     }
+    static ReactElement td(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("td", props, childrenCallback);
+    }
     static ReactElement td(Func.Run1<HTMLProps> callback) {
         return create("td", callback);
     }
@@ -5191,6 +5822,9 @@ public interface DOM {
     }
     static ReactElement td(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("td", callback, childrenCallback);
+    }
+    static ReactElement td(PropsAndChildren callback) {
+        return create("td", callback);
     }
     static ReactElement textarea() {
         return create("textarea");
@@ -5228,6 +5862,9 @@ public interface DOM {
     static ReactElement textarea(HTMLProps props, ReactElement... children) {
         return create("textarea", props, children);
     }
+    static ReactElement textarea(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("textarea", props, childrenCallback);
+    }
     static ReactElement textarea(Func.Run1<HTMLProps> callback) {
         return create("textarea", callback);
     }
@@ -5242,6 +5879,9 @@ public interface DOM {
     }
     static ReactElement textarea(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("textarea", callback, childrenCallback);
+    }
+    static ReactElement textarea(PropsAndChildren callback) {
+        return create("textarea", callback);
     }
     static ReactElement tfoot() {
         return create("tfoot");
@@ -5279,6 +5919,9 @@ public interface DOM {
     static ReactElement tfoot(HTMLProps props, ReactElement... children) {
         return create("tfoot", props, children);
     }
+    static ReactElement tfoot(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("tfoot", props, childrenCallback);
+    }
     static ReactElement tfoot(Func.Run1<HTMLProps> callback) {
         return create("tfoot", callback);
     }
@@ -5293,6 +5936,9 @@ public interface DOM {
     }
     static ReactElement tfoot(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("tfoot", callback, childrenCallback);
+    }
+    static ReactElement tfoot(PropsAndChildren callback) {
+        return create("tfoot", callback);
     }
     static ReactElement th() {
         return create("th");
@@ -5330,6 +5976,9 @@ public interface DOM {
     static ReactElement th(HTMLProps props, ReactElement... children) {
         return create("th", props, children);
     }
+    static ReactElement th(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("th", props, childrenCallback);
+    }
     static ReactElement th(Func.Run1<HTMLProps> callback) {
         return create("th", callback);
     }
@@ -5344,6 +5993,9 @@ public interface DOM {
     }
     static ReactElement th(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("th", callback, childrenCallback);
+    }
+    static ReactElement th(PropsAndChildren callback) {
+        return create("th", callback);
     }
     static ReactElement thead() {
         return create("thead");
@@ -5381,6 +6033,9 @@ public interface DOM {
     static ReactElement thead(HTMLProps props, ReactElement... children) {
         return create("thead", props, children);
     }
+    static ReactElement thead(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("thead", props, childrenCallback);
+    }
     static ReactElement thead(Func.Run1<HTMLProps> callback) {
         return create("thead", callback);
     }
@@ -5395,6 +6050,9 @@ public interface DOM {
     }
     static ReactElement thead(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("thead", callback, childrenCallback);
+    }
+    static ReactElement thead(PropsAndChildren callback) {
+        return create("thead", callback);
     }
     static ReactElement time() {
         return create("time");
@@ -5432,6 +6090,9 @@ public interface DOM {
     static ReactElement time(HTMLProps props, ReactElement... children) {
         return create("time", props, children);
     }
+    static ReactElement time(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("time", props, childrenCallback);
+    }
     static ReactElement time(Func.Run1<HTMLProps> callback) {
         return create("time", callback);
     }
@@ -5446,6 +6107,9 @@ public interface DOM {
     }
     static ReactElement time(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("time", callback, childrenCallback);
+    }
+    static ReactElement time(PropsAndChildren callback) {
+        return create("time", callback);
     }
     static ReactElement title() {
         return create("title");
@@ -5483,6 +6147,9 @@ public interface DOM {
     static ReactElement title(HTMLProps props, ReactElement... children) {
         return create("title", props, children);
     }
+    static ReactElement title(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("title", props, childrenCallback);
+    }
     static ReactElement title(Func.Run1<HTMLProps> callback) {
         return create("title", callback);
     }
@@ -5497,6 +6164,9 @@ public interface DOM {
     }
     static ReactElement title(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("title", callback, childrenCallback);
+    }
+    static ReactElement title(PropsAndChildren callback) {
+        return create("title", callback);
     }
     static ReactElement tr() {
         return create("tr");
@@ -5534,6 +6204,9 @@ public interface DOM {
     static ReactElement tr(HTMLProps props, ReactElement... children) {
         return create("tr", props, children);
     }
+    static ReactElement tr(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("tr", props, childrenCallback);
+    }
     static ReactElement tr(Func.Run1<HTMLProps> callback) {
         return create("tr", callback);
     }
@@ -5548,6 +6221,9 @@ public interface DOM {
     }
     static ReactElement tr(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("tr", callback, childrenCallback);
+    }
+    static ReactElement tr(PropsAndChildren callback) {
+        return create("tr", callback);
     }
     static ReactElement track() {
         return create("track");
@@ -5585,6 +6261,9 @@ public interface DOM {
     static ReactElement track(HTMLProps props, ReactElement... children) {
         return create("track", props, children);
     }
+    static ReactElement track(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("track", props, childrenCallback);
+    }
     static ReactElement track(Func.Run1<HTMLProps> callback) {
         return create("track", callback);
     }
@@ -5599,6 +6278,9 @@ public interface DOM {
     }
     static ReactElement track(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("track", callback, childrenCallback);
+    }
+    static ReactElement track(PropsAndChildren callback) {
+        return create("track", callback);
     }
     static ReactElement u() {
         return create("u");
@@ -5636,6 +6318,9 @@ public interface DOM {
     static ReactElement u(HTMLProps props, ReactElement... children) {
         return create("u", props, children);
     }
+    static ReactElement u(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("u", props, childrenCallback);
+    }
     static ReactElement u(Func.Run1<HTMLProps> callback) {
         return create("u", callback);
     }
@@ -5650,6 +6335,9 @@ public interface DOM {
     }
     static ReactElement u(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("u", callback, childrenCallback);
+    }
+    static ReactElement u(PropsAndChildren callback) {
+        return create("u", callback);
     }
     static ReactElement ul() {
         return create("ul");
@@ -5687,6 +6375,9 @@ public interface DOM {
     static ReactElement ul(HTMLProps props, ReactElement... children) {
         return create("ul", props, children);
     }
+    static ReactElement ul(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("ul", props, childrenCallback);
+    }
     static ReactElement ul(Func.Run1<HTMLProps> callback) {
         return create("ul", callback);
     }
@@ -5701,6 +6392,9 @@ public interface DOM {
     }
     static ReactElement ul(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("ul", callback, childrenCallback);
+    }
+    static ReactElement ul(PropsAndChildren callback) {
+        return create("ul", callback);
     }
     static ReactElement var() {
         return create("var");
@@ -5738,6 +6432,9 @@ public interface DOM {
     static ReactElement var(HTMLProps props, ReactElement... children) {
         return create("var", props, children);
     }
+    static ReactElement var(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("var", props, childrenCallback);
+    }
     static ReactElement var(Func.Run1<HTMLProps> callback) {
         return create("var", callback);
     }
@@ -5752,6 +6449,9 @@ public interface DOM {
     }
     static ReactElement var(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("var", callback, childrenCallback);
+    }
+    static ReactElement var(PropsAndChildren callback) {
+        return create("var", callback);
     }
     static ReactElement video() {
         return create("video");
@@ -5789,6 +6489,9 @@ public interface DOM {
     static ReactElement video(HTMLProps props, ReactElement... children) {
         return create("video", props, children);
     }
+    static ReactElement video(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("video", props, childrenCallback);
+    }
     static ReactElement video(Func.Run1<HTMLProps> callback) {
         return create("video", callback);
     }
@@ -5803,6 +6506,9 @@ public interface DOM {
     }
     static ReactElement video(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("video", callback, childrenCallback);
+    }
+    static ReactElement video(PropsAndChildren callback) {
+        return create("video", callback);
     }
     static ReactElement wbr() {
         return create("wbr");
@@ -5840,6 +6546,9 @@ public interface DOM {
     static ReactElement wbr(HTMLProps props, ReactElement... children) {
         return create("wbr", props, children);
     }
+    static ReactElement wbr(HTMLProps props, Func.Run1<ChildList> childrenCallback) {
+        return create("wbr", props, childrenCallback);
+    }
     static ReactElement wbr(Func.Run1<HTMLProps> callback) {
         return create("wbr", callback);
     }
@@ -5854,6 +6563,9 @@ public interface DOM {
     }
     static ReactElement wbr(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {
         return create("wbr", callback, childrenCallback);
+    }
+    static ReactElement wbr(PropsAndChildren callback) {
+        return create("wbr", callback);
     }
 
 
