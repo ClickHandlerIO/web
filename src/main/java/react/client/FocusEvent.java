@@ -1,14 +1,19 @@
 package react.client;
 
 import elemental.events.EventTarget;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface FocusEvent extends SyntheticEvent {
-    @JsProperty
-    EventTarget getRelatedTarget();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class FocusEvent extends SyntheticEvent {
+    public EventTarget relatedTarget;
+
+    @JsOverlay
+    public final EventTarget getRelatedTarget() {
+        return relatedTarget;
+    }
 }

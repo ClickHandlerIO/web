@@ -2,53 +2,94 @@ package react.client;
 
 import elemental.events.EventTarget;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface MouseEvent extends SyntheticEvent {
-    @JsProperty
-    boolean isAltKey();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class MouseEvent extends SyntheticEvent {
+    public boolean altKey;
+    public double button;
+    public double buttons;
+    public double clientX;
+    public double clientY;
+    public boolean ctrlKey;
+    public boolean metaKey;
+    public double pageX;
+    public double pageY;
+    public EventTarget relatedTarget;
+    public double screenX;
+    public double screenY;
+    public boolean shiftKey;
+    
+    @JsOverlay
+    public final boolean isAltKey() {
+        return altKey;
+    }
 
-    @JsProperty
-    Number getButton();
+    @JsOverlay
+    public final double getButton() {
+        return button;
+    }
 
-    @JsProperty
-    Number getButtons();
+    @JsOverlay
+    public final double getButtons() {
+        return buttons;
+    }
 
-    @JsProperty
-    Number getClientX();
+    @JsOverlay
+    public final double getClientX() {
+        return clientX;
+    }
 
-    @JsProperty
-    Number getClientY();
+    @JsOverlay
+    public final double getClientY() {
+        return clientY;
+    }
 
-    @JsProperty
-    boolean isCtrlKey();
+    @JsOverlay
+    public final boolean isCtrlKey() {
+        return ctrlKey;
+    }
 
     @JsMethod
-    boolean getModifierState(String key);
+    public final native boolean getModifierState(String key);
 
-    @JsProperty
-    boolean isMetaKey();
+    @JsOverlay
+    public final boolean isMetaKey() {
+        return metaKey;
+    }
 
-    @JsProperty
-    Number getPageX();
+    @JsOverlay
+    public final double getPageX() {
+        return pageX;
+    }
 
-    @JsProperty
-    Number getPageY();
+    @JsOverlay
+    public final double getPageY() {
+        return pageY;
+    }
 
-    @JsProperty
-    EventTarget getRelatedTarget();
+    @JsOverlay
+    public final EventTarget getRelatedTarget() {
+        return relatedTarget;
+    }
 
-    @JsProperty
-    Number getScreenX();
+    @JsOverlay
+    public final double getScreenX() {
+        return screenX;
+    }
 
-    @JsProperty
-    Number getScreenY();
+    @JsOverlay
+    public final double getScreenY() {
+        return screenY;
+    }
 
-    @JsProperty
-    boolean isShiftKey();
+    @JsOverlay
+    public final boolean isShiftKey() {
+        return shiftKey;
+    }
 }

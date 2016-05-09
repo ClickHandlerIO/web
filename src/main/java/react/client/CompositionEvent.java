@@ -1,13 +1,18 @@
 package react.client;
 
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface CompositionEvent extends SyntheticEvent {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class CompositionEvent extends SyntheticEvent {
+    public String data;
+
     @JsProperty
-    String getData();
+    public final String getData() {
+        return data;
+    }
 }

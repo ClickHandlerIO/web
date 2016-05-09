@@ -1,14 +1,19 @@
 package react.client;
 
 import elemental.dom.Clipboard;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface ClipboardEvent extends SyntheticEvent {
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class ClipboardEvent extends SyntheticEvent {
+    public Clipboard dataTransfer;
+
     @JsProperty
-    Clipboard getClipboardData();
+    public final Clipboard getClipboardData() {
+        return dataTransfer;
+    }
 }

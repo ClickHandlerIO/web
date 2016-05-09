@@ -1,5 +1,6 @@
 package react.client;
 
+import common.client.Func;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -15,131 +16,131 @@ public class DOMProps {
     @JsProperty
     public Object ref;
     @JsProperty
-    public ClipboardEventHandler onCopy;
+    public Func.Run1<ClipboardEvent> onCopy;
     @JsProperty
-    public ClipboardEventHandler onCut;
+    public Func.Run1<ClipboardEvent> onCut;
     @JsProperty
-    public ClipboardEventHandler onPaste;
+    public Func.Run1<ClipboardEvent> onPaste;
     @JsProperty
-    public CompositionEventHandler onCompositionEnd;
+    public Func.Run1<CompositionEvent> onCompositionEnd;
     @JsProperty
-    public CompositionEventHandler onCompositionStart;
+    public Func.Run1<CompositionEvent> onCompositionStart;
     @JsProperty
-    public CompositionEventHandler onCompositionUpdate;
+    public Func.Run1<CompositionEvent> onCompositionUpdate;
     @JsProperty
-    public FocusEventHandler onFocus;
+    public Func.Run1<FocusEvent> onFocus;
     @JsProperty
-    public FocusEventHandler onBlur;
+    public Func.Run1<FocusEvent> onBlur;
     @JsProperty
-    public FormEventHandler onChange;
+    public Func.Run1<FormEvent> onChange;
     @JsProperty
-    public FormEventHandler onInput;
+    public Func.Run1<FormEvent> onInput;
     @JsProperty
-    public FormEventHandler onSubmit;
+    public Func.Run1<FormEvent> onSubmit;
     @JsProperty
-    public ReactEventHandler onLoad;
+    public Func.Run1<SyntheticEvent> onLoad;
     @JsProperty
-    public ReactEventHandler onError;
+    public Func.Run1<SyntheticEvent> onError;
     @JsProperty
-    public KeyboardEventHandler onKeyDown;
+    public Func.Run1<KeyboardEvent> onKeyDown;
     @JsProperty
-    public KeyboardEventHandler onKeyPress;
+    public Func.Run1<KeyboardEvent> onKeyPress;
     @JsProperty
-    public KeyboardEventHandler onKeyUp;
+    public Func.Run1<KeyboardEvent> onKeyUp;
     @JsProperty
-    public ReactEventHandler onAbort;
+    public Func.Run1<SyntheticEvent> onAbort;
     @JsProperty
-    public ReactEventHandler onCanPlay;
+    public Func.Run1<SyntheticEvent> onCanPlay;
     @JsProperty
-    public ReactEventHandler onCanPlayThrough;
+    public Func.Run1<SyntheticEvent> onCanPlayThrough;
     @JsProperty
-    public ReactEventHandler onDurationChange;
+    public Func.Run1<SyntheticEvent> onDurationChange;
     @JsProperty
-    public ReactEventHandler onEmptied;
+    public Func.Run1<SyntheticEvent> onEmptied;
     @JsProperty
-    public ReactEventHandler onEncrypted;
+    public Func.Run1<SyntheticEvent> onEncrypted;
     @JsProperty
-    public ReactEventHandler onEnded;
+    public Func.Run1<SyntheticEvent> onEnded;
     @JsProperty
-    public ReactEventHandler onLoadedData;
+    public Func.Run1<SyntheticEvent> onLoadedData;
     @JsProperty
-    public ReactEventHandler onLoadedMetadata;
+    public Func.Run1<SyntheticEvent> onLoadedMetadata;
     @JsProperty
-    public ReactEventHandler onLoadStart;
+    public Func.Run1<SyntheticEvent> onLoadStart;
     @JsProperty
-    public ReactEventHandler onPause;
+    public Func.Run1<SyntheticEvent> onPause;
     @JsProperty
-    public ReactEventHandler onPlay;
+    public Func.Run1<SyntheticEvent> onPlay;
     @JsProperty
-    public ReactEventHandler onPlaying;
+    public Func.Run1<SyntheticEvent> onPlaying;
     @JsProperty
-    public ReactEventHandler onProgress;
+    public Func.Run1<SyntheticEvent> onProgress;
     @JsProperty
-    public ReactEventHandler onRateChange;
+    public Func.Run1<SyntheticEvent> onRateChange;
     @JsProperty
-    public ReactEventHandler onSeeked;
+    public Func.Run1<SyntheticEvent> onSeeked;
     @JsProperty
-    public ReactEventHandler onSeeking;
+    public Func.Run1<SyntheticEvent> onSeeking;
     @JsProperty
-    public ReactEventHandler onStalled;
+    public Func.Run1<SyntheticEvent> onStalled;
     @JsProperty
-    public ReactEventHandler onSuspend;
+    public Func.Run1<SyntheticEvent> onSuspend;
     @JsProperty
-    public ReactEventHandler onTimeUpdate;
+    public Func.Run1<SyntheticEvent> onTimeUpdate;
     @JsProperty
-    public ReactEventHandler onVolumeChange;
+    public Func.Run1<SyntheticEvent> onVolumeChange;
     @JsProperty
-    public ReactEventHandler onWaiting;
+    public Func.Run1<SyntheticEvent> onWaiting;
     @JsProperty
-    public MouseEventHandler onClick;
+    public Func.Run1<MouseEvent> onClick;
     @JsProperty
-    public MouseEventHandler onContextMenu;
+    public Func.Run1<MouseEvent> onContextMenu;
     @JsProperty
-    public MouseEventHandler onDoubleClick;
+    public Func.Run1<MouseEvent> onDoubleClick;
     @JsProperty
-    public DragEventHandler onDrag;
+    public Func.Run1<DragEvent> onDrag;
     @JsProperty
-    public DragEventHandler onDragEnd;
+    public Func.Run1<DragEvent> onDragEnd;
     @JsProperty
-    public DragEventHandler onDragEnter;
+    public Func.Run1<DragEvent> onDragEnter;
     @JsProperty
-    public DragEventHandler onDragExit;
+    public Func.Run1<DragEvent> onDragExit;
     @JsProperty
-    public DragEventHandler onDragLeave;
+    public Func.Run1<DragEvent> onDragLeave;
     @JsProperty
-    public DragEventHandler onDragOver;
+    public Func.Run1<DragEvent> onDragOver;
     @JsProperty
-    public DragEventHandler onDragStart;
+    public Func.Run1<DragEvent> onDragStart;
     @JsProperty
-    public DragEventHandler onDrop;
+    public Func.Run1<DragEvent> onDrop;
     @JsProperty
-    public MouseEventHandler onMouseDown;
+    public Func.Run1<MouseEvent> onMouseDown;
     @JsProperty
-    public MouseEventHandler onMouseEnter;
+    public Func.Run1<MouseEvent> onMouseEnter;
     @JsProperty
-    public MouseEventHandler onMouseLeave;
+    public Func.Run1<MouseEvent> onMouseLeave;
     @JsProperty
-    public MouseEventHandler onMouseMove;
+    public Func.Run1<MouseEvent> onMouseMove;
     @JsProperty
-    public MouseEventHandler onMouseOut;
+    public Func.Run1<MouseEvent> onMouseOut;
     @JsProperty
-    public MouseEventHandler onMouseOver;
+    public Func.Run1<MouseEvent> onMouseOver;
     @JsProperty
-    public MouseEventHandler onMouseUp;
+    public Func.Run1<MouseEvent> onMouseUp;
     @JsProperty
-    public ReactEventHandler onSelect;
+    public Func.Run1<SyntheticEvent> onSelect;
     @JsProperty
-    public TouchEventHandler onTouchCancel;
+    public Func.Run1<TouchEvent> onTouchCancel;
     @JsProperty
-    public TouchEventHandler onTouchEnd;
+    public Func.Run1<TouchEvent> onTouchEnd;
     @JsProperty
-    public TouchEventHandler onTouchMove;
+    public Func.Run1<TouchEvent> onTouchMove;
     @JsProperty
-    public TouchEventHandler onTouchStart;
+    public Func.Run1<TouchEvent> onTouchStart;
     @JsProperty
-    public UIEventHandler onScroll;
+    public Func.Run1<UIEvent> onScroll;
     @JsProperty
-    public WheelEventHandler onWheel;
+    public Func.Run1<WheelEvent> onWheel;
 
     @JsOverlay
     public final ReactElement children() {

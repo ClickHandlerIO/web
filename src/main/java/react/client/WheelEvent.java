@@ -1,22 +1,36 @@
 package react.client;
 
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface WheelEvent extends SyntheticEvent {
-    @JsProperty
-    Number getDeltaMode();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class WheelEvent extends SyntheticEvent {
+    public double deltaMode;
+    public double deltaX;
+    public double deltaY;
+    public double deltaZ;
 
     @JsProperty
-    Number getDeltaX();
+    public final double getDeltaMode() {
+        return deltaMode;
+    }
 
     @JsProperty
-    Number getDeltaY();
+    public final double getDeltaX() {
+        return deltaX;
+    }
 
     @JsProperty
-    Number getDeltaZ();
+    public final double getDeltaY() {
+        return deltaY;
+    }
+
+    @JsProperty
+    public final double getDeltaZ() {
+        return deltaZ;
+    }
 }

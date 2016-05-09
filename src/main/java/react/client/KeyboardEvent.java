@@ -1,47 +1,82 @@
 package react.client;
 
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface KeyboardEvent extends SyntheticEvent {
-    @JsProperty
-    boolean getAltKey();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class KeyboardEvent extends SyntheticEvent {
+    public boolean altKey;
+    public double charCode;
+    public boolean ctrlKey;
+    public String key;
+    public double keyCode;
+    public String locale;
+    public double location;
+    public boolean metaKey;
+    public boolean repeat;
+    public boolean shiftKey;
+    public double which;
 
-    @JsProperty
-    Number getCharCode();
+    @JsOverlay
+    public final boolean getAltKey() {
+        return altKey;
+    }
 
-    @JsProperty
-    boolean isCtrlKey();
+    @JsOverlay
+    public final Number getCharCode() {
+        return charCode;
+    }
+
+    @JsOverlay
+    public final boolean isCtrlKey() {
+        return ctrlKey;
+    }
 
     @JsMethod
-    boolean getModifierState(String key);
+    public final native boolean getModifierState(String key);
 
-    @JsProperty
-    String getKey();
+    @JsOverlay
+    public final String getKey() {
+        return key;
+    }
 
-    @JsProperty
-    Number getKeyCode();
+    @JsOverlay
+    public final double getKeyCode() {
+        return keyCode;
+    }
 
-    @JsProperty
-    String getLocale();
+    @JsOverlay
+    public final String getLocale() {
+        return locale;
+    }
 
-    @JsProperty
-    Number getLocation();
+    @JsOverlay
+    public final double getLocation() {
+        return location;
+    }
 
-    @JsProperty
-    boolean isMetaKey();
+    @JsOverlay
+    public final boolean isMetaKey() {
+        return metaKey;
+    }
 
-    @JsProperty
-    boolean isRepeat();
+    @JsOverlay
+    public final boolean isRepeat() {
+        return repeat;
+    }
 
-    @JsProperty
-    boolean isShiftKey();
+    @JsOverlay
+    public final boolean isShiftKey() {
+        return shiftKey;
+    }
 
-    @JsProperty
-    Number getWhich();
+    @JsOverlay
+    public final double getWhich() {
+        return which;
+    }
 }

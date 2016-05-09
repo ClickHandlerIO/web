@@ -1205,441 +1205,441 @@ public class HTMLProps extends DOMProps {
 
     
     @JsOverlay
-    public final HTMLProps onCopy(ClipboardEventHandler value) {
+    public final HTMLProps onCopy(Func.Run1<ClipboardEvent> value) {
         this.onCopy = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCut(ClipboardEventHandler value) {
+    public final HTMLProps onCut(Func.Run1<ClipboardEvent> value) {
         this.onCut = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onPaste(ClipboardEventHandler value) {
+    public final HTMLProps onPaste(Func.Run1<ClipboardEvent> value) {
         this.onPaste = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCompositionEnd(CompositionEventHandler value) {
+    public final HTMLProps onCompositionEnd(Func.Run1<CompositionEvent> value) {
         this.onCompositionEnd = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCompositionStart(CompositionEventHandler value) {
+    public final HTMLProps onCompositionStart(Func.Run1<CompositionEvent> value) {
         this.onCompositionStart = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCompositionUpdate(CompositionEventHandler value) {
+    public final HTMLProps onCompositionUpdate(Func.Run1<CompositionEvent> value) {
         this.onCompositionUpdate = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onFocus(FocusEventHandler value) {
+    public final HTMLProps onFocus(Func.Run1<FocusEvent> value) {
         this.onFocus = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onBlur(FocusEventHandler value) {
+    public final HTMLProps onBlur(Func.Run1<FocusEvent> value) {
         this.onBlur = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onChange(FormEventHandler value) {
+    public final HTMLProps onChange(Func.Run1<FormEvent> value) {
         this.onChange = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onInput(FormEventHandler value) {
+    public final HTMLProps onInput(Func.Run1<FormEvent> value) {
         this.onInput = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onSubmit(FormEventHandler value) {
+    public final HTMLProps onSubmit(Func.Run1<FormEvent> value) {
         this.onSubmit = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onLoad(ReactEventHandler value) {
+    public final HTMLProps onLoad(Func.Run1<SyntheticEvent> value) {
         this.onLoad = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onError(ReactEventHandler value) {
+    public final HTMLProps onError(Func.Run1<SyntheticEvent> value) {
         this.onError = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onKeyDown(KeyboardEventHandler value) {
+    public final HTMLProps onKeyDown(Func.Run1<KeyboardEvent> value) {
         this.onKeyDown = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onKeyPress(KeyboardEventHandler value) {
+    public final HTMLProps onKeyPress(Func.Run1<KeyboardEvent> value) {
         this.onKeyPress = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onKeyUp(KeyboardEventHandler value) {
+    public final HTMLProps onKeyUp(Func.Run1<KeyboardEvent> value) {
         this.onKeyUp = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onAbort(ReactEventHandler value) {
+    public final HTMLProps onAbort(Func.Run1<SyntheticEvent> value) {
         this.onAbort = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCanPlay(ReactEventHandler value) {
+    public final HTMLProps onCanPlay(Func.Run1<SyntheticEvent> value) {
         this.onCanPlay = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onCanPlayThrough(ReactEventHandler value) {
+    public final HTMLProps onCanPlayThrough(Func.Run1<SyntheticEvent> value) {
         this.onCanPlayThrough = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDurationChange(ReactEventHandler value) {
+    public final HTMLProps onDurationChange(Func.Run1<SyntheticEvent> value) {
         this.onDurationChange = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onEmptied(ReactEventHandler value) {
+    public final HTMLProps onEmptied(Func.Run1<SyntheticEvent> value) {
         this.onEmptied = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onEncrypted(ReactEventHandler value) {
+    public final HTMLProps onEncrypted(Func.Run1<SyntheticEvent> value) {
         this.onEncrypted = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onEnded(ReactEventHandler value) {
+    public final HTMLProps onEnded(Func.Run1<SyntheticEvent> value) {
         this.onEnded = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onLoadedData(ReactEventHandler value) {
+    public final HTMLProps onLoadedData(Func.Run1<SyntheticEvent> value) {
         this.onLoadedData = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onLoadedMetadata(ReactEventHandler value) {
+    public final HTMLProps onLoadedMetadata(Func.Run1<SyntheticEvent> value) {
         this.onLoadedMetadata = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onLoadStart(ReactEventHandler value) {
+    public final HTMLProps onLoadStart(Func.Run1<SyntheticEvent> value) {
         this.onLoadStart = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onPause(ReactEventHandler value) {
+    public final HTMLProps onPause(Func.Run1<SyntheticEvent> value) {
         this.onPause = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onPlay(ReactEventHandler value) {
+    public final HTMLProps onPlay(Func.Run1<SyntheticEvent> value) {
         this.onPlay = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onPlaying(ReactEventHandler value) {
+    public final HTMLProps onPlaying(Func.Run1<SyntheticEvent> value) {
         this.onPlaying = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onProgress(ReactEventHandler value) {
+    public final HTMLProps onProgress(Func.Run1<SyntheticEvent> value) {
         this.onProgress = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onRateChange(ReactEventHandler value) {
+    public final HTMLProps onRateChange(Func.Run1<SyntheticEvent> value) {
         this.onRateChange = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onSeeked(ReactEventHandler value) {
+    public final HTMLProps onSeeked(Func.Run1<SyntheticEvent> value) {
         this.onSeeked = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onSeeking(ReactEventHandler value) {
+    public final HTMLProps onSeeking(Func.Run1<SyntheticEvent> value) {
         this.onSeeking = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onStalled(ReactEventHandler value) {
+    public final HTMLProps onStalled(Func.Run1<SyntheticEvent> value) {
         this.onStalled = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onSuspend(ReactEventHandler value) {
+    public final HTMLProps onSuspend(Func.Run1<SyntheticEvent> value) {
         this.onSuspend = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onTimeUpdate(ReactEventHandler value) {
+    public final HTMLProps onTimeUpdate(Func.Run1<SyntheticEvent> value) {
         this.onTimeUpdate = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onVolumeChange(ReactEventHandler value) {
+    public final HTMLProps onVolumeChange(Func.Run1<SyntheticEvent> value) {
         this.onVolumeChange = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onWaiting(ReactEventHandler value) {
+    public final HTMLProps onWaiting(Func.Run1<SyntheticEvent> value) {
         this.onWaiting = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onClick(MouseEventHandler value) {
+    public final HTMLProps onClick(Func.Run1<MouseEvent> value) {
         this.onClick = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onContextMenu(MouseEventHandler value) {
+    public final HTMLProps onContextMenu(Func.Run1<MouseEvent> value) {
         this.onContextMenu = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDoubleClick(MouseEventHandler value) {
+    public final HTMLProps onDoubleClick(Func.Run1<MouseEvent> value) {
         this.onDoubleClick = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDrag(DragEventHandler value) {
+    public final HTMLProps onDrag(Func.Run1<DragEvent> value) {
         this.onDrag = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragEnd(DragEventHandler value) {
+    public final HTMLProps onDragEnd(Func.Run1<DragEvent> value) {
         this.onDragEnd = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragEnter(DragEventHandler value) {
+    public final HTMLProps onDragEnter(Func.Run1<DragEvent> value) {
         this.onDragEnter = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragExit(DragEventHandler value) {
+    public final HTMLProps onDragExit(Func.Run1<DragEvent> value) {
         this.onDragExit = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragLeave(DragEventHandler value) {
+    public final HTMLProps onDragLeave(Func.Run1<DragEvent> value) {
         this.onDragLeave = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragOver(DragEventHandler value) {
+    public final HTMLProps onDragOver(Func.Run1<DragEvent> value) {
         this.onDragOver = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDragStart(DragEventHandler value) {
+    public final HTMLProps onDragStart(Func.Run1<DragEvent> value) {
         this.onDragStart = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onDrop(DragEventHandler value) {
+    public final HTMLProps onDrop(Func.Run1<DragEvent> value) {
         this.onDrop = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseDown(MouseEventHandler value) {
+    public final HTMLProps onMouseDown(Func.Run1<MouseEvent> value) {
         this.onMouseDown = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseEnter(MouseEventHandler value) {
+    public final HTMLProps onMouseEnter(Func.Run1<MouseEvent> value) {
         this.onMouseEnter = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseLeave(MouseEventHandler value) {
+    public final HTMLProps onMouseLeave(Func.Run1<MouseEvent> value) {
         this.onMouseLeave = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseMove(MouseEventHandler value) {
+    public final HTMLProps onMouseMove(Func.Run1<MouseEvent> value) {
         this.onMouseMove = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseOut(MouseEventHandler value) {
+    public final HTMLProps onMouseOut(Func.Run1<MouseEvent> value) {
         this.onMouseOut = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseOver(MouseEventHandler value) {
+    public final HTMLProps onMouseOver(Func.Run1<MouseEvent> value) {
         this.onMouseOver = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onMouseUp(MouseEventHandler value) {
+    public final HTMLProps onMouseUp(Func.Run1<MouseEvent> value) {
         this.onMouseUp = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onSelect(ReactEventHandler value) {
+    public final HTMLProps onSelect(Func.Run1<SyntheticEvent> value) {
         this.onSelect = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onTouchCancel(TouchEventHandler value) {
+    public final HTMLProps onTouchCancel(Func.Run1<TouchEvent> value) {
         this.onTouchCancel = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onTouchEnd(TouchEventHandler value) {
+    public final HTMLProps onTouchEnd(Func.Run1<TouchEvent> value) {
         this.onTouchEnd = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onTouchMove(TouchEventHandler value) {
+    public final HTMLProps onTouchMove(Func.Run1<TouchEvent> value) {
         this.onTouchMove = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onTouchStart(TouchEventHandler value) {
+    public final HTMLProps onTouchStart(Func.Run1<TouchEvent> value) {
         this.onTouchStart = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onScroll(UIEventHandler value) {
+    public final HTMLProps onScroll(Func.Run1<UIEvent> value) {
         this.onScroll = value;
         return this;
     }
 
     
     @JsOverlay
-    public final HTMLProps onWheel(WheelEventHandler value) {
+    public final HTMLProps onWheel(Func.Run1<WheelEvent> value) {
         this.onWheel = value;
         return this;
     }

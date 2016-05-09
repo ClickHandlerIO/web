@@ -1,26 +1,59 @@
 package react.client;
 
 import elemental.events.TouchList;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
  *
  */
-@JsType(isNative = true)
-public interface TouchEvent extends SyntheticEvent {
-    boolean isAltKey();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class TouchEvent extends SyntheticEvent {
+    public boolean altKey;
+    public TouchList changedTouches;
+    public boolean ctrlKey;
+    public boolean metaKey;
+    public boolean shiftKey;
+    public TouchList targetTouches;
+    public TouchList touches;
 
-    TouchList getChangedTouches();
+    @JsOverlay
+    public final boolean isAltKey() {
+        return altKey;
+    }
 
-    boolean isCtrlKey();
+    @JsOverlay
+    public final TouchList getChangedTouches() {
+        return changedTouches;
+    }
 
-    boolean getModifierState(String key);
+    @JsOverlay
+    public final boolean isCtrlKey() {
+        return ctrlKey;
+    }
 
-    boolean isMetaKey();
+    @JsMethod
+    public final native boolean getModifierState(String key);
 
-    boolean isShiftKey();
+    @JsOverlay
+    public final boolean isMetaKey() {
+        return metaKey;
+    }
 
-    TouchList getTargetTouches();
+    @JsOverlay
+    public final boolean isShiftKey() {
+        return shiftKey;
+    }
 
-    TouchList getTouches();
+    @JsOverlay
+    public final TouchList getTargetTouches() {
+        return targetTouches;
+    }
+
+    @JsOverlay
+    public final TouchList getTouches() {
+        return touches;
+    }
 }

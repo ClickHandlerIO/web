@@ -2,49 +2,76 @@ package react.client;
 
 import elemental.events.Event;
 import elemental.events.EventTarget;
-import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import jsinterop.annotations.*;
 
 import java.util.Date;
 
-@JsType(isNative = true)
-public interface SyntheticEvent {
-    @JsProperty
-    boolean getBubbles();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public class SyntheticEvent {
+    public boolean bubbles;
+    public boolean cancelable;
+    public EventTarget currentTarget;
+    public boolean defaultPrevented;
+    public double eventPhase;
+    public boolean isTrusted;
+    public Event nativeEvent;
+    public EventTarget target;
+    public Date timeStamp;
+    public String type;
 
-    void setBubbles(boolean bubbles);
+    @JsOverlay
+    public final boolean getBubbles() {
+        return bubbles;
+    }
 
-    @JsProperty
-    Boolean getCancelable();
+    @JsOverlay
+    public final boolean getCancelable() {
+        return cancelable;
+    }
 
-    @JsProperty
-    EventTarget getCurrentTarget();
+    @JsOverlay
+    public final EventTarget getCurrentTarget() {
+        return currentTarget;
+    }
+
+    @JsOverlay
+    public final boolean getDefaultPrevented() {
+        return defaultPrevented;
+    }
+
+    @JsOverlay
+    public final double getEventPhase() {
+        return eventPhase;
+    }
+
+    @JsOverlay
+    public final boolean isTrusted() {
+        return isTrusted;
+    }
+
+    @JsOverlay
+    public final Event getNativeEvent() {
+        return nativeEvent;
+    }
 
     @JsMethod
-    boolean defaultPrevented();
-
-    @JsProperty
-    int getEventPhase();
-
-    @JsProperty
-    boolean isTrusted();
-
-    @JsProperty
-    Event getNativeEvent();
+    public final native void preventDefault();
 
     @JsMethod
-    void preventDefault();
+    public final native void stopPropagation();
 
-    @JsMethod
-    void stopPropagation();
+    @JsOverlay
+    public final EventTarget getTarget() {
+        return target;
+    }
 
-    @JsProperty
-    EventTarget getTarget();
+    @JsOverlay
+    public final Date getTimeStamp() {
+        return timeStamp;
+    }
 
-    @JsProperty
-    Date getTimeStamp();
-
-    @JsProperty
-    String getType();
+    @JsOverlay
+    public final String getType() {
+        return type;
+    }
 }

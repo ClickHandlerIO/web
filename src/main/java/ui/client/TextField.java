@@ -1,5 +1,6 @@
 package ui.client;
 
+import common.client.Func;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -113,10 +114,10 @@ public class TextField extends ExternalComponent<TextField.Props> {
         void setOnBlur(FocusEventHandler onBlur);
 
         @JsProperty
-        FormEventHandler getOnChange();
+        Func.Run1<FormEvent> getOnChange();
 
         @JsProperty
-        void setOnChange(FormEventHandler onChange);
+        void setOnChange(Func.Run1<FormEvent> onChange);
 
         @JsProperty
         KeyboardEventHandler getOnEnterKeyDown();
@@ -280,7 +281,7 @@ public class TextField extends ExternalComponent<TextField.Props> {
         }
 
         @JsOverlay
-        default Props onChange(FormEventHandler onChange) {
+        default Props onChange(Func.Run1<FormEvent> onChange) {
             setOnChange(onChange);
             return this;
         }
