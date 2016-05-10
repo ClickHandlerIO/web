@@ -30,8 +30,8 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         return div($ -> {
             $.ref(divRef);
             $.className("camber-full-calendar");
-            if ($this.getProps().getStyle() != null) {
-                $.style($this.getProps().getStyle());
+            if ($this.props.getStyle() != null) {
+                $.style($this.props.getStyle());
             }
         });
     }
@@ -60,7 +60,7 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
     protected void componentWillReceiveProps(ReactComponent<Props, State> $this, Props nextProps) {
         super.componentWillReceiveProps($this, nextProps);
 
-        if (!$this.getProps().getView().equals(nextProps.getView())) {
+        if (!$this.props.getView().equals(nextProps.getView())) {
             changeView(divRef.get($this), nextProps.getView().getId());
         }
 
@@ -87,8 +87,8 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
 
         FullCalendarOptions options = Jso.create();
         options.setHeader(header);
-        options.setDefaultView($this.getProps().getView().getId());
-        options.setDefaultDate($this.getProps().getMoment());
+        options.setDefaultView($this.props.getView().getId());
+        options.setDefaultDate($this.props.getMoment());
         options.setAllDayDefault(false);
         options.setEditable(false);
         options.setEventColor("#3a87ad");
@@ -96,13 +96,13 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setEventLimit(true);
         options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
         options.setEventClick((fullCalendarEvent, nativeEvent1, fullCalendarView1) -> {
-            if ($this.getProps().getOnEventClicked() != null) {
-                $this.getProps().getOnEventClicked().onEventClicked(fullCalendarEvent);
+            if ($this.props.getOnEventClicked() != null) {
+                $this.props.getOnEventClicked().onEventClicked(fullCalendarEvent);
             }
         });
         options.setEvents((moment, moment2, o, run1) -> {
-            if ($this.getProps().getEventFn() != null) {
-                $this.getProps().getEventFn().run(moment, moment2, o, run1);
+            if ($this.props.getEventFn() != null) {
+                $this.props.getEventFn().run(moment, moment2, o, run1);
             }
         });
 

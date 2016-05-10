@@ -35,7 +35,7 @@ public class GridHeaderCell extends Component<GridHeaderCell.Props, GridHeaderCe
 
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        GridColumn c = $this.getProps().getColumn();
+        GridColumn c = $this.props.getColumn();
 
         return div($ -> {
                 $.ref(divRef);
@@ -57,7 +57,7 @@ public class GridHeaderCell extends Component<GridHeaderCell.Props, GridHeaderCe
                     // handle sort
                     $.className("title-span");
                     $.onClick(e -> {
-                        GridColumn c2 = $this.getProps().getColumn();
+                        GridColumn c2 = $this.props.getColumn();
                         if (!c2.isAllowSort()) {
                             return;
                         }
@@ -82,8 +82,8 @@ public class GridHeaderCell extends Component<GridHeaderCell.Props, GridHeaderCe
                                 break;
                         }
 
-                        if ($this.getProps().getOnSortChanged() != null) {
-                            $this.getProps().getOnSortChanged().run(c2, updatedSort);
+                        if ($this.props.getOnSortChanged() != null) {
+                            $this.props.getOnSortChanged().run(c2, updatedSort);
                         }
                     });
                 },

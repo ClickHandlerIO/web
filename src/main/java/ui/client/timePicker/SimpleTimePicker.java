@@ -36,30 +36,30 @@ public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTi
                 timePickerHourSelect.$($ -> {
                     $.setAllowClear(false);
                     $.setStyle(new StyleProps().width("65px"));
-                    $.setValue($this.getState().getHours());
+                    $.setValue($this.state.getHours());
                     $.setOnValueChanged(v -> {
                         $this.setState(s -> s.setHours(v));
-                        fireUpdate($this, v, $this.getState().getMinutes(), $this.getState().getMeridian());
+                        fireUpdate($this, v, $this.state.getMinutes(), $this.state.getMeridian());
                     });
                 }),
                 div(style().margin("0 5px"), ":"),
                 timePickerMinute15Select.$($ -> {
                     $.setAllowClear(false);
                     $.setStyle(new StyleProps().width("65px"));
-                    $.setValue($this.getState().getMinutes());
+                    $.setValue($this.state.getMinutes());
                     $.setOnValueChanged(v -> {
                         $this.setState(s -> s.setMinutes(v));
-                        fireUpdate($this, $this.getState().getHours(), v, $this.getState().getMeridian());
+                        fireUpdate($this, $this.state.getHours(), v, $this.state.getMeridian());
                     });
                 }),
                 div(style().width("5px").lift()),
                 timePickerMeridianSelect.$($ -> {
                     $.setAllowClear(false);
                     $.setStyle(new StyleProps().width("75px"));
-                    $.setValue($this.getState().getMeridian());
+                    $.setValue($this.state.getMeridian());
                     $.setOnValueChanged(v -> {
                         $this.setState(s -> s.setMeridian(v));
-                        fireUpdate($this, $this.getState().getHours(), $this.getState().getMinutes(), v);
+                        fireUpdate($this, $this.state.getHours(), $this.state.getMinutes(), v);
                     });
                 })
             );
@@ -91,8 +91,8 @@ public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTi
         time.hours(hour.getValue() + (meridian.equals(TimePickerMeridian.PM) ? 12 : 0));
         time.minutes(minute.getValue());
 
-        if ($this.getProps().getOnTimeChanged() != null) {
-            $this.getProps().getOnTimeChanged().run(time);
+        if ($this.props.getOnTimeChanged() != null) {
+            $this.props.getOnTimeChanged().run(time);
         }
     }
 

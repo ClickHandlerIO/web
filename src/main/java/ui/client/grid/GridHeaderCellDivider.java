@@ -40,7 +40,7 @@ public class GridHeaderCellDivider extends Component<GridHeaderCellDivider.Props
                         $this.setState(s -> s.setMouseDown(true));
                     });
                 },
-                div($ -> $.className("divider-viz"))
+                div(className("divider-viz"))
             );
     }
 
@@ -53,7 +53,7 @@ public class GridHeaderCellDivider extends Component<GridHeaderCellDivider.Props
         super.componentDidMount($this);
 
         Browser.getWindow().addEventListener("mouseup", event -> {
-            if ($this.getState().isMouseDown()) {
+            if ($this.state.isMouseDown()) {
 //                log.trace("DROPPED!", event);
                 event.preventDefault();
                 event.stopPropagation();
@@ -62,11 +62,11 @@ public class GridHeaderCellDivider extends Component<GridHeaderCellDivider.Props
         }, false);
 
         Browser.getWindow().addEventListener("mousemove", event -> {
-            if ($this.getState().isMouseDown()) {
+            if ($this.state.isMouseDown()) {
                 event.preventDefault();
                 event.stopPropagation();
-                if ($this.getProps().getMovementXHandler() != null) {
-                    $this.getProps().getMovementXHandler().run(((GridMouseEvent) event).getMovementX());
+                if ($this.props.getMovementXHandler() != null) {
+                    $this.props.getMovementXHandler().run(((GridMouseEvent) event).getMovementX());
                 }
 
             }

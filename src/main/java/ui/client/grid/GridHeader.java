@@ -1,10 +1,12 @@
 package ui.client.grid;
 
 import common.client.Func;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import react.client.BaseProps;
 import react.client.Component;
+import react.client.ComponentProps;
 import react.client.ReactComponent;
 import react.client.ReactElement;
 import ui.client.Checkbox;
@@ -31,58 +33,59 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
 
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div($ -> $.className("grid-header"),
-            headerChildren -> {
-                if ($this.getProps().isReorderEnabled()) {
-                    headerChildren.add(div($ -> $.className("reorder-placeholder")));
-                }
+        return
+            div(className("grid-header"),
+                headerChildren -> {
+                    if ($this.props.isReorderEnabled()) {
+                        headerChildren.add(div(className("reorder-placeholder")));
+                    }
 
-                if ($this.getProps().isSelectionEnabled()) {
+                    if ($this.props.isSelectionEnabled()) {
+                        headerChildren.add(
+                            div(className("checkbox"),
+                                checkbox.$($ -> {
+                                    $.setChecked($this.props.isAllSelected());
+                                    $.setOnCheck(() -> {
+                                        if ($this.props.getOnAllSelectedChanged() != null) {
+                                            $this.props.getOnAllSelectedChanged().run(!$this.props.isAllSelected());
+                                        }
+                                    });
+                                })
+                            )
+                        );
+                    }
+
                     headerChildren.add(
-                        div($ -> $.className("checkbox"),
-                            checkbox.$($ -> {
-                                $.setChecked($this.getProps().isAllSelected());
-                                $.setOnCheck(() -> {
-                                    if ($this.getProps().getOnAllSelectedChanged() != null) {
-                                        $this.getProps().getOnAllSelectedChanged().run(!$this.getProps().isAllSelected());
-                                    }
-                                });
-                            })
+                        div(className("header-row-container"),
+                            rowContainerChildren -> {
+                                for (double i = 0.; i <= $this.state.getMaxRowIdx(); ++i) {
+                                    final double j = i;
+                                    rowContainerChildren.add(
+                                        div(className("header-row"),
+                                            rowChildren -> {
+                                                for (GridColumn c : $this.props.getColumns()) {
+                                                    if (c.getDisplay().getRow() == j) {
+                                                        rowChildren.add(
+                                                            gridHeaderCell.$($ -> {
+                                                                $.setColumn(c);
+                                                                $.setOnSortChanged((c2, sort) -> {
+                                                                    if ($this.props.getOnSortChanged() != null) {
+                                                                        $this.props.getOnSortChanged().run(c2, sort);
+                                                                    }
+                                                                });
+                                                            })
+                                                        );
+                                                    }
+                                                }
+                                            }
+                                        )
+                                    );
+                                }
+                            }
                         )
                     );
                 }
-
-                headerChildren.add(
-                    div($ -> $.className("header-row-container"),
-                        rowContainerChildren -> {
-                            for (double i = 0.; i <= $this.getState().getMaxRowIdx(); ++i) {
-                                final double j = i;
-                                rowContainerChildren.add(
-                                    div($ -> $.className("header-row"),
-                                        rowChildren -> {
-                                            for (GridColumn c : $this.getProps().getColumns()) {
-                                                if (c.getDisplay().getRow() == j) {
-                                                    rowChildren.add(
-                                                        gridHeaderCell.$($ -> {
-                                                            $.setColumn(c);
-                                                            $.setOnSortChanged((c2, sort) -> {
-                                                                if ($this.getProps().getOnSortChanged() != null) {
-                                                                    $this.getProps().getOnSortChanged().run(c2, sort);
-                                                                }
-                                                            });
-                                                        })
-                                                    );
-                                                }
-                                            }
-                                        }
-                                    )
-                                );
-                            }
-                        }
-                    )
-                );
-            }
-        );
+            );
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,43 +116,110 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
     // Args / Props / State / Route
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @JsType(isNative = true)
-    public interface Props extends BaseProps {
-        @JsProperty
-        boolean isSelectionEnabled();
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+    public static class Props extends ComponentProps {
+        public boolean selectionEnabled;
+        public boolean reorderEnabled;
+        public boolean allSelected;
+        public List<GridColumn> columns;
+        public Func.Run1<Boolean> onAllSelectedChanged;
+        public Func.Run2<GridColumn, GridSort> onSortChanged;
+        
+        @JsOverlay
+        public final boolean isSelectionEnabled() {
+            return selectionEnabled;
+        }
 
-        @JsProperty
-        void setSelectionEnabled(boolean selectionEnabled);
+        @JsOverlay
+        public final void setSelectionEnabled(boolean selectionEnabled) {
+            this.selectionEnabled = selectionEnabled;
+        }
 
-        @JsProperty
-        boolean isReorderEnabled();
+        @JsOverlay
+        public final boolean isReorderEnabled() {
+            return reorderEnabled;
+        }
 
-        @JsProperty
-        void setReorderEnabled(boolean reorderEnabled);
+        @JsOverlay
+        public final void setReorderEnabled(boolean reorderEnabled) {
+            this.reorderEnabled = reorderEnabled;
+        }
 
-        @JsProperty
-        boolean isAllSelected();
+        @JsOverlay
+        public final boolean isAllSelected() {
+            return allSelected;
+        }
 
-        @JsProperty
-        void setAllSelected(boolean allSelected);
+        @JsOverlay
+        public final void setAllSelected(boolean allSelected) {
+            this.allSelected = allSelected;
+        }
 
-        @JsProperty
-        List<GridColumn> getColumns();
+        @JsOverlay
+        public final List<GridColumn> getColumns() {
+            return columns;
+        }
 
-        @JsProperty
-        void setColumns(List<GridColumn> columns);
+        @JsOverlay
+        public final void setColumns(List<GridColumn> columns) {
+            this.columns = columns;
+        }
 
-        @JsProperty
-        Func.Run1<Boolean> getOnAllSelectedChanged();
+        @JsOverlay
+        public final Func.Run1<Boolean> getOnAllSelectedChanged() {
+            return onAllSelectedChanged;
+        }
 
-        @JsProperty
-        void setOnAllSelectedChanged(Func.Run1<Boolean> onAllSelectedChanged);
+        @JsOverlay
+        public final void setOnAllSelectedChanged(Func.Run1<Boolean> onAllSelectedChanged) {
+            this.onAllSelectedChanged = onAllSelectedChanged;
+        }
 
-        @JsProperty
-        Func.Run2<GridColumn, GridSort> getOnSortChanged();
+        @JsOverlay
+        public final Func.Run2<GridColumn, GridSort> getOnSortChanged() {
+            return onSortChanged;
+        }
 
-        @JsProperty
-        void setOnSortChanged(Func.Run2<GridColumn, GridSort> onSortChanged);
+        @JsOverlay
+        public final void setOnSortChanged(Func.Run2<GridColumn, GridSort> onSortChanged) {
+            this.onSortChanged = onSortChanged;
+        }
+
+        @JsOverlay
+        public final Props selectionEnabled(final boolean selectionEnabled) {
+            this.selectionEnabled = selectionEnabled;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props reorderEnabled(final boolean reorderEnabled) {
+            this.reorderEnabled = reorderEnabled;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props allSelected(final boolean allSelected) {
+            this.allSelected = allSelected;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props columns(final List<GridColumn> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onAllSelectedChanged(final Func.Run1<Boolean> onAllSelectedChanged) {
+            this.onAllSelectedChanged = onAllSelectedChanged;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onSortChanged(final Func.Run2<GridColumn, GridSort> onSortChanged) {
+            this.onSortChanged = onSortChanged;
+            return this;
+        }
     }
 
     @JsType(isNative = true)

@@ -26,24 +26,24 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
 
     @Override
     protected ReactElement render(ReactComponent<P, S> $this) {
-        return div($ -> $.className("grid-cell" + " " + ($this.getProps().getClassName() != null ? $this.getProps().getClassName() : "") + ($this.getProps().isSelected() ? " selected" : "")),
+        return div(className("grid-cell" + " " + ($this.props.getClassName() != null ? $this.props.getClassName() : "") + ($this.props.isSelected() ? " selected" : "")),
             childList -> {
-                if ($this.getProps().isReorderEnabled()) {
+                if ($this.props.isReorderEnabled()) {
                     childList.add(
-                        div($ -> $.className("reorder"),
+                        div(className("reorder"),
                             dragHandleSvgIcon.$()
                         )
                     );
                 }
 
-                if ($this.getProps().isSelectionEnabled()) {
+                if ($this.props.isSelectionEnabled()) {
                     childList.add(
-                        div($ -> $.className("checkbox"),
+                        div(className("checkbox"),
                             checkbox.$($ -> {
-                                $.setChecked($this.getProps().isSelected());
+                                $.setChecked($this.props.isSelected());
                                 $.setOnCheck(() -> {
-                                    if ($this.getProps().getOnSelectionChanged() != null) {
-                                        $this.getProps().getOnSelectionChanged().run($this.getProps().getData(), !$this.getProps().isSelected());
+                                    if ($this.props.getOnSelectionChanged() != null) {
+                                        $this.props.getOnSelectionChanged().run($this.props.getData(), !$this.props.isSelected());
                                     }
                                 });
                             })
@@ -52,7 +52,7 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
                 }
 
                 childList.add(
-                    renderCell($this, $this.getProps().getData(), $this.getProps().getColumns())
+                    renderCell($this, $this.props.getData(), $this.props.getColumns())
                 );
             }
         );

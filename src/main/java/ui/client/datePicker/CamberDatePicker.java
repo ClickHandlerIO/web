@@ -32,7 +32,7 @@ public class CamberDatePicker extends Component<CamberDatePicker.Props, CamberDa
 
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div($ -> $.id($this.getState().getGuid()));
+        return div($ -> $.id($this.state.getGuid()));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,14 +53,14 @@ public class CamberDatePicker extends Component<CamberDatePicker.Props, CamberDa
         super.componentDidMount($this);
 
         // add widget to ui
-        HTMLPanel panel = HTMLPanel.wrap(Document.get().getElementById($this.getState().getGuid()));
-        panel.add($this.getState().getPicker());
+        HTMLPanel panel = HTMLPanel.wrap(Document.get().getElementById($this.state.getGuid()));
+        panel.add($this.state.getPicker());
     }
 
     @Override
     protected void intakeProps(ReactComponent<Props, State> $this, Props nextProps) {
         super.intakeProps($this, nextProps);
-        $this.getState().getPicker().setValue(nextProps.getMoment());
+        $this.state.getPicker().setValue(nextProps.getMoment());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

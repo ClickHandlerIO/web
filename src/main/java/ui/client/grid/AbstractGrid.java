@@ -27,33 +27,33 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     @Override
     protected ReactElement render(ReactComponent<P, State<D>> $this) {
-        boolean allSelected = !($this.getState().getData() == null || $this.getProps().getSelected() == null || $this.getState().getData().isEmpty() || $this.getProps().getSelected().isEmpty()) && $this.getState().getData().size() == $this.getProps().getSelected().size();
+        boolean allSelected = !($this.state.getData() == null || $this.props.getSelected() == null || $this.state.getData().isEmpty() || $this.props.getSelected().isEmpty()) && $this.state.getData().size() == $this.props.getSelected().size();
 
-        return div($ -> $.className("camber-grid"),
+        return div(className("camber-grid"),
             childList -> {
-                if (!$this.getProps().isHideHeader()) {
+                if (!$this.props.isHideHeader()) {
                     childList.add(
                         div(
-                            gridHeader.$($ -> {
-                                $.setColumns($this.getState().getColumns());
-                                $.setReorderEnabled($this.getProps().isReorderEnabled());
-                                $.setSelectionEnabled($this.getProps().isSelectionEnabled());
-                                $.setAllSelected(allSelected);
-                                $.setOnAllSelectedChanged(selectAll -> {
-                                    if ($this.getState().isLoading()) {
+                            gridHeader.$$()
+                                .columns($this.state.getColumns())
+                                .reorderEnabled($this.props.isReorderEnabled())
+                                .selectionEnabled($this.props.isSelectionEnabled())
+                                .allSelected(allSelected)
+                                .onAllSelectedChanged(selectAll -> {
+                                    if ($this.state.isLoading()) {
                                         return;
                                     }
 
                                     List<D> selected = new ArrayList<>();
                                     if (selectAll) {
-                                        selected.addAll($this.getState().getData());
+                                        selected.addAll($this.state.getData());
                                     }
-                                    if ($this.getProps().getOnSelectionChanged() != null) {
-                                        $this.getProps().getOnSelectionChanged().run(selected);
+                                    if ($this.props.getOnSelectionChanged() != null) {
+                                        $this.props.getOnSelectionChanged().run(selected);
                                     }
-                                });
-                                $.setOnSortChanged((column, sort) -> {
-                                    List<GridColumn> cols = $this.getState().getColumns();
+                                })
+                                .onSortChanged((column, sort) -> {
+                                    List<GridColumn> cols = $this.state.getColumns();
                                     for (GridColumn c : cols) {
                                         if (!c.getId().equals(column.getId())) {
                                             c.setSort(GridSort.NONE);
@@ -67,26 +67,60 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                         s.setPageIdxMap(new HashMap<>());
                                     });
                                     load($this);
-                                });
-                            })
+                                }).$()
+//                            gridHeader.$($ -> {
+//                                $.setColumns($this.state.getColumns());
+//                                $.setReorderEnabled($this.props.isReorderEnabled());
+//                                $.setSelectionEnabled($this.props.isSelectionEnabled());
+//                                $.setAllSelected(allSelected);
+//                                $.setOnAllSelectedChanged(selectAll -> {
+//                                    if ($this.state.isLoading()) {
+//                                        return;
+//                                    }
+//
+//                                    List<D> selected = new ArrayList<>();
+//                                    if (selectAll) {
+//                                        selected.addAll($this.state.getData());
+//                                    }
+//                                    if ($this.props.getOnSelectionChanged() != null) {
+//                                        $this.props.getOnSelectionChanged().run(selected);
+//                                    }
+//                                });
+//                                $.setOnSortChanged((column, sort) -> {
+//                                    List<GridColumn> cols = $this.state.getColumns();
+//                                    for (GridColumn c : cols) {
+//                                        if (!c.getId().equals(column.getId())) {
+//                                            c.setSort(GridSort.NONE);
+//                                        } else {
+//                                            c.setSort(sort);
+//                                        }
+//                                    }
+//                                    $this.setState(s -> {
+//                                        s.setColumns(cols);
+//                                        s.setPageIdx(0.);
+//                                        s.setPageIdxMap(new HashMap<>());
+//                                    });
+//                                    load($this);
+//                                });
+//                            })
                         )
                     );
                 }
 
                 childList.add(
-                    div($ -> $.className("grid-row-container"),
+                    div(className("grid-row-container"),
                         childList2 -> {
-                            if ($this.getState().isLoading() && $this.getState().isFirstLoad()) {
+                            if ($this.state.isLoading() && $this.state.isFirstLoad()) {
                                 childList2.add(
                                     div($ -> {
                                             $.className("first-load-div");
                                         },
-                                        div($ -> $.className("loader loader-default"))
+                                        div(className("loader loader-default"))
                                     )
                                 );
                             }
 
-                            if (!$this.getState().isFirstLoad() && $this.getState().isShowLoading()) {
+                            if (!$this.state.isFirstLoad() && $this.state.isShowLoading()) {
                                 childList2.add(
                                     div($ -> {
                                             $.onClick(e -> {
@@ -95,28 +129,28 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                             });
                                             $.className("loading-div");
                                         },
-                                        div($ -> $.className("loader loader-default"))
+                                        div(className("loader loader-default"))
                                     )
                                 );
                             }
 
-                            if ($this.getState().getData() != null && !$this.getState().getData().isEmpty()) {
-                                for (D data : $this.getState().getData()) {
+                            if ($this.state.getData() != null && !$this.state.getData().isEmpty()) {
+                                for (D data : $this.state.getData()) {
                                     childList2.add(
-                                        createCell($this, $this.getProps().isReorderEnabled(), $this.getProps().isSelectionEnabled(), $this.getState().getColumns(), data, $this.getProps().getSelected() != null && $this.getProps().getSelected().contains(data), (d, s) -> {
-                                            if ($this.getState().isLoading()) {
+                                        createCell($this, $this.props.isReorderEnabled(), $this.props.isSelectionEnabled(), $this.state.getColumns(), data, $this.props.getSelected() != null && $this.props.getSelected().contains(data), (d, s) -> {
+                                            if ($this.state.isLoading()) {
                                                 return;
                                             }
 
-                                            if ($this.getProps().getSelected() != null) {
-                                                List<D> selected = $this.getProps().getSelected();
+                                            if ($this.props.getSelected() != null) {
+                                                List<D> selected = $this.props.getSelected();
                                                 if (s) {
                                                     selected.add(d);
                                                 } else {
                                                     selected.remove(d);
                                                 }
-                                                if ($this.getProps().getOnSelectionChanged() != null) {
-                                                    $this.getProps().getOnSelectionChanged().run(selected);
+                                                if ($this.props.getOnSelectionChanged() != null) {
+                                                    $this.props.getOnSelectionChanged().run(selected);
                                                 }
                                             }
                                         })
@@ -124,13 +158,13 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                 }
                             }
 
-                            if (!$this.getState().isFirstLoad() && ($this.getState().getData() == null || $this.getState().getData().isEmpty())) {
-                                if ($this.getProps().getNoResultsComponent() != null) {
-                                    childList2.add($this.getProps().getNoResultsComponent());
+                            if (!$this.state.isFirstLoad() && ($this.state.getData() == null || $this.state.getData().isEmpty())) {
+                                if ($this.props.getNoResultsComponent() != null) {
+                                    childList2.add($this.props.getNoResultsComponent());
                                 } else {
                                     childList2.add(
-                                        div($ -> $.className("no-results"),
-                                            $this.getProps().getNoResultsText()
+                                        div(className("no-results"),
+                                            $this.props.getNoResultsText()
                                         )
                                     );
                                 }
@@ -139,21 +173,21 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                     )
                 );
 
-                if (!$this.getState().isFirstLoad() && !($this.getState().getPageIdx() == 0 && !$this.getState().isMoreResults())) {
+                if (!$this.state.isFirstLoad() && !($this.state.getPageIdx() == 0 && !$this.state.isMoreResults())) {
                     childList.add(
                         gridSimplePager.$($ -> {
-                            $.setNextEnabled($this.getState().isMoreResults() && !$this.getState().isLoading());
-                            $.setPreviousEnabled($this.getState().getPageIdx() > 0.);
+                            $.setNextEnabled($this.state.isMoreResults() && !$this.state.isLoading());
+                            $.setPreviousEnabled($this.state.getPageIdx() > 0.);
                             $.setOnNextPage(() -> {
-                                if ($this.getState().isLoading()) {
+                                if ($this.state.isLoading()) {
                                     return; // cannot page forward until we have the lastRecord
                                 }
-                                $this.setState(s -> s.setPageIdx($this.getState().getPageIdx() + 1));
+                                $this.setState(s -> s.setPageIdx($this.state.getPageIdx() + 1));
                                 load($this);
                             });
 
                             $.setOnPreviousPage(() -> {
-                                $this.setState(s -> s.setPageIdx($this.getState().getPageIdx() - 1.));
+                                $this.setState(s -> s.setPageIdx($this.state.getPageIdx() - 1.));
                                 load($this);
                             });
                         })
@@ -191,7 +225,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     @Override
     protected void componentDidMount(ReactComponent<P, State<D>> $this) {
         super.componentDidMount($this);
-        if ($this.getProps().isLoadWhenMounted()) {
+        if ($this.props.isLoadWhenMounted()) {
             load($this);
         }
     }
@@ -203,7 +237,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     protected void load(ReactComponent<P, State<D>> $this) {
         String sortColumnId = null;
         GridSort sortDirection = null;
-        for (GridColumn c : $this.getState().getColumns()) {
+        for (GridColumn c : $this.state.getColumns()) {
             if (c.getSort() != null && !c.getSort().equals(GridSort.NONE)) {
                 sortColumnId = c.getId();
                 sortDirection = c.getSort();
@@ -212,15 +246,15 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         }
 
         D lastRecord = null;
-        if ($this.getState().getPageIdx() > 0) {
-            lastRecord = $this.getState().getPageIdxMap().get($this.getState().getPageIdx());
+        if ($this.state.getPageIdx() > 0) {
+            lastRecord = $this.state.getPageIdxMap().get($this.state.getPageIdx());
         }
 
-        if (!$this.getState().isLoading() && !$this.getState().isFirstLoad()) {
+        if (!$this.state.isLoading() && !$this.state.isFirstLoad()) {
             com.google.gwt.user.client.Timer t = new Timer() {
                 @Override
                 public void run() {
-                    if ($this.getState().isLoading()) {
+                    if ($this.state.isLoading()) {
                         $this.setState(s -> {
                             s.setShowLoading(true);
                         });
@@ -237,23 +271,23 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         });
 
         // for now clear selection before load
-        if ($this.getProps().getOnSelectionChanged() != null) {
-            $this.getProps().getOnSelectionChanged().run(new ArrayList<>());
+        if ($this.props.getOnSelectionChanged() != null) {
+            $this.props.getOnSelectionChanged().run(new ArrayList<>());
         }
 
         fetchData($this, guid, sortColumnId, sortDirection, lastRecord, new CompletionHandler<D, P>() {
             @Override
             public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults) {
-                if (!$this.getState().getPendingFetchGuid().equals(requestGuid)) {
+                if (!$this.state.getPendingFetchGuid().equals(requestGuid)) {
                     return;
                 }
 
                 // todo in future handle selection - check if any of the selected items are in the new data set. if they are keep them, if not remove from selected list
                 // for now clearing selection on loading data
-//                if ($this.getProps().getOnSelectionChanged() != null) {
-//                    $this.getProps().getOnSelectionChanged().run(new ArrayList<>());
+//                if ($this.props.getOnSelectionChanged() != null) {
+//                    $this.props.getOnSelectionChanged().run(new ArrayList<>());
 //                }
-                final Double pageIdx = $this.getState().getPageIdx();
+                final Double pageIdx = $this.state.getPageIdx();
                 $this.setState(s -> {
                     s.setFirstLoad(false);
                     s.setLoading(false);
@@ -263,9 +297,9 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
                     // update page idx map
                     if (pageIdx > 0) {
-                        Map<Double, D> pageIdxMap = $this.getState().getPageIdxMap();
+                        Map<Double, D> pageIdxMap = $this.state.getPageIdxMap();
                         D lastRecord = data != null ? data.get(data.size() - 1) : null;
-                        pageIdxMap.put($this.getState().getPageIdx(), lastRecord);
+                        pageIdxMap.put($this.state.getPageIdx(), lastRecord);
                         s.setPageIdxMap(pageIdxMap);
                     }
                 });

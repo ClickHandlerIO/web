@@ -169,7 +169,7 @@ public class DOMGenerator {
 //            sb.append("return create(\"").append(name).append("\", props, children);\n");
 //            sb.append("}\n");
 //
-//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Func.Run1<ChildList> childrenCallback) {\n");
+//            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps<").append(elementClassName).append(">> callback, Func.Run1<Children> childrenCallback) {\n");
 //            sb.append("return create(\"").append(name).append("\", callback, childrenCallback);\n");
 //            sb.append("}\n");
 //
@@ -234,7 +234,7 @@ public class DOMGenerator {
             sb.append("return create(\"").append(name).append("\", props, children);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(HTMLProps props, Func.Run1<ChildList> childrenCallback) {\n");
+            sb.append("static ReactElement ").append(name).append("(HTMLProps props, Func.Run1<Children> childrenCallback) {\n");
             sb.append("return create(\"").append(name).append("\", props, childrenCallback);\n");
             sb.append("}\n");
 
@@ -255,7 +255,7 @@ public class DOMGenerator {
             sb.append("return create(\"").append(name).append("\", callback, children);\n");
             sb.append("}\n");
 
-            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, Func.Run1<ChildList> childrenCallback) {\n");
+            sb.append("static ReactElement ").append(name).append("(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {\n");
             sb.append("return create(\"").append(name).append("\", callback, childrenCallback);\n");
             sb.append("}\n");
 

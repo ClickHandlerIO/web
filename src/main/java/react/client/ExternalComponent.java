@@ -2,6 +2,7 @@ package react.client;
 
 import common.client.Func;
 import common.client.Jso;
+import jsinterop.annotations.JsIgnore;
 import logging.client.Logger;
 
 /**
@@ -94,17 +95,36 @@ public abstract class ExternalComponent<P> {
         return React.createElement(getReactClass(), props, children);
     }
 
-    public ReactElement createElement(Func.Run2<P, DOM.ChildList> callback) {
+    public ReactElement createElement(Func.Run2<P, Children> callback) {
         log.trace("createElement(Run2<props, children>)");
         final P props = createProps();
-        final DOM.ChildList childList = new DOM.ChildList();
+        final Children children = new Children();
         if (callback != null) {
-            callback.run(props, childList);
+            callback.run(props, children);
         }
-        return React.createElement(getReactClass(), props, childList.toArray());
+        return React.createElement(getReactClass(), props, children.toArray());
     }
 
     // Shorthand syntax
+
+    @JsIgnore
+    public P props() {
+        return $$();
+    }
+
+    @JsIgnore
+    public P $$() {
+        P props = createProps();
+        if (props == null)
+            props = Jso.create();
+        Jso.set(props, "__cls", getReactClass());
+        return props;
+    }
+
+    @JsIgnore
+    public P builder() {
+        return $$();
+    }
 
     public ReactElement $() {
         return createElement();
@@ -134,7 +154,7 @@ public abstract class ExternalComponent<P> {
         return createElement(propsCallback, children);
     }
 
-    public ReactElement $(Func.Run2<P, DOM.ChildList> callback) {
+    public ReactElement $(Func.Run2<P, Children> callback) {
         return createElement(callback);
     }
 }

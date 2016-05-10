@@ -134,14 +134,14 @@ public abstract class Component<P, S> implements Jso {
     }
 
     @JsIgnore
-    public ReactElement createElement(Func.Run2<P, DOM.ChildList> callback) {
+    public ReactElement createElement(Func.Run2<P, Children> callback) {
         log.trace("createElement(Run2<props, children>)");
         final P props = Jso.create();
-        final DOM.ChildList childList = new DOM.ChildList();
+        final Children children = new Children();
         if (callback != null) {
-            callback.run(props, childList);
+            callback.run(props, children);
         }
-        return React.createElement(getReactClass(), props, childList.toArray());
+        return React.createElement(getReactClass(), props, children.toArray());
     }
 
     @JsIgnore
@@ -162,6 +162,33 @@ public abstract class Component<P, S> implements Jso {
     @JsIgnore
     public StyleProps css() {
         return new StyleProps();
+    }
+
+    @JsIgnore
+    public P props() {
+        P props = getDefaultProps();
+        if (props == null)
+            props = Jso.create();
+        Jso.set(props, "__cls", getReactClass());
+        return props;
+    }
+
+    @JsIgnore
+    public P $$() {
+        P props = getDefaultProps();
+        if (props == null)
+            props = Jso.create();
+        Jso.set(props, "__cls", getReactClass());
+        return props;
+    }
+
+    @JsIgnore
+    public P builder() {
+        P props = getDefaultProps();
+        if (props == null)
+            props = Jso.create();
+        Jso.set(props, "__cls", getReactClass());
+        return props;
     }
 
     @JsIgnore
@@ -202,7 +229,7 @@ public abstract class Component<P, S> implements Jso {
     }
 
     @JsIgnore
-    public ReactElement $(Func.Run2<P, DOM.ChildList> callback) {
+    public ReactElement $(Func.Run2<P, Children> callback) {
         return createElement(callback);
     }
 
@@ -379,7 +406,6 @@ public abstract class Component<P, S> implements Jso {
 
     /**
      * @param className
-     * @param <T>
      * @return
      */
     @JsIgnore
@@ -390,11 +416,10 @@ public abstract class Component<P, S> implements Jso {
 
     /**
      * @param key
-     * @param <T>
      * @return
      */
     @JsIgnore
-    protected <T> HTMLProps key(String key) {
+    protected HTMLProps key(String key) {
         final HTMLProps props = new HTMLProps();
         return props.key(key);
     }

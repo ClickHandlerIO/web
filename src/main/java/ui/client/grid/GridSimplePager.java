@@ -32,27 +32,27 @@ public class GridSimplePager extends Component<GridSimplePager.Props, GridSimple
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return
-            div($ -> $.className("grid-simple-pager"),
+            div(className("grid-simple-pager"),
                 flatButton.$($ -> {
                     $.setStyle(new StyleProps().marginRight("10px"));
-                    $.setDisabled(!$this.getProps().isPreviousEnabled());
+                    $.setDisabled(!$this.props.isPreviousEnabled());
                     $.setLabel("Prev");
                     $.setIcon(chevronLeftSvgIcon.$());
                     $.setLabelPosition("after");
                     $.onTouchTap(() -> {
-                        if ($this.getProps().getOnPreviousPage() != null) {
-                            $this.getProps().getOnPreviousPage().run();
+                        if ($this.props.getOnPreviousPage() != null) {
+                            $this.props.getOnPreviousPage().run();
                         }
                     });
                 }),
                 flatButton.$($ -> {
-                    $.setDisabled(!$this.getProps().isNextEnabled());
+                    $.setDisabled(!$this.props.isNextEnabled());
                     $.setLabel("More");
                     $.setIcon(chevronRightSvgIcon.$());
                     $.setLabelPosition("before");
                     $.onTouchTap(() -> {
-                        if ($this.getProps().getOnNextPage() != null) {
-                            $this.getProps().getOnNextPage().run();
+                        if ($this.props.getOnNextPage() != null) {
+                            $this.props.getOnNextPage().run();
                         }
                     });
                 })

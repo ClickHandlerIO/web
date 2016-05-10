@@ -34,7 +34,7 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
 
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div($ -> $.id($this.getState().getGuid()));
+        return div($ -> $.id($this.state.getGuid()));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,15 +59,15 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
         super.componentDidMount($this);
 
         // add widget to ui
-        HTMLPanel panel = HTMLPanel.wrap(Document.get().getElementById($this.getState().getGuid()));
-        panel.add($this.getState().getDateBox());
+        HTMLPanel panel = HTMLPanel.wrap(Document.get().getElementById($this.state.getGuid()));
+        panel.add($this.state.getDateBox());
     }
 
     @Override
     protected void intakeProps(ReactComponent<Props, State> $this, Props nextProps) {
         super.intakeProps($this, nextProps);
 
-        DateBox widget = $this.getState().getDateBox();
+        DateBox widget = $this.state.getDateBox();
         widget.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(nextProps.getFormat())));
         widget.setValue(nextProps.getMoment() == null ? null : DateUtil.toBrowserAdjustedDate(nextProps.getMoment()), false);
         widget.getDatePicker().setVisibleYearCount(nextProps.getVisibleYearCount() == null ? 20 : nextProps.getVisibleYearCount().intValue());

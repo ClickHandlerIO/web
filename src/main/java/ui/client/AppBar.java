@@ -1,5 +1,6 @@
 package ui.client;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import react.client.*;
@@ -38,5 +39,11 @@ public class AppBar extends ExternalComponent<AppBar.Props> {
         public StyleProps titleStyle;
         public double zDepth;
         public MouseEventHandler onClick;
+
+        @JsOverlay
+        public final Props className(final String className) {
+            this.className = className;
+            return this;
+        }
     }
 }
