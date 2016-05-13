@@ -103,10 +103,10 @@ public class Popover extends ExternalComponent<Popover.Props> {
         void setUserLayerForClickAway(boolean userLayerForClickAway);
 
         @JsProperty
-        double getzDepth();
+        double getZDepth();
 
         @JsProperty
-        void setzDepth(double zDepth);
+        void setZDepth(double zDepth);
 
         @JsProperty
         Func.Run getAnimation();
@@ -193,7 +193,7 @@ public class Popover extends ExternalComponent<Popover.Props> {
 
         @JsOverlay
         default Props zDepth(final double zDepth) {
-            setzDepth(zDepth);
+            setZDepth(zDepth);
             return this;
         }
 
