@@ -1,5 +1,6 @@
 package react.client;
 
+import common.client.Jso;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -187,6 +188,8 @@ public class StyleProps {
     public Object counterIncrement;
     @JsProperty
     public Object counterReset;
+    @JsProperty
+    public Object cursor;
     @JsProperty
     public Object cue;
     @JsProperty
@@ -553,6 +556,18 @@ public class StyleProps {
         final HTMLProps props = new HTMLProps();
         props.style = this;
         return props;
+    }
+
+    @JsOverlay
+    public final StyleProps set(String name, Object value) {
+        Jso.set(this, name, value);
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps cursor(Object value) {
+        this.cursor = value;
+        return this;
     }
 
     @JsOverlay
