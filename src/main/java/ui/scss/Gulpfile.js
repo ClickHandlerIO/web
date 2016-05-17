@@ -6,15 +6,10 @@ var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var nano = require('gulp-cssnano');
 
-/* local vars */
-var sources = ['./src/main/java/ui/client/sass/camber.scss'];
-//var sources = ['./src/main/java/camber/client/**/*.scss', './src/main/java/camber/client/**/*.css'];
+var sources = ['./ClickhandlerWeb.scss', './../client/**/*.scss', './../client/**/*.css'];
 var autoprefixVersions = 'last 2 versions';
-var outputLocation = 'src/main/java/ui/public/css/';
+var outputLocation = './../public/css/';
 var outputFile = 'clickhandler-web.min.css';
-
-
-/* For Dev (with source maps) */
 
 gulp.task('default', ['scss', 'watch']);
 

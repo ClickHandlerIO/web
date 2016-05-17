@@ -1,5 +1,5 @@
 {
-  "name": "camber",
+  "name": "clickhandler-web-sass",
   "version": "1.0.0",
   "description": "Dependencies to run SASS build process",
   "main": "",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ClickHandlerIO/camber.git"
+    "url": "git+https://github.com/ClickHandlerIO/web.git"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/ClickHandlerIO/camber/issues"
+    "url": "https://github.com/ClickHandlerIO/web/issues"
   },
-  "homepage": "https://github.com/ClickHandlerIO/camber#readme",
+  "homepage": "https://github.com/ClickHandlerIO/web#readme",
   "devDependencies": {
     "autoprefixer": "^6.2.2",
     "gulp": "^3.9.0",
