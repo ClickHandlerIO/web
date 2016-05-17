@@ -22,11 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="clickhandler-web" />
         <module name="react-gwt" />
         <module name="web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="clickhandler-web" target="1.8" />
       <module name="react-gwt" target="1.8" />
       <module name="web" target="1.8" />
     </bytecodeTargetLevel>
