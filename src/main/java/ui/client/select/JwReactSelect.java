@@ -92,61 +92,61 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
         // Custom setters for handling multiple types for same var
 
         @JsOverlay
-        public final Props clearAllText(String text) {
+        public final Props<V> clearAllText(String text) {
             this.clearAllText = text;
             return this;
         }
 
         @JsOverlay
-        public final Props clearAllText(ReactElement node) {
+        public final Props<V> clearAllText(ReactElement node) {
             this.clearAllText = node;
             return this;
         }
 
         @JsOverlay
-        public final Props clearValueText(String text) {
+        public final Props<V> clearValueText(String text) {
             this.clearValueText = text;
             return this;
         }
 
         @JsOverlay
-        public final Props clearValueText(ReactElement node) {
+        public final Props<V> clearValueText(ReactElement node) {
             this.clearValueText = node;
             return this;
         }
 
         @JsOverlay
-        public final Props filterOptions(Boolean bool) {
+        public final Props<V> filterOptions(Boolean bool) {
             this.filterOptions = bool;
             return this;
         }
 
         @JsOverlay
-        public final Props filterOptions(Func.Call3<JwReactSelectOption<V>[], JwReactSelectOption<V>[], String, Object[]> func) {
+        public final Props<V> filterOptions(Func.Call3<JwReactSelectOption<V>[], JwReactSelectOption<V>[], String, Object[]> func) {
             this.filterOptions = func;
             return this;
         }
 
         @JsOverlay
-        public final Props noResultsText(String text) {
+        public final Props<V> noResultsText(String text) {
             this.noResultsText = text;
             return this;
         }
 
         @JsOverlay
-        public final Props noResultsText(ReactElement node) {
+        public final Props<V> noResultsText(ReactElement node) {
             this.noResultsText = node;
             return this;
         }
 
         @JsOverlay
-        public final Props placeholder(String text) {
+        public final Props<V> placeholder(String text) {
             this.placeholder = text;
             return this;
         }
 
         @JsOverlay
-        public final Props placeholder(ReactElement node) {
+        public final Props<V> placeholder(ReactElement node) {
             this.placeholder = node;
             return this;
         }
@@ -154,295 +154,295 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
         // fluent setters
 
         @JsOverlay
-        public final Props addLabelText(final String addLabelText) {
+        public final Props<V> addLabelText(final String addLabelText) {
             this.addLabelText = addLabelText;
             return this;
         }
 
         @JsOverlay
-        public final Props allowCreate(final boolean allowCreate) {
+        public final Props<V> allowCreate(final boolean allowCreate) {
             this.allowCreate = allowCreate;
             return this;
         }
 
         @JsOverlay
-        public final Props autoBlur(final boolean autoBlur) {
+        public final Props<V> autoBlur(final boolean autoBlur) {
             this.autoBlur = autoBlur;
             return this;
         }
 
         @JsOverlay
-        public final Props autofocus(final boolean autofocus) {
+        public final Props<V> autofocus(final boolean autofocus) {
             this.autofocus = autofocus;
             return this;
         }
 
         @JsOverlay
-        public final Props autosize(final boolean autosize) {
+        public final Props<V> autosize(final boolean autosize) {
             this.autosize = autosize;
             return this;
         }
 
         @JsOverlay
-        public final Props backspaceRemoves(final boolean backspaceRemoves) {
+        public final Props<V> backspaceRemoves(final boolean backspaceRemoves) {
             this.backspaceRemoves = backspaceRemoves;
             return this;
         }
 
         @JsOverlay
-        public final Props className(final String className) {
+        public final Props<V> className(final String className) {
             this.className = className;
             return this;
         }
 
         @JsOverlay
-        public final Props clearable(final boolean clearable) {
+        public final Props<V> clearable(final boolean clearable) {
             this.clearable = clearable;
             return this;
         }
 
         @JsOverlay
-        public final Props delimiter(final String delimiter) {
+        public final Props<V> delimiter(final String delimiter) {
             this.delimiter = delimiter;
             return this;
         }
 
         @JsOverlay
-        public final Props disabled(final boolean disabled) {
+        public final Props<V> disabled(final boolean disabled) {
             this.disabled = disabled;
             return this;
         }
 
         @JsOverlay
-        public final Props escapeClearsValue(final boolean escapeClearsValue) {
+        public final Props<V> escapeClearsValue(final boolean escapeClearsValue) {
             this.escapeClearsValue = escapeClearsValue;
             return this;
         }
 
         @JsOverlay
-        public final Props filterOption(final Func.Call2<Boolean, JwReactSelectOption<V>, String> filterOption) {
+        public final Props<V> filterOption(final Func.Call2<Boolean, JwReactSelectOption<V>, String> filterOption) {
             this.filterOption = filterOption;
             return this;
         }
 
         @JsOverlay
-        public final Props ignoreAccents(final boolean ignoreAccents) {
+        public final Props<V> ignoreAccents(final boolean ignoreAccents) {
             this.ignoreAccents = ignoreAccents;
             return this;
         }
 
         @JsOverlay
-        public final Props ignoreCase(final boolean ignoreCase) {
+        public final Props<V> ignoreCase(final boolean ignoreCase) {
             this.ignoreCase = ignoreCase;
             return this;
         }
 
         @JsOverlay
-        public final Props inputProps(final StyleProps inputProps) {
+        public final Props<V> inputProps(final StyleProps inputProps) {
             this.inputProps = inputProps;
             return this;
         }
 
         @JsOverlay
-        public final Props loading(final boolean loading) {
+        public final Props<V> loading(final boolean loading) {
             this.loading = loading;
             return this;
         }
 
         @JsOverlay
-        public final Props joinValues(final boolean joinValues) {
+        public final Props<V> joinValues(final boolean joinValues) {
             this.joinValues = joinValues;
             return this;
         }
 
         @JsOverlay
-        public final Props labelKey(final String labelKey) {
+        public final Props<V> labelKey(final String labelKey) {
             this.labelKey = labelKey;
             return this;
         }
 
         @JsOverlay
-        public final Props matchPos(final String matchPos) {
+        public final Props<V> matchPos(final String matchPos) {
             this.matchPos = matchPos;
             return this;
         }
 
         @JsOverlay
-        public final Props getMatchProp(final String getMatchProp) {
+        public final Props<V> getMatchProp(final String getMatchProp) {
             this.getMatchProp = getMatchProp;
             return this;
         }
 
         @JsOverlay
-        public final Props menuBuffer(final double menuBuffer) {
+        public final Props<V> menuBuffer(final double menuBuffer) {
             this.menuBuffer = menuBuffer;
             return this;
         }
 
         @JsOverlay
-        public final Props menuContainerStyle(final StyleProps menuContainerStyle) {
+        public final Props<V> menuContainerStyle(final StyleProps menuContainerStyle) {
             this.menuContainerStyle = menuContainerStyle;
             return this;
         }
 
         @JsOverlay
-        public final Props menuStyle(final StyleProps menuStyle) {
+        public final Props<V> menuStyle(final StyleProps menuStyle) {
             this.menuStyle = menuStyle;
             return this;
         }
 
         @JsOverlay
-        public final Props multi(final boolean multi) {
+        public final Props<V> multi(final boolean multi) {
             this.multi = multi;
             return this;
         }
 
         @JsOverlay
-        public final Props name(final String name) {
+        public final Props<V> name(final String name) {
             this.name = name;
             return this;
         }
 
         @JsOverlay
-        public final Props onBlur(final Func.Run1<BlurEvent> onBlur) {
+        public final Props<V> onBlur(final Func.Run1<BlurEvent> onBlur) {
             this.onBlur = onBlur;
             return this;
         }
 
         @JsOverlay
-        public final Props onBlurResetsInput(final boolean onBlurResetsInput) {
+        public final Props<V> onBlurResetsInput(final boolean onBlurResetsInput) {
             this.onBlurResetsInput = onBlurResetsInput;
             return this;
         }
 
         @JsOverlay
-        public final Props onChange(final Func.Run1<Object> onChange) {
+        public final Props<V> onChange(final Func.Run1<Object> onChange) {
             this.onChange = onChange;
             return this;
         }
 
         @JsOverlay
-        public final Props onClose(final Func.Run onClose) {
+        public final Props<V> onClose(final Func.Run onClose) {
             this.onClose = onClose;
             return this;
         }
 
         @JsOverlay
-        public final Props onFocus(final Func.Run1<FocusEvent> onFocus) {
+        public final Props<V> onFocus(final Func.Run1<FocusEvent> onFocus) {
             this.onFocus = onFocus;
             return this;
         }
 
         @JsOverlay
-        public final Props onInputChange(final Func.Run1<String> onInputChange) {
+        public final Props<V> onInputChange(final Func.Run1<String> onInputChange) {
             this.onInputChange = onInputChange;
             return this;
         }
 
         @JsOverlay
-        public final Props onOpen(final Func.Run onOpen) {
+        public final Props<V> onOpen(final Func.Run onOpen) {
             this.onOpen = onOpen;
             return this;
         }
 
         @JsOverlay
-        public final Props onValueClick(final Func.Run2<JwReactSelectOption<V>, ClickEvent> onValueClick) {
+        public final Props<V> onValueClick(final Func.Run2<JwReactSelectOption<V>, ClickEvent> onValueClick) {
             this.onValueClick = onValueClick;
             return this;
         }
 
         @JsOverlay
-        public final Props openAfterFocus(final boolean openAfterFocus) {
+        public final Props<V> openAfterFocus(final boolean openAfterFocus) {
             this.openAfterFocus = openAfterFocus;
             return this;
         }
 
         @JsOverlay
-        public final Props openOnFocus(final boolean openOnFocus) {
+        public final Props<V> openOnFocus(final boolean openOnFocus) {
             this.openOnFocus = openOnFocus;
             return this;
         }
 
         @JsOverlay
-        public final Props optionClassname(final String optionClassname) {
+        public final Props<V> optionClassname(final String optionClassname) {
             this.optionClassname = optionClassname;
             return this;
         }
 
         @JsOverlay
-        public final Props options(final JwReactSelectOption<V>[] options) {
+        public final Props<V> options(final JwReactSelectOption<V>[] options) {
             this.options = options;
             return this;
         }
 
         @JsOverlay
-        public final Props required(final boolean required) {
+        public final Props<V> required(final boolean required) {
             this.required = required;
             return this;
         }
 
         @JsOverlay
-        public final Props resetValue(final JwReactSelectOption<V> resetValue) {
+        public final Props<V> resetValue(final JwReactSelectOption<V> resetValue) {
             this.resetValue = resetValue;
             return this;
         }
 
         @JsOverlay
-        public final Props scrollMenuIntoView(final boolean scrollMenuIntoView) {
+        public final Props<V> scrollMenuIntoView(final boolean scrollMenuIntoView) {
             this.scrollMenuIntoView = scrollMenuIntoView;
             return this;
         }
 
         @JsOverlay
-        public final Props searchable(final boolean searchable) {
+        public final Props<V> searchable(final boolean searchable) {
             this.searchable = searchable;
             return this;
         }
 
         @JsOverlay
-        public final Props simpleValue(final boolean simpleValue) {
+        public final Props<V> simpleValue(final boolean simpleValue) {
             this.simpleValue = simpleValue;
             return this;
         }
 
         @JsOverlay
-        public final Props style(final StyleProps style) {
+        public final Props<V> style(final StyleProps style) {
             this.style = style;
             return this;
         }
 
         @JsOverlay
-        public final Props tabIndex(final String tabIndex) {
+        public final Props<V> tabIndex(final String tabIndex) {
             this.tabIndex = tabIndex;
             return this;
         }
 
         @JsOverlay
-        public final Props abSelectsValue(final boolean abSelectsValue) {
+        public final Props<V> abSelectsValue(final boolean abSelectsValue) {
             this.abSelectsValue = abSelectsValue;
             return this;
         }
 
         @JsOverlay
-        public final Props value(final Object value) {
+        public final Props<V> value(final Object value) {
             this.value = value;
             return this;
         }
 
         @JsOverlay
-        public final Props valueKey(final String valueKey) {
+        public final Props<V> valueKey(final String valueKey) {
             this.valueKey = valueKey;
             return this;
         }
 
         @JsOverlay
-        public final Props valueRenderer(final Func.Call1<ReactElement, JwReactSelectOption<V>> valueRenderer) {
+        public final Props<V> valueRenderer(final Func.Call1<ReactElement, JwReactSelectOption<V>> valueRenderer) {
             this.valueRenderer = valueRenderer;
             return this;
         }
 
         @JsOverlay
-        public final Props wrapperStyle(final StyleProps wrapperStyle) {
+        public final Props<V> wrapperStyle(final StyleProps wrapperStyle) {
             this.wrapperStyle = wrapperStyle;
             return this;
         }

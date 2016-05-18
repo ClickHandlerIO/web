@@ -177,77 +177,77 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
-        boolean disabled;
-        boolean clearable;
-        String placeholderText;
-        String className;
-        StyleProps style;
+       public boolean disabled;
+       public boolean clearable;
+       public String placeholderText;
+       public String className;
+       public StyleProps style;
 
         // Single Select
-        Func.Run1<D> onChange;
-        D value;
+        public Func.Run1<D> onChange;
+        public D value;
 
         // Multiple Select
-        boolean multi;
-        Func.Run1<List<D>> onChangeMulti;
-        List<D> valueMulti;
+        public boolean multi;
+        public Func.Run1<List<D>> onChangeMulti;
+        public List<D> valueMulti;
 
         @JsOverlay
-        public final Props valueMulti(final List<D> valueMulti) {
+        public final Props<D> valueMulti(final List<D> valueMulti) {
             this.valueMulti = valueMulti;
             return this;
         }
 
         @JsOverlay
-        public final Props onChangeMulti(final Func.Run1<List<D>> onChangeMulti) {
+        public final Props<D> onChangeMulti(final Func.Run1<List<D>> onChangeMulti) {
             this.onChangeMulti = onChangeMulti;
             return this;
         }
 
         @JsOverlay
-        public final Props multi(final boolean multi) {
+        public final Props<D> multi(final boolean multi) {
             this.multi = multi;
             return this;
         }
 
         @JsOverlay
-        public final Props value(final D value) {
+        public final Props<D> value(final D value) {
             this.value = value;
             return this;
         }
 
         @JsOverlay
-        public final Props onChange(final Func.Run1<D> onChange) {
+        public final Props<D> onChange(final Func.Run1<D> onChange) {
             this.onChange = onChange;
             return this;
         }
 
         @JsOverlay
-        public final Props style(final StyleProps style) {
+        public final Props<D> style(final StyleProps style) {
             this.style = style;
             return this;
         }
 
         @JsOverlay
-        public final Props className(final String className) {
+        public final Props<D> className(final String className) {
             this.className = className;
             return this;
         }
 
         @JsOverlay
-        public final Props placeholderText(final String placeholderText) {
+        public final Props<D> placeholderText(final String placeholderText) {
             this.placeholderText = placeholderText;
             return this;
         }
 
         @JsOverlay
-        public final Props clearable(final boolean clearable) {
+        public final Props<D> clearable(final boolean clearable) {
             this.clearable = clearable;
             return this;
         }
 
         @JsOverlay
-        public final Props disabled(final boolean disabled) {
+        public final Props<D> disabled(final boolean disabled) {
             this.disabled = disabled;
             return this;
         }

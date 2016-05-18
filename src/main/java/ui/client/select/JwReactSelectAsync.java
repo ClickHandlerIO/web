@@ -44,37 +44,37 @@ public class JwReactSelectAsync<V> extends ExternalComponent<JwReactSelectAsync.
         public String searchPromptText;
 
         @JsOverlay
-        public final Props cache(final Boolean cache) {
+        public final Props<V> cache(final Boolean cache) {
             this.cache = cache;
             return this;
         }
 
         @JsOverlay
-        public final Props loadOptions(final Func.Run2<InputElement, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions) {
+        public final Props<V> loadOptions(final Func.Run2<InputElement, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions) {
             this.loadOptions = loadOptions;
             return this;
         }
 
         @JsOverlay
-        public final Props loadingPlaceholder(final String loadingPlaceholder) {
+        public final Props<V> loadingPlaceholder(final String loadingPlaceholder) {
             this.loadingPlaceholder = loadingPlaceholder;
             return this;
         }
 
         @JsOverlay
-        public final Props minimumInput(final double minimumInput) {
+        public final Props<V> minimumInput(final double minimumInput) {
             this.minimumInput = minimumInput;
             return this;
         }
 
         @JsOverlay
-        public final Props searchingText(final String searchingText) {
+        public final Props<V> searchingText(final String searchingText) {
             this.searchingText = searchingText;
             return this;
         }
 
         @JsOverlay
-        public final Props searchPromptText(final String searchPromptText) {
+        public final Props<V> searchPromptText(final String searchPromptText) {
             this.searchPromptText = searchPromptText;
             return this;
         }
