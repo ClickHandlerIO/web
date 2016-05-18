@@ -1,4 +1,1 @@
-@import "bootstrap/bootstrap";
-@import "flex";
-@import "fullcalendar";
-@import "loaders";
+@import "bootstrap/bootstrap"; // imported first so the CSS Reset and basic settings will be set first
