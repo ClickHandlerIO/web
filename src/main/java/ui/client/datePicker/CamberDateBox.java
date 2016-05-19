@@ -48,7 +48,7 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
         s.setGuid(UUID.uuid());
 
         DateBox widget = new DateBox();
-        widget.setFireNullValues(true);
+//        widget.setFireNullValues(true);
         s.setDateBox(widget);
 
         return s;
@@ -70,8 +70,8 @@ public class CamberDateBox extends Component<CamberDateBox.Props, CamberDateBox.
         DateBox widget = $this.state.getDateBox();
         widget.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(nextProps.getFormat())));
         widget.setValue(nextProps.getMoment() == null ? null : DateUtil.toBrowserAdjustedDate(nextProps.getMoment()), false);
-        widget.getDatePicker().setVisibleYearCount(nextProps.getVisibleYearCount() == null ? 20 : nextProps.getVisibleYearCount().intValue());
-        widget.getDatePicker().setYearAndMonthDropdownVisible(nextProps.isEnableMonthYearDropdowns());
+//        widget.getDatePicker().setVisibleYearCount(nextProps.getVisibleYearCount() == null ? 20 : nextProps.getVisibleYearCount().intValue());
+//        widget.getDatePicker().setYearAndMonthDropdownVisible(nextProps.isEnableMonthYearDropdowns());
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

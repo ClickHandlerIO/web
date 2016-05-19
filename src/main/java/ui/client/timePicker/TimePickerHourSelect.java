@@ -1,30 +1,44 @@
 package ui.client.timePicker;
 
+import common.client.Func;
+import react.client.ReactComponent;
 import ui.client.camberSelect.AbstractEnumCamberSelect;
+import ui.client.select.Select;
 import ui.client.util.CamberEnumUtil;
 import jsinterop.annotations.JsType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
+
 @Singleton
-public class TimePickerHourSelect extends AbstractEnumCamberSelect<TimePickerHour, TimePickerHourSelect.Props> {
+public class TimePickerHourSelect extends Select<TimePickerHour, TimePickerHourSelect.Props, TimePickerHourSelect.State> {
 
     @Inject
     public TimePickerHourSelect() {
     }
 
     @Override
-    public String toString(TimePickerHour value) {
-        return CamberEnumUtil.toString(value);
+    protected String getId(TimePickerHour data) {
+        return data.toString();
     }
 
     @Override
-    public TimePickerHour[] getValues() {
-        return TimePickerHour.values();
+    protected String getLabel(TimePickerHour data) {
+        return CamberEnumUtil.toString(data);
     }
 
-    @JsType(isNative = true)
-    public interface Props extends AbstractEnumCamberSelect.CamberSelectProps<TimePickerHour> {
+    @Override
+    protected void loadOptions(ReactComponent<Props, State> $this, String search, Func.Run1<TimePickerHour[]> callback) {
+        callback.run(TimePickerHour.values());
+    }
+
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class Props extends Select.Props<TimePickerHour> {
+    }
+
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class State {
     }
 }

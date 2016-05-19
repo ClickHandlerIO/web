@@ -1,7 +1,7 @@
 package ui.client.timePicker;
 
 import common.client.Func;
-import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import moment.client.Moment;
 import react.client.*;
@@ -9,81 +9,67 @@ import react.client.*;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
 @Singleton
 public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTimePicker.State> {
 
     @Inject
-    TimePickerHourSelect timePickerHourSelect;
+    TimePickerHourSelect HourSelect;
     @Inject
-    TimePickerMinute15Select timePickerMinute15Select;
+    TimePickerMinute15Select MinuteSelect;
     @Inject
-    TimePickerMeridianSelect timePickerMeridianSelect;
+    TimePickerMeridianSelect MeridianSelect;
 
     @Inject
     public SimpleTimePicker() {
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Render
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return
-            div(className("flex-row align-items-center"),
-                timePickerHourSelect.$($ -> {
-                    $.setAllowClear(false);
-                    $.setStyle(new StyleProps().width("65px"));
-                    $.setValue($this.state.getHours());
-                    $.setOnValueChanged(v -> {
-                        $this.setState(s -> s.setHours(v));
-                        fireUpdate($this, v, $this.state.getMinutes(), $this.state.getMeridian());
-                    });
-                }),
-                div(style().margin("0 5px"), ":"),
-                timePickerMinute15Select.$($ -> {
-                    $.setAllowClear(false);
-                    $.setStyle(new StyleProps().width("65px"));
-                    $.setValue($this.state.getMinutes());
-                    $.setOnValueChanged(v -> {
-                        $this.setState(s -> s.setMinutes(v));
-                        fireUpdate($this, $this.state.getHours(), v, $this.state.getMeridian());
-                    });
-                }),
-                div(style().width("5px").lift()),
-                timePickerMeridianSelect.$($ -> {
-                    $.setAllowClear(false);
-                    $.setStyle(new StyleProps().width("75px"));
-                    $.setValue($this.state.getMeridian());
-                    $.setOnValueChanged(v -> {
-                        $this.setState(s -> s.setMeridian(v));
-                        fireUpdate($this, $this.state.getHours(), $this.state.getMinutes(), v);
-                    });
-                })
-            );
+                div(className("flex-row align-items-center"),
+                        HourSelect.props()
+                                .clearable(false)
+                                .style(new StyleProps().width("56px"))
+                                .value($this.state.hours)
+                                .onChange(v -> {
+                                    $this.setState(s -> s.hours(v));
+                                    fireUpdate($this, v, $this.state.minutes, $this.state.meridian);
+                                }).build(),
+                        div(style().margin("0 5px"), ":"),
+                        MinuteSelect.props()
+                                .clearable(false)
+                                .style(new StyleProps().width("65px"))
+                                .value($this.state.minutes)
+                                .onChange(v -> {
+                                    $this.setState(s -> s.minutes(v));
+                                    fireUpdate($this, $this.state.hours, v, $this.state.meridian);
+                                }).build(),
+                        div(style().width("5px")),
+                        MeridianSelect.props()
+                                .clearable(false)
+                                .style(new StyleProps().width("75px"))
+                                .value($this.state.meridian)
+                                .onChange(v -> {
+                                    $this.setState(s -> s.meridian(v));
+                                    fireUpdate($this, $this.state.hours, $this.state.minutes, v);
+                                }).build()
+                );
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Component Lifecycle
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected void intakeProps(ReactComponent<Props, State> $this, Props nextProps) {
         super.intakeProps($this, nextProps);
 
-        Moment m = nextProps.getTime() == null ? Moment.moment() : nextProps.getTime();
+        Moment m = nextProps.time == null ? Moment.moment() : nextProps.time;
         $this.setState(s -> {
-            s.setHours(TimePickerHour.parse(m.hours()));
-            s.setMinutes(TimePickerMinute15.parse(m.minutes()));
-            s.setMeridian(m.hours() >= 12 ? TimePickerMeridian.PM : TimePickerMeridian.AM);
+            s.hours(TimePickerHour.parse(m.hours()));
+            s.minutes(TimePickerMinute15.parse(m.minutes()));
+            s.meridian(m.hours() >= 12 ? TimePickerMeridian.PM : TimePickerMeridian.AM);
         });
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Work
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void fireUpdate(ReactComponent<Props, State> $this, TimePickerHour hour, TimePickerMinute15 minute, TimePickerMeridian meridian) {
         Moment time = Moment.moment();
@@ -91,48 +77,51 @@ public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTi
         time.hours(hour.getValue() + (meridian.equals(TimePickerMeridian.PM) ? 12 : 0));
         time.minutes(minute.getValue());
 
-        if ($this.props.getOnTimeChanged() != null) {
-            $this.props.getOnTimeChanged().run(time);
+        if ($this.props.onChange != null) {
+            $this.props.onChange.run(time);
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Args / Props / State / Route
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class Props extends ComponentProps {
+        public Moment time;
+        public Func.Run1<Moment> onChange;
 
-    @JsType(isNative = true)
-    public interface Props extends BaseProps {
-        @JsProperty
-        Moment getTime();
+        @JsOverlay
+        public final Props onChange(final Func.Run1<Moment> onChange) {
+            this.onChange = onChange;
+            return this;
+        }
 
-        @JsProperty
-        void setTime(Moment moment);
-
-        @JsProperty
-        Func.Run1<Moment> getOnTimeChanged();
-
-        @JsProperty
-        void setOnTimeChanged(Func.Run1<Moment> onTimeChanged);
+        @JsOverlay
+        public final Props time(final Moment time) {
+            this.time = time;
+            return this;
+        }
     }
 
-    @JsType(isNative = true)
-    public interface State {
-        @JsProperty
-        TimePickerHour getHours();
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class State {
+        TimePickerHour hours;
+        TimePickerMinute15 minutes;
+        TimePickerMeridian meridian;
 
-        @JsProperty
-        void setHours(TimePickerHour hours);
+        @JsOverlay
+        public final State hours(final TimePickerHour hours) {
+            this.hours = hours;
+            return this;
+        }
 
-        @JsProperty
-        TimePickerMinute15 getMinutes();
+        @JsOverlay
+        public final State minutes(final TimePickerMinute15 minutes) {
+            this.minutes = minutes;
+            return this;
+        }
 
-        @JsProperty
-        void setMinutes(TimePickerMinute15 minutes);
-
-        @JsProperty
-        TimePickerMeridian getMeridian();
-
-        @JsProperty
-        void setMeridian(TimePickerMeridian meridian);
+        @JsOverlay
+        public final State meridian(final TimePickerMeridian meridian) {
+            this.meridian = meridian;
+            return this;
+        }
     }
 }

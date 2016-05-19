@@ -1,30 +1,43 @@
 package ui.client.timePicker;
 
-import ui.client.camberSelect.AbstractEnumCamberSelect;
-import ui.client.util.CamberEnumUtil;
+import common.client.Func;
 import jsinterop.annotations.JsType;
+import react.client.ReactComponent;
+import ui.client.select.Select;
+import ui.client.util.CamberEnumUtil;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
+
 @Singleton
-public class TimePickerMeridianSelect extends AbstractEnumCamberSelect<TimePickerMeridian, TimePickerMeridianSelect.Props> {
+public class TimePickerMeridianSelect extends Select<TimePickerMeridian, TimePickerMeridianSelect.Props, TimePickerMeridianSelect.State> {
 
     @Inject
     public TimePickerMeridianSelect() {
     }
 
     @Override
-    public String toString(TimePickerMeridian value) {
-        return CamberEnumUtil.toString(value);
+    protected String getId(TimePickerMeridian data) {
+        return data.toString();
     }
 
     @Override
-    public TimePickerMeridian[] getValues() {
-        return TimePickerMeridian.values();
+    protected String getLabel(TimePickerMeridian data) {
+        return CamberEnumUtil.toString(data);
     }
 
-    @JsType(isNative = true)
-    public interface Props extends AbstractEnumCamberSelect.CamberSelectProps<TimePickerMeridian> {
+    @Override
+    protected void loadOptions(ReactComponent<Props, State> $this, String search, Func.Run1<TimePickerMeridian[]> callback) {
+        callback.run(TimePickerMeridian.values());
+    }
+
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class Props extends Select.Props<TimePickerMeridian> {
+    }
+
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class State {
     }
 }
