@@ -97,6 +97,7 @@ import SearchSvgIcon from "material-ui/svg-icons/action/search";
 import SendSvgIcon from "material-ui/svg-icons/content/send";
 import StorageSvgIcon from "material-ui/svg-icons/device/storage";
 import UnarchiveSvgIcon from "material-ui/svg-icons/content/unarchive";
+import ReactDatepicker from 'react-datepicker';
 
 window.MaterialUi = {
     AppBar: AppBar,
@@ -207,3 +208,5 @@ window.MaterialUi = {
     }
 };
 injectTapEventPlugin();
+
+window.ReactDatepicker = ReactDatepicker;

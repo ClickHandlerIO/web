@@ -1,15 +1,17 @@
 package ui.client;
 
-import com.google.gwt.core.client.JsDate;
 import common.client.Func;
 import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import react.client.*;
+import moment.client.Moment;
+import react.client.ComponentProps;
+import react.client.ExternalComponent;
+import react.client.ReactClass;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Date;
+
+import static jsinterop.annotations.JsPackage.GLOBAL;
 
 @Singleton
 public class DatePicker extends ExternalComponent<DatePicker.Props> {
@@ -20,298 +22,227 @@ public class DatePicker extends ExternalComponent<DatePicker.Props> {
 
     @Override
     protected native ReactClass<Props> getReactClass() /*-{
-        return $wnd.MaterialUi.DatePicker;
+        return $wnd.ReactDatepicker;
     }-*/;
 
-    @JsType(isNative = true)
-    public interface Props extends BaseProps {
-
-        @JsProperty
-        boolean isAutoOk();
-
-        @JsProperty
-        void setAutoOk(boolean autoOk);
-
-        @JsProperty
-        String getContainer();
-
-        @JsProperty
-        void setContainer(String container);
-
-        @JsProperty
-        Date getDefaultDate();
-
-        @JsProperty
-        void setDefaultDate(Date defaultDate);
-
-        @JsProperty
-        boolean isDisableYearSelection();
-
-        @JsProperty
-        void setDisableYearSelection(boolean disableYearSelection);
-
-        @JsProperty
-        boolean isDisabled();
-
-        @JsProperty
-        void setDisabled(boolean disabled);
-
-        @JsProperty
-        int getFirstDayOfWeek();
-
-        @JsProperty
-        void setFirstDayOfWeek(int firstDayOfWeek);
-
-        @JsProperty
-        String getLocale();
-
-        @JsProperty
-        void setLocale(String locale);
-
-        @JsProperty
-        String getMaxDate();
-
-        @JsProperty
-        void setMaxDate(String maxDate);
-
-        @JsProperty
-        String getMinDate();
-
-        @JsProperty
-        void setMinDate(String minDate);
-
-        @JsProperty
-        String getMode();
-
-        @JsProperty
-        void setMode(String mode);
-
-        @JsProperty
-        StyleProps getStyle();
-
-        @JsProperty
-        void setStyle(StyleProps style);
-
-        @JsProperty
-        StyleProps getTextFieldStyle();
-
-        @JsProperty
-        void setTextFieldStyle(StyleProps textFieldStyle);
-
-        @JsProperty
-        JsDate getValue();
-
-        @JsProperty
-        void setValue(JsDate value);
-
-        @JsProperty
-        String getValueLink();
-
-        @JsProperty
-        void setValueLink(String valueLink);
-
-        @JsProperty
-        String getWordings();
-
-        @JsProperty
-        void setWordings(String wordings);
-
-        @JsProperty
-        Func.Run getDateTimeFormat();
-
-        @JsProperty
-        void setDateTimeFormat(Func.Run dateTimeFormat);
-
-        @JsProperty
-        Func.Call1<String, JsDate> getFormatDate();
-
-        @JsProperty
-        void setFormatDate(Func.Call1<String, JsDate> formatDate);
-
-        @JsProperty
-        Func.Run2<Object, JsDate> getOnChange();
-
-        @JsProperty
-        void setOnChange(Func.Run2<Object, JsDate> onChange);
-
-        @JsProperty
-        Func.Run getOnDismiss();
-
-        @JsProperty
-        void setOnDismiss(Func.Run onDismiss);
-
-        @JsProperty
-        FocusEventHandler getOnFocus();
-
-        @JsProperty
-        void setOnFocus(FocusEventHandler onFocus);
-
-        @JsProperty
-        Func.Run getOnShow();
-
-        @JsProperty
-        void setOnShow(Func.Run onShow);
-
-        @JsProperty
-        TouchEventHandler getOnTouchTap();
-
-        @JsProperty
-        void setOnTouchTap(TouchEventHandler onTouchTap);
-
-        @JsProperty
-        Func.Run getShouldDisableDate();
-
-        @JsProperty
-        void setShouldDisableDate(Func.Run shouldDisableDate);
-
-        @JsProperty
-        String getHintText();
-
-        @JsProperty
-        void setHintText(String hintText);
-
-        ////////////////////
-        // fluent setters
-        ////////////////////
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class Props extends ComponentProps {
+        public String className;
+        public String dateFormat;
+        public String dateFormatCalendar;
+        public boolean disabled;
+        public Moment endDate;
+        public Moment[] excludeDates;
+        public Func.Run filterDate; // todo signature
+        public String id;
+        public Moment[] includeDates;
+        public boolean isClearable;
+        public String locale;
+        public Moment maxDate;
+        public Moment minDate;
+        public String name;
+        public Func.Run onBlur;
+        public Func.Run1<Moment> onChange; // required
+        public Func.Run onFocus;
+        public String placeholderText;
+        public String popoverAttachment; // default 'top left'
+        public String popoverTargetAttachment; // default 'bottom left'
+        public String popoverTargetOffset; // default '10px 0'
+        public boolean readOnly;
+        public Object renderCalendarTo; // todo?
+        public boolean required;
+        public Moment selected;
+        public boolean showYearDropdown;
+        public Moment startDate;
+        public double tabIndex;
+        //        public Object[] tetherConstraints; // todo defaultValue: [ { to: 'window', attachment: 'together' } ]
+        public String title;
+        public String todayButton;
 
         @JsOverlay
-        default Props autoOk(final boolean autoOk) {
-            setAutoOk(autoOk);
+        public final Props key(final String key) {
+            this.key = key;
             return this;
         }
 
         @JsOverlay
-        default Props container(final String container) {
-            setContainer(container);
+        public final Props className(final String className) {
+            this.className = className;
             return this;
         }
 
         @JsOverlay
-        default Props defaultDate(final Date defaultDate) {
-            setDefaultDate(defaultDate);
+        public final Props dateFormat(final String dateFormat) {
+            this.dateFormat = dateFormat;
             return this;
         }
 
         @JsOverlay
-        default Props disableYearSelection(final boolean disableYearSelection) {
-            setDisableYearSelection(disableYearSelection);
+        public final Props dateFormatCalendar(final String dateFormatCalendar) {
+            this.dateFormatCalendar = dateFormatCalendar;
             return this;
         }
 
         @JsOverlay
-        default Props disabled(final boolean disabled) {
-            setDisabled(disabled);
+        public final Props disabled(final boolean disabled) {
+            this.disabled = disabled;
             return this;
         }
 
         @JsOverlay
-        default Props firstDayOfWeek(final int firstDayOfWeek) {
-            setFirstDayOfWeek(firstDayOfWeek);
+        public final Props endDate(final Moment endDate) {
+            this.endDate = endDate;
             return this;
         }
 
         @JsOverlay
-        default Props locale(final String locale) {
-            setLocale(locale);
+        public final Props excludeDates(final Moment[] excludeDates) {
+            this.excludeDates = excludeDates;
             return this;
         }
 
         @JsOverlay
-        default Props maxDate(final String maxDate) {
-            setMaxDate(maxDate);
+        public final Props filterDate(final Func.Run filterDate) {
+            this.filterDate = filterDate;
             return this;
         }
 
         @JsOverlay
-        default Props minDate(final String minDate) {
-            setMinDate(minDate);
+        public final Props id(final String id) {
+            this.id = id;
             return this;
         }
 
         @JsOverlay
-        default Props mode(final String mode) {
-            setMode(mode);
+        public final Props includeDates(final Moment[] includeDates) {
+            this.includeDates = includeDates;
             return this;
         }
 
         @JsOverlay
-        default Props style(final StyleProps style) {
-            setStyle(style);
+        public final Props isClearable(final boolean isClearable) {
+            this.isClearable = isClearable;
             return this;
         }
 
         @JsOverlay
-        default Props textFieldStyle(final StyleProps textFieldStyle) {
-            setTextFieldStyle(textFieldStyle);
+        public final Props locale(final String locale) {
+            this.locale = locale;
             return this;
         }
 
         @JsOverlay
-        default Props value(final JsDate value) {
-            setValue(value);
+        public final Props maxDate(final Moment maxDate) {
+            this.maxDate = maxDate;
             return this;
         }
 
         @JsOverlay
-        default Props valueLink(final String valueLink) {
-            setValueLink(valueLink);
+        public final Props minDate(final Moment minDate) {
+            this.minDate = minDate;
             return this;
         }
 
         @JsOverlay
-        default Props wordings(final String wordings) {
-            setWordings(wordings);
+        public final Props name(final String name) {
+            this.name = name;
             return this;
         }
 
         @JsOverlay
-        default Props DateTimeFormat(final Func.Run dateTimeFormat) {
-            setDateTimeFormat(dateTimeFormat);
+        public final Props onBlur(final Func.Run onBlur) {
+            this.onBlur = onBlur;
             return this;
         }
 
         @JsOverlay
-        default Props formatDate(final Func.Call1<String, JsDate> formatDate) {
-            setFormatDate(formatDate);
+        public final Props onChange(final Func.Run1<Moment> onChange) {
+            this.onChange = onChange;
             return this;
         }
 
         @JsOverlay
-        default Props onChange(final Func.Run2<Object, JsDate> onChange) {
-            setOnChange(onChange);
+        public final Props onFocus(final Func.Run onFocus) {
+            this.onFocus = onFocus;
             return this;
         }
 
         @JsOverlay
-        default Props onDismiss(final Func.Run onDismiss) {
-            setOnDismiss(onDismiss);
+        public final Props placeholderText(final String placeholderText) {
+            this.placeholderText = placeholderText;
             return this;
         }
 
         @JsOverlay
-        default Props onFocus(final FocusEventHandler onFocus) {
-            setOnFocus(onFocus);
+        public final Props popoverAttachment(final String popoverAttachment) {
+            this.popoverAttachment = popoverAttachment;
             return this;
         }
 
         @JsOverlay
-        default Props onShow(final Func.Run onShow) {
-            setOnShow(onShow);
+        public final Props popoverTargetAttachment(final String popoverTargetAttachment) {
+            this.popoverTargetAttachment = popoverTargetAttachment;
             return this;
         }
 
         @JsOverlay
-        default Props onTouchTap(final TouchEventHandler onTouchTap) {
-            setOnTouchTap(onTouchTap);
+        public final Props popoverTargetOffset(final String popoverTargetOffset) {
+            this.popoverTargetOffset = popoverTargetOffset;
             return this;
         }
 
         @JsOverlay
-        default Props shouldDisableDate(final Func.Run shouldDisableDate) {
-            setShouldDisableDate(shouldDisableDate);
+        public final Props readOnly(final boolean readOnly) {
+            this.readOnly = readOnly;
             return this;
         }
 
+        @JsOverlay
+        public final Props renderCalendarTo(final Object renderCalendarTo) {
+            this.renderCalendarTo = renderCalendarTo;
+            return this;
+        }
 
+        @JsOverlay
+        public final Props required(final boolean required) {
+            this.required = required;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props selected(final Moment selected) {
+            this.selected = selected;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props showYearDropdown(final boolean showYearDropdown) {
+            this.showYearDropdown = showYearDropdown;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props startDate(final Moment startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props tabIndex(final double tabIndex) {
+            this.tabIndex = tabIndex;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props title(final String title) {
+            this.title = title;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props todayButton(final String todayButton) {
+            this.todayButton = todayButton;
+            return this;
+        }
     }
 }
