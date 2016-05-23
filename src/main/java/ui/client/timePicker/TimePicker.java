@@ -13,7 +13,7 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
 @Singleton
-public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTimePicker.State> {
+public class TimePicker extends Component<TimePicker.Props, TimePicker.State> {
 
     @Inject
     TimePickerHourSelect HourSelect;
@@ -23,7 +23,7 @@ public class SimpleTimePicker extends Component<SimpleTimePicker.Props, SimpleTi
     TimePickerMeridianSelect MeridianSelect;
 
     @Inject
-    public SimpleTimePicker() {
+    public TimePicker() {
     }
 
     @Override

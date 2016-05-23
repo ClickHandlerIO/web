@@ -2,10 +2,9 @@ package ui.client.timePicker;
 
 import common.client.Func;
 import react.client.ReactComponent;
-import ui.client.camberSelect.AbstractEnumCamberSelect;
 import ui.client.select.Select;
-import ui.client.util.CamberEnumUtil;
 import jsinterop.annotations.JsType;
+import ui.client.util.CamberEnumUtil;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
