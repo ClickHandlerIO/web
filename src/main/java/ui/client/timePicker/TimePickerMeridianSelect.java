@@ -4,7 +4,6 @@ import common.client.Func;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import ui.client.select.Select;
-import ui.client.util.CamberEnumUtil;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,7 +24,14 @@ public class TimePickerMeridianSelect extends Select<TimePickerMeridian, TimePic
 
     @Override
     protected String getLabel(TimePickerMeridian data) {
-        return CamberEnumUtil.toString(data);
+        switch (data) {
+            case AM:
+                return "AM";
+            case PM:
+                return "PM";
+            default:
+                return data.toString();
+        }
     }
 
     @Override

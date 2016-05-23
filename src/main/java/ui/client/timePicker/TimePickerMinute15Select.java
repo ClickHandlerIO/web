@@ -4,7 +4,6 @@ import common.client.Func;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import ui.client.select.Select;
-import ui.client.util.CamberEnumUtil;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,7 +24,18 @@ public class TimePickerMinute15Select extends Select<TimePickerMinute15, TimePic
 
     @Override
     protected String getLabel(TimePickerMinute15 data) {
-        return CamberEnumUtil.toString(data);
+        switch (data) {
+            case ZERO:
+                return "00";
+            case FIFTEEN:
+                return "15";
+            case THIRTY:
+                return "30";
+            case FOURTY_FIVE:
+                return "45";
+            default:
+                return data.toString();
+        }
     }
 
     @Override
