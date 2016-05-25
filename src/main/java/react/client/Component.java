@@ -334,7 +334,11 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     protected boolean shouldComponentUpdate(ReactComponent<P, S> $this, P nextProps, S nextState) {
-        return true;
+        return propsOrStateNotEqual($this, nextProps, nextState);
+    }
+
+    protected boolean propsOrStateNotEqual(ReactComponent<P, S> $this, P nextProps, S nextState) {
+        return !Lodash.isEqual($this.props, nextProps) || !Lodash.isEqual($this.state, nextState);
     }
 
     @JsIgnore

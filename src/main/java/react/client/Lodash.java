@@ -1,4 +1,4 @@
-package ui.client.util;
+package react.client;
 
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;

@@ -5,7 +5,7 @@ import common.client.Jso;
 import elemental.html.SelectElement;
 import ui.client.select2.events.Select2EventArgs;
 import ui.client.select2.events.Select2NativeEvent;
-import ui.client.util.Lodash;
+import react.client.Lodash;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;

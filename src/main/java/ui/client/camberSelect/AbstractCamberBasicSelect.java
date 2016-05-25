@@ -7,7 +7,7 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.select2.*;
-import ui.client.util.Lodash;
+import react.client.Lodash;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
