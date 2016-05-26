@@ -10,6 +10,12 @@ import jsinterop.annotations.JsType;
 public interface FullCalendarOptions {
 
     @JsProperty
+    String getTimezone();
+
+    @JsProperty
+    void setTimezone(String timezone);
+
+    @JsProperty
     Func.Run4<Moment, Moment, Object, Func.Run1<FullCalendarEvent[]>> getEvents();
 
     @JsProperty

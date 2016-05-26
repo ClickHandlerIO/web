@@ -91,6 +91,7 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setDefaultDate($this.props.getMoment());
         options.setAllDayDefault(false);
         options.setEditable(false);
+        options.setTimezone("local");
         options.setEventColor("#3a87ad");
         options.setEventTextColor("#fff");
         options.setEventLimit(true);
