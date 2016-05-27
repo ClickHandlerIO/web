@@ -33,12 +33,17 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
                     .placeholder(p.placeholderText)
                     .ref(selectRef);
 
-            if ($this.props.optionRenderer != null) {
-                props.optionRenderer(value -> $this.props.optionRenderer.call(value.getValueObject()));
-            }
+            if (getCustomRenderer() != null) {
+                props.optionRenderer(value -> getCustomRenderer().call(value.getValueObject()));
+                props.valueRenderer(value -> getCustomRenderer().call(value.getValueObject()));
+            }else {
+                if (getOptionRenderer() != null) {
+                    props.optionRenderer(value -> getOptionRenderer().call(value.getValueObject()));
+                }
 
-            if ($this.props.valueRenderer != null) {
-                props.valueRenderer(value -> $this.props.valueRenderer.call(value.getValueObject()));
+                if (getValueRenderer() != null) {
+                    props.valueRenderer(value -> getValueRenderer().call(value.getValueObject()));
+                }
             }
 
             if (p.multi) {
@@ -142,6 +147,18 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
     @JsIgnore
     protected abstract void loadOptions(final ReactComponent<P, S> $this, String search, Func.Run1<D[]> callback);
 
+    protected Func.Call1<ReactElement, D> getCustomRenderer() {
+        return null;
+    }
+
+    protected Func.Call1<ReactElement, D> getOptionRenderer() {
+        return null;
+    }
+
+    protected Func.Call1<ReactElement, D> getValueRenderer() {
+        return null;
+    }
+
     /*
      * Work
      */
@@ -190,8 +207,6 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
         public String placeholderText;
         public String className;
         public StyleProps style;
-        public Func.Call1<ReactElement, D> optionRenderer;
-        public Func.Call1<ReactElement, D> valueRenderer;
 
         // Single Select
         public Func.Run1<D> onChange;
@@ -201,18 +216,6 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
         public boolean multi;
         public Func.Run1<List<D>> onChangeMulti;
         public List<D> valueMulti;
-
-        @JsOverlay
-        public final Props optionRenderer(final Func.Call1<ReactElement, D> optionRenderer) {
-            this.optionRenderer = optionRenderer;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props valueRenderer(final Func.Call1<ReactElement, D> valueRenderer) {
-            this.valueRenderer = valueRenderer;
-            return this;
-        }
 
         @JsOverlay
         public final Props<D> valueMulti(final List<D> valueMulti) {
