@@ -37,7 +37,7 @@ public class JwReactSelectAsync<V> extends ExternalComponent<JwReactSelectAsync.
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<V> extends JwReactSelect.Props<V> {
         public Boolean cache;
-        public Func.Run2<InputElement, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions; // <input el, callback<Error, OptionsResponse> // todo confirm if input el or Stringi s passed in here
+        public Func.Run2<String, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions; // <input el, callback<Error, OptionsResponse> // todo confirm if input el or Stringi s passed in here
         public String loadingPlaceholder;
         public double minimumInput;
         public String searchingText;
@@ -50,7 +50,7 @@ public class JwReactSelectAsync<V> extends ExternalComponent<JwReactSelectAsync.
         }
 
         @JsOverlay
-        public final Props<V> loadOptions(final Func.Run2<InputElement, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions) {
+        public final Props<V> loadOptions(final Func.Run2<String, Func.Run2<String, LoadOptionsResponse<V>>> loadOptions) {
             this.loadOptions = loadOptions;
             return this;
         }

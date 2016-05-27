@@ -77,7 +77,7 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
             }
 
             props.loadOptions((search, callback) -> {
-                loadOptions($this, search.getValue(), values -> {
+                loadOptions($this, search, values -> {
                     JwReactSelectAsync.LoadOptionsResponse<D> resp = Jso.create();
                     resp.complete = false;
                     if (values == null) {
