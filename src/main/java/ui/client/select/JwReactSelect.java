@@ -72,7 +72,7 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
        public boolean openOnFocus;
        public String optionClassname;
        // todo optionComponent func
-       // todo option renderer
+       public Func.Call1<ReactElement, JwReactSelectOption<V>> optionRenderer;
        public JwReactSelectOption<V>[] options;
        public Object placeholder;
        public boolean required;
@@ -152,6 +152,12 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
         }
 
         // fluent setters
+
+        @JsOverlay
+        public final Props optionRenderer(final Func.Call1<ReactElement, JwReactSelectOption<V>> optionRenderer) {
+            this.optionRenderer = optionRenderer;
+            return this;
+        }
 
         @JsOverlay
         public final Props<V> addLabelText(final String addLabelText) {

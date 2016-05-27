@@ -31,7 +31,15 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
                     .clearable(p.clearable)
                     .openAfterFocus(true)
                     .placeholder(p.placeholderText)
-                    .ref(selectRef).$();
+                    .ref(selectRef);
+
+            if ($this.props.optionRenderer != null) {
+                props.optionRenderer(value -> $this.props.optionRenderer.call(value.getValueObject()));
+            }
+
+            if ($this.props.valueRenderer != null) {
+                props.valueRenderer(value -> $this.props.valueRenderer.call(value.getValueObject()));
+            }
 
             if (p.multi) {
                 props.onChange(optionArray -> {
@@ -177,11 +185,13 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
-       public boolean disabled;
-       public boolean clearable;
-       public String placeholderText;
-       public String className;
-       public StyleProps style;
+        public boolean disabled;
+        public boolean clearable;
+        public String placeholderText;
+        public String className;
+        public StyleProps style;
+        public Func.Call1<ReactElement, D> optionRenderer;
+        public Func.Call1<ReactElement, D> valueRenderer;
 
         // Single Select
         public Func.Run1<D> onChange;
@@ -191,6 +201,18 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
         public boolean multi;
         public Func.Run1<List<D>> onChangeMulti;
         public List<D> valueMulti;
+
+        @JsOverlay
+        public final Props optionRenderer(final Func.Call1<ReactElement, D> optionRenderer) {
+            this.optionRenderer = optionRenderer;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props valueRenderer(final Func.Call1<ReactElement, D> valueRenderer) {
+            this.valueRenderer = valueRenderer;
+            return this;
+        }
 
         @JsOverlay
         public final Props<D> valueMulti(final List<D> valueMulti) {
