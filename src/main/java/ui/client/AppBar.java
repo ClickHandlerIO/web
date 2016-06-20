@@ -35,7 +35,7 @@ public class AppBar extends ExternalComponent<AppBar.Props> {
         public TouchEventHandler onTitleTouchTap;
         public boolean showMenuIconButton;
         public StyleProps style;
-        public String title;
+        public ReactElement title;
         public StyleProps titleStyle;
         public double zDepth;
         public MouseEventHandler onClick;
