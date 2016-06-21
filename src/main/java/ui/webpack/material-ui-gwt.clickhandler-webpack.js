@@ -196,6 +196,13 @@ window.MaterialUi = {
         Storage: StorageSvgIcon,
         Unarchive: UnarchiveSvgIcon
     },
+    Stepper: {
+        Step: Step,
+        StepButton: StepButton,
+        StepContent: StepContent,
+        StepLabel: StepLabel,
+        Stepper: Stepper
+    },
     Styles: {
         Colors: Colors,
         MuiTheme: MuiTheme,
