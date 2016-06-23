@@ -132,16 +132,22 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.dagger</groupId>
+            <groupId>io.clickhandler</groupId>
             <artifactId>dagger-gwt</artifactId>
-            <version>${dagger-gwt.version}</version>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.dagger</groupId>
-            <artifactId>dagger-compiler</artifactId>
-            <version>${dagger-gwt.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.dagger</groupId>-->
+            <!--<artifactId>dagger-gwt</artifactId>-->
+            <!--<version>${dagger-gwt.version}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.google.dagger</groupId>-->
+            <!--<artifactId>dagger-compiler</artifactId>-->
+            <!--<version>${dagger-gwt.version}</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.google.gwt</groupId>
