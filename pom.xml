@@ -53,7 +53,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <gwt.version>2.8.0-SNAPSHOT</gwt.version>
-        <dagger-gwt.version>0.1.0-SNAPSHOT</dagger-gwt.version>
+        <dagger-gwt.version>2.5</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
@@ -132,8 +132,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.clickhandler</groupId>
+            <groupId>com.google.dagger</groupId>
             <artifactId>dagger-gwt</artifactId>
+            <version>${dagger-gwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.dagger</groupId>
+            <artifactId>dagger-compiler</artifactId>
             <version>${dagger-gwt.version}</version>
         </dependency>
 
