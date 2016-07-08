@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<module>
+<module rename-to="app">
     <inherits name="ClickHandlerCore"/>
     <inherits name="ui.UI"/>
     <inherits name="moment.Moment"/>
@@ -8,4 +8,5 @@
     <source path="client"/>
     <source path="resources" />
     <public path="public" />
+    <entry-point class="showcase.client.ShowcaseEntryPoint"/>
 </module>

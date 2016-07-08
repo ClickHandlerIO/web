@@ -1,20 +1,34 @@
 package showcase.client.modules;
 
-import showcase.client.modules.grid.GridPage;
+import showcase.client.modules.components.grid.GridPage;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public class Routes {
+
     @Inject
-    GridPage.Route gridPage;
+    ComponentsRoutes components;
 
     @Inject
     public Routes() {
     }
 
-    public GridPage.Route getGridPage() {
-        return gridPage;
+    public ComponentsRoutes getComponents() {
+        return components;
+    }
+
+    public static class ComponentsRoutes {
+        @Inject
+        GridPage.Route gridPage;
+
+        @Inject
+        public ComponentsRoutes() {
+        }
+
+        public GridPage.Route getGridPage() {
+            return gridPage;
+        }
     }
 }

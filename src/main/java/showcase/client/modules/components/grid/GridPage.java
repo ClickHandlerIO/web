@@ -1,14 +1,14 @@
-package showcase.client.modules.grid;
+package showcase.client.modules.components.grid;
 
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
-import react.client.router.RootRoute;
 import react.client.router.SimpleRouteComponent;
 import react.client.router.SimpleRouteProps;
 import react.client.router.SimpleRouteProxy;
+import showcase.client.modules.components.ComponentsShell;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -59,8 +59,9 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
 
     public static class Route extends SimpleRouteProxy {
         @Inject
-        public Route(RootRoute parent) {
-            super("login", parent);
+        public Route(ComponentsShell.Route parent) {
+            super("grid", parent);
+            setSecured(false);
         }
     }
 }
