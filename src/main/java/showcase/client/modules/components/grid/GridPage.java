@@ -23,11 +23,17 @@ import static react.client.DOM.div;
 public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Props, GridPage.State> {
 
     @Inject
+    Grid grid;
+
+    @Inject
     public GridPage() {
     }
 
     protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div("Grid Page Here");
+        return div(style().padding("20px"),
+                div("Grid Page Here"),
+                grid.props().build()
+        );
     }
 
     /*
