@@ -5,10 +5,13 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import react.client.ComponentProps;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
+
 /**
  *
  */
-@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+
+@JsType(isNative = true, name = "Object", namespace = GLOBAL)
 public class RouteProps<T> extends ComponentProps {
     /**
      * @return

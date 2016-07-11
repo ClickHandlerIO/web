@@ -31,8 +31,8 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
 
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return div(style().padding("20px"),
-                div("Grid Page Here"),
-                grid.props().build()
+                div("Grid Page Here")
+//                grid.props().build()
         );
     }
 
