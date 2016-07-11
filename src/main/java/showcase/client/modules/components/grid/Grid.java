@@ -13,6 +13,7 @@ import ui.client.grid.GridSort;
 import javax.inject.Inject;
 import java.util.List;
 
+import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
 public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
@@ -43,8 +44,8 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
     @Override
     public Props getDefaultProps() {
         Props p = super.getDefaultProps();
-        p.setHideHeader(false);
-        p.setNoResultsText("No Reports");
+        p.hideHeader = false;
+        p.noResultsText = "No Reports";
         return p;
     }
 
@@ -65,8 +66,8 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
      * Props
      */
 
-    @JsType(isNative = true)
-    public interface Props extends AbstractGrid.Props<GridDataSource.SnowReport> {
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class Props extends AbstractGrid.Props<GridDataSource.SnowReport> {
     }
 
     /*
