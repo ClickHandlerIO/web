@@ -308,19 +308,19 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
-        protected boolean selectionEnabled;
-        protected boolean reorderEnabled;
-        protected boolean hideHeader;
-        protected boolean loadWhenMounted;
-        protected List<D> selected;
-        protected Func.Run1<List<D>> onSelectionChanged;
-        protected String noResultsText;
-        protected ReactElement noResultsComponent;
-        protected double pageSize;
-        protected Func.Run onExcel;
-        protected Func.Run onPDF;
-        protected Func.Run onPrint;
-        protected Func.Run onEmail;
+        public boolean selectionEnabled;
+        public boolean reorderEnabled;
+        public boolean hideHeader;
+        public boolean loadWhenMounted;
+        public List<D> selected;
+        public Func.Run1<List<D>> onSelectionChanged;
+        public String noResultsText;
+        public ReactElement noResultsComponent;
+        public double pageSize;
+        public Func.Run onExcel;
+        public Func.Run onPDF;
+        public Func.Run onPrint;
+        public Func.Run onEmail;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
