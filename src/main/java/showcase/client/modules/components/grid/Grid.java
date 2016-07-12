@@ -123,6 +123,30 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
             this.ref = ref;
             return this;
         }
+
+        @JsOverlay
+        public final Props onExcel(final Func.Run onExcel) {
+            this.onExcel = onExcel;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onPDF(final Func.Run onPDF) {
+            this.onPDF = onPDF;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onPrint(final Func.Run onPrint) {
+            this.onPrint = onPrint;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onEmail(final Func.Run onEmail) {
+            this.onEmail = onEmail;
+            return this;
+        }
     }
 
     /*

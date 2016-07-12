@@ -83,6 +83,7 @@ import FileDownloadSvgIcon from "material-ui/svg-icons/file/file-download";
 import FileUploadSvgIcon from "material-ui/svg-icons/file/file-upload";
 import FilterListSvgIcon from "material-ui/svg-icons/content/filter-list";
 import GpsFixedSvgIcon from "material-ui/svg-icons/device/gps-fixed";
+import ImportExportSvgIcon from "material-ui/svg-icons/communication/import-export";
 import InsertDriveFileSvgIcon from "material-ui/svg-icons/editor/insert-drive-file";
 import KeyboardArrowDownSvgIcon from "material-ui/svg-icons/hardware/keyboard-arrow-down";
 import LaunchSvgIcon from "material-ui/svg-icons/action/launch";
@@ -215,6 +216,7 @@ window.MaterialUi = {
         FilterList: FilterListSvgIcon,
         GpsFixed: GpsFixedSvgIcon,
         InsertDriveFile: InsertDriveFileSvgIcon,
+        ImportExport: ImportExportSvgIcon,
         KeyboardArrowDown: KeyboardArrowDownSvgIcon,
         Launch: LaunchSvgIcon,
         MailOutline: MailOutlineSvgIcon,

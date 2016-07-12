@@ -169,10 +169,20 @@
   }
 }
 
-.grid-simple-pager {
+.grid-footer {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 10px;
+  align-items: flex-start;
+
+  .grid-action-bar {
+    flex: 1;
+  }
+
+  .grid-simple-pager {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }
+

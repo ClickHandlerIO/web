@@ -2,7 +2,6 @@ package ui.client.grid;
 
 import com.google.gwt.user.client.Timer;
 import common.client.Func;
-import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.Component;
 import react.client.ComponentProps;
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import java.util.*;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
-import static react.client.DOM.body;
 import static react.client.DOM.div;
 
 public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends Component<P, AbstractGrid.State<D>> {
@@ -21,7 +19,9 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     @Inject
     GridHeader gridHeader;
     @Inject
-    GridSimplePager gridSimplePager;
+    GridSimplePager pager;
+    @Inject
+    GridActionBar actions;
 
     @Override
     protected ReactElement render(ReactComponent<P, State<D>> $this) {
@@ -137,26 +137,41 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                             )
                     );
 
-                    if (!$this.state.firstLoad && !($this.state.pageIdx == 0 && !$this.state.moreResults)) {
-                        childList.add(
-                                gridSimplePager.$($ -> {
-                                    $.setNextEnabled($this.state.moreResults && !$this.state.loading);
-                                    $.setPreviousEnabled($this.state.pageIdx > 0.);
-                                    $.setOnNextPage(() -> {
-                                        if ($this.state.loading) {
-                                            return; // cannot page forward until we have the lastRecord
-                                        }
-                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1);
-                                        load($this);
-                                    });
+                    childList.add(
+                            div(className("grid-footer"),
+                                    footerChildren -> {
+                                        footerChildren.add(actions.props()
+                                                .onPrint($this.props.onPrint)
+                                                .onEmail($this.props.onEmail)
+                                                .onPDF($this.props.onPDF)
+                                                .onExcel($this.props.onExcel)
+                                                .build());
 
-                                    $.setOnPreviousPage(() -> {
-                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1.);
-                                        load($this);
-                                    });
-                                })
-                        );
-                    }
+                                        if (!$this.state.firstLoad && !($this.state.pageIdx == 0 && !$this.state.moreResults)) {
+                                            footerChildren.add(
+                                                    pager.$($ -> {
+                                                        $.setNextEnabled($this.state.moreResults && !$this.state.loading);
+                                                        $.setPreviousEnabled($this.state.pageIdx > 0.);
+                                                        $.setOnNextPage(() -> {
+                                                            if ($this.state.loading) {
+                                                                return; // cannot page forward until we have the lastRecord
+                                                            }
+                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1);
+                                                            load($this);
+                                                        });
+
+                                                        $.setOnPreviousPage(() -> {
+                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1.);
+                                                            load($this);
+                                                        });
+                                                    })
+                                            );
+                                        }
+                                    }
+                            )
+                    );
+
+
                 }
         );
     }
@@ -302,18 +317,22 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         protected String noResultsText;
         protected ReactElement noResultsComponent;
         protected double pageSize;
+        protected Func.Run onExcel;
+        protected Func.Run onPDF;
+        protected Func.Run onPrint;
+        protected Func.Run onEmail;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class State<D> {
-       private List<GridColumn> columns;
-       private List<D> data;
-       private boolean moreResults;
-       private Double pageIdx;
-       private Map<Double, D> pageIdxMap;
-       private String pendingFetchGuid;
-       private boolean loading;
-       private boolean showLoading;
-       private boolean firstLoad;
+        private List<GridColumn> columns;
+        private List<D> data;
+        private boolean moreResults;
+        private Double pageIdx;
+        private Map<Double, D> pageIdxMap;
+        private String pendingFetchGuid;
+        private boolean loading;
+        private boolean showLoading;
+        private boolean firstLoad;
     }
 }
