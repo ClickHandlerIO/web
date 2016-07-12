@@ -2,6 +2,7 @@ package ui.client.grid;
 
 import com.google.gwt.user.client.Timer;
 import common.client.Func;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.Component;
 import react.client.ComponentProps;
@@ -20,10 +21,6 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     GridHeader gridHeader;
     @Inject
     GridSimplePager gridSimplePager;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Render
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected ReactElement render(ReactComponent<P, State<D>> $this) {
@@ -162,9 +159,9 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         );
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Component Lifecycle
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Lifecycle
+     */
 
     @Override
     public State<D> getInitialState() {
@@ -195,9 +192,14 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Work
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected boolean shouldComponentUpdate(ReactComponent<P, State<D>> $this, P nextProps, State<D> nextState) {
+        return true;
+    }
+
+    /*
+     * Work
+     */
 
     protected void load(ReactComponent<P, State<D>> $this) {
         String sortColumnId = null;
@@ -272,9 +274,9 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         });
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Abstract
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Abstract
+     */
 
     protected abstract GridColumn[] getColumns();
 
@@ -286,32 +288,32 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    // Args / Props / State / Route
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Props & State
+     */
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
-        public boolean selectionEnabled;
-        public boolean reorderEnabled;
-        public boolean hideHeader;
-        public boolean loadWhenMounted;
-        public List<D> selected;
-        public Func.Run1<List<D>> onSelectionChanged;
-        public String noResultsText;
-        public ReactElement noResultsComponent;
+        protected boolean selectionEnabled;
+        protected boolean reorderEnabled;
+        protected boolean hideHeader;
+        protected boolean loadWhenMounted;
+        protected List<D> selected;
+        protected Func.Run1<List<D>> onSelectionChanged;
+        protected String noResultsText;
+        protected ReactElement noResultsComponent;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class State<D> {
-        public List<GridColumn> columns;
-        public List<D> data;
-        public boolean moreResults;
-        public Double pageIdx;
-        public Map<Double, D> pageIdxMap;
-        public String pendingFetchGuid;
-        public boolean loading;
-        public boolean showLoading;
-        public boolean firstLoad;
+       private List<GridColumn> columns;
+       private List<D> data;
+       private boolean moreResults;
+       private Double pageIdx;
+       private Map<Double, D> pageIdxMap;
+       private String pendingFetchGuid;
+       private boolean loading;
+       private boolean showLoading;
+       private boolean firstLoad;
     }
 }

@@ -1,6 +1,7 @@
 package showcase.client.modules.components.grid;
 
 import common.client.Func;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
@@ -30,9 +31,9 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
     @Override
     protected GridColumn[] getColumns() {
         return new GridColumn[]{
-                new GridColumn(COL_DATE, "Date", 70., true, false),
+                new GridColumn(COL_DATE, "Date", 1, true, false),
                 new GridColumn(COL_RESORT, "Resort", 1, true, false),
-                new GridColumn(COL_SNOWFALL, "Snowfall", 4, true, false),
+                new GridColumn(COL_SNOWFALL, "Snowfall", 1, true, false),
         };
     }
 
@@ -42,10 +43,7 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     public Props getDefaultProps() {
-        Props p = super.getDefaultProps();
-        p.hideHeader = false;
-        p.noResultsText = "No Reports";
-        return p;
+        return super.getDefaultProps().hideHeader(false).noResultsText("No Reports");
     }
 
     /*
@@ -65,6 +63,66 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends AbstractGrid.Props<GridDataSource.SnowReport> {
+
+        @JsOverlay
+        public final Props selectionEnabled(final boolean selectionEnabled) {
+            this.selectionEnabled = selectionEnabled;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props reorderEnabled(final boolean reorderEnabled) {
+            this.reorderEnabled = reorderEnabled;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props hideHeader(final boolean hideHeader) {
+            this.hideHeader = hideHeader;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props loadWhenMounted(final boolean loadWhenMounted) {
+            this.loadWhenMounted = loadWhenMounted;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props selected(final List<GridDataSource.SnowReport> selected) {
+            this.selected = selected;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onSelectionChanged(final Func.Run1<List<GridDataSource.SnowReport>> onSelectionChanged) {
+            this.onSelectionChanged = onSelectionChanged;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props noResultsText(final String noResultsText) {
+            this.noResultsText = noResultsText;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props noResultsComponent(final ReactElement noResultsComponent) {
+            this.noResultsComponent = noResultsComponent;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props key(final String key) {
+            this.key = key;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props ref(final Object ref) {
+            this.ref = ref;
+            return this;
+        }
     }
 
     /*
@@ -81,6 +139,7 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
             $.setData(data);
             $.setSelected(isSelected);
             $.setOnSelectionChanged(onSelectionChanged);
+            $.setKey(data.getId());
         });
     }
 
@@ -94,17 +153,15 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
         protected ReactElement renderCell(ReactComponent<Props, State> $this, GridDataSource.SnowReport data, List<GridColumn> columns) {
             return div($ -> $.className("cell"),
                     div($ -> $.style(s -> applyColumnSizing(s, COL_DATE, columns)),
-                            "1/1/2016"
+                            data.getId()
                     ),
                     div($ -> $.style(s -> applyColumnSizing(s, COL_RESORT, columns)),
-                            "test"
-//                            data.getResortName()
+                            data.getResortName()
                     ),
 
 
                     div($ -> $.style(s -> applyColumnSizing(s, COL_SNOWFALL, columns)),
-                            "here"
-//                            data.getSnowfall().toString()
+                            data.getSnowfall().toString()
                     )
             );
         }

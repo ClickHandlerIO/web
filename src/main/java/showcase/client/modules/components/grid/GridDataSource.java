@@ -1,6 +1,7 @@
 package showcase.client.modules.components.grid;
 
 import common.client.Func;
+import ui.client.util.UUID;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class GridDataSource {
         private Double snowfall;
 
         public SnowReport(Date date, String resortName, Double snowfall) {
-            this.id = "1234";
+            this.id = UUID.uuid();
             this.date = date;
             this.resortName = resortName;
             this.snowfall = snowfall;
