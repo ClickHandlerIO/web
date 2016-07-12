@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.util.*;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
+import static react.client.DOM.body;
 import static react.client.DOM.div;
 
 public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends Component<P, AbstractGrid.State<D>> {
@@ -182,6 +183,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         p.reorderEnabled = false;
         p.selectionEnabled = false;
         p.noResultsText = "No Results";
+        p.pageSize = 20.;
         return p;
     }
 
@@ -242,13 +244,14 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                 $this.props.onSelectionChanged.run(new ArrayList<>());
             }
 
-            fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, new CompletionHandler<D, P>() {
+            fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
                 @Override
-                public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults) {
+                public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data) {
                     if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
                         return;
                     }
 
+                    boolean moreResults = data.size() > $this.props.pageSize;
                     final Double pageIdx = $this.state.pageIdx;
                     $this.setState(s -> {
                         s.firstLoad = false;
@@ -276,10 +279,10 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     protected abstract GridColumn[] getColumns();
 
-    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, D lastRecord, CompletionHandler<D, P> completionHandler);
+    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
 
     public interface CompletionHandler<D, P> {
-        void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults);
+        void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data);
     }
 
     protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged);
@@ -298,6 +301,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         protected Func.Run1<List<D>> onSelectionChanged;
         protected String noResultsText;
         protected ReactElement noResultsComponent;
+        protected double pageSize;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)

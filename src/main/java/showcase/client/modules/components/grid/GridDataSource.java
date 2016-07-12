@@ -10,7 +10,7 @@ import java.util.List;
 public class GridDataSource {
     private static int callcount = 0;
 
-    public static void fetchData(Sort sort, String lastRecordId, int pageSize, Func.Run1<List<SnowReport>> callback) {
+    public static void fetchData(Sort sort, String lastRecordId, double pageSize, Func.Run1<List<SnowReport>> callback) {
         if (callback == null) {
             return;
         }
@@ -18,7 +18,7 @@ public class GridDataSource {
 
         List<SnowReport> data = new ArrayList<>();
 
-        for (int i = 0; i < (callcount > 2 ? 2 : pageSize); ++i) {
+        for (int i = 0; i < (callcount == 3 ? 2 : pageSize); ++i) {
             data.add(new SnowReport(new Date(), "Park City Mountain Resort", i + 1.4));
         }
 
