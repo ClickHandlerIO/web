@@ -32,7 +32,7 @@ public class SelectDataSource {
         private String state;
 
         public SnowResort(String name, String state) {
-            this.id = UUID.uuid();
+            this.id = name;
             this.name = name;
             this.state = state;
         }

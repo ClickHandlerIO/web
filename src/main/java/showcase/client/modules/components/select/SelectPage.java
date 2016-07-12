@@ -14,6 +14,8 @@ import ui.client.RaisedButton;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import java.util.List;
+
 import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
@@ -46,6 +48,14 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
                         .build(),
                 resortSelect.props()
                         .state($this.state.utahOnly ? "UT" : null)
+                        .value($this.state.resortValue)
+                        .onChange(value -> $this.setState(s->s.resortValue(value)))
+                        .build(),
+                resortSelect.props()
+                        .state($this.state.utahOnly ? "UT" : null)
+                        .multi(true)
+                        .valueMulti($this.state.resorts)
+                        .onChangeMulti(value -> $this.setState(s->s.resorts(value)))
                         .build(),
                 raisedButton.props()
                         .label("Show Modal")
@@ -75,6 +85,8 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
     public static class State {
         boolean utahOnly;
         boolean showModal;
+        SelectDataSource.SnowResort resortValue;
+        List<SelectDataSource.SnowResort> resorts;
 
         @JsOverlay
         public final State utahOnly(final boolean utahOnly) {
@@ -85,6 +97,18 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
         @JsOverlay
         public final State showModal(final boolean showModal) {
             this.showModal = showModal;
+            return this;
+        }
+
+        @JsOverlay
+        public final State resortValue(final SelectDataSource.SnowResort resortValue) {
+            this.resortValue = resortValue;
+            return this;
+        }
+
+        @JsOverlay
+        public final State resorts(final List<SelectDataSource.SnowResort> resorts) {
+            this.resorts = resorts;
             return this;
         }
     }
