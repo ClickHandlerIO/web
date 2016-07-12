@@ -68,41 +68,6 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                     });
                                                     load($this);
                                                 }).$()
-//                            gridHeader.$($ -> {
-//                                $.setColumns($this.state.getColumns());
-//                                $.setReorderEnabled($this.props.isReorderEnabled());
-//                                $.setSelectionEnabled($this.props.isSelectionEnabled());
-//                                $.setAllSelected(allSelected);
-//                                $.setOnAllSelectedChanged(selectAll -> {
-//                                    if ($this.state.isLoading()) {
-//                                        return;
-//                                    }
-//
-//                                    List<D> selected = new ArrayList<>();
-//                                    if (selectAll) {
-//                                        selected.addAll($this.state.getData());
-//                                    }
-//                                    if ($this.props.getOnSelectionChanged() != null) {
-//                                        $this.props.getOnSelectionChanged().run(selected);
-//                                    }
-//                                });
-//                                $.setOnSortChanged((column, sort) -> {
-//                                    List<GridColumn> cols = $this.state.getColumns();
-//                                    for (GridColumn c : cols) {
-//                                        if (!c.getId().equals(column.getId())) {
-//                                            c.setSort(GridSort.NONE);
-//                                        } else {
-//                                            c.setSort(sort);
-//                                        }
-//                                    }
-//                                    $this.setState(s -> {
-//                                        s.setColumns(cols);
-//                                        s.setPageIdx(0.);
-//                                        s.setPageIdxMap(new HashMap<>());
-//                                    });
-//                                    load($this);
-//                                });
-//                            })
                                 )
                         );
                     }
@@ -264,50 +229,48 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
             t.schedule(500);
         }
 
+        final String fSortColumnId = sortColumnId;
+        final GridSort fSortDirection = sortDirection;
+        final D fLastRecord = lastRecord;
+
         String guid = ui.client.util.UUID.uuid();
         $this.setState(s -> {
             s.loading = true;
             s.pendingFetchGuid = guid;
-        });
+        }, () -> {
 
-        // for now clear selection before load
-        if ($this.props.onSelectionChanged != null) {
-            $this.props.onSelectionChanged.run(new ArrayList<>());
-        }
-
-        fetchData($this, guid, sortColumnId, sortDirection, lastRecord, new CompletionHandler<D, P>() {
-            @Override
-            public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults) {
-                if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
-                    return;
-                }
-
-                // todo in future handle selection - check if any of the selected items are in the new data set. if they are keep them, if not remove from selected list
-                // for now clearing selection on loading data
-//                if ($this.props.getOnSelectionChanged() != null) {
-//                    $this.props.getOnSelectionChanged().run(new ArrayList<>());
-//                }
-                final Double pageIdx = $this.state.pageIdx;
-                $this.setState(s -> {
-                    s.firstLoad = false;
-                    s.loading = false;
-                    s.showLoading = false;
-                    s.data = data == null ? new ArrayList<>() : data;
-                    s.moreResults = moreResults;
-
-                    // update page idx map
-                    if (pageIdx > 0) {
-                        Map<Double, D> pageIdxMap = $this.state.pageIdxMap;
-                        D lastRecord = data != null ? data.get(data.size() - 1) : null;
-                        pageIdxMap.put($this.state.pageIdx, lastRecord);
-                        s.pageIdxMap = pageIdxMap;
-                    }
-                });
+            // for now clear selection before load
+            if ($this.props.onSelectionChanged != null) {
+                $this.props.onSelectionChanged.run(new ArrayList<>());
             }
+
+            fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, new CompletionHandler<D, P>() {
+                @Override
+                public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults) {
+                    if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
+                        return;
+                    }
+
+                    final Double pageIdx = $this.state.pageIdx;
+                    $this.setState(s -> {
+                        s.firstLoad = false;
+                        s.loading = false;
+                        s.showLoading = false;
+                        s.data = data == null ? new ArrayList<>() : data;
+                        s.moreResults = moreResults;
+
+                        // update page idx map
+                        if (pageIdx > 0) {
+                            Map<Double, D> pageIdxMap = $this.state.pageIdxMap;
+                            D lastRecord = data != null ? data.get(data.size() - 1) : null;
+                            pageIdxMap.put($this.state.pageIdx, lastRecord);
+                            s.pageIdxMap = pageIdxMap;
+                        }
+                    });
+                }
+            });
         });
     }
-
-    protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged); // todo add handlers for selection change
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // Abstract
@@ -320,6 +283,8 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     public interface CompletionHandler<D, P> {
         void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data, boolean moreResults);
     }
+
+    protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // Args / Props / State / Route

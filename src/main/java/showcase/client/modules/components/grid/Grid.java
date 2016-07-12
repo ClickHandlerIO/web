@@ -1,7 +1,6 @@
 package showcase.client.modules.components.grid;
 
 import common.client.Func;
-import common.client.Try;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
@@ -56,9 +55,7 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
     @Override
     protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, GridDataSource.SnowReport lastRecord, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), 10, data -> {
-            Try.later(() -> {
-                completionHandler.onFetchComplete($this, requestGuid, data, false);
-            });
+            completionHandler.onFetchComplete($this, requestGuid, data, false);
         });
     }
 
