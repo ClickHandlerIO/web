@@ -105,7 +105,8 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                             }
 
                                                             if ($this.props.selected != null) {
-                                                                List<D> selected = $this.props.selected;
+                                                                List<D> selected = new ArrayList<D>();
+                                                                selected.addAll($this.props.selected);
                                                                 if (s) {
                                                                     selected.add(d);
                                                                 } else {
@@ -190,11 +191,6 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         if ($this.props.loadWhenMounted) {
             load($this);
         }
-    }
-
-    @Override
-    protected boolean shouldComponentUpdate(ReactComponent<P, State<D>> $this, P nextProps, State<D> nextState) {
-        return true;
     }
 
     /*

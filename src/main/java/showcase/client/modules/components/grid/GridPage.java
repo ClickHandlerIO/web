@@ -44,10 +44,10 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
         );
     }
 
-    @Override
-    protected boolean shouldComponentUpdate(ReactComponent<Props, State> $this, Props nextProps, State nextState) {
-        return true;
-    }
+//    @Override
+//    protected boolean shouldComponentUpdate(ReactComponent<Props, State> $this, Props nextProps, State nextState) {
+//        return true;
+//    }
 
     /*
      * Props, State, Route
