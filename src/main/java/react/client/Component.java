@@ -414,7 +414,7 @@ public abstract class Component<P, S> implements Jso {
      */
     @JsIgnore
     protected HTMLProps className(String className) {
-        final HTMLProps props = Jso.create();
+        final HTMLProps props = new HTMLProps();
         return props.className(className);
     }
 
@@ -424,7 +424,7 @@ public abstract class Component<P, S> implements Jso {
      */
     @JsIgnore
     protected HTMLProps key(String key) {
-        final HTMLProps props = Jso.create();
+        final HTMLProps props = new HTMLProps();
         return props.key(key);
     }
 
@@ -436,7 +436,7 @@ public abstract class Component<P, S> implements Jso {
      */
     @JsIgnore
     protected <T> HTMLProps ref(Ref<T> ref) {
-        final HTMLProps props = Jso.create();
+        final HTMLProps props = new HTMLProps();
         return props.ref(ref);
     }
 
@@ -445,7 +445,7 @@ public abstract class Component<P, S> implements Jso {
      */
     @JsIgnore
     protected StyleProps style() {
-        return Jso.create();
+        return new StyleProps();
     }
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
