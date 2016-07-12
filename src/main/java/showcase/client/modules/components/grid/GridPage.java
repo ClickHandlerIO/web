@@ -50,29 +50,9 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
         );
     }
 
-//    @Override
-//    protected boolean shouldComponentUpdate(ReactComponent<Props, State> $this, Props nextProps, State nextState) {
-//        return true;
-//    }
-
     /*
      * Props, State, Route
      */
-
-    @JsType(isNative = true)
-    public interface Args {
-        @JsProperty
-        String getEmail();
-
-        @JsProperty
-        void setEmail(String email);
-
-        @JsOverlay
-        default Args email(String email) {
-            setEmail(email);
-            return this;
-        }
-    }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends SimpleRouteProps {

@@ -1,6 +1,7 @@
 package showcase.client.modules;
 
 import showcase.client.modules.components.grid.GridPage;
+import showcase.client.modules.components.select.SelectPage;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,6 +23,8 @@ public class Routes {
     public static class ComponentsRoutes {
         @Inject
         GridPage.Route gridPage;
+        @Inject
+        SelectPage.Route selectPage;
 
         @Inject
         public ComponentsRoutes() {
@@ -29,6 +32,10 @@ public class Routes {
 
         public GridPage.Route getGridPage() {
             return gridPage;
+        }
+
+        public SelectPage.Route getSelectPage() {
+            return selectPage;
         }
     }
 }

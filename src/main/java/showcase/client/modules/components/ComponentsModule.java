@@ -8,6 +8,7 @@ import react.client.router.ModuleLoader;
 import react.client.router.RoutesBuilder;
 import showcase.client.App;
 import showcase.client.modules.components.grid.GridPage;
+import showcase.client.modules.components.select.SelectPage;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,6 +26,8 @@ public interface ComponentsModule {
         ComponentsShell shell;
         @Inject
         GridPage gridPage;
+        @Inject
+        SelectPage selectPage;
 
         @Inject
         public Routes() {
@@ -34,6 +37,7 @@ public interface ComponentsModule {
         protected void registerComponents() {
             add(shell);
             add(gridPage);
+            add(selectPage);
         }
     }
 

@@ -24,7 +24,9 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
     protected ReactElement render(ReactComponent<P, S> $this) {
         P p = $this.props;
         return SelectAsync.$(props -> {
-            props.className(p.className)
+            props.cache(null)
+                    .minimumInput(-1.)
+                    .className(p.className)
                     .style(p.style)
                     .multi(p.multi)
                     .disabled(p.disabled)

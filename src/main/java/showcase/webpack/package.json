@@ -22,7 +22,7 @@
     "react-datepicker": "^0.27.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.3.0",
-    "react-select": "^1.0.0-beta13",
+    "react-select": "ClickHandlerIO/react-select",
     "react-tap-event-plugin": "^1.0.0"
   }
 }
