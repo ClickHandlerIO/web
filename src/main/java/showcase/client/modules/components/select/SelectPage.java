@@ -9,6 +9,7 @@ import react.client.router.SimpleRouteProps;
 import react.client.router.SimpleRouteProxy;
 import showcase.client.modules.components.ComponentsShell;
 import ui.client.Checkbox;
+import ui.client.RaisedButton;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,6 +27,10 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
     Checkbox checkbox;
     @Inject
     SnowResortSelect resortSelect;
+    @Inject
+    RaisedButton raisedButton;
+    @Inject
+    SelectModal modal;
 
     @Inject
     public SelectPage() {
@@ -41,13 +46,21 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
                         .build(),
                 resortSelect.props()
                         .state($this.state.utahOnly ? "UT" : null)
+                        .build(),
+                raisedButton.props()
+                        .label("Show Modal")
+                        .onTouchTap(value -> $this.setState(s -> s.showModal(true)))
+                        .build(),
+                modal.props()
+                        .open($this.state.showModal)
+                        .onClose(() -> $this.setState(s -> s.showModal(false)))
                         .build()
         );
     }
 
     @Override
     public State getInitialState() {
-        return super.getInitialState().utahOnly(true);
+        return super.getInitialState().utahOnly(true).showModal(false);
     }
 
     /*
@@ -61,10 +74,17 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class State {
         boolean utahOnly;
+        boolean showModal;
 
         @JsOverlay
         public final State utahOnly(final boolean utahOnly) {
             this.utahOnly = utahOnly;
+            return this;
+        }
+
+        @JsOverlay
+        public final State showModal(final boolean showModal) {
+            this.showModal = showModal;
             return this;
         }
     }
