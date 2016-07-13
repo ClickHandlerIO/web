@@ -156,12 +156,12 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     public StyleProps styleProps() {
-        return Jso.create();
+        return new StyleProps();
     }
 
     @JsIgnore
     public StyleProps css() {
-        return Jso.create();
+        return new StyleProps();
     }
 
     @JsIgnore
