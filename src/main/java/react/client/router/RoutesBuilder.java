@@ -1,6 +1,7 @@
 package react.client.router;
 
 import common.client.Jso;
+import jsinterop.annotations.JsProperty;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @author Clay Molocznik
  */
 public abstract class RoutesBuilder {
-    private final Map<String, Reg> regs = new HashMap<>();
+    private final HashMap<String, Reg> regs = new HashMap<>();
     @Inject
     Provider<RouteGatekeeper> routeGatekeeperProvider;
 
