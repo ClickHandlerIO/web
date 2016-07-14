@@ -40,6 +40,9 @@ public abstract class Component<P, S> implements Jso {
     public Func.Run2<P, S> componentWillUpdate = Func.bind(this::componentWillUpdateInternal);
     //    @JsProperty(name = "render") // todo test if we need the property name declaration
 
+    @JsProperty(name = "someVar")
+    public Double someVar;
+
     @JsProperty(name = "render")
     public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
 
@@ -69,6 +72,7 @@ public abstract class Component<P, S> implements Jso {
     private Logger logger;
 
     public Component() {
+        someVar = 0.0;
         displayName = getClass().getSimpleName();
         // todo context stuff needed?
         addContextTypes(contextTypes);
