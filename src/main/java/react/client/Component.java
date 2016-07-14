@@ -9,10 +9,7 @@ import elemental.client.Browser;
 import elemental.dom.Document;
 import elemental.html.Console;
 import elemental.html.Window;
-import jsinterop.annotations.JsIgnore;
-import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
+import jsinterop.annotations.*;
 import logging.client.Logger;
 
 import javax.inject.Inject;
@@ -42,9 +39,18 @@ public abstract class Component<P, S> implements Jso {
     public Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.bind(this::shouldComponentUpdateInternal);
     public Func.Run2<P, S> componentWillUpdate = Func.bind(this::componentWillUpdateInternal);
     //    @JsProperty(name = "render") // todo test if we need the property name declaration
+
+    @JsProperty(name = "render")
     public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
+
+//    @JsMethod(name = "render")
+//    public ReactElement render() {
+//        return Func.bind(this::renderInternal).call();
+//    }
+
     //    @JsProperty(name = "componentDidUpdate") // todo test if we need the property name declaration
     public Func.Run2<P, S> componentDidUpdate = Func.bind(this::componentDidUpdateInternal);
+
     public Func.Run componentWillUnmount = Func.bind(this::componentWillUnmountInternal);
     /*
      * Context
@@ -431,7 +437,6 @@ public abstract class Component<P, S> implements Jso {
     /**
      * @param ref
      * @param <T>
-     * @return
      * @return
      */
     @JsIgnore

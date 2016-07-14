@@ -52,6 +52,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <!--<gwt.version>2.8.0-20160711.060027-288</gwt.version>-->
         <gwt.version>2.8.0-SNAPSHOT</gwt.version>
         <dagger-gwt.version>2.5</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
@@ -130,8 +131,23 @@
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>com.google.dagger</groupId>
             <artifactId>dagger-gwt</artifactId>
@@ -146,34 +162,48 @@
 
         <dependency>
             <groupId>com.google.gwt</groupId>
-            <artifactId>gwt</artifactId>
-            <version>${gwt.version}</version>
-            <type>pom</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
+            <scope>provided</scope>
+            <!--<version>${gwt.version}</version>-->
+            <!--<version>2.8.0-20160711.060038-287</version>-->
         </dependency>
 
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
-            <version>${gwt.version}</version>
+            <scope>provided</scope>
+            <!--<version>${gwt.version}</version>-->
+            <!--<version>2.8.0-20160711.060029-287</version>-->
         </dependency>
 
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-elemental</artifactId>
-            <version>${gwt.version}</version>
+            <scope>provided</scope>
+            <!--<version>${gwt.version}</version>-->
+            <!--<version>2.8.0-20160711.060055-287</version>-->
         </dependency>
 
-        <dependency>
-            <groupId>io.clickhandler</groupId>
-            <artifactId>moment-gwt</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
-        </dependency>
+
+
+
+       <!-- <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt</artifactId>
+            <version>${gwt.version}</version>
+            &lt;!&ndash;<version>2.8.0-20160711.060027-288</version>&ndash;&gt;
+            &lt;!&ndash;July 11 @ 6&ndash;&gt;
+            <type>pom</type>
+        </dependency>-->
+
+
+
+
+        <!--<dependency>-->
+            <!--<groupId>io.clickhandler</groupId>-->
+            <!--<artifactId>moment-gwt</artifactId>-->
+            <!--<version>0.2.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 
