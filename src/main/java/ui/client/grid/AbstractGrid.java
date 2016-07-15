@@ -63,8 +63,9 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                         s.columns = cols;
                                                         s.pageIdx = 0.;
                                                         s.pageIdxMap = new HashMap<>();
+                                                    }, () -> {
+                                                        load($this);
                                                     });
-                                                    load($this);
                                                 }).$()
                                 )
                         );
