@@ -325,7 +325,7 @@ public class RouteProxy<T> {
         if (memoizedParentPath != null)
             return memoizedParentPath;
 
-        final List<RouteProxy> ancesters = new ArrayList<>();
+        ArrayList<RouteProxy> ancesters = new ArrayList<>();
 
         RouteProxy parent = parent();
         if (parent == null) {
@@ -333,7 +333,11 @@ public class RouteProxy<T> {
         }
 
         while (parent != null) {
-            ancesters.add(0, parent);
+            ArrayList<RouteProxy> updated= new ArrayList<>();
+            updated.add(parent);
+            updated.addAll(ancesters);
+            ancesters = updated;
+//            ancesters.add(0, parent);
 
             String parentPath = parent.path();
             if (parentPath == null) {

@@ -24,7 +24,7 @@ public class RouteListener implements RouteGatekeeper {
     @Override
     public void onEnter(RouteProxy routeProxy, RouteProps routeProps, ReplaceStateFunction replaceStateFunction) {
 
-        // if full path is "/" go to either login or home
+//         if full path is "/" go to either login or home
         if (routeProps.location.getPathname().equals("/")) {
             replace(replaceStateFunction, App.getRoutes().getComponents().getSelectPage().buildLocation());
         }

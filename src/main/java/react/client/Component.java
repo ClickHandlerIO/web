@@ -43,7 +43,7 @@ public abstract class Component<P, S> implements Jso {
     @JsProperty(name = "someVar")
     public Double someVar;
 
-    @JsProperty(name = "render")
+    //    @JsProperty(name = "render")
     public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
 
 //    @JsMethod(name = "render")
@@ -177,8 +177,9 @@ public abstract class Component<P, S> implements Jso {
     @JsIgnore
     public P props() {
         P props = getDefaultProps();
-        if (props == null)
+        if (props == null) {
             props = Jso.create();
+        }
         Jso.set(props, "__cls", getReactClass());
         return props;
     }
@@ -186,8 +187,9 @@ public abstract class Component<P, S> implements Jso {
     @JsIgnore
     public P $$() {
         P props = getDefaultProps();
-        if (props == null)
+        if (props == null) {
             props = Jso.create();
+        }
         Jso.set(props, "__cls", getReactClass());
         return props;
     }
@@ -195,8 +197,9 @@ public abstract class Component<P, S> implements Jso {
     @JsIgnore
     public P builder() {
         P props = getDefaultProps();
-        if (props == null)
+        if (props == null) {
             props = Jso.create();
+        }
         Jso.set(props, "__cls", getReactClass());
         return props;
     }
