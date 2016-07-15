@@ -34,12 +34,12 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
         return div(style().padding("20px"),
                 div("Grid Page Here"),
                 grid.props()
-//                        .selectionEnabled(true)
-//                        .selected($this.state.selectedReports)
-//                        .onSelectionChanged(value -> {
-//                            log.error("On Selection CHanged!");
-//                            $this.setState(s -> s.selectedReports(value));
-//                        })
+                        .selectionEnabled(true)
+                        .selected($this.state.selectedReports)
+                        .onSelectionChanged(value -> {
+                            log.error("On Selection CHanged!");
+                            $this.setState(s -> s.selectedReports(value));
+                        })
                         .onPrint(() -> {
 
                         })

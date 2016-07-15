@@ -13,6 +13,7 @@ import java.util.*;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
+import static react.client.DOM.select;
 
 public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends Component<P, AbstractGrid.State<D>> {
 
@@ -37,19 +38,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                 .reorderEnabled($this.props.reorderEnabled)
                                                 .selectionEnabled($this.props.selectionEnabled)
                                                 .allSelected(allSelected)
-                                                .onAllSelectedChanged(selectAll -> {
-                                                    if ($this.state.loading) {
-                                                        return;
-                                                    }
-
-                                                    List<D> selected = new ArrayList<>();
-                                                    if (selectAll) {
-                                                        selected.addAll($this.state.data);
-                                                    }
-                                                    if ($this.props.onSelectionChanged != null) {
-                                                        $this.props.onSelectionChanged.run(selected);
-                                                    }
-                                                })
+                                                .onAllSelectedChanged(selectAll -> handleSelectAll($this, selectAll))
                                                 .onSortChanged((column, sort) -> {
                                                     List<GridColumn> cols = $this.state.columns;
                                                     for (GridColumn c : cols) {
@@ -291,6 +280,20 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                 }
             });
         });
+    }
+
+    protected void handleSelectAll(ReactComponent<P, State<D>> $this, boolean selectAll) {
+        if ($this.state.loading) {
+            return;
+        }
+
+        List<D> selected = new ArrayList<>();
+        if (selectAll) {
+            selected.addAll($this.state.data);
+        }
+        if ($this.props.onSelectionChanged != null) {
+            $this.props.onSelectionChanged.run(selected);
+        }
     }
 
     /*
