@@ -5866,6 +5866,82 @@ public interface DOM {
         return create("p", callback);
     }
 
+    static ReactElement path() {
+        return create("path");
+    }
+
+    static ReactElement path(String value) {
+        return create("path", value);
+    }
+
+    static ReactElement path(ReactElement child) {
+        return create("path", child);
+    }
+
+    static ReactElement path(ReactElement... children) {
+        return create("path", children);
+    }
+
+    static ReactElement path(StyleProps style) {
+        return create("path", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement path(StyleProps style, String text) {
+        return create("path", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement path(StyleProps style, ReactElement child) {
+        return create("path", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement path(StyleProps style, ReactElement... children) {
+        return create("path", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement path(HTMLProps props) {
+        return create("path", props);
+    }
+
+    static ReactElement path(HTMLProps props, String text) {
+        return create("path", props, text);
+    }
+
+    static ReactElement path(HTMLProps props, ReactElement child) {
+        return create("path", props, child);
+    }
+
+    static ReactElement path(HTMLProps props, ReactElement... children) {
+        return create("path", props, children);
+    }
+
+    static ReactElement path(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("path", props, childrenCallback);
+    }
+
+    static ReactElement path(Func.Run1<HTMLProps> callback) {
+        return create("path", callback);
+    }
+
+    static ReactElement path(Func.Run1<HTMLProps> callback, String text) {
+        return create("path", callback, text);
+    }
+
+    static ReactElement path(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("path", callback, child);
+    }
+
+    static ReactElement path(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("path", callback, children);
+    }
+
+    static ReactElement path(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("path", callback, childrenCallback);
+    }
+
+    static ReactElement path(PropsAndChildren callback) {
+        return create("path", callback);
+    }
+
     static ReactElement param() {
         return create("param");
     }
