@@ -52,16 +52,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <!--<gwt.version>2.8.0-SNAPSHOT</gwt.version>-->
-        <!--<gwt.version>2.8.0-20160711.060027-288</gwt.version>-->
         <dagger-gwt.version>0.1.0-SNAPSHOT</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.6</nexus-staging-maven-plugin.version>
-
         <jetty.version>9.2.14.v20151106</jetty.version>
     </properties>
 
@@ -153,8 +149,6 @@
             <version>${dagger-gwt.version}</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
@@ -164,7 +158,6 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
-            <!--<version>2.8.0-SNAPSHOT</version>-->
             <version>2.8.0-20160711.060029-287</version>
         </dependency>
 
@@ -191,7 +184,6 @@
             <artifactId>moment-gwt</artifactId>
             <version>0.2.1-SNAPSHOT</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.google.jsinterop</groupId>
@@ -450,24 +442,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
-                    <!-- Exclude Showcase from JAR-->
-                    <!--<plugin>-->
-                        <!--<groupId>org.apache.maven.plugins</groupId>-->
-                        <!--<artifactId>maven-jar-plugin</artifactId>-->
-                        <!--<version>${maven-jar-plugin.version}</version>-->
-                        <!--<configuration>-->
-                            <!--<includes>-->
-                                <!--<include>**/action/*</include>-->
-                                <!--<include>**/common/*</include>-->
-                                <!--<include>**/logging/*</include>-->
-                                <!--<include>**/react/*</include>-->
-                                <!--<include>**/remoting/*</include>-->
-                                <!--<include>**/ui/*</include>-->
-                                <!--<include>**/ClickHandlerCore.gwt.xml</include>-->
-                            <!--</includes>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
 
                     <!-- Sign GPG -->
                     <plugin>
