@@ -333,11 +333,11 @@ public class RouteProxy<T> {
         }
 
         while (parent != null) {
-            ArrayList<RouteProxy> updated= new ArrayList<>();
-            updated.add(parent);
-            updated.addAll(ancesters);
-            ancesters = updated;
-//            ancesters.add(0, parent);
+//            ArrayList<RouteProxy> updated= new ArrayList<>();
+//            updated.add(parent);
+//            updated.addAll(ancesters);
+//            ancesters = updated;
+            ancesters.add(0, parent);
 
             String parentPath = parent.path();
             if (parentPath == null) {
