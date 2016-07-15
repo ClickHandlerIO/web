@@ -18,7 +18,8 @@ public class GridDataSource {
 
         List<SnowReport> data = new ArrayList<>();
 
-        for (int i = 0; i < (callcount == 3 ? 2 : pageSize); ++i) {
+//        for (int i = 0; i < (callcount == 3 ? 2 : pageSize); ++i) {
+        for (int i = 0; i < pageSize; ++i) {
             data.add(new SnowReport(new Date(), "Park City Mountain Resort", i + 1.4));
         }
 

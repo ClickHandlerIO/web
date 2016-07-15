@@ -156,13 +156,15 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                             if ($this.state.loading) {
                                                                 return; // cannot page forward until we have the lastRecord
                                                             }
-                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1);
-                                                            load($this);
+                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> {
+                                                                load($this);
+                                                            });
                                                         });
 
                                                         $.setOnPreviousPage(() -> {
-                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1.);
-                                                            load($this);
+                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1., () -> {
+                                                                load($this);
+                                                            });
                                                         });
                                                     })
                                             );
@@ -227,7 +229,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
         D lastRecord = null;
         if ($this.state.pageIdx > 0) {
-            lastRecord = $this.state.pageIdxMap.get($this.state.pageIdx);
+            lastRecord = $this.state.pageIdxMap.get($this.state.pageIdx - 1);
         }
 
         if (!$this.state.loading && !$this.state.firstLoad) {
@@ -261,27 +263,29 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
             fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
                 @Override
-                public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data) {
+                public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> d) {
                     if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
                         return;
                     }
-
+                    List<D> data = d == null ? new ArrayList<D>() : d;
                     boolean moreResults = data.size() > $this.props.pageSize;
+                    if (moreResults) {
+                        data = data.subList(0, data.size() - 1); // we requested 1 more than the page size to check if more records. correct back to page size
+                    }
+                    final List<D> fData = data;
                     final Double pageIdx = $this.state.pageIdx;
                     $this.setState(s -> {
                         s.firstLoad = false;
                         s.loading = false;
                         s.showLoading = false;
-                        s.data = data == null ? new ArrayList<>() : data;
+                        s.data = fData;
                         s.moreResults = moreResults;
 
                         // update page idx map
-                        if (pageIdx > 0) {
-                            Map<Double, D> pageIdxMap = $this.state.pageIdxMap;
-                            D lastRecord = data != null ? data.get(data.size() - 1) : null;
-                            pageIdxMap.put($this.state.pageIdx, lastRecord);
-                            s.pageIdxMap = pageIdxMap;
-                        }
+                        Map<Double, D> pageIdxMap = $this.state.pageIdxMap;
+                        D lastRecord = fData.size() > 0 ? fData.get(fData.size() - 1) : null;
+                        pageIdxMap.put($this.state.pageIdx, lastRecord);
+                        s.pageIdxMap = pageIdxMap;
                     });
                 }
             });

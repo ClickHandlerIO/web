@@ -26,7 +26,7 @@ public class RouteListener implements RouteGatekeeper {
 
         // if full path is "/" go to either login or home
         if (routeProps.location.getPathname().equals("/")) {
-            replace(replaceStateFunction, App.getRoutes().getComponents().getSelectPage().buildLocation());
+            replace(replaceStateFunction, App.getRoutes().getComponents().getGridPage().buildLocation());
         }
     }
 
