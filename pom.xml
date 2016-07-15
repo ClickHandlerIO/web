@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.clickhandler</groupId>
     <artifactId>clickhandler-web</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ClickHandler Web</name>
     <description>ClickHandler WebFramework</description>
@@ -58,6 +58,7 @@
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.6</nexus-staging-maven-plugin.version>
 
@@ -449,6 +450,24 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!-- Exclude Showcase from JAR-->
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-jar-plugin</artifactId>-->
+                        <!--<version>${maven-jar-plugin.version}</version>-->
+                        <!--<configuration>-->
+                            <!--<includes>-->
+                                <!--<include>**/action/*</include>-->
+                                <!--<include>**/common/*</include>-->
+                                <!--<include>**/logging/*</include>-->
+                                <!--<include>**/react/*</include>-->
+                                <!--<include>**/remoting/*</include>-->
+                                <!--<include>**/ui/*</include>-->
+                                <!--<include>**/ClickHandlerCore.gwt.xml</include>-->
+                            <!--</includes>-->
+                        <!--</configuration>-->
+                    <!--</plugin>-->
 
                     <!-- Sign GPG -->
                     <plugin>

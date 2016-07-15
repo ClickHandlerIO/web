@@ -1,24 +1,26 @@
 package react.client.router;
 
-import jsinterop.annotations.JsIgnore;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
+
+import static jsinterop.annotations.JsPackage.GLOBAL;
 
 /**
  *
  */
-@JsType
+@JsType(isNative = true, name = "Object", namespace = GLOBAL)
 public class RouterProps {
     public Object history;
     public Route routes;
 
-    @JsIgnore
-    public RouterProps history(Object history) {
+    @JsOverlay
+    public final RouterProps history(Object history) {
         this.history = history;
         return this;
     }
 
-    @JsIgnore
-    public RouterProps routes(Route routes) {
+    @JsOverlay
+    public final RouterProps routes(Route routes) {
         this.routes = routes;
         return this;
     }

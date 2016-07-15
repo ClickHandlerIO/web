@@ -1,0 +1,28 @@
+{
+  "name": "move-webpack",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "Webpack build for Move Web JavaScript dependencies",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ClickHandlerIO/clickhandler-web.git"
+  },
+  "scripts": {
+    "start": "./build.sh"
+  },
+  "devDependencies": {
+    "webpack": "git@github.com:webpack/webpack.git#v2.1.0-beta.5"
+  },
+  "dependencies": {
+    "chart.js": "^1.1.1",
+    "lodash": "^4.11.1",
+    "material-ui": "^0.15.1",
+    "react": "^15.1.0",
+    "react-chartjs": "^0.7.3",
+    "react-datepicker": "^0.27.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.3.0",
+    "react-select": "ClickHandlerIO/react-select",
+    "react-tap-event-plugin": "^1.0.0"
+  }
+}

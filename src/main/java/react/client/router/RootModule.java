@@ -1,6 +1,8 @@
 package react.client.router;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import common.client.Func;
+import common.client.Jso;
 import elemental.client.Browser;
 import react.client.ReactDOM;
 import react.client.ReactElement;
@@ -42,22 +44,23 @@ public abstract class RootModule extends ModuleLoader {
         }
 
         return appRoute = new Route()
-            .path("/")
-            .component(root)
-            .getChildRoutes(
-                (location, callback) -> handle(location.getPathname(), location, callback))
-            .onEnter(
-                (nextState, replaceState) -> routeGatekeeper.get().onEnter(rootRoute, nextState, replaceState))
-            .onLeave(
-                () -> routeGatekeeper.get().onLeave(rootRoute));
+                .path("/")
+                .component(root)
+                .getChildRoutes(
+                        (location, callback) -> handle(location.getPathname(), location, callback))
+                .onEnter(
+                        (nextState, replaceState) -> routeGatekeeper.get().onEnter(rootRoute, nextState, replaceState))
+                .onLeave(
+                        () -> routeGatekeeper.get().onLeave(rootRoute));
     }
 
     public void start(String elementId) {
+        RouterProps routerProps = new RouterProps();
+        routerProps.history = history();
+        routerProps.routes = appRoute();
+
         // Create Router.
-        final ReactElement router =
-            ReactRouter.create(new RouterProps()
-                .history(history())
-                .routes(appRoute()));
+        final ReactElement router = ReactRouter.create(routerProps);
 
 //        Try.run(beforeRender);
 
