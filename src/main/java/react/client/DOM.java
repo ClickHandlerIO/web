@@ -6397,6 +6397,82 @@ public interface DOM {
     static ReactElement polygon(PropsAndChildren callback) {
         return create("polygon", callback);
     }
+
+    static ReactElement polyline() {
+        return create("polyline");
+    }
+
+    static ReactElement polyline(String value) {
+        return create("polyline", value);
+    }
+
+    static ReactElement polyline(ReactElement child) {
+        return create("polyline", child);
+    }
+
+    static ReactElement polyline(ReactElement... children) {
+        return create("polyline", children);
+    }
+
+    static ReactElement polyline(StyleProps style) {
+        return create("polyline", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement polyline(StyleProps style, String text) {
+        return create("polyline", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement polyline(StyleProps style, ReactElement child) {
+        return create("polyline", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement polyline(StyleProps style, ReactElement... children) {
+        return create("polyline", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement polyline(HTMLProps props) {
+        return create("polyline", props);
+    }
+
+    static ReactElement polyline(HTMLProps props, String text) {
+        return create("polyline", props, text);
+    }
+
+    static ReactElement polyline(HTMLProps props, ReactElement child) {
+        return create("polyline", props, child);
+    }
+
+    static ReactElement polyline(HTMLProps props, ReactElement... children) {
+        return create("polyline", props, children);
+    }
+
+    static ReactElement polyline(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("polyline", props, childrenCallback);
+    }
+
+    static ReactElement polyline(Func.Run1<HTMLProps> callback) {
+        return create("polyline", callback);
+    }
+
+    static ReactElement polyline(Func.Run1<HTMLProps> callback, String text) {
+        return create("polyline", callback, text);
+    }
+
+    static ReactElement polyline(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("polyline", callback, child);
+    }
+
+    static ReactElement polyline(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("polyline", callback, children);
+    }
+
+    static ReactElement polyline(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("polyline", callback, childrenCallback);
+    }
+
+    static ReactElement polyline(PropsAndChildren callback) {
+        return create("polyline", callback);
+    }
     
     static ReactElement pre() {
         return create("pre");

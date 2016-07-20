@@ -364,5 +364,10 @@ public class ListItem extends ExternalComponent<ListItem.Props> {
             return this;
         }
 
+        @JsOverlay
+        default Props key(String key) {
+            setKey(key);
+            return this;
+        }
     }
 }
