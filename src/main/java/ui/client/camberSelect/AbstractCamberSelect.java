@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public abstract class AbstractCamberSelect<VALUE, P extends AbstractCamberSelect.CamberSelectProps<VALUE>> extends AbstractCamberBasicSelect<VALUE, P> {
     @Override
     protected void internalFetch(ReactComponent<P, State<VALUE>> $this, String search, Func.Run1<Select2DataAdapterResponse> completion) {

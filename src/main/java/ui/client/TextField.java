@@ -10,8 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- *
+ * Deprecated, should use TextInput control instead
  */
+@Deprecated
 @Singleton
 public class TextField extends ExternalComponent<TextField.Props> {
 

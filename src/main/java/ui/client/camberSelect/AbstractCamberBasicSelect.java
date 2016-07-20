@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public abstract class AbstractCamberBasicSelect<VALUE, P extends AbstractCamberBasicSelect.CamberSelectProps<VALUE>> extends Component<P, AbstractCamberBasicSelect.State<VALUE>> {
 //    private final Loggly log = Loggly.get(AbstractCamberBasicSelect.class);
 

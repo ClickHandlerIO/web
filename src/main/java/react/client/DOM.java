@@ -3130,6 +3130,82 @@ public interface DOM {
         return create("form", callback);
     }
 
+    static ReactElement g() {
+        return create("g");
+    }
+
+    static ReactElement g(String value) {
+        return create("g", value);
+    }
+
+    static ReactElement g(ReactElement child) {
+        return create("g", child);
+    }
+
+    static ReactElement g(ReactElement... children) {
+        return create("g", children);
+    }
+
+    static ReactElement g(StyleProps style) {
+        return create("g", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement g(StyleProps style, String text) {
+        return create("g", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement g(StyleProps style, ReactElement child) {
+        return create("g", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement g(StyleProps style, ReactElement... children) {
+        return create("g", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement g(HTMLProps props) {
+        return create("g", props);
+    }
+
+    static ReactElement g(HTMLProps props, String text) {
+        return create("g", props, text);
+    }
+
+    static ReactElement g(HTMLProps props, ReactElement child) {
+        return create("g", props, child);
+    }
+
+    static ReactElement g(HTMLProps props, ReactElement... children) {
+        return create("g", props, children);
+    }
+
+    static ReactElement g(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("g", props, childrenCallback);
+    }
+
+    static ReactElement g(Func.Run1<HTMLProps> callback) {
+        return create("g", callback);
+    }
+
+    static ReactElement g(Func.Run1<HTMLProps> callback, String text) {
+        return create("g", callback, text);
+    }
+
+    static ReactElement g(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("g", callback, child);
+    }
+
+    static ReactElement g(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("g", callback, children);
+    }
+
+    static ReactElement g(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("g", callback, childrenCallback);
+    }
+
+    static ReactElement g(PropsAndChildren callback) {
+        return create("g", callback);
+    }
+    
     static ReactElement h1() {
         return create("h1");
     }

@@ -16,6 +16,7 @@ import java.util.*;
 
 import static react.client.DOM.select;
 
+@Deprecated
 public class Select2 extends Component<Select2.Props, Select2.State> {
     //    private final Loggly log = Loggly.get(Select2.class);
     private final Ref<SelectElement> selectRef = Ref.make();

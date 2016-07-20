@@ -9,6 +9,7 @@ import react.client.ReactComponent;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public abstract class AbstractCamberSectionedSelect<P extends AbstractCamberBasicSelect.CamberSelectProps<AbstractCamberSectionedSelect.ValueObject>> extends AbstractCamberBasicSelect<AbstractCamberSectionedSelect.ValueObject, P> {
 
     @Override

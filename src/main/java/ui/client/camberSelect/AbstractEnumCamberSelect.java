@@ -7,7 +7,7 @@ import react.client.ReactComponent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+@Deprecated
 public abstract class AbstractEnumCamberSelect<E extends Enum<E>, P extends AbstractCamberSelect.CamberSelectProps<E>> extends AbstractCamberSelect<E, P> {
     public abstract String toString(E value);
 
