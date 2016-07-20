@@ -2066,6 +2066,82 @@ public interface DOM {
         return create("dd", callback);
     }
 
+    static ReactElement defs() {
+        return create("defs");
+    }
+
+    static ReactElement defs(String value) {
+        return create("defs", value);
+    }
+
+    static ReactElement defs(ReactElement child) {
+        return create("defs", child);
+    }
+
+    static ReactElement defs(ReactElement... children) {
+        return create("defs", children);
+    }
+
+    static ReactElement defs(StyleProps style) {
+        return create("defs", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement defs(StyleProps style, String text) {
+        return create("defs", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement defs(StyleProps style, ReactElement child) {
+        return create("defs", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement defs(StyleProps style, ReactElement... children) {
+        return create("defs", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement defs(HTMLProps props) {
+        return create("defs", props);
+    }
+
+    static ReactElement defs(HTMLProps props, String text) {
+        return create("defs", props, text);
+    }
+
+    static ReactElement defs(HTMLProps props, ReactElement child) {
+        return create("defs", props, child);
+    }
+
+    static ReactElement defs(HTMLProps props, ReactElement... children) {
+        return create("defs", props, children);
+    }
+
+    static ReactElement defs(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("defs", props, childrenCallback);
+    }
+
+    static ReactElement defs(Func.Run1<HTMLProps> callback) {
+        return create("defs", callback);
+    }
+
+    static ReactElement defs(Func.Run1<HTMLProps> callback, String text) {
+        return create("defs", callback, text);
+    }
+
+    static ReactElement defs(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("defs", callback, child);
+    }
+
+    static ReactElement defs(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("defs", callback, children);
+    }
+
+    static ReactElement defs(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("defs", callback, childrenCallback);
+    }
+
+    static ReactElement defs(PropsAndChildren callback) {
+        return create("defs", callback);
+    }
+    
     static ReactElement del() {
         return create("del");
     }
@@ -5030,6 +5106,82 @@ public interface DOM {
         return create("mark", callback);
     }
 
+    static ReactElement mask() {
+        return create("mask");
+    }
+
+    static ReactElement mask(String value) {
+        return create("mask", value);
+    }
+
+    static ReactElement mask(ReactElement child) {
+        return create("mask", child);
+    }
+
+    static ReactElement mask(ReactElement... children) {
+        return create("mask", children);
+    }
+
+    static ReactElement mask(StyleProps style) {
+        return create("mask", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement mask(StyleProps style, String text) {
+        return create("mask", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement mask(StyleProps style, ReactElement child) {
+        return create("mask", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement mask(StyleProps style, ReactElement... children) {
+        return create("mask", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement mask(HTMLProps props) {
+        return create("mask", props);
+    }
+
+    static ReactElement mask(HTMLProps props, String text) {
+        return create("mask", props, text);
+    }
+
+    static ReactElement mask(HTMLProps props, ReactElement child) {
+        return create("mask", props, child);
+    }
+
+    static ReactElement mask(HTMLProps props, ReactElement... children) {
+        return create("mask", props, children);
+    }
+
+    static ReactElement mask(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("mask", props, childrenCallback);
+    }
+
+    static ReactElement mask(Func.Run1<HTMLProps> callback) {
+        return create("mask", callback);
+    }
+
+    static ReactElement mask(Func.Run1<HTMLProps> callback, String text) {
+        return create("mask", callback, text);
+    }
+
+    static ReactElement mask(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("mask", callback, child);
+    }
+
+    static ReactElement mask(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("mask", callback, children);
+    }
+
+    static ReactElement mask(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("mask", callback, childrenCallback);
+    }
+
+    static ReactElement mask(PropsAndChildren callback) {
+        return create("mask", callback);
+    }
+
     static ReactElement menu() {
         return create("menu");
     }
@@ -6472,6 +6624,82 @@ public interface DOM {
 
     static ReactElement q(PropsAndChildren callback) {
         return create("q", callback);
+    }
+
+    static ReactElement rect() {
+        return create("rect");
+    }
+
+    static ReactElement rect(String value) {
+        return create("rect", value);
+    }
+
+    static ReactElement rect(ReactElement child) {
+        return create("rect", child);
+    }
+
+    static ReactElement rect(ReactElement... children) {
+        return create("rect", children);
+    }
+
+    static ReactElement rect(StyleProps style) {
+        return create("rect", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement rect(StyleProps style, String text) {
+        return create("rect", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement rect(StyleProps style, ReactElement child) {
+        return create("rect", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement rect(StyleProps style, ReactElement... children) {
+        return create("rect", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement rect(HTMLProps props) {
+        return create("rect", props);
+    }
+
+    static ReactElement rect(HTMLProps props, String text) {
+        return create("rect", props, text);
+    }
+
+    static ReactElement rect(HTMLProps props, ReactElement child) {
+        return create("rect", props, child);
+    }
+
+    static ReactElement rect(HTMLProps props, ReactElement... children) {
+        return create("rect", props, children);
+    }
+
+    static ReactElement rect(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("rect", props, childrenCallback);
+    }
+
+    static ReactElement rect(Func.Run1<HTMLProps> callback) {
+        return create("rect", callback);
+    }
+
+    static ReactElement rect(Func.Run1<HTMLProps> callback, String text) {
+        return create("rect", callback, text);
+    }
+
+    static ReactElement rect(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("rect", callback, child);
+    }
+
+    static ReactElement rect(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("rect", callback, children);
+    }
+
+    static ReactElement rect(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("rect", callback, childrenCallback);
+    }
+
+    static ReactElement rect(PropsAndChildren callback) {
+        return create("rect", callback);
     }
 
     static ReactElement rp() {
@@ -8676,6 +8904,82 @@ public interface DOM {
 
     static ReactElement ul(PropsAndChildren callback) {
         return create("ul", callback);
+    }
+
+    static ReactElement use() {
+        return create("use");
+    }
+
+    static ReactElement use(String value) {
+        return create("use", value);
+    }
+
+    static ReactElement use(ReactElement child) {
+        return create("use", child);
+    }
+
+    static ReactElement use(ReactElement... children) {
+        return create("use", children);
+    }
+
+    static ReactElement use(StyleProps style) {
+        return create("use", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement use(StyleProps style, String text) {
+        return create("use", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement use(StyleProps style, ReactElement child) {
+        return create("use", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement use(StyleProps style, ReactElement... children) {
+        return create("use", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement use(HTMLProps props) {
+        return create("use", props);
+    }
+
+    static ReactElement use(HTMLProps props, String text) {
+        return create("use", props, text);
+    }
+
+    static ReactElement use(HTMLProps props, ReactElement child) {
+        return create("use", props, child);
+    }
+
+    static ReactElement use(HTMLProps props, ReactElement... children) {
+        return create("use", props, children);
+    }
+
+    static ReactElement use(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("use", props, childrenCallback);
+    }
+
+    static ReactElement use(Func.Run1<HTMLProps> callback) {
+        return create("use", callback);
+    }
+
+    static ReactElement use(Func.Run1<HTMLProps> callback, String text) {
+        return create("use", callback, text);
+    }
+
+    static ReactElement use(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("use", callback, child);
+    }
+
+    static ReactElement use(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("use", callback, children);
+    }
+
+    static ReactElement use(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("use", callback, childrenCallback);
+    }
+
+    static ReactElement use(PropsAndChildren callback) {
+        return create("use", callback);
     }
 
     static ReactElement var() {

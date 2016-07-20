@@ -37,6 +37,10 @@ public class SVGProps extends HTMLProps {
     @JsProperty
     public String gradientUnits;
     @JsProperty
+    public String maskContentUnits;
+    @JsProperty
+    public String maskUnits;
+    @JsProperty
     public String markerEnd;
     @JsProperty
     public String markerMid;
@@ -118,6 +122,18 @@ public class SVGProps extends HTMLProps {
     public Object y2;
     @JsProperty
     public Object y;
+
+    @JsOverlay
+    public final SVGProps maskContentUnits(final String maskContentUnits) {
+        this.maskContentUnits = maskContentUnits;
+        return this;
+    }
+
+    @JsOverlay
+    public final SVGProps maskUnits(final String maskUnits) {
+        this.maskUnits = maskUnits;
+        return this;
+    }
 
     @JsOverlay
     public final SVGProps clipPath(String value) {

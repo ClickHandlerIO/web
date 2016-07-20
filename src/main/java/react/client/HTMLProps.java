@@ -3215,6 +3215,12 @@ public class HTMLProps extends DOMProps {
     }
 
     @JsOverlay
+    public final HTMLProps height(Object value) {
+        style().height = value;
+        return this;
+    }
+
+    @JsOverlay
     public final HTMLProps wordBreak(Object value) {
         style().wordBreak = value;
         return this;
