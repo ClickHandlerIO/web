@@ -47,6 +47,8 @@ public class StyleProps {
     @JsProperty
     public Number fillOpacity;
     @JsProperty
+    public String stroke;
+    @JsProperty
     public Number strokeOpacity;
     @JsProperty
     public Number strokeWidth;
@@ -675,6 +677,12 @@ public class StyleProps {
     @JsOverlay
     public final StyleProps fillOpacity(Number value) {
         this.fillOpacity = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps stroke(String value) {
+        this.stroke = value;
         return this;
     }
 

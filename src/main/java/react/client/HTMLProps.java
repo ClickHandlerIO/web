@@ -1757,6 +1757,12 @@ public class HTMLProps extends DOMProps {
     }
 
     @JsOverlay
+    public final HTMLProps stroke(String value) {
+        style().stroke = value;
+        return this;
+    }
+
+    @JsOverlay
     public final HTMLProps strokeOpacity(Number value) {
         style().strokeOpacity = value;
         return this;
