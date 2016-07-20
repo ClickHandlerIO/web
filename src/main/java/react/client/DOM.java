@@ -6170,6 +6170,82 @@ public interface DOM {
         return create("picture", callback);
     }
 
+    static ReactElement polygon() {
+        return create("polygon");
+    }
+
+    static ReactElement polygon(String value) {
+        return create("polygon", value);
+    }
+
+    static ReactElement polygon(ReactElement child) {
+        return create("polygon", child);
+    }
+
+    static ReactElement polygon(ReactElement... children) {
+        return create("polygon", children);
+    }
+
+    static ReactElement polygon(StyleProps style) {
+        return create("polygon", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement polygon(StyleProps style, String text) {
+        return create("polygon", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement polygon(StyleProps style, ReactElement child) {
+        return create("polygon", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement polygon(StyleProps style, ReactElement... children) {
+        return create("polygon", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement polygon(HTMLProps props) {
+        return create("polygon", props);
+    }
+
+    static ReactElement polygon(HTMLProps props, String text) {
+        return create("polygon", props, text);
+    }
+
+    static ReactElement polygon(HTMLProps props, ReactElement child) {
+        return create("polygon", props, child);
+    }
+
+    static ReactElement polygon(HTMLProps props, ReactElement... children) {
+        return create("polygon", props, children);
+    }
+
+    static ReactElement polygon(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("polygon", props, childrenCallback);
+    }
+
+    static ReactElement polygon(Func.Run1<HTMLProps> callback) {
+        return create("polygon", callback);
+    }
+
+    static ReactElement polygon(Func.Run1<HTMLProps> callback, String text) {
+        return create("polygon", callback, text);
+    }
+
+    static ReactElement polygon(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("polygon", callback, child);
+    }
+
+    static ReactElement polygon(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("polygon", callback, children);
+    }
+
+    static ReactElement polygon(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("polygon", callback, childrenCallback);
+    }
+
+    static ReactElement polygon(PropsAndChildren callback) {
+        return create("polygon", callback);
+    }
+    
     static ReactElement pre() {
         return create("pre");
     }
