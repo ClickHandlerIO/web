@@ -2674,6 +2674,82 @@ public interface DOM {
         return create("dt", callback);
     }
 
+    static ReactElement ellipse() {
+        return create("ellipse");
+    }
+
+    static ReactElement ellipse(String value) {
+        return create("ellipse", value);
+    }
+
+    static ReactElement ellipse(ReactElement child) {
+        return create("ellipse", child);
+    }
+
+    static ReactElement ellipse(ReactElement... children) {
+        return create("ellipse", children);
+    }
+
+    static ReactElement ellipse(StyleProps style) {
+        return create("ellipse", style != null ? style.lift() : new HTMLProps());
+    }
+
+    static ReactElement ellipse(StyleProps style, String text) {
+        return create("ellipse", style != null ? style.lift() : new HTMLProps(), text);
+    }
+
+    static ReactElement ellipse(StyleProps style, ReactElement child) {
+        return create("ellipse", style != null ? style.lift() : new HTMLProps(), child);
+    }
+
+    static ReactElement ellipse(StyleProps style, ReactElement... children) {
+        return create("ellipse", style != null ? style.lift() : new HTMLProps(), children);
+    }
+
+    static ReactElement ellipse(HTMLProps props) {
+        return create("ellipse", props);
+    }
+
+    static ReactElement ellipse(HTMLProps props, String text) {
+        return create("ellipse", props, text);
+    }
+
+    static ReactElement ellipse(HTMLProps props, ReactElement child) {
+        return create("ellipse", props, child);
+    }
+
+    static ReactElement ellipse(HTMLProps props, ReactElement... children) {
+        return create("ellipse", props, children);
+    }
+
+    static ReactElement ellipse(HTMLProps props, Func.Run1<Children> childrenCallback) {
+        return create("ellipse", props, childrenCallback);
+    }
+
+    static ReactElement ellipse(Func.Run1<HTMLProps> callback) {
+        return create("ellipse", callback);
+    }
+
+    static ReactElement ellipse(Func.Run1<HTMLProps> callback, String text) {
+        return create("ellipse", callback, text);
+    }
+
+    static ReactElement ellipse(Func.Run1<HTMLProps> callback, ReactElement child) {
+        return create("ellipse", callback, child);
+    }
+
+    static ReactElement ellipse(Func.Run1<HTMLProps> callback, ReactElement... children) {
+        return create("ellipse", callback, children);
+    }
+
+    static ReactElement ellipse(Func.Run1<HTMLProps> callback, Func.Run1<Children> childrenCallback) {
+        return create("ellipse", callback, childrenCallback);
+    }
+
+    static ReactElement ellipse(PropsAndChildren callback) {
+        return create("ellipse", callback);
+    }
+    
     static ReactElement em() {
         return create("em");
     }
