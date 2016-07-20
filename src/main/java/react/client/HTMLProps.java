@@ -615,13 +615,6 @@ public class HTMLProps extends DOMProps {
         return this;
     }
 
-//    @JsOverlay
-//    public final HTMLProps height(Object value) {
-//        this.height = value;
-//        style().height(value);
-//        return this;
-//    }
-
     @JsOverlay
     public final HTMLProps hidden(boolean value) {
         this.hidden = value;
@@ -1064,12 +1057,6 @@ public class HTMLProps extends DOMProps {
         this.value = value;
         return this;
     }
-
-//    @JsOverlay
-//    public final HTMLProps width(Object value) {
-//        this.width = value;
-//        return this;
-//    }
 
     @JsOverlay
     public final HTMLProps wmode(String value) {
@@ -1762,11 +1749,11 @@ public class HTMLProps extends DOMProps {
         return this;
     }
 
-    @JsOverlay
-    public final HTMLProps strokeWidth(Number value) {
-        style().strokeWidth = value;
-        return this;
-    }
+//    @JsOverlay
+//    public final HTMLProps strokeWidth(Number value) {
+//        style().strokeWidth = value;
+//        return this;
+//    }
 
     @JsOverlay
     public final HTMLProps alignContent(Object value) {
@@ -2206,17 +2193,17 @@ public class HTMLProps extends DOMProps {
         return this;
     }
 
-    @JsOverlay
-    public final HTMLProps fill(Object value) {
-        style().fill = value;
-        return this;
-    }
+//    @JsOverlay
+//    public final HTMLProps fill(Object value) {
+//        style().fill = value;
+//        return this;
+//    }
 
-    @JsOverlay
-    public final HTMLProps fillRule(Object value) {
-        style().fillRule = value;
-        return this;
-    }
+//    @JsOverlay
+//    public final HTMLProps fillRule(Object value) {
+//        style().fillRule = value;
+//        return this;
+//    }
 
     @JsOverlay
     public final HTMLProps filter(Object value) {
@@ -2539,12 +2526,6 @@ public class HTMLProps extends DOMProps {
     @JsOverlay
     public final HTMLProps marqueeStyle(Object value) {
         style().marqueeStyle = value;
-        return this;
-    }
-
-    @JsOverlay
-    public final HTMLProps mask(Object value) {
-        style().mask = value;
         return this;
     }
 
@@ -3210,13 +3191,13 @@ public class HTMLProps extends DOMProps {
 
     @JsOverlay
     public final HTMLProps width(Object value) {
-        style().width = value;
+        this.width = value;
         return this;
     }
 
     @JsOverlay
     public final HTMLProps height(Object value) {
-        style().height = value;
+        this.height = value;
         return this;
     }
 

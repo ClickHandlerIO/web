@@ -23,6 +23,8 @@ public class SVGProps extends HTMLProps {
     @JsProperty
     public String fill;
     @JsProperty
+    public String fillRule;
+    @JsProperty
     public Object fillOpacity;
     @JsProperty
     public String fontFamily;
@@ -36,6 +38,8 @@ public class SVGProps extends HTMLProps {
     public String gradientTransform;
     @JsProperty
     public String gradientUnits;
+    @JsProperty
+    public String mask;
     @JsProperty
     public String maskContentUnits;
     @JsProperty
@@ -124,6 +128,12 @@ public class SVGProps extends HTMLProps {
     public Object y;
 
     @JsOverlay
+    public final SVGProps mask(final String mask) {
+        this.mask = mask;
+        return this;
+    }
+
+    @JsOverlay
     public final SVGProps maskContentUnits(final String maskContentUnits) {
         this.maskContentUnits = maskContentUnits;
         return this;
@@ -174,6 +184,12 @@ public class SVGProps extends HTMLProps {
     @JsOverlay
     public final SVGProps fill(String value) {
         this.fill = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final SVGProps fillRule(final String fillRule) {
+        this.fillRule = fillRule;
         return this;
     }
 
