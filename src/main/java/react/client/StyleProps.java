@@ -157,6 +157,8 @@ public class StyleProps {
     @JsProperty
     public Object boxOrdinalGroup;
     @JsProperty
+    public Object boxShadow;
+    @JsProperty
     public Object breakAfter;
     @JsProperty
     public Object breakBefore;
@@ -1007,6 +1009,12 @@ public class StyleProps {
     @JsOverlay
     public final StyleProps boxOrdinalGroup(Object value) {
         this.boxOrdinalGroup = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps boxShadow(Object value) {
+        this.boxShadow = value;
         return this;
     }
 
