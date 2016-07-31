@@ -46,6 +46,7 @@
 	overflow: hidden;
 	position: relative;
 	width: 100%;
+	padding-bottom: 3px;
 
 	&:hover {
 		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -88,7 +89,8 @@
 	bottom: 0;
 	color: $select-input-placeholder;
 	left: 0;
-	line-height: $select-input-internal-height;
+	//line-height: $select-input-internal-height;
+	line-height: $select-input-height;
 	padding-left: $select-padding-horizontal;
 	padding-right: $select-padding-horizontal;
 	position: absolute;
