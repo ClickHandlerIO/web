@@ -16,7 +16,7 @@ public class SvgIcon extends ExternalComponent<SvgIcon.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.SvgIcon;
     }-*/;
 

@@ -20,7 +20,7 @@ public class SnackBar extends ExternalComponent<SnackBar.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.SnackBar;
     }-*/;
 

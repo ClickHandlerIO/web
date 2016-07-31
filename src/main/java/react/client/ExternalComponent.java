@@ -15,7 +15,7 @@ public abstract class ExternalComponent<P> {
     public ExternalComponent() {
     }
 
-    protected abstract ReactClass<P> getReactClass();
+    protected abstract ReactClass getReactClass();
 
     /*
      * Props
@@ -23,16 +23,16 @@ public abstract class ExternalComponent<P> {
 
     private P createProps() {
         P props = Jso.create();
-        if (Jso.get(getReactClass(), "getDefaultProps") != null) {
+        if (Jso.get(getReactClass(), "defaultProps") != null) {
 //            Jso.assign(props, getReactClass().getDefaultProps());
         }
         applyDefaults(props);
         return props;
     }
 
-    private native Object createProps0() /*-{
-    return {};
-    }-*/;
+//    private native JavaScriptObject createProps0() /*-{
+//    return {};
+//    }-*/;
 
 
     protected void applyDefaults(P props) {
@@ -46,7 +46,7 @@ public abstract class ExternalComponent<P> {
 
     public ReactElement createElement() {
         log.trace("createElement()");
-        return React.createElement(getReactClass(), createProps0());
+        return React.createElement(getReactClass(), createProps());
     }
 
     public ReactElement createElement(String key) {

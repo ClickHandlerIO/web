@@ -37,12 +37,10 @@ public class ComponentProps {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
 
-        Object obj = Jso.copy(this);
-
         if (children == null) {
-            return React.createElement(spec, obj);
+            return React.createElement(spec, this);
         } else {
-            return React.createElement(spec, obj, children);
+            return React.createElement(spec, this, children);
         }
     }
 
@@ -56,7 +54,7 @@ public class ComponentProps {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
 
-        Object obj = Jso.copy(this);
+        Object obj = this;
 
         if (element == null) {
             return React.createElement(spec, obj);
@@ -75,7 +73,7 @@ public class ComponentProps {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
 
-        Object obj = Jso.copy(this);
+        Object obj = this;
 
         if (elements == null || elements.length == 0) {
             return React.createElement(spec, obj);

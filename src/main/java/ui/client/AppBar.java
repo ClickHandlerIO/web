@@ -15,7 +15,7 @@ public class AppBar extends ExternalComponent<AppBar.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.AppBar;
     }-*/;
 

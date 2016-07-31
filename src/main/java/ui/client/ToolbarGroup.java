@@ -22,7 +22,7 @@ public class ToolbarGroup extends ExternalComponent<ToolbarGroup.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.ToolbarGroup;
     }-*/;
 

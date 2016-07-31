@@ -12,7 +12,7 @@ public class UnarchiveSvgIcon extends AbstractMaterialIcon {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Icons.Unarchive;
     }-*/;
 }

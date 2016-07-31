@@ -20,7 +20,7 @@ public class Tab extends ExternalComponent<Tab.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Tab;
     }-*/;
 

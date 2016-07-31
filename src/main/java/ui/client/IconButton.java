@@ -17,7 +17,7 @@ public class IconButton extends ExternalComponent<IconButton.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.IconButton;
     }-*/;
 

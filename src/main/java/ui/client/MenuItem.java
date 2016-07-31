@@ -18,7 +18,7 @@ public class MenuItem extends ExternalComponent<MenuItem.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.MenuItem;
     }-*/;
 

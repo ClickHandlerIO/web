@@ -26,7 +26,7 @@ public class CardTitle extends ExternalComponent<CardTitle.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.CardTitle;
     }-*/;
 

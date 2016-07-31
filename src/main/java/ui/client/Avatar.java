@@ -16,7 +16,7 @@ public class Avatar extends ExternalComponent<Avatar.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Avatar;
     }-*/;
 

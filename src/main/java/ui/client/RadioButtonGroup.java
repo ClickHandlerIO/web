@@ -21,7 +21,7 @@ public class RadioButtonGroup extends ExternalComponent<RadioButtonGroup.Props> 
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.RadioButtonGroup;
     }-*/;
 

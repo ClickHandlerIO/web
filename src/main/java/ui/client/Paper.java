@@ -20,7 +20,7 @@ public class Paper extends ExternalComponent<Paper.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Paper;
     }-*/;
 

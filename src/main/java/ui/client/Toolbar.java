@@ -22,7 +22,7 @@ public class Toolbar extends ExternalComponent<Toolbar.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Toolbar;
     }-*/;
 
