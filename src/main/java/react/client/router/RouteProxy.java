@@ -3,6 +3,7 @@ package react.client.router;
 import com.google.gwt.http.client.URL;
 import common.client.Func;
 import common.client.Jso;
+import common.client.Str;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -77,33 +78,36 @@ public class RouteProxy<T> {
             String name = getClass().getName().toLowerCase();
 
             // Remove Route from the end.
-            if (name.endsWith("route")) {
+            if (Str.endsWith(name, "route")) {
                 name = name.substring(0, name.length() - 5);
             }
 
             // Split based off of Java class path.
-            String[] parts = name.split("[.]");
+            List<String> parts = Str.split(name, '.');
+//            String[] parts = name.split("[.]");
 
             // Pick last name.
-            path = parts[parts.length - 1];
+            path = parts.get(parts.size() - 1);
 
-            if (path.endsWith("$")) {
+            if (Str.endsWith(path, "$")) {
                 path = path.substring(0, path.length() - 1);
 
                 // Remove 'component' from the end?
-                if (path.endsWith("component")) {
+                if (Str.endsWith(path, "component")) {
                     path = path.substring(0, path.length() - 9);
                 }
                 // Remove 'page' from the end?
-                else if (path.endsWith("page")) {
+                else if (Str.endsWith(path, "page")) {
                     path = path.substring(0, path.length() - 4);
                 }
             } else {
                 // Handle nested classes.
-                parts = path.split("[$]");
+                parts = Str.split(path, '$');
+                //path.split("[$]");
 
                 // Pick last part.
-                path = parts[parts.length - 1];
+//                path = parts[parts.length - 1];
+                path = parts.get(parts.size() - 1);
             }
         }
 
@@ -285,7 +289,7 @@ public class RouteProxy<T> {
         String path = path();
 
         // Do we have an absolute path?
-        if (path.startsWith("/")) {
+        if (Str.startsWith(path, "/")) {
             return new LocationDescriptor().pathname(path).search(search);
         }
 
@@ -294,7 +298,7 @@ public class RouteProxy<T> {
 
         if (path.isEmpty()) {
             path = parentPath;
-        } else if (parentPath.endsWith("/")) {
+        } else if (Str.endsWith(parentPath, "/")) {
             path = parentPath + path;
         } else {
             path = parentPath + "/" + path;
@@ -344,7 +348,7 @@ public class RouteProxy<T> {
                 parentPath = "";
             }
 
-            if (parentPath.startsWith("/")) {
+            if (Str.startsWith(parentPath, "/")) {
                 break;
             }
 
@@ -362,7 +366,7 @@ public class RouteProxy<T> {
             }
             parentPath = parentPath.trim();
 
-            if (parentPath.length() > 1 && parentPath.endsWith("/")) {
+            if (parentPath.length() > 1 && Str.endsWith(parentPath, "/")) {
                 parentPath = parentPath.substring(0, parentPath.length() - 1);
             }
 
@@ -370,7 +374,7 @@ public class RouteProxy<T> {
                 continue;
             }
 
-            if (lastChar != '/' && !parentPath.startsWith("/")) {
+            if (lastChar != '/' && !Str.startsWith(parentPath, "/")) {
                 sb.append("/");
             }
             sb.append(parentPath);

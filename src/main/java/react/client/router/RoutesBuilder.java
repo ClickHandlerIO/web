@@ -1,14 +1,12 @@
 package react.client.router;
 
-import common.client.Jso;
-import jsinterop.annotations.JsProperty;
+import common.client.Str;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Constructs ReactRouter Route configuration based on RouteComponents
@@ -39,9 +37,9 @@ public abstract class RoutesBuilder {
      */
     protected void registerComponents() {
         // Sniff out injected RouteComponents.
-        Jso.iterate(this, (name, value) -> {
-            add((RouteComponent) value);
-        });
+//        Jso.iterate(this, (name, value) -> {
+//            add((RouteComponent) value);
+//        });
     }
 
     protected <R extends RouteProxy<A>, A, P extends RouteProps, S> void add(RouteComponent<R, A, P, S> component) {
@@ -94,7 +92,7 @@ public abstract class RoutesBuilder {
             // Get the parent RouteProxy.
             RouteProxy parent = reg.proxy.parent();
 
-            final String proxyName = reg.proxy.getClass().getName();
+//            final String proxyName = reg.proxy.getClass().getName();
 
             // Is current Reg a child?
             if (parent != null) {
@@ -104,17 +102,17 @@ public abstract class RoutesBuilder {
                     String parentPath = parent.path();
                     if (parentPath == null || parentPath.isEmpty()) {
                         parentPath = "";
-                    } else if (!parentPath.startsWith("/")) {
+                    } else if (!Str.startsWith(parentPath, "/")) {
                         parent = parent.parent();
 
                         // Find next registered parent.
                         while (parent != null) {
                             // Is the parent path already fully resolved to an absolute path?
-                            if (!parentPath.startsWith("/")) {
+                            if (!Str.startsWith(parentPath, "/")) {
                                 // Prepend next parent path if necessary.
                                 String nextParentPath = parent.path();
                                 if (nextParentPath != null) {
-                                    if (nextParentPath.endsWith("/")) {
+                                    if (Str.startsWith(nextParentPath, "/")) {
                                         parentPath = nextParentPath + parentPath;
                                     } else {
                                         parentPath = nextParentPath + "/" + parentPath;
@@ -134,7 +132,7 @@ public abstract class RoutesBuilder {
                     String currentPath = reg.route.path;
                     if (currentPath == null) {
                         currentPath = "";
-                    } else if (currentPath.startsWith("/")) {
+                    } else if (Str.startsWith(currentPath, "/")) {
                         currentPath = currentPath.substring(1);
                     }
 

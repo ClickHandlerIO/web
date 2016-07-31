@@ -1,7 +1,11 @@
 package common.client;
 
+import com.google.common.base.Splitter;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -84,8 +88,8 @@ public interface Jso {
      */
     @JsOverlay
     static void extend(Object obj, String nativeClass) {
-        String[] parts = nativeClass.split("[.]");
-        extend_(obj, parts);
+        List<String> parts = Str.split(nativeClass, '.');
+        extend_(obj, parts.toArray(new String[parts.size()]));
     }
 
     /**
@@ -95,6 +99,11 @@ public interface Jso {
     @JsOverlay
     static void extend_(Object obj, String[] nativeClass) {
         Native.extend_(obj, nativeClass);
+    }
+
+    @JsOverlay
+    static <T> T copy(Object nativeObject) {
+        return Native.copy(nativeObject);
     }
 
     /**
@@ -244,8 +253,8 @@ public interface Jso {
          * @param nativeClass
          */
         public static void extend(Object obj, String nativeClass) {
-            String[] parts = nativeClass.split("[.]");
-            extend_(obj, parts);
+            List<String> parts = Str.split(nativeClass, '.');
+            extend_(obj, parts.toArray(new String[parts.size()]));
         }
 
         /**
@@ -262,6 +271,25 @@ public interface Jso {
                     obj[i] = superClass[i];
                 }
             }
+        }-*/;
+
+        /**
+         * @param nativeObject
+         * @param <T>
+         * @return
+         */
+        public static native <T> T copy(Object nativeObject) /*-{
+            if (!nativeObject) {
+                nativeObject = {};
+            }
+
+            var keys = Object.keys(nativeObject);
+            var extension = {};
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                extension[key] = nativeObject[key];
+            }
+            return extension;
         }-*/;
 
         /**

@@ -4,14 +4,15 @@
     <inherits name="com.google.gwt.user.User"/>
     <inherits name="com.google.gwt.resources.Resources"/>
     <inherits name="com.google.gwt.logging.Logging"/>
+    <inherits name="com.google.common.base.Base"/>
 
     <inherits name="elemental.Elemental"/>
     <inherits name="dagger.Dagger"/>
     <inherits name="logging.Logging"/>
 
     <!--super dev mode detection-->
-    <replace-with class='io.clickhandler.web.reactGwt.client.util.SuperDevModeActiveIndicator'>
-        <when-type-is class='io.clickhandler.web.reactGwt.client.util.SuperDevModeIndicator'/>
+    <replace-with class='common.client.SuperDevModeActiveIndicator'>
+        <when-type-is class='common.client.SuperDevModeIndicator'/>
         <when-property-is name='superdevmode' value='on'/>
     </replace-with>
 

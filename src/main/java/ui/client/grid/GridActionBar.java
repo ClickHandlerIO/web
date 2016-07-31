@@ -42,7 +42,7 @@ public class GridActionBar extends Component<GridActionBar.Props, GridActionBar.
                                 childList.add(
                                         iconButton.props()
                                                 .tooltip("Print")
-                                                .tooltipPosition("top")
+                                                .tooltipPosition("top-center")
                                                 .onTouchTap(() -> {
                                                     if ($this.props.onPrint != null) {
                                                         $this.props.onPrint.run();
@@ -56,7 +56,7 @@ public class GridActionBar extends Component<GridActionBar.Props, GridActionBar.
                                 childList.add(
                                         iconButton.props()
                                                 .tooltip("Email")
-                                                .tooltipPosition("top")
+                                                .tooltipPosition("top-center")
                                                 .onTouchTap(() -> {
                                                     if ($this.props.onEmail != null) {
                                                         $this.props.onEmail.run();
@@ -70,7 +70,7 @@ public class GridActionBar extends Component<GridActionBar.Props, GridActionBar.
                                 childList.add(
                                         iconButton.props()
                                                 .tooltip("PDF")
-                                                .tooltipPosition("top")
+                                                .tooltipPosition("top-center")
                                                 .onTouchTap(() -> {
                                                     if ($this.props.onPDF != null) {
                                                         $this.props.onPDF.run();
@@ -84,7 +84,7 @@ public class GridActionBar extends Component<GridActionBar.Props, GridActionBar.
                                 childList.add(
                                         iconButton.props()
                                                 .tooltip("XLS")
-                                                .tooltipPosition("top")
+                                                .tooltipPosition("top-center")
                                                 .onTouchTap(() -> {
                                                     if ($this.props.onExcel != null) {
                                                         $this.props.onExcel.run();

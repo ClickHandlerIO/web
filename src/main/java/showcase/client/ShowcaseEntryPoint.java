@@ -5,10 +5,13 @@ import com.google.gwt.core.client.ScriptInjector;
 import showcase.resources.ShowcaseResourceBundle;
 import ui.resources.CamberResourceBundle;
 
+import java.util.LinkedList;
+
 
 public class ShowcaseEntryPoint implements EntryPoint {
     @Override
     public void onModuleLoad() {
+        split("this is a bunch of words", ' ').isEmpty();
 //        Logger.setLogLevel(Logger.Level.TRACE);
 
         // inject Moment javascript
@@ -28,5 +31,33 @@ public class ShowcaseEntryPoint implements EntryPoint {
 
         // Start AppModule and initialize theme.
         app.bootstrap().start("app");
+
+//        app.routes().getComponents().getGridPage().go();
+    }
+
+    public static LinkedList<String> split(String str, double splitter) {
+        final LinkedList<String> list = new LinkedList<>();
+        if (str == null || str.isEmpty()) {
+            return list;
+        }
+
+        char[] chars = str.toCharArray();
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+
+            if (c == splitter) {
+                list.add(sb.toString());
+                sb.setLength(0);
+            } else {
+                sb.append(c);
+            }
+        }
+
+        if (sb.length() > 0) {
+            list.add(sb.toString());
+        }
+
+        return list;
     }
 }

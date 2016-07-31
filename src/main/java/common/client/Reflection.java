@@ -1,5 +1,7 @@
 package common.client;
 
+import java.util.List;
+
 /**
  *
  */
@@ -80,8 +82,8 @@ public class Reflection {
      * @param nativeClass
      */
     public static void extend(Object obj, String nativeClass) {
-        String[] parts = nativeClass.split("[.]");
-        extend_(obj, parts);
+        List<String> parts = Str.split(nativeClass, '.');
+        extend_(obj, parts.toArray(new String[parts.size()]));
     }
 
     /**

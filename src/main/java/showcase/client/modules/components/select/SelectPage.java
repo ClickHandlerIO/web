@@ -68,6 +68,30 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
         );
     }
 
+//    protected ReactElement render(ReactComponent<Props, State> $this) {
+//        return div(style().padding("20px"),
+//            div("Select Page Here"),
+//            checkbox.$(checkbox.props().label("UT Only")
+//                .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
+//                .checked($this.state.utahOnly)),
+//            resortSelect.$(resortSelect.props()
+//                .state($this.state.utahOnly ? "UT" : null)
+//                .value($this.state.resortValue)
+//                .onChange(value -> $this.setState(s->s.resortValue(value)))),
+//            resortSelect.$(resortSelect.props()
+//                .state($this.state.utahOnly ? "UT" : null)
+//                .multi(true)
+//                .valueMulti($this.state.resorts)
+//                .onChangeMulti(value -> $this.setState(s->s.resorts(value)))),
+//            raisedButton.$(raisedButton.props()
+//                .label("Show Modal")
+//                .onTouchTap(value -> $this.setState(s -> s.showModal(true)))),
+//            modal.$(modal.props()
+//                .open($this.state.showModal)
+//                .onClose(() -> $this.setState(s -> s.showModal(false))))
+//        );
+//    }
+
     @Override
     public State getInitialState() {
         return super.getInitialState().utahOnly(true).showModal(false);

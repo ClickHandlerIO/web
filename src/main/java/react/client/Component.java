@@ -15,8 +15,7 @@ import logging.client.Logger;
 import javax.inject.Inject;
 import java.util.List;
 
-
-@JsType
+//@JsType
 public abstract class Component<P, S> implements Jso {
     @JsIgnore
     protected final Console console = Browser.getWindow().getConsole();
@@ -26,17 +25,25 @@ public abstract class Component<P, S> implements Jso {
     protected final Window window = Browser.getWindow();
     @JsIgnore
     protected final Logger log = Logger.get(getClass());
+
+    @JsProperty
     public String displayName;
     /**
      * Lifecycle
      */
+    @JsProperty
     public Func.Call getDefaultProps = Func.bind(this::getDefaultPropsInternal);
     //    public Func.Run getDefaultProps = this::getDefaultProps;
+    @JsProperty
     public Func.Call getInitialState = Func.bind(this::getInitialStateInternal);
     //    public Func.Run getInitialState = this::getInitialState;
+    @JsProperty
     public Func.Run componentDidMount = Func.bind(this::componentDidMountInternal);
+    @JsProperty
     public Func.Run1<P> componentWillReceiveProps = Func.bind(this::componentWillReceivePropsInternal);
+    @JsProperty
     public Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.bind(this::shouldComponentUpdateInternal);
+    @JsProperty
     public Func.Run2<P, S> componentWillUpdate = Func.bind(this::componentWillUpdateInternal);
     //    @JsProperty(name = "render") // todo test if we need the property name declaration
 
@@ -44,6 +51,7 @@ public abstract class Component<P, S> implements Jso {
     public Double someVar;
 
     //    @JsProperty(name = "render")
+    @JsProperty
     public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
 
 //    @JsMethod(name = "render")
@@ -52,18 +60,23 @@ public abstract class Component<P, S> implements Jso {
 //    }
 
     //    @JsProperty(name = "componentDidUpdate") // todo test if we need the property name declaration
+    @JsProperty
     public Func.Run2<P, S> componentDidUpdate = Func.bind(this::componentDidUpdateInternal);
-
+    @JsProperty
     public Func.Run componentWillUnmount = Func.bind(this::componentWillUnmountInternal);
     /*
      * Context
      */
+    @JsProperty
     public Func.Call getChildContext = this::getChildContext;
+    @JsProperty
     public ContextTypes contextTypes = new ContextTypes();
+    @JsProperty
     public ContextTypes childContextTypes = new ContextTypes();
     @JsIgnore
     @Inject
     protected Bus bus;
+    @JsProperty
     public Func.Run componentWillMount = Func.bind(this::componentWillMountInternal);
     // Shorthand syntax
     @JsIgnore
@@ -369,6 +382,7 @@ public abstract class Component<P, S> implements Jso {
     protected void componentWillUnmount(final ReactComponent<P, S> $this) {
     }
 
+    @JsIgnore
     protected native Object getChildContext() /*-{
         return {};
     }-*/;
