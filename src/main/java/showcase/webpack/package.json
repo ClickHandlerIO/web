@@ -16,12 +16,12 @@
   "dependencies": {
     "chart.js": "^1.1.1",
     "lodash": "^4.11.1",
-    "material-ui": "^0.15.1",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
+    "material-ui": "^0.15.2",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
     "react-chartjs": "^0.7.3",
     "react-datepicker": "^0.27.0",
-    "react-router": "^2.3.0",
+    "react-router": "^2.6.1",
     "react-select": "ClickHandlerIO/react-select",
     "react-tap-event-plugin": "^1.0.0"
   }

@@ -23,6 +23,11 @@ var config = {
             compress: {
                 warnings: false // suppresses warnings, usually from module minification
             }
+        }),
+        new webpack.DefinePlugin({
+            'process.env':{
+                'NODE_ENV': JSON.stringify('production')
+            }
         })
     ]
 };
