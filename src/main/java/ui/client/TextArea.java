@@ -2,6 +2,7 @@ package ui.client;
 
 import common.client.Func;
 import elemental.html.InputElement;
+import elemental.html.TextAreaElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.*;
@@ -32,6 +33,7 @@ public class TextArea extends Component<TextArea.Props, TextArea.State> {
                 .placeholder($this.props.placeholder)
                 .rows($this.props.rows)
                 .value($this.props.value)
+                .ref($this.props.textAreaRef)
                 .onKeyDown(keyboardEvent -> {
                     if ($this.props.onKeyDown != null) {
                         $this.props.onKeyDown.run(keyboardEvent);
@@ -59,6 +61,13 @@ public class TextArea extends Component<TextArea.Props, TextArea.State> {
         public int cols;
         public boolean readOnly;
         public Func.Run1<KeyboardEvent> onKeyDown;
+        public Ref<TextAreaElement> textAreaRef;
+
+        @JsOverlay
+        public final Props textAreaRef(final Ref<TextAreaElement> textAreaRef) {
+            this.textAreaRef = textAreaRef;
+            return this;
+        }
 
         @JsOverlay
         public final Props onChange(final Func.Run1<String> onChange) {
