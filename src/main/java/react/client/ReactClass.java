@@ -1,10 +1,8 @@
 package react.client;
 
-import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-@JsType(isNative = true)
-public interface ReactClass<P> {
-    @JsMethod
-    P getDefaultProps();
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+public interface ReactClass {
 }

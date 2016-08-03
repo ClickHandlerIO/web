@@ -19,7 +19,7 @@ public class TableFooter extends ExternalComponent<TableFooter.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.TableFooter;
     }-*/;
 

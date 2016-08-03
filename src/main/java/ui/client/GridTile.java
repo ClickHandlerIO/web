@@ -22,7 +22,7 @@ public class GridTile extends ExternalComponent<GridTile.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.GridTile;
     }-*/;
 

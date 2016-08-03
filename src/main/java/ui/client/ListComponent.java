@@ -19,7 +19,7 @@ public class ListComponent extends ExternalComponent<ListComponent.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.List;
     }-*/;
 

@@ -51,7 +51,7 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
             if (p.multi) {
                 props.onChange(optionArray -> {
                     if (p.onChangeMulti != null) {
-                        List<D> data = new ArrayList<>();
+                        ArrayList<D> data = new ArrayList<>();
                         if (optionArray != null) {
                             JwReactSelectOption<D>[] castArray = (JwReactSelectOption<D>[]) optionArray;
                             for (JwReactSelectOption<D> d : castArray) {
@@ -62,7 +62,7 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
                     }
                 });
 
-                List<JwReactSelectOption<D>> multiVal = new ArrayList<>();
+                ArrayList<JwReactSelectOption<D>> multiVal = new ArrayList<>();
                 if ($this.props.valueMulti != null) {
                     for (D d : $this.props.valueMulti) {
                         multiVal.add(createSelectOptionForData(d));
@@ -179,14 +179,14 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class IntermediateCallbackResponse<D> {
-        List<D> data;
+        ArrayList<D> data;
 
         // CAREFUL! Only set this to true when there are no more options,
         // or more specific queries will not be sent to the server.
         boolean complete;
 
         @JsOverlay
-        public final IntermediateCallbackResponse data(final List<D> data) {
+        public final IntermediateCallbackResponse data(final ArrayList<D> data) {
             this.data = data;
             return this;
         }

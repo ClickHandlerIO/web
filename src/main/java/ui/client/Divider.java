@@ -21,7 +21,7 @@ public class Divider extends ExternalComponent<Divider.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Divider;
     }-*/;
 

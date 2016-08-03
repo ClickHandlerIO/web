@@ -15,7 +15,7 @@ public class Badge extends ExternalComponent<Badge.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Badge;
     }-*/;
 

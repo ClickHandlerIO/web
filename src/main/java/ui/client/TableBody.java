@@ -20,7 +20,7 @@ public class TableBody extends ExternalComponent<TableBody.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.TableBody;
     }-*/;
 

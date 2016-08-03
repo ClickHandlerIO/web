@@ -1,16 +1,19 @@
 package react.client.router;
 
 import common.client.Func;
+import common.client.Str;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
  */
 public abstract class ModuleLoader {
-    private final HashMap<String, ModuleLoader> loaderMap = new HashMap<>();
+    private final TreeMap<String, ModuleLoader> loaderMap = new TreeMap<>();
     private final String prefix;
     @Inject
     Provider<RouteGatekeeper> routeGatekeeperProvider;
@@ -35,7 +38,7 @@ public abstract class ModuleLoader {
         return callback;
     }
 
-    private HashMap<String, ModuleLoader> ensureRegisterModules() {
+    private Map<String, ModuleLoader> ensureRegisterModules() {
         if (registeredModulesCalled) {
             return loaderMap;
         }
@@ -89,12 +92,13 @@ public abstract class ModuleLoader {
 
         // Get first path.
         String p = relativePath.toLowerCase().trim();
-        if (p.startsWith("/")) {
+        if (Str.startsWith(p, "/")) {
             p = p.substring(1);
         }
 
         // Maybe it's a module prefix.
-        String modulePrefix = p.split("/")[0];
+        final List<String> parts = Str.split(p, '/');
+        String modulePrefix = parts.size() == 0 ? p : parts.get(0);
 
         // Is it a sub-module.?
         ModuleLoader loader = ensureRegisterModules().get(modulePrefix.toLowerCase());

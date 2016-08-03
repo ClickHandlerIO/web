@@ -166,8 +166,12 @@ public class WsDispatcher {
     private void closed() {
         Try.run(() -> bus.publish(new WsClosedEvent(this)));
 
-        pendingQueue.addAll(calls.values());
-        calls.clear();
+        if (!calls.isEmpty()) {
+            for (Outgoing outgoing : calls.values()) {
+                pendingQueue.add(outgoing);
+            }
+            calls.clear();
+        }
 
         for (AddressSubscription sub : subMap.values()) {
             sub.state = SubState.NOT_REGISTERED;

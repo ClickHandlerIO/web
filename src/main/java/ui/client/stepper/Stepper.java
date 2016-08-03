@@ -21,7 +21,7 @@ public class Stepper extends ExternalComponent<Stepper.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Stepper.Stepper;
     }-*/;
 

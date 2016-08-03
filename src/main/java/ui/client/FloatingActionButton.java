@@ -16,7 +16,7 @@ public class FloatingActionButton extends ExternalComponent<FloatingActionButton
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.FloatingActionButton;
     }-*/;
 

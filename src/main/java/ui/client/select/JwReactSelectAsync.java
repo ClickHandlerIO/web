@@ -1,7 +1,6 @@
 package ui.client.select;
 
 import common.client.Func;
-import elemental.html.InputElement;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.ExternalComponent;
@@ -21,7 +20,7 @@ public class JwReactSelectAsync<V> extends ExternalComponent<JwReactSelectAsync.
     }
 
     @Override
-    protected native ReactClass<Props<V>> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.ReactSelect.Async;
     }-*/;
 

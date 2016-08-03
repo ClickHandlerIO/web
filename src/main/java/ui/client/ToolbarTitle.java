@@ -19,7 +19,7 @@ public class ToolbarTitle extends ExternalComponent<ToolbarTitle.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.ToolbarTitle;
     }-*/;
 

@@ -20,7 +20,7 @@ public class IconMenu extends ExternalComponent<IconMenu.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.IconMenu;
     }-*/;
 

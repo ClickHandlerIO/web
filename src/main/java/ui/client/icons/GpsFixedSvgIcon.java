@@ -12,7 +12,7 @@ public class GpsFixedSvgIcon extends AbstractMaterialIcon {
     }
 
     @Override
-    protected ReactClass<ui.client.icons.AbstractMaterialIcon.Props> getReactClass() {
+    protected ReactClass getReactClass() {
         return null;
     }
 }

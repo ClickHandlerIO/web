@@ -18,7 +18,7 @@ public class StepLabel extends ExternalComponent<StepLabel.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Stepper.StepLabel;
     }-*/;
 

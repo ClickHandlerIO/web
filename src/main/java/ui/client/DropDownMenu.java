@@ -20,7 +20,7 @@ public class DropDownMenu extends ExternalComponent<DropDownMenu.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.DropDownMenu;
     }-*/;
 

@@ -20,7 +20,7 @@ public class Popover extends ExternalComponent<Popover.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Popover;
     }-*/;
 

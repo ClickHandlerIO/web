@@ -25,7 +25,7 @@ public class CardHeader extends ExternalComponent<CardHeader.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.CardHeader;
     }-*/;
 

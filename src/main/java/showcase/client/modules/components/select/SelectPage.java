@@ -40,33 +40,61 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
 
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return div(style().padding("20px"),
-                div("Select Page Here"),
-                checkbox.props()
-                        .label("UT Only")
-                        .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
-                        .checked($this.state.utahOnly)
-                        .build(),
-                resortSelect.props()
-                        .state($this.state.utahOnly ? "UT" : null)
-                        .value($this.state.resortValue)
-                        .onChange(value -> $this.setState(s->s.resortValue(value)))
-                        .build(),
-                resortSelect.props()
-                        .state($this.state.utahOnly ? "UT" : null)
-                        .multi(true)
-                        .valueMulti($this.state.resorts)
-                        .onChangeMulti(value -> $this.setState(s->s.resorts(value)))
-                        .build(),
-                raisedButton.props()
-                        .label("Show Modal")
-                        .onTouchTap(value -> $this.setState(s -> s.showModal(true)))
-                        .build(),
-                modal.props()
-                        .open($this.state.showModal)
-                        .onClose(() -> $this.setState(s -> s.showModal(false)))
-                        .build()
+            div("Select Page Here"),
+            checkbox.props()
+                .label("UT Only")
+                .style(style().margin("5px"))
+                .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
+                .checked($this.state.utahOnly)
+                .build(),
+            resortSelect.props()
+                .state($this.state.utahOnly ? "UT" : null)
+                .style(style().margin("5px"))
+                .value($this.state.resortValue)
+                .onChange(value -> $this.setState(s -> s.resortValue(value)))
+                .build(),
+            resortSelect.props()
+                .state($this.state.utahOnly ? "UT" : null)
+                .style(style().margin("5px"))
+                .multi(true)
+                .valueMulti($this.state.resorts)
+                .onChangeMulti(value -> $this.setState(s -> s.resorts(value)))
+                .build(),
+            raisedButton.props()
+                .label("Show Modal")
+                .style(style().margin("5px"))
+                .onTouchTap(value -> $this.setState(s -> s.showModal(true)))
+                .build(),
+            modal.props()
+                .open($this.state.showModal)
+                .onClose(() -> $this.setState(s -> s.showModal(false)))
+                .build()
         );
     }
+
+//    protected ReactElement render(ReactComponent<Props, State> $this) {
+//        return div(style().padding("20px"),
+//            div("Select Page Here"),
+//            checkbox.$(checkbox.props().label("UT Only")
+//                .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
+//                .checked($this.state.utahOnly)),
+//            resortSelect.$(resortSelect.props()
+//                .state($this.state.utahOnly ? "UT" : null)
+//                .value($this.state.resortValue)
+//                .onChange(value -> $this.setState(s->s.resortValue(value)))),
+//            resortSelect.$(resortSelect.props()
+//                .state($this.state.utahOnly ? "UT" : null)
+//                .multi(true)
+//                .valueMulti($this.state.resorts)
+//                .onChangeMulti(value -> $this.setState(s->s.resorts(value)))),
+//            raisedButton.$(raisedButton.props()
+//                .label("Show Modal")
+//                .onTouchTap(value -> $this.setState(s -> s.showModal(true)))),
+//            modal.$(modal.props()
+//                .open($this.state.showModal)
+//                .onClose(() -> $this.setState(s -> s.showModal(false))))
+//        );
+//    }
 
     @Override
     public State getInitialState() {

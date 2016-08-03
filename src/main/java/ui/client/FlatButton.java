@@ -18,7 +18,7 @@ public class FlatButton extends ExternalComponent<FlatButton.Props> {
     }
 
     @Override
-    protected native ReactClass<FlatButton.Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.FlatButton;
     }-*/;
 

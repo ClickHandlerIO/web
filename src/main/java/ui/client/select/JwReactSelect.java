@@ -22,7 +22,7 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
     }
 
     @Override
-    protected native ReactClass<P> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.ReactSelect;
     }-*/;
 

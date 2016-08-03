@@ -10,6 +10,7 @@ import javax.inject.Provider;
 /**
  *
  */
+
 public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends RouteProps, S> extends Component<P, S> implements HasRouter {
     private Provider<R> routeProxyProvider;
     private R routeProxy;
@@ -40,8 +41,8 @@ public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends Route
 
         // Set Route Leave Hook.
         getRouter($this).setRouteLeaveHook(
-            $this.props.route,
-            nextLocation -> routerWillLeave($this, nextLocation)
+                $this.props.route,
+                nextLocation -> routerWillLeave($this, nextLocation)
         );
     }
 

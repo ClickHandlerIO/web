@@ -25,7 +25,7 @@ public class GridList extends ExternalComponent<GridList.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.GridList;
     }-*/;
 

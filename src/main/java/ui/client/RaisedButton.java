@@ -18,7 +18,7 @@ public class RaisedButton extends ExternalComponent<RaisedButton.Props> {
     }
 
     @Override
-    protected native ReactClass<RaisedButton.Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.RaisedButton;
     }-*/;
 

@@ -20,7 +20,7 @@ public class Slider extends ExternalComponent<Slider.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Slider;
     }-*/;
 

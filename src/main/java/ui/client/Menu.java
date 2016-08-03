@@ -19,7 +19,7 @@ public class Menu extends ExternalComponent<Menu.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.Menu;
     }-*/;
 

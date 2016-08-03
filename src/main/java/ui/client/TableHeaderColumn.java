@@ -19,7 +19,7 @@ public class TableHeaderColumn extends ExternalComponent<TableHeaderColumn.Props
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.TableHeaderColumn;
     }-*/;
 

@@ -19,7 +19,7 @@ public class TableRow extends ExternalComponent<TableRow.Props> {
     }
 
     @Override
-    protected native ReactClass<Props> getReactClass() /*-{
+    protected native ReactClass getReactClass() /*-{
         return $wnd.MaterialUi.TableRow;
     }-*/;
 
