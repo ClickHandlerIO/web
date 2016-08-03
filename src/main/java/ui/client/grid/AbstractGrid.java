@@ -218,8 +218,10 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         }
 
         D lastRecord = null;
+        Double startRecordIdx = 0.;
         if ($this.state.pageIdx > 0) {
             lastRecord = $this.state.pageIdxMap.get($this.state.pageIdx - 1);
+            startRecordIdx = $this.state.pageIdx * $this.props.pageSize;
         }
 
         if (!$this.state.loading && !$this.state.firstLoad) {
@@ -239,6 +241,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         final String fSortColumnId = sortColumnId;
         final GridSort fSortDirection = sortDirection;
         final D fLastRecord = lastRecord;
+        final Double fStartRecordIdx = startRecordIdx;
 
         String guid = ui.client.util.UUID.uuid();
         $this.setState(s -> {
@@ -251,7 +254,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                 $this.props.onSelectionChanged.run(new ArrayList<>());
             }
 
-            fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
+            fetchData($this, guid, fSortColumnId, fSortDirection, fStartRecordIdx, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
                 @Override
                 public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> d) {
                     if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
@@ -302,7 +305,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     protected abstract GridColumn[] getColumns();
 
-    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
+    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, Double startRecordIdx, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
 
     public interface CompletionHandler<D, P> {
         void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data);

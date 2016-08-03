@@ -51,8 +51,8 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
      */
 
     @Override
-    protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
-        log.error("Fetch Data, last record id: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
+    protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, Double startRecordIdx, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
+        log.error("Fetch Data, start record idx: " + startRecordIdx + " lsatRecordId: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), pageSize, data -> {
             completionHandler.onFetchComplete($this, requestGuid, data);
         });
@@ -116,12 +116,6 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
         @JsOverlay
         public final Props key(final String key) {
             this.key = key;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props ref(final Object ref) {
-            this.ref = ref;
             return this;
         }
 
