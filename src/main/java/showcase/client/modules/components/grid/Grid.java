@@ -52,7 +52,7 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
-        log.error("Fetch Data, last record id: " + (lastRecord != null? lastRecord.getId() : "NULL"));
+        log.error("Fetch Data, last record id: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), pageSize, data -> {
             completionHandler.onFetchComplete($this, requestGuid, data);
         });
@@ -156,16 +156,16 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     protected ReactElement createCell(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, GridDataSource.SnowReport data, boolean isSelected, Func.Run2<GridDataSource.SnowReport, Boolean> onSelectionChanged) {
-        return cell.$($ -> {
-            $.setClassName("hover");
-            $.setReorderEnabled(reorderEnabled);
-            $.setSelectionEnabled(selectionEnabled);
-            $.setColumns(columns);
-            $.setData(data);
-            $.setSelected(isSelected);
-            $.setOnSelectionChanged(onSelectionChanged);
-            $.setKey(data.getId());
-        });
+        return cell.props()
+                .className("hover")
+                .reorderEnabled(reorderEnabled)
+                .selectionEnabled(selectionEnabled)
+                .columns(columns)
+                .data(data)
+                .selected(isSelected)
+                .onSelectionChanged(onSelectionChanged)
+                .key(data.getId())
+                .build();
     }
 
     public static class Cell extends GridCell<GridDataSource.SnowReport, Cell.Props, Cell.State> {
@@ -176,16 +176,14 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
         @Override
         protected ReactElement renderCell(ReactComponent<Props, State> $this, GridDataSource.SnowReport data, List<GridColumn> columns) {
-            return div($ -> $.className("cell"),
-                    div($ -> $.style(s -> applyColumnSizing(s, COL_DATE, columns)),
+            return div(className("cell"),
+                    div(stylePropsWithColumnSizing(COL_DATE, columns),
                             data.getId()
                     ),
-                    div($ -> $.style(s -> applyColumnSizing(s, COL_RESORT, columns)),
+                    div(stylePropsWithColumnSizing(COL_RESORT, columns),
                             data.getResortName()
                     ),
-
-
-                    div($ -> $.style(s -> applyColumnSizing(s, COL_SNOWFALL, columns)),
+                    div(stylePropsWithColumnSizing(COL_SNOWFALL, columns),
                             data.getSnowfall().toString()
                     )
             );
@@ -195,13 +193,65 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
          * Cell Props and State
          */
 
-        @JsType(isNative = true)
-        public interface Props extends GridCell.Props<GridDataSource.SnowReport> {
+        @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+        public static class Props extends GridCell.Props<GridDataSource.SnowReport> {
+            @JsOverlay
+            public final Props children(final Object children) {
+                this.children = children;
+                return this;
+            }
 
+            @JsOverlay
+            public final Props key(final String key) {
+                this.key = key;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props selectionEnabled(final boolean selectionEnabled) {
+                this.selectionEnabled = selectionEnabled;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props reorderEnabled(final boolean reorderEnabled) {
+                this.reorderEnabled = reorderEnabled;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props selected(final boolean selected) {
+                this.selected = selected;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props onSelectionChanged(final Func.Run2<GridDataSource.SnowReport, Boolean> onSelectionChanged) {
+                this.onSelectionChanged = onSelectionChanged;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props data(final GridDataSource.SnowReport data) {
+                this.data = data;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props columns(final List<GridColumn> columns) {
+                this.columns = columns;
+                return this;
+            }
+
+            @JsOverlay
+            public final Props className(final String className) {
+                this.className = className;
+                return this;
+            }
         }
 
-        @JsType(isNative = true)
-        public interface State extends GridCell.State {
+        @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+        public static class State extends GridCell.State {
 
         }
     }

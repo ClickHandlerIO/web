@@ -52,7 +52,7 @@ public class GridHeaderCellDivider extends Component<GridHeaderCellDivider.Props
     protected void componentDidMount(ReactComponent<Props, State> $this) {
         super.componentDidMount($this);
 
-        Browser.getWindow().addEventListener("mouseup", event -> {
+        /*Browser.getWindow().addEventListener("mouseup", event -> {
             if ($this.state.isMouseDown()) {
 //                log.trace("DROPPED!", event);
                 event.preventDefault();
@@ -70,7 +70,7 @@ public class GridHeaderCellDivider extends Component<GridHeaderCellDivider.Props
                 }
 
             }
-        }, false);
+        }, false);*/
     }
 
 

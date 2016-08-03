@@ -25,7 +25,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     GridActionBar actions;
 
     @Override
-    protected ReactElement render(ReactComponent<P, State<D>> $this) {
+    protected ReactElement render(final ReactComponent<P, State<D>> $this) {
         boolean allSelected = !($this.state.data == null || $this.props.selected == null || $this.state.data.isEmpty() || $this.props.selected.isEmpty()) && $this.state.data.size() == $this.props.selected.size();
 
         return div(className("camber-grid"),
