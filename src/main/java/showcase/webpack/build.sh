@@ -3,11 +3,9 @@
 # Config
 FILE_NAME=webpack-output
 OUTPUT_DIR=../resources
-MAP_DIR=../public
+OUTPUT=${OUTPUT_DIR}/${FILE_NAME}
 
 echo "*** Starting Webpack Build ***";
-OUTPUT=${OUTPUT_DIR}/${FILE_NAME}
-MAP_OUTPUT=${MAP_DIR}/${FILE_NAME}
 
 # remove files
 rm -f ${OUTPUT}.js;
@@ -20,9 +18,8 @@ echo "*** Building PROD ***";
 webpack --config webpack-prod.config.js --progress
 
 # copy files
-echo "Copying Output...";
+#echo "Copying Output...";
 mkdir -p ${OUTPUT_DIR}
-mkdir -p ${MAP_DIR}
 cp build/${FILE_NAME}.js ${OUTPUT}.js;
 cp build/${FILE_NAME}-prod.js ${OUTPUT}-prod.js;
 
