@@ -10,7 +10,7 @@ var config = {
         extensions: ["", ".js", ".jsx"] // When require, do not have to add these extensions to file's name
     },
 
-    devtool: 'source-map', //Render source-map file for final build
+    devtool: 'eval-source-map',
 
     output: {
         path: buildPath,
@@ -22,11 +22,6 @@ var config = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false // suppresses warnings, usually from module minification
-            }
-        }),
-        new webpack.DefinePlugin({
-            'process.env':{
-                'NODE_ENV': JSON.stringify('production')
             }
         })
     ]

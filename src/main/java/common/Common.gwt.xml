@@ -6,7 +6,6 @@
     <inherits name="com.google.gwt.logging.Logging"/>
     <inherits name="com.google.common.base.Base"/>
 
-    <inherits name="javax.inject.Inject"/>
     <inherits name="elemental.Elemental"/>
     <inherits name="dagger.Dagger"/>
     <inherits name="logging.Logging"/>

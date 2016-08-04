@@ -4,7 +4,6 @@ import common.client.Func;
 import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.Checkbox;
-import ui.client.icons.DragHandleSvgIcon;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -17,8 +16,6 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
 
     @Inject
     Checkbox checkbox;
-    @Inject
-    DragHandleSvgIcon dragHandleSvgIcon;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // Render
@@ -32,7 +29,7 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
                     if ($this.props.reorderEnabled) {
                         childList.add(
                                 div(className("reorder"),
-                                        dragHandleSvgIcon.$()
+                                        "todo"
                                 )
                         );
                     }
