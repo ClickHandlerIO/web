@@ -1,5 +1,7 @@
 package ui.client.grid;
 
+import ui.client.grid2.GridSort;
+
 public class ColumnStateInternal {
     private int row;
     private Integer order;

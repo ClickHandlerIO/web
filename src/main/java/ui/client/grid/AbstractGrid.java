@@ -8,6 +8,7 @@ import react.client.ComponentProps;
 import react.client.ReactComponent;
 import react.client.ReactElement;
 import ui.client.grid2.GridColumn;
+import ui.client.grid2.GridSort;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -43,11 +44,11 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                 .onSortChanged((column, sort) -> {
                                                     List<GridColumn> cols = $this.state.columns;
                                                     for (GridColumn c : cols) {
-                                                        if (!c.getId().equals(column.getId())) {
+                                                        /*if (!c.getId().equals(column.getId())) {
                                                             c.setSort(GridSort.NONE);
                                                         } else {
                                                             c.setSort(sort);
-                                                        }
+                                                        }*/
                                                     }
                                                     $this.setState(s -> {
                                                         s.columns = cols;
@@ -212,7 +213,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         GridSort sortDirection = null;
         for (GridColumn c : $this.state.columns) {
             if (c.getSort() != null && !c.getSort().equals(GridSort.NONE)) {
-                sortColumnId = c.getId();
+//                sortColumnId = c.getId();
                 sortDirection = c.getSort();
                 break;
             }

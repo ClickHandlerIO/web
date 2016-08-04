@@ -7,6 +7,7 @@ import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.Checkbox;
 import ui.client.grid2.GridColumn;
+import ui.client.grid2.GridSort;
 import ui.client.icons.ArrowDropDownSvgIcon;
 import ui.client.icons.ArrowDropUpSvgIcon;
 
@@ -40,7 +41,7 @@ public class GridHeaderCell extends Component<GridHeaderCell.Props, GridHeaderCe
 
         return div($ -> {
                 $.ref(divRef);
-                $.className("header-cell" + (!c.isAllowSort() ? " not-sortable" : ""));
+                $.className("header-cell" + (!c.isSortable() ? " not-sortable" : ""));
 
                 StyleProps s = new StyleProps();
                 s.overflow("hidden");
@@ -59,7 +60,7 @@ public class GridHeaderCell extends Component<GridHeaderCell.Props, GridHeaderCe
                     $.className("title-span");
                     $.onClick(e -> {
                         GridColumn c2 = $this.props.getColumn();
-                        if (!c2.isAllowSort()) {
+                        if (!c2.isSortable()) {
                             return;
                         }
 

@@ -1,39 +1,37 @@
 package ui.client.grid2;
 
-import ui.client.grid.GridSort;
-
 public class GridColumn {
-    private String id;
+    private int ordinal;
     private String title;
-    private GridSort sort = GridSort.NONE;
     private Display display;
-    private boolean allowSort;
-    private boolean allowHide;
+    private Display defaultDisplay;
+    private boolean sortable;
+    private GridSort sort = GridSort.NONE;
 
-    public GridColumn(String id, String title, Integer flexGrow, boolean allowSort, boolean allowHide) {
-        this.id = id;
+    public GridColumn(Enum enumValue, String title, Integer flexGrow, boolean sortable) {
+        this.ordinal = enumValue.ordinal();
         this.title = title;
-        this.allowSort = allowSort;
-        this.allowHide = allowHide;
-        this.display = new Display();
-        this.display.setFlexGrow(flexGrow);
+        this.sortable = sortable;
+        this.defaultDisplay = new Display();
+        this.defaultDisplay.setFlexGrow(flexGrow);
+        resetDisplay();
     }
 
-    public GridColumn(String id, String title, Double width, boolean allowSort, boolean allowHide) {
-        this.id = id;
+    public GridColumn(Enum enumValue, String title, Double width, boolean sortable) {
+        this.ordinal = enumValue.ordinal();
         this.title = title;
-        this.allowSort = allowSort;
-        this.allowHide = allowHide;
-        this.display = new Display();
-        this.display.setWidth(width);
+        this.sortable = sortable;
+        this.defaultDisplay = new Display();
+        this.defaultDisplay.setWidth(width);
+        resetDisplay();
     }
 
-    public String getId() {
-        return id;
+    public void resetDisplay() {
+        this.display = defaultDisplay.copy();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public int getOrdinal() {
+        return ordinal;
     }
 
     public String getTitle() {
@@ -60,35 +58,40 @@ public class GridColumn {
         this.display = display;
     }
 
-    public boolean isAllowSort() {
-        return allowSort;
+    public boolean isSortable() {
+        return sortable;
     }
 
-    public void setAllowSort(boolean allowSort) {
-        this.allowSort = allowSort;
-    }
-
-    public boolean isAllowHide() {
-        return allowHide;
-    }
-
-    public void setAllowHide(boolean allowHide) {
-        this.allowHide = allowHide;
+    public void setSortable(boolean sortable) {
+        this.sortable = sortable;
     }
 
     public static class Display {
         private int row;
         private Integer order;
-        private boolean hidden;
 
         // col width
         private Double minWidth = 70.;
-        // flex width
+
+        // or flex width
         private Integer flexGrow;
         private Integer flexShrink = 1;
         private String flexBasis = "0px";
+
         // or fixed width
         private Double width;
+
+        public Display copy() {
+            Display copy = new Display();
+            copy.setRow(this.row);
+            copy.setOrder(this.order);
+            copy.setMinWidth(this.minWidth);
+            copy.setFlexGrow(this.flexGrow);
+            copy.setFlexShrink(this.flexShrink);
+            copy.setFlexBasis(this.flexBasis);
+            copy.setWidth(this.width);
+            return copy;
+        }
 
         public int getRow() {
             return row;
@@ -104,14 +107,6 @@ public class GridColumn {
 
         public void setOrder(Integer order) {
             this.order = order;
-        }
-
-        public boolean isHidden() {
-            return hidden;
-        }
-
-        public void setHidden(boolean hidden) {
-            this.hidden = hidden;
         }
 
         public Double getMinWidth() {

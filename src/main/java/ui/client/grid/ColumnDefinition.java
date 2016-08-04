@@ -2,6 +2,7 @@ package ui.client.grid;
 
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import ui.client.grid2.GridSort;
 
 @JsType(isNative = true)
 public interface ColumnDefinition {

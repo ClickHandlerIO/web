@@ -1,4 +1,4 @@
-package ui.client.grid;
+package ui.client.grid2;
 
 public enum GridSort {
     NONE,

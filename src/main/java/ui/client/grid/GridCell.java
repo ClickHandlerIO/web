@@ -74,10 +74,11 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
 
         GridColumn column = null;
         for (GridColumn c : columns) {
-            if (c.getId() != null && c.getId().equals(columnId)) {
+            // todo ?
+            /*if (c.getId() != null && c.getId().equals(columnId)) {
                 column = c;
                 break;
-            }
+            }*/
         }
 
         if (column == null) {

@@ -11,6 +11,7 @@ import react.client.ReactComponent;
 import react.client.ReactElement;
 import ui.client.Checkbox;
 import ui.client.grid2.GridColumn;
+import ui.client.grid2.GridSort;
 
 import javax.inject.Inject;
 import java.util.List;

@@ -8,7 +8,7 @@ import react.client.ReactElement;
 import ui.client.grid.AbstractGrid;
 import ui.client.grid.GridCell;
 import ui.client.grid2.GridColumn;
-import ui.client.grid.GridSort;
+import ui.client.grid2.GridSort;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -30,11 +30,12 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     protected GridColumn[] getColumns() {
-        return new GridColumn[]{
-                new GridColumn(COL_DATE, "Date", 1, true, false),
-                new GridColumn(COL_RESORT, "Resort", 1, true, false),
-                new GridColumn(COL_SNOWFALL, "Snowfall", 1, true, false),
-        };
+        return null;
+//        return new GridColumn[]{
+//                new GridColumn(COL_DATE, "Date", 1, true, false),
+//                new GridColumn(COL_RESORT, "Resort", 1, true, false),
+//                new GridColumn(COL_SNOWFALL, "Snowfall", 1, true, false),
+//        };
     }
 
     /*
