@@ -1,18 +1,49 @@
 .grid2 {
 
-  .grid2-cell {
+  .header {
+
+  }
+
+  .body {
+
+    .grid2-cell {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+
+      .leading-accessory-container {
+      }
+
+      .checkbox-container {
+      }
+
+      .content-container {
+        flex: 1;
+      }
+    }
+  }
+
+  .footer {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
 
-    .leading-accessory-container {
-    }
-
-    .checkbox-container {
-    }
-
-    .content-container {
+    .export-actions {
       flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .pager {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .fixed-height {
+    .footer {
+      border-top: 1px solid #ccc;
     }
   }
 }

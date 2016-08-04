@@ -8,7 +8,6 @@ import react.client.router.SimpleRouteComponent;
 import react.client.router.SimpleRouteProps;
 import react.client.router.SimpleRouteProxy;
 import showcase.client.modules.components.ComponentsShell;
-import ui.client.grid2.AbstractGrid2;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -33,7 +32,11 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return div(style().padding("20px"),
                 div("Grid Page Here"),
-                snowReportGrid.props().build()
+                snowReportGrid.props()
+                        .handleEmail(() -> log.error("imp me!"))
+                        .handleExcel(() -> log.error("imp me!"))
+                        .handlePDF(() -> log.error("imp me!"))
+                        .build()
 //                grid.props()
 //                        .selectionEnabled(true)
 //                        .selected($this.state.selectedReports)

@@ -72,7 +72,21 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                     .handlePDF($this.props.handlePDF)
                                     .handlePrint($this.props.handlePrint)
                                     .handleEmail($this.props.handleEmail)
-                                    // todo pager logic
+                                    .pagerVisible($this.state.pageIdx != 0 || $this.state.moreResults)
+                                    .pagerPreviousEnabled($this.state.pageIdx > 0)
+                                    .pagerNextEnabled($this.state.moreResults)
+                                    .handlePagerNext(() -> {
+                                        if ($this.state.loading) {
+                                            return;
+                                        }
+                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> load($this));
+                                    })
+                                    .handlePagerPrevious(() -> {
+                                        if ($this.state.loading) {
+                                            return;
+                                        }
+                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1, () -> load($this));
+                                    })
                                     .build()
                     );
                 }

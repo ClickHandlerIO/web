@@ -1,5 +1,6 @@
 package showcase.client.modules.components.grid;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
@@ -55,5 +56,76 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends AbstractGrid2.Props<GridDataSource.SnowReport> {
 
+        @JsOverlay
+        public final Props loadOnMount(final boolean loadOnMount) {
+            this.loadOnMount = loadOnMount;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props headerVisible(final boolean headerVisible) {
+            this.headerVisible = headerVisible;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props selectionEnabled(final boolean selectionEnabled) {
+            this.selectionEnabled = selectionEnabled;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props selected(final java.util.List<GridDataSource.SnowReport> selected) {
+            this.selected = selected;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onSelectionChanged(final common.client.Func.Run1<java.util.List<GridDataSource.SnowReport>> onSelectionChanged) {
+            this.onSelectionChanged = onSelectionChanged;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props noResultsText(final String noResultsText) {
+            this.noResultsText = noResultsText;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props noResultsElement(final ReactElement noResultsElement) {
+            this.noResultsElement = noResultsElement;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props pageSize(final double pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props handleExcel(final common.client.Func.Run handleExcel) {
+            this.handleExcel = handleExcel;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props handlePDF(final common.client.Func.Run handlePDF) {
+            this.handlePDF = handlePDF;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props handlePrint(final common.client.Func.Run handlePrint) {
+            this.handlePrint = handlePrint;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props handleEmail(final common.client.Func.Run handleEmail) {
+            this.handleEmail = handleEmail;
+            return this;
+        }
     }
 }
