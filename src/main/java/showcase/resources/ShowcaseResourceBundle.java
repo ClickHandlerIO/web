@@ -7,6 +7,6 @@ import com.google.gwt.resources.client.TextResource;
 public interface ShowcaseResourceBundle extends ClientBundle {
     ShowcaseResourceBundle INSTANCE = GWT.create(ShowcaseResourceBundle.class);
 
-    @Source("webpack-output-prod.js")
+    @Source("webpack-output.js")
     TextResource webpackOutputJs();
 }
