@@ -6,6 +6,7 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.Checkbox;
+import ui.client.grid2.GridColumn;
 import ui.client.icons.ArrowDropDownSvgIcon;
 import ui.client.icons.ArrowDropUpSvgIcon;
 

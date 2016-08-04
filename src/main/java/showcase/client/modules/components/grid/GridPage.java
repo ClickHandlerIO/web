@@ -1,7 +1,6 @@
 package showcase.client.modules.components.grid;
 
 import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
@@ -9,6 +8,7 @@ import react.client.router.SimpleRouteComponent;
 import react.client.router.SimpleRouteProps;
 import react.client.router.SimpleRouteProxy;
 import showcase.client.modules.components.ComponentsShell;
+import ui.client.grid2.AbstractGrid2;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,6 +25,8 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
 
     @Inject
     Grid grid;
+    @Inject
+    SnowReportGrid snowReportGrid;
 
     @Inject
     public GridPage() {
@@ -33,6 +35,7 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return div(style().padding("20px"),
                 div("Grid Page Here"),
+                snowReportGrid.props().build(),
                 grid.props()
                         .selectionEnabled(true)
                         .selected($this.state.selectedReports)

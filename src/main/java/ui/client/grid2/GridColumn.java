@@ -1,4 +1,6 @@
-package ui.client.grid;
+package ui.client.grid2;
+
+import ui.client.grid.GridSort;
 
 public class GridColumn {
     private String id;

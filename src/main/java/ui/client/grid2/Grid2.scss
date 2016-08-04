@@ -1,0 +1,18 @@
+.grid2 {
+
+  .grid2-cell {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    .leading-accessory-container {
+    }
+
+    .checkbox-container {
+    }
+
+    .content-container {
+      flex: 1;
+    }
+  }
+}

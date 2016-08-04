@@ -4,6 +4,7 @@ import common.client.Func;
 import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.Checkbox;
+import ui.client.grid2.GridColumn;
 
 import javax.inject.Inject;
 import java.util.List;

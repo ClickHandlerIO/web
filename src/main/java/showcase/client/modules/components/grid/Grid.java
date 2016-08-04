@@ -7,7 +7,7 @@ import react.client.ReactComponent;
 import react.client.ReactElement;
 import ui.client.grid.AbstractGrid;
 import ui.client.grid.GridCell;
-import ui.client.grid.GridColumn;
+import ui.client.grid2.GridColumn;
 import ui.client.grid.GridSort;
 
 import javax.inject.Inject;

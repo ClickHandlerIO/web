@@ -7,6 +7,7 @@ import react.client.Component;
 import react.client.ComponentProps;
 import react.client.ReactComponent;
 import react.client.ReactElement;
+import ui.client.grid2.GridColumn;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -320,18 +321,22 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
         public boolean selectionEnabled;
-        public boolean reorderEnabled;
         public boolean hideHeader;
-        public boolean loadWhenMounted;
+
         public List<D> selected;
         public Func.Run1<List<D>> onSelectionChanged;
+        public boolean loadWhenMounted;
+
         public String noResultsText;
         public ReactElement noResultsComponent;
+
         public double pageSize;
         public Func.Run onExcel;
         public Func.Run onPDF;
         public Func.Run onPrint;
         public Func.Run onEmail;
+
+        public boolean reorderEnabled;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
