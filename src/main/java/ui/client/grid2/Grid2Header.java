@@ -3,10 +3,8 @@ package ui.client.grid2;
 import common.client.Func;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
-import react.client.Component;
-import react.client.ComponentProps;
-import react.client.ReactComponent;
-import react.client.ReactElement;
+import react.client.*;
+import ui.client.Checkbox;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,12 +16,39 @@ import static react.client.DOM.div;
 public class Grid2Header extends Component<Grid2Header.Props, Grid2Header.State> {
 
     @Inject
+    Grid2HeaderCell headerCell;
+    @Inject
+    Checkbox checkbox;
+
+    @Inject
     public Grid2Header() {
     }
 
     @Override
-    protected ReactElement render(ReactComponent<Props, State> $this) {
-        return div("Grid2Header Component");
+    protected ReactElement render(final ReactComponent<Props, State> $this) {
+        return div(className("header"), children -> {
+            if ($this.props.selectionEnabled) {
+                children.add(
+                        div(className("checkbox-container"),
+                                checkbox.props()
+                                        .checked($this.props.allSelected)
+                                        .onCheck((sender, checked) -> $this.props.requestAllSelectedChange.run(checked))
+                                        .iconStyle(new StyleProps().marginRight(0))
+                                        .build()
+                        )
+                );
+            }
+
+            for (final GridColumn c : $this.props.columns) {
+                children.add(
+                        headerCell.props()
+                                .key(String.valueOf(c.getOrdinal()))
+                                .column(c)
+                                .requestSortChange(() -> $this.props.requestSortChange.run(c))
+                                .build()
+                );
+            }
+        });
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
@@ -32,8 +57,8 @@ public class Grid2Header extends Component<Grid2Header.Props, Grid2Header.State>
         public boolean headerVisible;
         public boolean selectionEnabled;
         public boolean allSelected;
-        public Func.Run1<Boolean> onAllSelectedChanged;
-        public Func.Run2<GridColumn, GridSort> onSortChanged;
+        public Func.Run1<Boolean> requestAllSelectedChange;
+        public Func.Run1<GridColumn> requestSortChange;
 
         @JsOverlay
         public final Props columns(final GridColumn[] columns) {
@@ -60,14 +85,14 @@ public class Grid2Header extends Component<Grid2Header.Props, Grid2Header.State>
         }
 
         @JsOverlay
-        public final Props onAllSelectedChanged(final Func.Run1<Boolean> onAllSelectedChanged) {
-            this.onAllSelectedChanged = onAllSelectedChanged;
+        public final Props requestAllSelectedChange(final Func.Run1<Boolean> requestAllSelectedChange) {
+            this.requestAllSelectedChange = requestAllSelectedChange;
             return this;
         }
 
         @JsOverlay
-        public final Props onSortChanged(final Func.Run2<GridColumn, GridSort> onSortChanged) {
-            this.onSortChanged = onSortChanged;
+        public final Props requestSortChange(final Func.Run1<GridColumn> requestSortChange) {
+            this.requestSortChange = requestSortChange;
             return this;
         }
     }

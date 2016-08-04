@@ -13,12 +13,13 @@ import javax.inject.Singleton;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
+import static react.client.DOM.span;
 
 @Singleton
 public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, SnowReportGrid.Props> {
 
     enum Column {
-        DATE,
+        ID,
         RESORT,
         SNOWFALL
     }
@@ -30,7 +31,7 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     @Override
     protected GridColumn[] columns() {
         return new GridColumn[]{
-                new GridColumn(Column.DATE, "Date", 1, true),
+                new GridColumn(Column.ID, "Id", 200., true),
                 new GridColumn(Column.RESORT, "Resort", 1, true),
                 new GridColumn(Column.SNOWFALL, "Snowfall", 1, true)
         };
@@ -49,8 +50,12 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     }
 
     @Override
-    protected ReactElement contentViewForData(GridDataSource.SnowReport data) {
-        return div("content view here!!!");
+    protected ReactElement contentViewForData(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, GridDataSource.SnowReport data) {
+        return div(
+                column($this, Column.ID, data.getId()),
+                column($this, Column.RESORT, props -> props.className("flex align-items-center"), data.getResortName()),
+                column($this, Column.SNOWFALL, props -> props.className("flex align-items-center"), span(data.getSnowfall().toString()))
+        );
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
@@ -69,14 +74,8 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
         }
 
         @JsOverlay
-        public final Props selectionEnabled(final boolean selectionEnabled) {
-            this.selectionEnabled = selectionEnabled;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props selected(final java.util.List<GridDataSource.SnowReport> selected) {
-            this.selected = selected;
+        public final Props selection(final java.util.List<GridDataSource.SnowReport> selection) {
+            this.selection = selection;
             return this;
         }
 

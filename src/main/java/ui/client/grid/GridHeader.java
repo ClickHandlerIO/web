@@ -47,11 +47,11 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
                             div(className("checkbox"),
                                 checkbox.$($ -> {
                                     $.setChecked($this.props.isAllSelected());
-                                    $.setOnCheck(() -> {
-                                        if ($this.props.getOnAllSelectedChanged() != null) {
-                                            $this.props.getOnAllSelectedChanged().run(!$this.props.isAllSelected());
-                                        }
-                                    });
+//                                    $.setOnCheck(() -> {
+//                                        if ($this.props.getOnAllSelectedChanged() != null) {
+//                                            $this.props.getOnAllSelectedChanged().run(!$this.props.isAllSelected());
+//                                        }
+//                                    });
                                 })
                             )
                         );

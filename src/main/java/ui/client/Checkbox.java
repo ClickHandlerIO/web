@@ -1,7 +1,6 @@
 package ui.client;
 
 import common.client.Func;
-import common.client.Jso;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -106,10 +105,10 @@ public class Checkbox extends ExternalComponent<Checkbox.Props> {
         void setLabel(String label);
 
         @JsProperty
-        Func.Run getOnCheck();
+        Func.Run2<Object, Boolean> getOnCheck();
 
         @JsProperty
-        void setOnCheck(Func.Run onCheck);
+        void setOnCheck(Func.Run2<Object, Boolean> onCheck);
 
 
         ////////////////////
@@ -183,20 +182,8 @@ public class Checkbox extends ExternalComponent<Checkbox.Props> {
         }
 
         @JsOverlay
-        default Props onCheck(final Func.Run onCheck) {
-            Jso.set(this, "onCheck", onCheck);
-            return this;
-        }
-
-        @JsOverlay
-        default Props onCheck(final Func.Run1<Object> onCheck) {
-            Jso.set(this, "onCheck", onCheck);
-            return this;
-        }
-
-        @JsOverlay
-        default Props onCheck(final Func.Run2<Object, Object> onCheck) {
-            Jso.set(this, "onCheck", onCheck);
+        default Props onCheck(final Func.Run2<Object, Boolean> onCheck) {
+            setOnCheck(onCheck);
             return this;
         }
     }

@@ -44,8 +44,8 @@ public class SelectPage extends SimpleRouteComponent<SelectPage.Route, SelectPag
             checkbox.props()
                 .label("UT Only")
                 .style(style().margin("5px"))
-                .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
-                .checked($this.state.utahOnly)
+//                .onCheck(value -> $this.setState(s -> s.utahOnly(!$this.state.utahOnly)))
+//                .checked($this.state.utahOnly)
                 .build(),
             resortSelect.props()
                 .state($this.state.utahOnly ? "UT" : null)

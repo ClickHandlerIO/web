@@ -1,11 +1,10 @@
 package ui.client.grid2;
 
+import common.client.Func;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
-import react.client.Component;
-import react.client.ComponentProps;
-import react.client.ReactComponent;
-import react.client.ReactElement;
+import react.client.*;
+import ui.client.Checkbox;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,6 +16,9 @@ import static react.client.DOM.div;
 public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
 
     @Inject
+    Checkbox checkbox;
+
+    @Inject
     public Grid2Cell() {
     }
 
@@ -24,12 +26,16 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
     protected ReactElement render(final ReactComponent<Props, State> $this) {
         return div(className("grid2-cell"), children -> {
 
-                    if ($this.props.leadingAccessoryView != null) {
-                        children.add(div(className("leading-accessory-container"), $this.props.leadingAccessoryView));
-                    }
-
                     if ($this.props.selectionEnabled) {
-                        children.add(div(className("checkbox-container"))); // todo checkbox control
+                        children.add(
+                                div(className("checkbox-container"),
+                                        checkbox.props()
+                                                .checked($this.props.selected)
+                                                .onCheck((sender, checked) -> $this.props.requestSelectionChange.run(checked))
+                                                .iconStyle(new StyleProps().marginRight(0))
+                                                .build()
+                                )
+                        );
                     }
 
                     children.add(div(className("content-container"), $this.props.contentView));
@@ -39,16 +45,10 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends ComponentProps {
-        public ReactElement leadingAccessoryView;
         public ReactElement contentView;
         public boolean selectionEnabled;
         public boolean selected;
-
-        @JsOverlay
-        public final Props leadingAccessoryView(final ReactElement leadingAccessoryView) {
-            this.leadingAccessoryView = leadingAccessoryView;
-            return this;
-        }
+        public Func.Run1<Boolean> requestSelectionChange;
 
         @JsOverlay
         public final Props contentView(final ReactElement contentView) {
@@ -65,6 +65,12 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
         @JsOverlay
         public final Props selected(final boolean selected) {
             this.selected = selected;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props requestSelectionChange(final Func.Run1<Boolean> requestSelectionChange) {
+            this.requestSelectionChange = requestSelectionChange;
             return this;
         }
 

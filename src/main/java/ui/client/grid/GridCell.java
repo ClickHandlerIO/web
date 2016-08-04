@@ -40,11 +40,11 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
                                 div(className("checkbox"),
                                         checkbox.$($ -> {
                                             $.setChecked($this.props.selected);
-                                            $.setOnCheck(() -> {
-                                                if ($this.props.onSelectionChanged != null) {
-                                                    $this.props.onSelectionChanged.run($this.props.data, !$this.props.selected);
-                                                }
-                                            });
+//                                            $.setOnCheck(() -> {
+//                                                if ($this.props.onSelectionChanged != null) {
+//                                                    $this.props.onSelectionChanged.run($this.props.data, !$this.props.selected);
+//                                                }
+//                                            });
                                         })
                                 )
                         );

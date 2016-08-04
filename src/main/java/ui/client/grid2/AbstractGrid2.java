@@ -2,10 +2,7 @@ package ui.client.grid2;
 
 import common.client.Func;
 import jsinterop.annotations.JsType;
-import react.client.Component;
-import react.client.ComponentProps;
-import react.client.ReactComponent;
-import react.client.ReactElement;
+import react.client.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,18 +27,46 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     @Override
     protected ReactElement render(final ReactComponent<P, State<D>> $this) {
         return div(className("grid2"), children -> {
-
                     children.add(
                             header.props()
                                     .columns($this.state.columns)
                                     .headerVisible($this.props.headerVisible)
-                                    .selectionEnabled($this.props.selectionEnabled)
-                                    .allSelected(false) // todo
-                                    .onAllSelectedChanged(checked -> {
-                                        log.error("impl me");
+                                    .selectionEnabled($this.props.onSelectionChanged != null)
+                                    .allSelected($this.props.selection != null && $this.state.data != null && $this.props.selection.size() == $this.state.data.size()) // todo
+                                    .requestAllSelectedChange(checked -> {
+                                        List<D> updatedSelection = new ArrayList<>();
+                                        if (checked) {
+                                            updatedSelection.addAll($this.state.data);
+                                        }
+                                        if ($this.props.onSelectionChanged != null) {
+                                            $this.props.onSelectionChanged.run(updatedSelection);
+                                        }
                                     })
-                                    .onSortChanged((gridColumn, gridSort) -> {
-                                        log.error("impl me");
+                                    .requestSortChange(gridColumn -> {
+
+                                        // remove sort from other columns
+                                        final GridColumn[] columns = new GridColumn[$this.state.columns.length];
+                                        for (int i = 0; i < $this.state.columns.length; ++i) {
+                                            GridColumn c = $this.state.columns[i];
+                                            if (c.getOrdinal() != gridColumn.getOrdinal()) {
+                                                c.setSort(GridSort.NONE);
+                                            }
+                                            columns[i] = c;
+                                        }
+
+                                        // apply correct sort to new column
+                                        if (gridColumn.getSort().equals(GridSort.NONE)) {
+                                            gridColumn.setSort(GridSort.DESC);
+                                        } else if (gridColumn.getSort().equals(GridSort.DESC)) {
+                                            gridColumn.setSort(GridSort.ASC);
+                                        } else {
+                                            gridColumn.setSort(GridSort.NONE);
+                                        }
+                                        $this.setState(s -> {
+                                            s.columns = columns;
+                                            s.pageIdx = 0.;
+                                            s.pageIdxMap = new HashMap<>();
+                                        }, () -> load($this));
                                     })
                                     .build()
                     );
@@ -54,12 +79,28 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                 }
 
                                 for (D d : $this.state.data) {
+                                    boolean selected = $this.props.selection != null && $this.props.selection.contains(d);
                                     bodyChildren.add(
                                             cell.props()
                                                     .key(dataKey(d))
-                                                    .leadingAccessoryView(leadingAccessoryViewForData(d))
-                                                    .contentView(contentViewForData(d))
-                                                    .selected(false)
+                                                    .contentView(contentViewForData($this, d))
+                                                    .selected(selected)
+                                                    .selectionEnabled($this.props.onSelectionChanged != null)
+                                                    .requestSelectionChange(checked -> {
+                                                        List<D> updatedSelection = new ArrayList<>();
+                                                        if ($this.props.selection != null) {
+                                                            updatedSelection.addAll($this.props.selection);
+                                                        }
+                                                        if (checked) {
+                                                            updatedSelection.add(d);
+                                                        } else {
+                                                            updatedSelection.remove(d);
+                                                        }
+
+                                                        if ($this.props.onSelectionChanged != null) {
+                                                            $this.props.onSelectionChanged.run(updatedSelection);
+                                                        }
+                                                    })
                                                     .build()
                                     );
                                 }
@@ -113,15 +154,16 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     }
 
     @Override
-    protected void componentDidMount(ReactComponent<P, State<D>> $this) {
+    protected void componentDidMount(final ReactComponent<P, State<D>> $this) {
         super.componentDidMount($this);
         if ($this.props.loadOnMount) {
             load($this);
         }
     }
 
+    // Todo remove after debugging
     @Override
-    protected boolean shouldComponentUpdate(ReactComponent<P, State<D>> $this, P nextProps, State<D> nextState) {
+    protected boolean shouldComponentUpdate(final ReactComponent<P, State<D>> $this, P nextProps, State<D> nextState) {
         boolean sup = super.shouldComponentUpdate($this, nextProps, nextState);
         return sup;
     }
@@ -132,11 +174,41 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     protected void load(final ReactComponent<P, State<D>> $this) {
         final String requestGuid = ui.client.util.UUID.uuid();
+
+        // Sort
+        GridSort sortDirection = GridSort.NONE;
+        int sortOrdinal = 0;
+        for (GridColumn c : $this.state.columns) {
+            if (!c.getSort().equals(GridSort.NONE)) {
+                sortDirection = c.getSort();
+                sortOrdinal = c.getOrdinal();
+                break;
+            }
+        }
+        final GridSort fSortDirection = sortDirection;
+        final int fSortOrdinal = sortOrdinal;
+
+        // Pagination
+        D lastRecord = null;
+        Double startRecordIdx = 0.;
+        if ($this.state.pageIdx > 0) {
+            lastRecord = $this.state.pageIdxMap.get($this.state.pageIdx - 1);
+            startRecordIdx = $this.state.pageIdx * $this.props.pageSize;
+        }
+        final D fLastRecord = lastRecord;
+        final Double fStartRecordIdx = startRecordIdx;
+
         $this.setState(s -> {
             s.loading = true;
             s.pendingRequestGuid = requestGuid;
         }, () -> {
-            fetchData($this, requestGuid, GridSort.NONE, null, 0., null, $this.props.pageSize + 1, (guid, d) -> {
+
+            // clear selection before load
+            if ($this.props.onSelectionChanged != null) {
+                $this.props.onSelectionChanged.run(new ArrayList<D>());
+            }
+
+            fetchData($this, requestGuid, fSortDirection, fSortOrdinal, fStartRecordIdx, fLastRecord, $this.props.pageSize + 1, (guid, d) -> {
 
                 // make sure the response matches the latest request guid (could have sent out another req since)
                 if (guid == null || $this.state.pendingRequestGuid == null || !$this.state.pendingRequestGuid.equals(guid)) {
@@ -152,11 +224,11 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
                 // update page idx map (for lastRecord pagination)
                 final Map<Double, D> pageIdxMap = new HashMap<>();
-                for (Double key: pageIdxMap.keySet()) {
+                for (Double key : pageIdxMap.keySet()) {
                     pageIdxMap.put(key, $this.state.pageIdxMap.get(key));
                 }
-                D lastRecord = data.size() > 0 ? data.get(data.size() - 1) : null;
-                pageIdxMap.put($this.state.pageIdx, lastRecord);
+                D updatedLastRecord = data.size() > 0 ? data.get(data.size() - 1) : null;
+                pageIdxMap.put($this.state.pageIdx, updatedLastRecord);
 
                 final List<D> fData = data;
                 $this.setState(s -> {
@@ -179,11 +251,73 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     protected abstract String dataKey(D data);
 
-    private ReactElement leadingAccessoryViewForData(D data) {
-        return null;
+    protected abstract ReactElement contentViewForData(final ReactComponent<P, State<D>> $this, D data);
+
+    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, String text) {
+        return div(new HTMLProps().style(s -> applyColumnSizing($this, s, columnEnum)), text);
     }
 
-    protected abstract ReactElement contentViewForData(D data);
+    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, ReactElement child) {
+        return div(new HTMLProps().style(s -> applyColumnSizing($this, s, columnEnum)), child);
+    }
+
+    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, String text) {
+        HTMLProps htmlProps = new HTMLProps();
+        if (callback != null) {
+            callback.run(htmlProps);
+        }
+        applyColumnSizing($this, htmlProps.style(), columnEnum);
+        return div(htmlProps, text);
+    }
+
+    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, ReactElement child) {
+        HTMLProps htmlProps = new HTMLProps();
+        if (callback != null) {
+            callback.run(htmlProps);
+        }
+        applyColumnSizing($this, htmlProps.style(), columnEnum);
+        return div(htmlProps, child);
+    }
+
+    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run2<HTMLProps, Children> callback) {
+        HTMLProps htmlProps = new HTMLProps();
+        Children children = new Children();
+        if (callback != null) {
+            callback.run(htmlProps, children);
+        }
+        applyColumnSizing($this, htmlProps.style(), columnEnum);
+        return div(htmlProps, (ReactElement[]) children.toArray());
+    }
+
+    protected StyleProps applyColumnSizing(final ReactComponent<P, State<D>> $this, StyleProps style, Enum columnEnum) {
+        if (style == null) {
+            style = new StyleProps();
+        }
+
+        GridColumn column = null;
+        for (GridColumn c : $this.state.columns) {
+            if (c.getOrdinal() == columnEnum.ordinal()) {
+                column = c;
+                break;
+            }
+        }
+
+        if (column == null || column.getDisplay() == null) {
+            return style;
+        }
+
+        style.minWidth(column.getDisplay().getMinWidth());
+        style.padding(5);
+        if (column.getDisplay().getWidth() != null) {
+            style.width(column.getDisplay().getWidth());
+        } else {
+            style.flexGrow(column.getDisplay().getFlexGrow());
+            style.flexShrink(column.getDisplay().getFlexShrink());
+            style.flexBasis(column.getDisplay().getFlexBasis());
+        }
+
+        return style;
+    }
 
     // Props and State
 
@@ -192,8 +326,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         public boolean loadOnMount;
         public boolean headerVisible;
 
-        public boolean selectionEnabled;
-        public List<D> selected;
+        public List<D> selection;
         public Func.Run1<List<D>> onSelectionChanged;
 
         public String noResultsText;
