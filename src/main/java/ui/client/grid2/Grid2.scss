@@ -37,7 +37,7 @@
     .grid2-cell {
       display: flex;
       flex-direction: row;
-      align-items: stretch;
+      align-items: center;
       border-bottom: 1px solid $grid-border-color;
 
       &.selected {
