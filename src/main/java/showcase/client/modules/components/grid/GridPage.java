@@ -33,8 +33,9 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
         return div(style().padding("20px"),
                 div("Grid Page Here"),
                 snowReportGrid.props()
-                        .selection($this.state.selectedReports)
-                        .onSelectionChanged(v -> $this.setState(s->s.selectedReports(v)))
+//                        .selection($this.state.selectedReports)
+//                        .onSelectionChanged(v -> $this.setState(s->s.selectedReports(v)))
+//                        .headerVisible(false)
                         .handleEmail(() -> log.error("imp me!"))
                         .handleExcel(() -> log.error("imp me!"))
                         .handlePDF(() -> log.error("imp me!"))
