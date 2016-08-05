@@ -32,7 +32,7 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     protected GridColumn[] columns() {
         return new GridColumn[]{
                 new GridColumn(Column.ID, "Id", 200., true),
-                new GridColumn(Column.RESORT, "Resort", 1, true),
+                new GridColumn(Column.RESORT, "Resort", 1, false),
                 new GridColumn(Column.SNOWFALL, "Snowfall", 1, true)
         };
     }

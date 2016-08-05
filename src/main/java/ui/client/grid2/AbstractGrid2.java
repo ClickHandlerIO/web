@@ -34,6 +34,10 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                     .selectionEnabled($this.props.onSelectionChanged != null)
                                     .allSelected($this.props.selection != null && $this.state.data != null && $this.props.selection.size() == $this.state.data.size()) // todo
                                     .requestAllSelectedChange(checked -> {
+                                        if ($this.state.loading) {
+                                            return;
+                                        }
+
                                         List<D> updatedSelection = new ArrayList<>();
                                         if (checked) {
                                             updatedSelection.addAll($this.state.data);
@@ -43,6 +47,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                         }
                                     })
                                     .requestSortChange(gridColumn -> {
+                                        // changing sort can be done while loading
 
                                         // remove sort from other columns
                                         final GridColumn[] columns = new GridColumn[$this.state.columns.length];
@@ -74,35 +79,41 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                     children.add(
                             div(className("body"), bodyChildren -> {
                                 if ($this.state.loading) {
-                                    // TODO loading ui
-                                    return;
+                                    bodyChildren.add(
+                                            div(className("loading-container"),
+                                                    div(className("backdrop")),
+                                                    div(className("loader loader-default"))
+                                            )
+                                    );
                                 }
 
-                                for (D d : $this.state.data) {
-                                    boolean selected = $this.props.selection != null && $this.props.selection.contains(d);
-                                    bodyChildren.add(
-                                            cell.props()
-                                                    .key(dataKey(d))
-                                                    .contentView(contentViewForData($this, d))
-                                                    .selected(selected)
-                                                    .selectionEnabled($this.props.onSelectionChanged != null)
-                                                    .requestSelectionChange(checked -> {
-                                                        List<D> updatedSelection = new ArrayList<>();
-                                                        if ($this.props.selection != null) {
-                                                            updatedSelection.addAll($this.props.selection);
-                                                        }
-                                                        if (checked) {
-                                                            updatedSelection.add(d);
-                                                        } else {
-                                                            updatedSelection.remove(d);
-                                                        }
+                                if ($this.state.data != null) {
+                                    for (D d : $this.state.data) {
+                                        boolean selected = $this.props.selection != null && $this.props.selection.contains(d);
+                                        bodyChildren.add(
+                                                cell.props()
+                                                        .key(dataKey(d))
+                                                        .contentView(contentViewForData($this, d))
+                                                        .selected(selected)
+                                                        .selectionEnabled($this.props.onSelectionChanged != null)
+                                                        .requestSelectionChange(checked -> {
+                                                            List<D> updatedSelection = new ArrayList<>();
+                                                            if ($this.props.selection != null) {
+                                                                updatedSelection.addAll($this.props.selection);
+                                                            }
+                                                            if (checked) {
+                                                                updatedSelection.add(d);
+                                                            } else {
+                                                                updatedSelection.remove(d);
+                                                            }
 
-                                                        if ($this.props.onSelectionChanged != null) {
-                                                            $this.props.onSelectionChanged.run(updatedSelection);
-                                                        }
-                                                    })
-                                                    .build()
-                                    );
+                                                            if ($this.props.onSelectionChanged != null) {
+                                                                $this.props.onSelectionChanged.run(updatedSelection);
+                                                            }
+                                                        })
+                                                        .build()
+                                        );
+                                    }
                                 }
                             })
                     );
@@ -123,9 +134,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                         $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> load($this));
                                     })
                                     .handlePagerPrevious(() -> {
-                                        if ($this.state.loading) {
-                                            return;
-                                        }
+                                        // paging backwards can be done while loading (we know LastRecord items that we have already passed)
                                         $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1, () -> load($this));
                                     })
                                     .build()

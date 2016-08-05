@@ -1,5 +1,6 @@
 package showcase.client.modules.components.grid;
 
+import com.google.gwt.user.client.Timer;
 import common.client.Func;
 import ui.client.util.UUID;
 
@@ -10,20 +11,30 @@ import java.util.List;
 public class GridDataSource {
     private static int callcount = 0;
 
-    public static void fetchData(Sort sort, String lastRecordId, double pageSize, Func.Run1<List<SnowReport>> callback) {
+    public static void fetchData(Sort sort, String lastRecordId, double pageSize, final Func.Run1<List<SnowReport>> callback) {
         if (callback == null) {
             return;
         }
         callcount++;
 
-        List<SnowReport> data = new ArrayList<>();
+        final List<SnowReport> data = new ArrayList<>();
 
 //        for (int i = 0; i < (callcount == 3 ? 2 : pageSize); ++i) {
         for (int i = 0; i < pageSize; ++i) {
             data.add(new SnowReport(new Date(), "Park City Mountain Resort", i + 1.4));
         }
 
-        callback.run(data);
+        Timer t = new Timer() {
+            @Override
+            public void run() {
+                callback.run(data);
+            }
+        };
+
+        // Schedule the timer to run once in 5 seconds.
+        t.schedule(5000);
+
+//        callback.run(data);
     }
 
     public static class SnowReport {

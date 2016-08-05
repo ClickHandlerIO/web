@@ -47,7 +47,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                                             .tooltip("Print")
                                             .tooltipPosition("top-center")
                                             .onTouchTap(() -> $this.props.handlePrint.run())
-                                            .build(printSvgIcon.props().build())
+                                            .build(printSvgIcon.props().color("#4C5660").build())
                             );
                         }
 
@@ -57,7 +57,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                                             .tooltip("Email")
                                             .tooltipPosition("top-center")
                                             .onTouchTap(() -> $this.props.handleEmail.run())
-                                            .build(emailSvgIcon.props().build())
+                                            .build(emailSvgIcon.props().color("#4C5660").build())
                             );
                         }
 
@@ -67,7 +67,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                                             .tooltip("PDF")
                                             .tooltipPosition("top-center")
                                             .onTouchTap(() -> $this.props.handlePDF.run())
-                                            .build(importExportSvgIcon.props().build())
+                                            .build(importExportSvgIcon.props().color("#4C5660").build())
                             );
                         }
 
@@ -77,7 +77,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                                             .tooltip("XLS")
                                             .tooltipPosition("top-center")
                                             .onTouchTap(() -> $this.props.handleExcel.run())
-                                            .build(importExportSvgIcon.props().build())
+                                            .build(importExportSvgIcon.props().color("#4C5660").build())
                             );
                         }
                     })
