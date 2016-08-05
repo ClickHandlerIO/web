@@ -31,7 +31,7 @@
   }
 
   .body {
-    $body-min-height: 60px;
+    $body-min-height: 30px;
     min-height: $body-min-height;
     position: relative;
 
@@ -87,6 +87,7 @@
       font-size: 14px;
       font-weight: 300;
       line-height: $body-min-height;
+      padding-left: 10px;
     }
   }
 

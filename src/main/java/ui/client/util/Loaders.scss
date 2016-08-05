@@ -12,13 +12,18 @@
 }
 
 .loader.loader-default {
-  width: 1em;
-  height: 1em;
+  width: 30px;
+  height: 30px;
   background-color: #a3afb7;
   border-radius: 100%;
   -webkit-animation: loader-default 1s infinite ease-in-out;
   -o-animation: loader-default 1s infinite ease-in-out;
   animation: loader-default 1s infinite ease-in-out
+}
+
+.loader.loader-default.small {
+  width: 30px;
+  height: 30px;
 }
 
 .loader.loader-grill {
