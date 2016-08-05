@@ -58,6 +58,13 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
         );
     }
 
+    @Override
+    public Props getDefaultProps() {
+        Props p = super.getDefaultProps();
+        p.pageSize = 2;
+        return p;
+    }
+
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends AbstractGrid2.Props<GridDataSource.SnowReport> {
 
