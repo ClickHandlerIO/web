@@ -35,7 +35,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                     .columns($this.state.columns)
                                     .headerVisible($this.props.headerVisible)
                                     .selectionEnabled($this.props.onSelectionChanged != null)
-                                    .allSelected($this.props.selection != null && $this.state.data != null && $this.props.selection.size() == $this.state.data.size()) // todo
+                                    .allSelected($this.props.selection != null && $this.state.data != null && !$this.state.data.isEmpty() && $this.props.selection.size() == $this.state.data.size()) // todo
                                     .requestAllSelectedChange(checked -> {
                                         if ($this.state.loading) {
                                             return;
@@ -90,7 +90,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                     );
                                 }
 
-                                if ($this.state.data != null) {
+                                if ($this.state.data != null && !$this.state.data.isEmpty()) {
                                     for (D d : $this.state.data) {
                                         boolean selected = $this.props.selection != null && $this.props.selection.contains(d);
                                         bodyChildren.add(
@@ -115,6 +115,14 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                                             }
                                                         })
                                                         .build()
+                                        );
+                                    }
+                                } else if (!$this.state.firstLoad) {
+                                    if ($this.props.noResultsElement != null) {
+                                        bodyChildren.add($this.props.noResultsElement);
+                                    } else {
+                                        bodyChildren.add(
+                                                div(className("no-results"), $this.props.noResultsText)
                                         );
                                     }
                                 }
@@ -162,6 +170,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         s.columns = columns();
         s.loading = true; // start in loading state (no data yet)
         s.pageIdx = 0.;
+        s.firstLoad = true;
         return s;
     }
 
@@ -237,6 +246,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
                 final List<D> fData = data;
                 $this.setState(s -> {
+                    s.firstLoad = false;
                     s.loading = false;
                     s.data = fData;
                     s.moreResults = moreResults;
@@ -357,5 +367,6 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         private boolean moreResults;
         private double pageIdx;
         private Map<Double, D> pageIdxMap;
+        private boolean firstLoad;
     }
 }
