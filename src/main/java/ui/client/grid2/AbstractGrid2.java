@@ -80,7 +80,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                     );
 
                     children.add(
-                            div(className("body"), bodyChildren -> {
+                            div(className("body" + ($this.state.loading ? " loading" : "")), bodyChildren -> {
                                 if ($this.state.loading) {
                                     bodyChildren.add(
                                             div(className("loading-container"),

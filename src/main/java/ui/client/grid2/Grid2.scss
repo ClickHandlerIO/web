@@ -31,7 +31,7 @@
   }
 
   .body {
-    min-height: 60px;
+    min-height: 30px;
     position: relative;
 
     .grid2-cell {
@@ -53,6 +53,10 @@
           align-items: stretch;
         }
       }
+    }
+
+    &.loading {
+      min-height: 60px;
     }
 
     .loading-container {
@@ -81,7 +85,7 @@
       color: rgb(221, 221, 221);
       font-size: 14px;
       font-weight: 300;
-      padding: 5px;
+      padding: 10px 5px;
     }
   }
 

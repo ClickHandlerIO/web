@@ -27,13 +27,13 @@ public class GridDataSource {
         Timer t = new Timer() {
             @Override
             public void run() {
-//                callback.run(null);
-                callback.run(data);
+                callback.run(null);
+//                callback.run(data);
             }
         };
 
         // Schedule the timer to run once in 5 seconds.
-        t.schedule(1000);
+        t.schedule(2000);
 
 //        callback.run(data);
     }

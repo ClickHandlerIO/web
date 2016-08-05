@@ -54,24 +54,12 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
         return div(
                 column($this, Column.ID, data.getId()),
                 column($this, Column.RESORT, props -> props.className("flex align-items-center"), data.getResortName()),
-                column($this, Column.SNOWFALL, props -> props.className("flex align-items-center"), span(data.getSnowfall().toString()))
+                column($this, Column.SNOWFALL, props -> props.className("flex align-items-center"), span(data.getSnowfall().toString())) //example of el and not text
         );
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends AbstractGrid2.Props<GridDataSource.SnowReport> {
-
-        @JsOverlay
-        public final Props loadOnMount(final boolean loadOnMount) {
-            this.loadOnMount = loadOnMount;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props headerVisible(final boolean headerVisible) {
-            this.headerVisible = headerVisible;
-            return this;
-        }
 
         @JsOverlay
         public final Props selection(final java.util.List<GridDataSource.SnowReport> selection) {
@@ -82,24 +70,6 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
         @JsOverlay
         public final Props onSelectionChanged(final common.client.Func.Run1<java.util.List<GridDataSource.SnowReport>> onSelectionChanged) {
             this.onSelectionChanged = onSelectionChanged;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props noResultsText(final String noResultsText) {
-            this.noResultsText = noResultsText;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props noResultsElement(final ReactElement noResultsElement) {
-            this.noResultsElement = noResultsElement;
-            return this;
-        }
-
-        @JsOverlay
-        public final Props pageSize(final double pageSize) {
-            this.pageSize = pageSize;
             return this;
         }
 
