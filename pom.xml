@@ -56,6 +56,7 @@
         <guava-gwt.version>19.0</guava-gwt.version>
         <dagger-gwt.version>2.5</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
+        <moment-gwt.version>0.3.0-SNAPSHOT</moment-gwt.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
@@ -177,6 +178,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava-gwt</artifactId>
             <version>${guava-gwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.clickhandler</groupId>
+            <artifactId>moment-gwt</artifactId>
+            <version>${moment-gwt.version}</version>
         </dependency>
 
     </dependencies>
