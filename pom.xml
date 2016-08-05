@@ -54,7 +54,7 @@
         <java.version>1.8</java.version>
         <gwt.version>2.8.0-rc1</gwt.version>
         <guava-gwt.version>19.0</guava-gwt.version>
-        <dagger-gwt.version>2.5</dagger-gwt.version>
+        <dagger-gwt.version>2.1</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <moment-gwt.version>0.3.0-SNAPSHOT</moment-gwt.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
@@ -148,6 +148,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.dagger</groupId>
             <artifactId>dagger-gwt</artifactId>
             <version>${dagger-gwt.version}</version>
@@ -162,11 +167,6 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
         </dependency>
 
         <dependency>
@@ -203,7 +203,11 @@
                 <resources>
                     <resource>
                         <directory>src/main/java</directory>
-                        <filtering>false</filtering>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <exclude>ui/scss/**</exclude>
+                            <exclude>showcase/webpack/**</exclude>
+                        </excludes>
                     </resource>
                 </resources>
 
