@@ -26,7 +26,10 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     @Override
     protected ReactElement render(final ReactComponent<P, State<D>> $this) {
-        return div(className("grid2"), children -> {
+        return div((props, children) -> {
+                    props.className("grid2");
+                    // todo impl fixed height
+
                     children.add(
                             header.props()
                                     .columns($this.state.columns)
@@ -168,13 +171,6 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         if ($this.props.loadOnMount) {
             load($this);
         }
-    }
-
-    // Todo remove after debugging
-    @Override
-    protected boolean shouldComponentUpdate(final ReactComponent<P, State<D>> $this, P nextProps, State<D> nextState) {
-        boolean sup = super.shouldComponentUpdate($this, nextProps, nextState);
-        return sup;
     }
 
     protected abstract GridColumn[] columns();
@@ -333,7 +329,11 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props<D> extends ComponentProps {
         public boolean loadOnMount;
-        public boolean headerVisible;
+        public boolean headerVisible; // todo test/build
+
+// todo impl fixed height later. need to handle scrollbar width padding in header, and loading div over content, not scrolled away
+//        public boolean fullHeight;
+//        public Double fixedHeight;
 
         public List<D> selection;
         public Func.Run1<List<D>> onSelectionChanged;

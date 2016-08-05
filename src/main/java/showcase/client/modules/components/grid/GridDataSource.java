@@ -32,7 +32,7 @@ public class GridDataSource {
         };
 
         // Schedule the timer to run once in 5 seconds.
-        t.schedule(5000);
+        t.schedule(1000);
 
 //        callback.run(data);
     }
