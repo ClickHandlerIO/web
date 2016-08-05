@@ -24,7 +24,7 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
 
     @Override
     protected ReactElement render(final ReactComponent<Props, State> $this) {
-        return div(className("grid2-cell"), children -> {
+        return div(className("grid2-cell " + $this.props.className), children -> {
 
                     if ($this.props.selectionEnabled) {
                         children.add(
@@ -45,10 +45,17 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends ComponentProps {
+        public String className;
         public ReactElement contentView;
         public boolean selectionEnabled;
         public boolean selected;
         public Func.Run1<Boolean> requestSelectionChange;
+
+        @JsOverlay
+        public final Props className(final String className) {
+            this.className = className;
+            return this;
+        }
 
         @JsOverlay
         public final Props contentView(final ReactElement contentView) {

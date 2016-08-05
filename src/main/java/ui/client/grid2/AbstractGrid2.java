@@ -96,7 +96,8 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                         bodyChildren.add(
                                                 cell.props()
                                                         .key(dataKey(d))
-                                                        .contentView(contentViewForData($this, d))
+                                                        .className((selected ? "selected ": "") + cellClassNameForData(d, selected))
+                                                        .contentView(contentViewForData($this, d, selected))
                                                         .selected(selected)
                                                         .selectionEnabled($this.props.onSelectionChanged != null)
                                                         .requestSelectionChange(checked -> {
@@ -266,7 +267,11 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     protected abstract String dataKey(D data);
 
-    protected abstract ReactElement contentViewForData(final ReactComponent<P, State<D>> $this, D data);
+    protected abstract ReactElement contentViewForData(final ReactComponent<P, State<D>> $this, D data, boolean selected);
+
+    protected String cellClassNameForData(D data, boolean selected) {
+        return ""; // hook to customize the entire cell's class name
+    }
 
     protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, String text) {
         return div(new HTMLProps().style(s -> applyColumnSizing($this, s, columnEnum)), text);

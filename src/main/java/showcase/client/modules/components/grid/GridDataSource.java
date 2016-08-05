@@ -27,8 +27,8 @@ public class GridDataSource {
         Timer t = new Timer() {
             @Override
             public void run() {
-                callback.run(null);
-//                callback.run(data);
+//                callback.run(null);
+                callback.run(data);
             }
         };
 

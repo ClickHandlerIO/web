@@ -31,7 +31,7 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     @Override
     protected GridColumn[] columns() {
         return new GridColumn[]{
-                new GridColumn(Column.ID, "Id", 200., true),
+                new GridColumn(Column.ID, "Id", 1, true),
                 new GridColumn(Column.RESORT, "Resort", 1, false),
                 new GridColumn(Column.SNOWFALL, "Snowfall", 1, true)
         };
@@ -50,11 +50,11 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     }
 
     @Override
-    protected ReactElement contentViewForData(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, GridDataSource.SnowReport data) {
+    protected ReactElement contentViewForData(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, GridDataSource.SnowReport data, boolean selected) {
         return div(
                 column($this, Column.ID, data.getId()),
-                column($this, Column.RESORT, props -> props.className("flex align-items-center"), data.getResortName()),
-                column($this, Column.SNOWFALL, props -> props.className("flex align-items-center"), span(data.getSnowfall().toString())) //example of el and not text
+                column($this, Column.RESORT, /*props -> props.className("flex align-items-center"),*/ data.getResortName()),
+                column($this, Column.SNOWFALL, /*props -> props.className("flex align-items-center"),*/ span(data.getSnowfall().toString())) //example of el and not text
         );
     }
 

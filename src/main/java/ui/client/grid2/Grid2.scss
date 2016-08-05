@@ -40,6 +40,10 @@
       align-items: stretch;
       border-bottom: 1px solid $grid-border-color;
 
+      &.selected {
+        background-color: #FFFFC4;
+      }
+
       &:last-child {
         border-bottom: none;
       }
