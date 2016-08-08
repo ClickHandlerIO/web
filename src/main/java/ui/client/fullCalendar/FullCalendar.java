@@ -79,7 +79,7 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
     // Work
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void buildFullCalendar(ReactComponent<Props, State> $this) {
+    private void buildFullCalendar(final ReactComponent<Props, State> $this) {
         FullCalendarHeader header = Jso.create();
         header.setCenter("");
         header.setLeft("");
@@ -96,6 +96,11 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setEventTextColor("#fff");
         options.setEventLimit(true);
         options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
+        options.setDayClick((arg1, arg2, arg3) -> {
+            if ($this.props.getOnDayClicked() != null) {
+                $this.props.getOnDayClicked().run(arg1);
+            }
+        });
         options.setEventClick((fullCalendarEvent, nativeEvent1, fullCalendarView1) -> {
             if ($this.props.getOnEventClicked() != null) {
                 $this.props.getOnEventClicked().onEventClicked(fullCalendarEvent);
@@ -155,6 +160,12 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
 
         @JsProperty
         void setOnEventClicked(EventClickHandler onEventClicked);
+
+        @JsProperty
+        Func.Run1<Moment> getOnDayClicked();
+
+        @JsProperty
+        void setOnDayClicked(Func.Run1<Moment> onDayClicked);
 
         @JsProperty
         Moment getMoment();
