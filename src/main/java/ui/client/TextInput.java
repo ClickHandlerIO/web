@@ -30,6 +30,16 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
                 .zIndex($this.props.zIndex)
                 .placeholder($this.props.placeholder)
                 .value($this.props.value)
+                .onFocus(event -> {
+                    if ($this.props.onFocus != null) {
+                        $this.props.onFocus.run(event);
+                    }
+                })
+                .onBlur(event -> {
+                    if ($this.props.onBlur != null) {
+                        $this.props.onBlur.run(event);
+                    }
+                })
                 .onKeyDown(keyboardEvent -> {
                     if ($this.props.onKeyDown != null) {
                         $this.props.onKeyDown.run(keyboardEvent);
@@ -55,6 +65,20 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
         public int zIndex;
         public String type;
         public Func.Run1<KeyboardEvent> onKeyDown;
+        public Func.Run1<FocusEvent> onFocus;
+        public Func.Run1<FocusEvent> onBlur;
+
+        @JsOverlay
+        public final Props onFocus(final Func.Run1<FocusEvent> onFocus) {
+            this.onFocus = onFocus;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props onBlur(final Func.Run1<FocusEvent> onBlur) {
+            this.onBlur = onBlur;
+            return this;
+        }
 
         @JsOverlay
         public final Props onChange(final Func.Run1<String> onChange) {
