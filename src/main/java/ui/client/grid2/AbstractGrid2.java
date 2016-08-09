@@ -15,7 +15,7 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
 @Singleton
-public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends Component<P, AbstractGrid2.State<D>> {
+public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S extends AbstractGrid2.State<D>> extends Component<P, S> {
 
     @Inject
     Grid2Header header;
@@ -25,7 +25,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     Grid2Cell cell;
 
     @Override
-    protected ReactElement render(final ReactComponent<P, State<D>> $this) {
+    protected ReactElement render(final ReactComponent<P, S> $this) {
         return div((props, children) -> {
                     props.className("grid2");
                     // todo impl fixed height
@@ -96,7 +96,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
                                         bodyChildren.add(
                                                 cell.props()
                                                         .key(dataKey(d))
-                                                        .className((selected ? "selected ": "") + cellClassNameForData(d, selected))
+                                                        .className((selected ? "selected " : "") + cellClassNameForData(d, selected))
                                                         .contentView(contentViewForData($this, d, selected))
                                                         .selected(selected)
                                                         .selectionEnabled($this.props.onSelectionChanged != null)
@@ -166,8 +166,8 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     }
 
     @Override
-    public State<D> getInitialState() {
-        State<D> s = super.getInitialState();
+    public S getInitialState() {
+        S s = super.getInitialState();
         s.columns = columns();
         s.loading = true; // start in loading state (no data yet)
         s.pageIdx = 0.;
@@ -176,7 +176,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
     }
 
     @Override
-    protected void componentDidMount(final ReactComponent<P, State<D>> $this) {
+    protected void componentDidMount(final ReactComponent<P, S> $this) {
         super.componentDidMount($this);
         if ($this.props.loadOnMount) {
             load($this);
@@ -187,7 +187,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     // Fetch Data
 
-    protected void load(final ReactComponent<P, State<D>> $this) {
+    protected void load(final ReactComponent<P, S> $this) {
         final String requestGuid = ui.client.util.UUID.uuid();
 
         // Sort
@@ -257,7 +257,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         });
     }
 
-    protected abstract void fetchData(final ReactComponent<P, State<D>> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, D lastRecord, double pageSize, final CompletionHandler<D, P> completionHandler);
+    protected abstract void fetchData(final ReactComponent<P, S> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, D lastRecord, double pageSize, final CompletionHandler<D, P> completionHandler);
 
     public interface CompletionHandler<D, P> {
         void onFetchComplete(String requestGuid, List<D> data);
@@ -267,21 +267,21 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     protected abstract String dataKey(D data);
 
-    protected abstract ReactElement contentViewForData(final ReactComponent<P, State<D>> $this, D data, boolean selected);
+    protected abstract ReactElement contentViewForData(final ReactComponent<P, S> $this, D data, boolean selected);
 
     protected String cellClassNameForData(D data, boolean selected) {
         return ""; // hook to customize the entire cell's class name
     }
 
-    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, String text) {
+    protected ReactElement column(final ReactComponent<P, S> $this, Enum columnEnum, String text) {
         return div(new HTMLProps().style(s -> applyColumnSizing($this, s, columnEnum)), text);
     }
 
-    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, ReactElement child) {
+    protected ReactElement column(final ReactComponent<P, S> $this, Enum columnEnum, ReactElement child) {
         return div(new HTMLProps().style(s -> applyColumnSizing($this, s, columnEnum)), child);
     }
 
-    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, String text) {
+    protected ReactElement column(final ReactComponent<P, S> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, String text) {
         HTMLProps htmlProps = new HTMLProps();
         if (callback != null) {
             callback.run(htmlProps);
@@ -290,7 +290,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         return div(htmlProps, text);
     }
 
-    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, ReactElement child) {
+    protected ReactElement column(final ReactComponent<P, S> $this, Enum columnEnum, Func.Run1<HTMLProps> callback, ReactElement child) {
         HTMLProps htmlProps = new HTMLProps();
         if (callback != null) {
             callback.run(htmlProps);
@@ -299,7 +299,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         return div(htmlProps, child);
     }
 
-    protected ReactElement column(final ReactComponent<P, State<D>> $this, Enum columnEnum, Func.Run2<HTMLProps, Children> callback) {
+    protected ReactElement column(final ReactComponent<P, S> $this, Enum columnEnum, Func.Run2<HTMLProps, Children> callback) {
         HTMLProps htmlProps = new HTMLProps();
         Children children = new Children();
         if (callback != null) {
@@ -309,7 +309,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
         return div(htmlProps, (ReactElement[]) children.toArray());
     }
 
-    protected StyleProps applyColumnSizing(final ReactComponent<P, State<D>> $this, StyleProps style, Enum columnEnum) {
+    protected StyleProps applyColumnSizing(final ReactComponent<P, S> $this, StyleProps style, Enum columnEnum) {
         if (style == null) {
             style = new StyleProps();
         }
@@ -365,13 +365,13 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>> extends
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class State<D> {
-        private GridColumn[] columns;
-        private List<D> data;
-        private String pendingRequestGuid;
-        private boolean loading;
-        private boolean moreResults;
-        private double pageIdx;
-        private Map<Double, D> pageIdxMap;
-        private boolean firstLoad;
+       public GridColumn[] columns;
+       public List<D> data;
+       public String pendingRequestGuid;
+       public boolean loading;
+       public boolean moreResults;
+       public double pageIdx;
+       public Map<Double, D> pageIdxMap;
+       public boolean firstLoad;
     }
 }

@@ -4,6 +4,7 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 import react.client.ReactComponent;
 import react.client.ReactElement;
+import ui.client.grid.AbstractGrid;
 import ui.client.grid2.AbstractGrid2;
 import ui.client.grid2.GridColumn;
 import ui.client.grid2.GridSort;
@@ -16,7 +17,7 @@ import static react.client.DOM.div;
 import static react.client.DOM.span;
 
 @Singleton
-public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, SnowReportGrid.Props> {
+public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, SnowReportGrid.Props, SnowReportGrid.State> {
 
     enum Column {
         ID,
@@ -38,7 +39,7 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     }
 
     @Override
-    protected void fetchData(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, GridDataSource.SnowReport lastRecord, double pageSize, CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
+    protected void fetchData(ReactComponent<Props, State> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, GridDataSource.SnowReport lastRecord, double pageSize, CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), pageSize, data -> {
             completionHandler.onFetchComplete(requestGuid, data);
         });
@@ -50,7 +51,7 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
     }
 
     @Override
-    protected ReactElement contentViewForData(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, GridDataSource.SnowReport data, boolean selected) {
+    protected ReactElement contentViewForData(ReactComponent<Props, State> $this, GridDataSource.SnowReport data, boolean selected) {
         return div(
                 column($this, Column.ID, data.getId()),
                 column($this, Column.RESORT, /*props -> props.className("flex align-items-center"),*/ data.getResortName()),
@@ -103,5 +104,9 @@ public class SnowReportGrid extends AbstractGrid2<GridDataSource.SnowReport, Sno
             this.handleEmail = handleEmail;
             return this;
         }
+    }
+
+    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
+    public static class State extends AbstractGrid2.State<GridDataSource.SnowReport> {
     }
 }
