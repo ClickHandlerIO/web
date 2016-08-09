@@ -142,5 +142,10 @@ public class Tab extends ExternalComponent<Tab.Props> {
             return this;
         }
 
+        @JsOverlay
+        default Props key(String key) {
+            setKey(key);
+            return this;
+        }
     }
 }
