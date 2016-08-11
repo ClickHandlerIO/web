@@ -26,6 +26,34 @@ public class GridColumn {
         resetDisplay();
     }
 
+
+    // For legacy grid support
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public GridColumn(String id, String title, int flexGrow, boolean ignoreThis, boolean sortable) {
+        this.id = id;
+        this.title = title;
+        this.sortable = sortable;
+        this.defaultDisplay = new Display();
+        this.defaultDisplay.setFlexGrow(flexGrow);
+        resetDisplay();
+    }
+
+    public GridColumn(String id, String title, double width, boolean ignoreThis, boolean sortable) {
+        this.id = id;
+        this.title = title;
+        this.sortable = sortable;
+        this.defaultDisplay = new Display();
+        this.defaultDisplay.setWidth(width);
+        resetDisplay();
+    }
+
+
+
     public void resetDisplay() {
         this.display = defaultDisplay.copy();
     }

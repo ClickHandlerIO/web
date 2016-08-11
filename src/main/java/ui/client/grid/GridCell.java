@@ -1,6 +1,7 @@
 package ui.client.grid;
 
 import common.client.Func;
+import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.*;
 import ui.client.Checkbox;
@@ -25,9 +26,9 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
     @Override
     protected ReactElement render(final ReactComponent<P, S> $this) {
 //        return div("cell here");
-        return div(className("grid-cell" + " " + ($this.props.className != null ? $this.props.className : "") + ($this.props.selected ? " selected" : "")),
+        return div(className("grid-cell" + " " + ($this.props.getClassName() != null ? $this.props.getClassName() : "") + ($this.props.isSelected() ? " selected" : "")),
                 childList -> {
-                    if ($this.props.reorderEnabled) {
+                    if ($this.props.isReorderEnabled()) {
                         childList.add(
                                 div(className("reorder"),
                                         "todo"
@@ -35,11 +36,11 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
                         );
                     }
 
-                    if ($this.props.selectionEnabled) {
+                    if ($this.props.isSelectionEnabled()) {
                         childList.add(
                                 div(className("checkbox"),
                                         checkbox.$($ -> {
-                                            $.setChecked($this.props.selected);
+                                            $.setChecked($this.props.isSelected());
 //                                            $.setOnCheck(() -> {
 //                                                if ($this.props.onSelectionChanged != null) {
 //                                                    $this.props.onSelectionChanged.run($this.props.data, !$this.props.selected);
@@ -51,7 +52,7 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
                     }
 
                     childList.add(
-                            renderCell($this, $this.props.data, $this.props.columns)
+                            renderCell($this, $this.props.getData(), $this.props.getColumns())
                     );
                 }
         );
@@ -75,10 +76,10 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
         GridColumn column = null;
         for (GridColumn c : columns) {
             // todo ?
-            /*if (c.getId() != null && c.getId().equals(columnId)) {
+            if (c.getId() != null && c.getId().equals(columnId)) {
                 column = c;
                 break;
-            }*/
+            }
         }
 
         if (column == null) {
@@ -103,18 +104,52 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
     }
 
 
-    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
-    public static class Props<D> extends ComponentProps {
-        public boolean selectionEnabled;
-        public boolean reorderEnabled;
-        public boolean selected;
-        public Func.Run2<D, Boolean> onSelectionChanged;
-        public D data;
-        public List<GridColumn> columns;
-        public String className;
+    @JsType(isNative = true)
+    public interface Props<D> extends BaseProps {
+        @JsProperty
+        boolean isSelectionEnabled();
+
+        @JsProperty
+        void setSelectionEnabled(boolean selectionEnabled);
+
+        @JsProperty
+        boolean isReorderEnabled();
+
+        @JsProperty
+        void setReorderEnabled(boolean reorderEnabled);
+
+        @JsProperty
+        boolean isSelected();
+
+        @JsProperty
+        void setSelected(boolean selected);
+
+        @JsProperty
+        Func.Run2<D, Boolean> getOnSelectionChanged();
+
+        @JsProperty
+        void setOnSelectionChanged(Func.Run2<D, Boolean> onSelectionChanged);
+
+        @JsProperty
+        D getData();
+
+        @JsProperty
+        void setData(D data);
+
+        @JsProperty
+        List<GridColumn> getColumns();
+
+        @JsProperty
+        void setColumns(List<GridColumn> columns);
+
+        @JsProperty
+        String getClassName();
+
+        @JsProperty
+        void setClassName(String className);
     }
 
-    @JsType(isNative = true, name = "Object", namespace = GLOBAL)
-    public static class State {
+    @JsType(isNative = true)
+    public interface State {
     }
 }

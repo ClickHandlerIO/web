@@ -44,11 +44,11 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                                                 .onSortChanged((column, sort) -> {
                                                     List<GridColumn> cols = $this.state.columns;
                                                     for (GridColumn c : cols) {
-                                                        /*if (!c.getId().equals(column.getId())) {
+                                                        if (!c.getId().equals(column.getId())) {
                                                             c.setSort(GridSort.NONE);
                                                         } else {
                                                             c.setSort(sort);
-                                                        }*/
+                                                        }
                                                     }
                                                     $this.setState(s -> {
                                                         s.columns = cols;
@@ -213,7 +213,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         GridSort sortDirection = null;
         for (GridColumn c : $this.state.columns) {
             if (c.getSort() != null && !c.getSort().equals(GridSort.NONE)) {
-//                sortColumnId = c.getId();
+                sortColumnId = c.getId();
                 sortDirection = c.getSort();
                 break;
             }
@@ -256,7 +256,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
                 $this.props.onSelectionChanged.run(new ArrayList<>());
             }
 
-            fetchData($this, guid, fSortColumnId, fSortDirection, fStartRecordIdx, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
+            fetchData($this, guid, fSortColumnId, fSortDirection, fLastRecord, $this.props.pageSize + 1, new CompletionHandler<D, P>() {
                 @Override
                 public void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> d) {
                     if (!$this.state.pendingFetchGuid.equals(requestGuid)) {
@@ -307,7 +307,7 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     protected abstract GridColumn[] getColumns();
 
-    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, Double startRecordIdx, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
+    protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
 
     public interface CompletionHandler<D, P> {
         void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data);

@@ -52,8 +52,8 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
      */
 
     @Override
-    protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, Double startRecordIdx, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
-        log.error("Fetch Data, start record idx: " + startRecordIdx + " lsatRecordId: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
+    protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
+//        log.error("Fetch Data, start record idx: " + startRecordIdx + " lsatRecordId: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), pageSize, data -> {
             completionHandler.onFetchComplete($this, requestGuid, data);
         });
@@ -152,14 +152,14 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
     @Override
     protected ReactElement createCell(ReactComponent<Props, State<GridDataSource.SnowReport>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, GridDataSource.SnowReport data, boolean isSelected, Func.Run2<GridDataSource.SnowReport, Boolean> onSelectionChanged) {
         return cell.createElement(props -> {
-            props.className = "hover";
-            props.reorderEnabled = reorderEnabled;
-            props.selectionEnabled = selectionEnabled;
-            props.columns = columns;
-            props.data = data;
-            props.selected = isSelected;
-            props.onSelectionChanged = onSelectionChanged;
-            props.key = data.getId();
+            props.setClassName("hover");
+            props.setReorderEnabled(reorderEnabled);
+            props.setSelectionEnabled(selectionEnabled);
+            props.setColumns(columns);
+            props.setData(data);
+            props.setSelected(isSelected);
+            props.setOnSelectionChanged(onSelectionChanged);
+            props.setKey(data.getId());
         });
     }
 
@@ -188,12 +188,12 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
          * Cell Props and State
          */
 
-        @JsType(isNative = true, name = "Object", namespace = GLOBAL)
-        public static class Props extends GridCell.Props<GridDataSource.SnowReport> {
+        @JsType(isNative = true)
+        public interface Props extends GridCell.Props<GridDataSource.SnowReport> {
         }
 
-        @JsType(isNative = true, name = "Object", namespace = GLOBAL)
-        public static class State extends GridCell.State {
+        @JsType(isNative = true)
+        public interface State extends GridCell.State {
 
         }
     }
