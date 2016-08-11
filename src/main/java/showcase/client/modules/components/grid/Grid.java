@@ -30,12 +30,11 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     protected GridColumn[] getColumns() {
-        return null;
-//        return new GridColumn[]{
-//                new GridColumn(COL_DATE, "Date", 1, true, false),
-//                new GridColumn(COL_RESORT, "Resort", 1, true, false),
-//                new GridColumn(COL_SNOWFALL, "Snowfall", 1, true, false),
-//        };
+        return new GridColumn[]{
+                new GridColumn(COL_DATE, "Date", 1, true, false),
+                new GridColumn(COL_RESORT, "Resort", 1, true, false),
+                new GridColumn(COL_SNOWFALL, "Snowfall", 1, true, false),
+        };
     }
 
     /*
@@ -53,7 +52,7 @@ public class Grid extends AbstractGrid<GridDataSource.SnowReport, Grid.Props> {
 
     @Override
     protected void fetchData(final ReactComponent<Props, State<GridDataSource.SnowReport>> $this, final String requestGuid, String sortColumnId, GridSort sortDirection, GridDataSource.SnowReport lastRecord, double pageSize, final CompletionHandler<GridDataSource.SnowReport, Props> completionHandler) {
-//        log.error("Fetch Data, start record idx: " + startRecordIdx + " lsatRecordId: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
+        log.error("Fetch Data,  lsatRecordId: " + (lastRecord != null ? lastRecord.getId() : "NULL"));
         GridDataSource.fetchData(null, lastRecord == null ? null : lastRecord.getId(), pageSize, data -> {
             completionHandler.onFetchComplete($this, requestGuid, data);
         });

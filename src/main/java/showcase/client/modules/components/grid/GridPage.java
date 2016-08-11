@@ -23,6 +23,8 @@ import static react.client.DOM.div;
 public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Props, GridPage.State> {
 
     @Inject
+    Grid grid;
+    @Inject
     SnowReportGrid snowReportGrid;
 
     @Inject
@@ -32,15 +34,15 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return div(style().padding("20px"),
                 div("Grid Page Here"),
-                snowReportGrid.props()
+                /*snowReportGrid.props()
                         .selection($this.state.selectedReports)
                         .onSelectionChanged(v -> $this.setState(s->s.selectedReports(v)))
 //                        .headerVisible(false)
                         .handleEmail(() -> log.error("imp me!"))
                         .handleExcel(() -> log.error("imp me!"))
                         .handlePDF(() -> log.error("imp me!"))
-                        .build()
-//                grid.props()
+                        .build()*/
+                grid.props()
 //                        .selectionEnabled(true)
 //                        .selected($this.state.selectedReports)
 //                        .onSelectionChanged(value -> {
@@ -53,7 +55,7 @@ public class GridPage extends SimpleRouteComponent<GridPage.Route, GridPage.Prop
 //                        .onExcel(() -> {
 //
 //                        })
-//                        .build()
+                        .build()
         );
     }
 
