@@ -40,6 +40,7 @@
       flex-direction: row;
       align-items: stretch;
       border-bottom: 1px solid $grid-border-color;
+      overflow: hidden;
 
       &.selected {
         background-color: #FFFFC4;
