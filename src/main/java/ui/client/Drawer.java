@@ -54,10 +54,10 @@ public class Drawer extends ExternalComponent<Drawer.Props> {
         void setOpen(Boolean open);
 
         @JsProperty
-        boolean isOpenRight();
+        boolean isOpenSecondary();
 
         @JsProperty
-        void setOpenRight(boolean openRight);
+        void setOpenSecondary(boolean openSecondary);
 
         @JsProperty
         String getOverlayClassName();
@@ -125,8 +125,8 @@ public class Drawer extends ExternalComponent<Drawer.Props> {
         }
 
         @JsOverlay
-        default Props openRight(boolean openRight) {
-            setOpenRight(openRight);
+        default Props openSecondary(boolean openSecondary) {
+            setOpenSecondary(openSecondary);
             return this;
         }
 
