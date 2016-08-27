@@ -15,7 +15,6 @@ import java.util.*;
  * @author Clay Molocznik
  */
 public class WsDispatcher {
-    private final static int DEFAULT_SUB_TIMEOUT = 5_000;
     private final Bus bus;
     private final String url;
     private final Queue<Outgoing> pendingQueue = new LinkedList<>();
@@ -144,11 +143,6 @@ public class WsDispatcher {
     private void connected() {
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
 
-        for (AddressSubscription sub : subMap.values()) {
-            sub.state = SubState.NOT_REGISTERED;
-            sub.subscribeToServer();
-        }
-
         // Try draining the queue.
         if (connectedCallback != null) {
             connectedCallback.run((success) -> {
@@ -171,10 +165,6 @@ public class WsDispatcher {
                 pendingQueue.add(outgoing);
             }
             calls.clear();
-        }
-
-        for (AddressSubscription sub : subMap.values()) {
-            sub.state = SubState.NOT_REGISTERED;
         }
     }
 
@@ -378,13 +368,6 @@ public class WsDispatcher {
         send(call);
     }
 
-    public enum SubState {
-        INVALID,
-        NOT_REGISTERED,
-        REGISTERING,
-        REGISTERED,;
-    }
-
     /**
      *
      */
@@ -422,17 +405,13 @@ public class WsDispatcher {
     /**
      * Manages the lifecycle of a single subscription to a single address.
      * Multiple local listeners may be registered.
-     * It automatically subscribes with the server upon the first local listener and un-subscribes when
-     * the last local listener is removed.
      */
     private class AddressSubscription<T> implements HandlerRegistration {
         private final String name;
-        private SubState state = SubState.NOT_REGISTERED;
         private ArrayList<PushSubscription> subs = new ArrayList<>();
 
         public AddressSubscription(String name) {
             this.name = name;
-            subscribeToServer();
         }
 
         /**
@@ -448,62 +427,9 @@ public class WsDispatcher {
             for (PushSubscription sub : subs) {
                 sub.removeHandler();
             }
-
-            if (state == SubState.INVALID)
-                return;
-
-            send(
-                new Outgoing(
-                    null,
-                    null,
-                    new Date().getTime(),
-                    DEFAULT_SUB_TIMEOUT,
-                    new WsMessage(WsHeader.Factory.create(WsHeader.Constants.USUB, nextId(), 0, name), null),
-                    message -> setState(message.header.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED),
-                    () -> setState(SubState.NOT_REGISTERED)
-                )
-            );
         }
 
-        /**
-         * @param state
-         */
-        public void setState(SubState state) {
-            this.state = state;
-            if (state == SubState.NOT_REGISTERED) {
-                subscribeToServer();
-            }
-        }
-
-        /**
-         *
-         */
-        public void subscribeToServer() {
-            if (state == SubState.REGISTERED || state == SubState.REGISTERING) {
-                return;
-            }
-            setState(SubState.REGISTERING);
-            send(
-                new Outgoing(
-                    null,
-                    null,
-                    new Date().getTime(),
-                    DEFAULT_SUB_TIMEOUT,
-                    new WsMessage(WsHeader.Factory.create(WsHeader.Constants.SUB, nextId(), 0, name), null),
-                    message -> {
-                        // Was it a valid subscription.
-                        if (message.header.code() == 404) {
-                            removeHandler();
-                            return;
-                        }
-                        setState(message.header.code() == 200 ? SubState.REGISTERED : SubState.NOT_REGISTERED);
-                    },
-                    () -> setState(SubState.NOT_REGISTERED)
-                )
-            );
-        }
-
-        public void receive(String json) {
+        void receive(String json) {
             final T event = JSON.parse(json);
 
             final HashSet<Bus.TypeName<T>> typeNameSet = new HashSet<>();
@@ -526,7 +452,7 @@ public class WsDispatcher {
          * @param subscription
          * @return
          */
-        public HandlerRegistration subscribe(PushSubscription subscription) {
+        HandlerRegistration subscribe(PushSubscription subscription) {
             subs.add(subscription);
             subscription.dispatcherReg = () -> unsubscribe(subscription);
             subscription.subscribe(bus);
@@ -536,7 +462,7 @@ public class WsDispatcher {
         /**
          * @param sub
          */
-        private void unsubscribe(PushSubscription sub) {
+        void unsubscribe(PushSubscription sub) {
             subs.remove(sub);
             sub.removeHandler();
 
