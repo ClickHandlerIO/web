@@ -58,7 +58,7 @@ public abstract class ModuleLoader {
      *
      * @param subModule
      */
-    protected void register(ModuleLoader subModule) {
+    protected void register(final ModuleLoader subModule) {
         loaderMap.put(subModule.prefix, subModule);
     }
 
@@ -71,7 +71,9 @@ public abstract class ModuleLoader {
      * @param location
      * @param callback
      */
-    protected void handle(final String relativePath, final Location location, RoutesCallback callback) {
+    protected void handle(final String relativePath,
+                          final Location location,
+                          final RoutesCallback callback) {
         this.location = location;
         this.callback = (error, routes) -> {
             // Find parent route.
@@ -127,7 +129,7 @@ public abstract class ModuleLoader {
     /**
      * @param callback
      */
-    protected void getRouteBuilder(Func.Run1<RoutesBuilder> callback) {
+    protected void getRouteBuilder(final Func.Run1<RoutesBuilder> callback) {
         if (routesBuilder != null) {
             callback.run(routesBuilder);
         } else {
@@ -141,7 +143,7 @@ public abstract class ModuleLoader {
     /**
      * @param routesBuilder
      */
-    protected void initRouteBuilder(RoutesBuilder routesBuilder) {
+    protected void initRouteBuilder(final RoutesBuilder routesBuilder) {
         this.routesBuilder = routesBuilder;
 
         if (routesBuilder != null) {
@@ -152,5 +154,5 @@ public abstract class ModuleLoader {
     /**
      * @param callback
      */
-    protected abstract void loadRouteBuilder(Func.Run1<RoutesBuilder> callback);
+    protected abstract void loadRouteBuilder(final Func.Run1<RoutesBuilder> callback);
 }
