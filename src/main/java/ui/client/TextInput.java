@@ -29,7 +29,7 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
                 .disabled($this.props.disabled)
                 .zIndex($this.props.zIndex)
                 .placeholder($this.props.placeholder)
-                .value($this.props.value)
+                .value($this.props.value != null ? $this.props.value : "")
                 .onFocus(event -> {
                     if ($this.props.onFocus != null) {
                         $this.props.onFocus.run(event);
@@ -51,6 +51,12 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
                     }
                 })
         );
+    }
+
+    @Override
+    protected boolean shouldComponentUpdate(ReactComponent<Props, State> $this, Props nextProps, State nextState) {
+        boolean shouldUpdate = super.shouldComponentUpdate($this, nextProps, nextState);
+        return shouldUpdate;
     }
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
