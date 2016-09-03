@@ -1,5 +1,6 @@
 package remoting.client;
 
+import com.google.common.base.Strings;
 import com.google.gwt.user.client.Timer;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import common.client.Bus;
@@ -20,8 +21,9 @@ public class WsDispatcher {
     private final Queue<Outgoing> pendingQueue = new LinkedList<>();
     private final LinkedHashMap<Double, Outgoing> calls = new LinkedHashMap<>();
     private final Map<String, AddressSubscription> subMap = new HashMap<>();
+    private final Map<String, PresenceManager> presenceMap = new HashMap<>();
     private Ws webSocket;
-    private int reaperMillis = 500;
+    private int reaperMillis = 1_000;
     private Timer reaperTimer;
     private int id = 0;
     private Func.Run1<Func.Run1<Boolean>> connectedCallback;
@@ -217,6 +219,42 @@ public class WsDispatcher {
                     addressSubscription.receive(body);
                 }
                 break;
+
+            case WsHeader.Constants.PRESENCE_JOINED: {
+                final String key = message.header.t == null ? "" : message.header.t.trim();
+                PresenceManager manager = presenceMap.get(key);
+                if (manager == null) {
+                    manager = new PresenceManager(key);
+                    presenceMap.put(key, manager);
+                }
+
+                final PresenceJoined joined = JSON.parse(message.body);
+                manager.onJoined(joined);
+            }
+            break;
+
+            case WsHeader.Constants.PRESENCE_CHANGED: {
+                final String key = message.header.t == null ? "" : message.header.t.trim();
+                PresenceManager manager = presenceMap.get(key);
+                if (manager == null) {
+                    manager = new PresenceManager(key);
+                    presenceMap.put(key, manager);
+                }
+
+                final PresenceChange change = JSON.parse(message.body);
+                manager.onChange(change);
+            }
+            break;
+
+            case WsHeader.Constants.PRESENCE_REMOVED: {
+                final String key = message.header.t == null ? "" : message.header.t.trim();
+                PresenceManager manager = presenceMap.get(key);
+                if (manager != null) {
+                    manager.onLeave();
+                    return;
+                }
+            }
+            break;
         }
     }
 
@@ -230,7 +268,6 @@ public class WsDispatcher {
         } else {
             try {
                 calls.put(call.message.header.id(), call);
-
                 try {
                     webSocket.send(WsEncoding.encode(call.message));
                 } catch (Throwable e) {
@@ -368,6 +405,15 @@ public class WsDispatcher {
         send(call);
     }
 
+    public PresenceSubscription addPresenceListener(String key, PresenceListener listener) {
+        PresenceManager manager = presenceMap.get(key);
+        if (manager == null) {
+            manager = new PresenceManager(key);
+            presenceMap.put(key, manager);
+        }
+        return manager.add(listener);
+    }
+
     /**
      *
      */
@@ -468,6 +514,243 @@ public class WsDispatcher {
 
             if (subs.isEmpty())
                 removeHandler();
+        }
+    }
+
+    /**
+     *
+     */
+    private class PresenceManager implements HandlerRegistration {
+        private final String key;
+        private final LinkedList<Subscription> subscriptions = new LinkedList<>();
+        private Presence presence;
+        private PresenceOccupant me;
+
+        /**
+         * @param key
+         */
+        public PresenceManager(String key) {
+            this.key = key;
+        }
+
+        /**
+         *
+         */
+        @Override
+        public void removeHandler() {
+            final PresenceManager addressSubscription = presenceMap.remove(key);
+            if (addressSubscription == null) {
+                return;
+            }
+
+            subscriptions.forEach(Subscription::removeHandler);
+        }
+
+        /**
+         * @param joined
+         */
+        void onJoined(PresenceJoined joined) {
+            this.presence = joined.presence;
+            this.me = joined.me;
+
+            bus.publish(new PresenceJoinedEvent(joined));
+
+            subscriptions.forEach(subscription -> Try.later(() -> subscription.listener.onJoin(joined)));
+        }
+
+        /**
+         * @param change
+         */
+        void onChange(PresenceChange change) {
+            bus.publish(new PresenceChangedEvent(change, presence));
+
+            if (presence == null) {
+                onOutOfSync();
+            } else {
+                if (Strings.nullToEmpty(change.mod).equals(presence.mod)) {
+                    if (change.seq < presence.seq
+                        || change.seq > presence.seq + 1) {
+                        onOutOfSync();
+                    } else {
+                        merge(change);
+                    }
+                } else {
+                    onOutOfSync();
+                }
+            }
+        }
+
+        void onOutOfSync() {
+            sendLeave();
+        }
+
+        void merge(PresenceChange change) {
+            if (change == null)
+                return;
+
+            // Update Seq on Presence.
+            presence.seq = change.seq;
+
+            List<PresenceOccupant> newOccupants = null;
+            if (change.joined != null && change.joined.length > 0) {
+                newOccupants = presence.occupants == null ?
+                    new ArrayList<>() :
+                    Arrays.asList(presence.occupants);
+                newOccupants.addAll(Arrays.asList(change.joined));
+            }
+
+            if (change.left != null && change.left.length > 0) {
+                if (newOccupants == null)
+                    newOccupants = presence.occupants == null ?
+                        new ArrayList<>() :
+                        Arrays.asList(presence.occupants);
+
+                final List<PresenceOccupant> removeList = new ArrayList<>();
+
+                for (PresenceOccupant occupant : newOccupants) {
+                    boolean found = false;
+                    final String id = occupant.id == null ? "" : occupant.id;
+                    for (PresenceLeave leave : change.left) {
+                        if (id.equals(leave.id)) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found) {
+                        removeList.add(occupant);
+                    }
+                }
+
+                final List<PresenceOccupant> occupants = newOccupants;
+                removeList.forEach(occupants::remove);
+            }
+
+            if (newOccupants != null) {
+                presence.occupants = newOccupants.toArray(
+                    new PresenceOccupant[newOccupants.size()]
+                );
+            }
+
+            if (change.changed != null && change.changed.length > 0) {
+                for (PresenceStateChanged stateChanged : change.changed) {
+                    final String id = stateChanged.id == null ? "" : stateChanged.id;
+
+                    for (PresenceOccupant occupant : presence.occupants) {
+                        if (id.equals(occupant.id)) {
+                            // Update occupant's state.
+                            occupant.state(stateChanged.state);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void onLeave() {
+            bus.publish(new PresenceLeaveEvent(key, presence, me));
+
+            try {
+                if (subscriptions.isEmpty()) {
+                    presenceMap.remove(key);
+                } else {
+                    subscriptions.forEach(s -> s.listener.onLeave(presence, me));
+                }
+            } finally {
+                presence = null;
+                me = null;
+            }
+        }
+
+        /**
+         * @param listener
+         * @return
+         */
+        Subscription add(PresenceListener listener) {
+            final Subscription subscription = new Subscription(listener);
+            subscriptions.add(subscription);
+
+            if (presence != null) {
+                Try.later(() -> listener.onJoin(new PresenceJoined()
+                    .presence(presence)
+                    .me(me)));
+            }
+
+            return subscription;
+        }
+
+        /**
+         * @param subscription
+         */
+        void remove(Subscription subscription) {
+            subscriptions.remove(subscription);
+
+            // Remove PresenceManager if necessary.
+            if (subscriptions.isEmpty() && presence == null) {
+                presenceMap.remove(key);
+            }
+        }
+
+        /**
+         *
+         */
+        void sendLeave() {
+            // Tell server to leave presence.
+            final Outgoing call = new Outgoing(
+                null,
+                null,
+                new Date().getTime(),
+                5_000,
+                new WsMessage(WsHeader.Factory.create(
+                    WsHeader.Constants.PRESENCE_LEAVE,
+                    nextId(),
+                    0,
+                    key
+                ), null),
+                null,
+                null
+            );
+            send(call);
+        }
+
+        /**
+         *
+         */
+        private class Subscription implements PresenceSubscription {
+            private final PresenceListener listener;
+
+            public Subscription(PresenceListener listener) {
+                this.listener = listener;
+            }
+
+            @Override
+            public void removeHandler() {
+                remove(this);
+            }
+
+            @Override
+            public Presence presence() {
+                return presence;
+            }
+
+            @Override
+            public PresenceOccupant me() {
+                return me;
+            }
+
+            @Override
+            public PresenceListener listener() {
+                return listener;
+            }
+
+            @Override
+            public void leave() {
+                // Tell server to leave presence.
+                sendLeave();
+            }
         }
     }
 }

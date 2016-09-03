@@ -8,7 +8,7 @@ import common.client.Try;
 import javax.inject.Provider;
 
 /**
- * Maintains the lifecycle of a single Action call.
+ * Maintains the dispatching/eventing of a single Action call.
  *
  * @author Clay Molocznik
  */
@@ -42,14 +42,37 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         return create(action.get());
     }
 
+    /**
+     * @param action
+     * @param <H>
+     * @param <IN>
+     * @param <OUT>
+     * @return
+     */
     public static <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> create(H action) {
         return create(null, action);
     }
 
+    /**
+     * @param bus
+     * @param action
+     * @param <H>
+     * @param <IN>
+     * @param <OUT>
+     * @return
+     */
     public static <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> create(BusDelegate bus, Provider<H> action) {
         return create(bus, action.get());
     }
 
+    /**
+     * @param bus
+     * @param action
+     * @param <H>
+     * @param <IN>
+     * @param <OUT>
+     * @return
+     */
     public static <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> create(BusDelegate bus, H action) {
         final ActionCall<IN, OUT> call = action.build();
         if (bus != null)
@@ -127,15 +150,25 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         return this;
     }
 
+    /**
+     * @param disposedCallback
+     * @return
+     */
     public ActionCall<IN, OUT> disposed(Func.Run disposedCallback) {
         this.disposedCallback = disposedCallback;
         return this;
     }
 
+    /**
+     *
+     */
     private void enqueueSend() {
         Try.later(this::send);
     }
 
+    /**
+     * @param response
+     */
     void onResponse(OUT response) {
         try {
             if (this.response != null)
@@ -148,6 +181,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         }
     }
 
+    /**
+     * @param e
+     */
     void onError(Throwable e) {
         Try.silent(() -> always());
 
@@ -159,6 +195,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         }
     }
 
+    /**
+     *
+     */
     void always() {
         if (alwaysCallback == null) return;
 
@@ -170,6 +209,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         }
     }
 
+    /**
+     * @param e
+     */
     void failed(Throwable e) {
         try {
             if (errorCallback != null)
@@ -184,6 +226,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         }
     }
 
+    /**
+     * @return
+     */
     public ActionCall<IN, OUT> send() {
         if (dispatch != null) {
             try {
@@ -211,6 +256,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
         return this;
     }
 
+    /**
+     *
+     */
     public void cleanup() {
         if (disposed) return;
         disposed = true;
@@ -230,6 +278,9 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
             Try.silent(disposedCallback);
     }
 
+    /**
+     *
+     */
     @Override
     public void removeHandler() {
         cleanup();

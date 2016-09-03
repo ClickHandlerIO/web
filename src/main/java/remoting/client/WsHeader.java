@@ -72,9 +72,14 @@ public class WsHeader {
         // Direction
         public static final int OUT = 0;
         public static final int IN = 1;
-        public static final int SUB = 2;
-        public static final int USUB = 3;
+        public static final int PING = 2;
+        public static final int PONG = 3;
         public static final int PUSH = 4;
+        public static final int PRESENCE_GET = 5;
+        public static final int PRESENCE_LEAVE = 6;
+        public static final int PRESENCE_JOINED = 7;
+        public static final int PRESENCE_CHANGED = 8;
+        public static final int PRESENCE_REMOVED = 9;
     }
 }
 
