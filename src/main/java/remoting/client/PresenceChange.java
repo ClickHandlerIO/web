@@ -1,5 +1,6 @@
 package remoting.client;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
@@ -15,32 +16,38 @@ public class PresenceChange {
     public PresenceLeave[] left;
     public PresenceStateChanged[] changed;
 
-    public PresenceChange key(final String key) {
+    @JsOverlay
+    public final PresenceChange key(final String key) {
         this.key = key;
         return this;
     }
 
-    public PresenceChange mod(final String mod) {
+    @JsOverlay
+    public final PresenceChange mod(final String mod) {
         this.mod = mod;
         return this;
     }
 
-    public PresenceChange seq(final long seq) {
+    @JsOverlay
+    public final PresenceChange seq(final long seq) {
         this.seq = seq;
         return this;
     }
 
-    public PresenceChange joined(final PresenceOccupant[] joined) {
+    @JsOverlay
+    public final PresenceChange joined(final PresenceOccupant[] joined) {
         this.joined = joined;
         return this;
     }
 
-    public PresenceChange left(final PresenceLeave[] left) {
+    @JsOverlay
+    public final PresenceChange left(final PresenceLeave[] left) {
         this.left = left;
         return this;
     }
 
-    public PresenceChange changed(final PresenceStateChanged[] changed) {
+    @JsOverlay
+    public final PresenceChange changed(final PresenceStateChanged[] changed) {
         this.changed = changed;
         return this;
     }

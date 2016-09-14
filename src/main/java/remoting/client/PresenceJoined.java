@@ -13,13 +13,13 @@ public class PresenceJoined {
     public PresenceOccupant me;
 
     @JsOverlay
-    public PresenceJoined presence(final Presence presence) {
+    public final PresenceJoined presence(final Presence presence) {
         this.presence = presence;
         return this;
     }
 
     @JsOverlay
-    public PresenceJoined me(final PresenceOccupant me) {
+    public final PresenceJoined me(final PresenceOccupant me) {
         this.me = me;
         return this;
     }

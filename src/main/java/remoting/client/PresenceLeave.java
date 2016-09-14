@@ -1,5 +1,6 @@
 package remoting.client;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
@@ -11,12 +12,14 @@ public class PresenceLeave {
     public String id;
     public String userId;
 
-    public PresenceLeave id(final String sessionId) {
+    @JsOverlay
+    public final PresenceLeave id(final String sessionId) {
         this.id = sessionId;
         return this;
     }
 
-    public PresenceLeave userId(final String userId) {
+    @JsOverlay
+    public final PresenceLeave userId(final String userId) {
         this.userId = userId;
         return this;
     }
