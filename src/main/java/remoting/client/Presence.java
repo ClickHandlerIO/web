@@ -15,25 +15,25 @@ public class Presence {
     public PresenceOccupant[] occupants;
 
     @JsOverlay
-    public Presence key(final String key) {
+    public final Presence key(final String key) {
         this.key = key;
         return this;
     }
 
     @JsOverlay
-    public Presence mod(final String mod) {
+    public final Presence mod(final String mod) {
         this.mod = mod;
         return this;
     }
 
     @JsOverlay
-    public Presence seq(final long seq) {
+    public final Presence seq(final long seq) {
         this.seq = seq;
         return this;
     }
 
     @JsOverlay
-    public Presence occupants(final PresenceOccupant[] occupants) {
+    public final Presence occupants(final PresenceOccupant[] occupants) {
         this.occupants = occupants;
         return this;
     }
