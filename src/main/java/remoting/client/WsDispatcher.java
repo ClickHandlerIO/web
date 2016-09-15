@@ -224,8 +224,22 @@ public class WsDispatcher {
                 final String key = message.header.t == null ? "" : message.header.t.trim();
                 PresenceManager manager = presenceMap.get(key);
                 if (manager == null) {
-                    manager = new PresenceManager(key);
-                    presenceMap.put(key, manager);
+                    send(new Outgoing(
+                        null,
+                        null,
+                        new Date().getTime(),
+                        5_000,
+                        new WsMessage(WsHeader.Factory.create(
+                            WsHeader.Constants.PRESENCE_LEAVE,
+                            nextId(),
+                            0,
+                            key
+                        ), null),
+                        null,
+                        null
+                    ));
+
+                    return;
                 }
 
                 final PresenceJoined joined = JSON.parse(message.body);
@@ -691,6 +705,7 @@ public class WsDispatcher {
             // Remove PresenceManager if necessary.
             if (subscriptions.isEmpty() && presence == null) {
                 presenceMap.remove(key);
+                sendLeave();
             }
         }
 
@@ -698,6 +713,9 @@ public class WsDispatcher {
          *
          */
         void sendLeave() {
+            if (presence == null) {
+                return;
+            }
             // Tell server to leave presence.
             final Outgoing call = new Outgoing(
                 null,
