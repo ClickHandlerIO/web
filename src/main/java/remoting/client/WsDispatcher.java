@@ -419,6 +419,12 @@ public class WsDispatcher {
         send(call);
     }
 
+    /**
+     *
+     * @param key
+     * @param listener
+     * @return
+     */
     public PresenceSubscription addPresenceListener(String key, PresenceListener listener) {
         PresenceManager manager = presenceMap.get(key);
         if (manager == null) {
@@ -703,7 +709,7 @@ public class WsDispatcher {
             subscriptions.remove(subscription);
 
             // Remove PresenceManager if necessary.
-            if (subscriptions.isEmpty() && presence == null) {
+            if (subscriptions.isEmpty()) {
                 presenceMap.remove(key);
                 sendLeave();
             }
