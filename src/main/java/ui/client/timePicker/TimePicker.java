@@ -29,33 +29,43 @@ public class TimePicker extends Component<TimePicker.Props, TimePicker.State> {
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return
-                div(className("flex-row align-items-center"),
-                        HourSelect.props()
-                                .clearable(false)
-                                .style(new StyleProps().width("56px"))
-                                .value($this.state.hours)
-                                .onChange(v -> {
-                                    $this.setState(s -> s.hours(v));
-                                    fireUpdate($this, v, $this.state.minutes, $this.state.meridian);
-                                }).build(),
-                        div(style().margin("0 5px"), ":"),
-                        MinuteSelect.props()
-                                .clearable(false)
-                                .style(new StyleProps().width("65px"))
-                                .value($this.state.minutes)
-                                .onChange(v -> {
-                                    $this.setState(s -> s.minutes(v));
-                                    fireUpdate($this, $this.state.hours, v, $this.state.meridian);
-                                }).build(),
-                        div(style().width("5px")),
-                        MeridianSelect.props()
-                                .clearable(false)
-                                .style(new StyleProps().width("75px"))
-                                .value($this.state.meridian)
-                                .onChange(v -> {
-                                    $this.setState(s -> s.meridian(v));
-                                    fireUpdate($this, $this.state.hours, $this.state.minutes, v);
-                                }).build()
+                div(className("flex-row align-items-center"), children -> {
+                            children.add(
+                                    HourSelect.props()
+                                            .clearable(false)
+                                            .style(new StyleProps().width("56px"))
+                                            .value($this.state.hours)
+                                            .onChange(v -> {
+                                                $this.setState(s -> s.hours(v));
+                                                fireUpdate($this, v, $this.state.minutes, $this.state.meridian);
+                                            }).build(),
+                                    div(style().margin("0 5px"), ":"),
+                                    MinuteSelect.props()
+                                            .clearable(false)
+                                            .style(new StyleProps().width("65px"))
+                                            .value($this.state.minutes)
+                                            .onChange(v -> {
+                                                $this.setState(s -> s.minutes(v));
+                                                fireUpdate($this, $this.state.hours, v, $this.state.meridian);
+                                            }).build(),
+                                    div(style().width("5px")),
+                                    MeridianSelect.props()
+                                            .clearable(false)
+                                            .style(new StyleProps().width("75px"))
+                                            .value($this.state.meridian)
+                                            .onChange(v -> {
+                                                $this.setState(s -> s.meridian(v));
+                                                fireUpdate($this, $this.state.hours, $this.state.minutes, v);
+                                            }).build()
+                            );
+
+                            if ($this.props.timeZone != null && !$this.props.timeZone.isEmpty()) {
+                                children.add(
+                                        div(style().paddingLeft(5), Moment.moment().tz($this.props.timeZone).format("z"))
+                                );
+                            }
+                        }
+
                 );
     }
 
@@ -73,6 +83,9 @@ public class TimePicker extends Component<TimePicker.Props, TimePicker.State> {
 
     private void fireUpdate(ReactComponent<Props, State> $this, TimePickerHour hour, TimePickerMinute15 minute, TimePickerMeridian meridian) {
         Moment time = Moment.moment();
+        if ($this.props.timeZone != null && !$this.props.timeZone.isEmpty()) {
+            time.tz($this.props.timeZone);
+        }
         time.startOf("day"); // zero out time
         time.hours(hour.getValue() + (meridian.equals(TimePickerMeridian.PM) ? 12 : 0));
         time.minutes(minute.getValue());
@@ -85,7 +98,20 @@ public class TimePicker extends Component<TimePicker.Props, TimePicker.State> {
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends ComponentProps {
         public Moment time;
+        public String timeZone;
         public Func.Run1<Moment> onChange;
+
+        @JsOverlay
+        public final Props key(final String key) {
+            this.key = key;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props timeZone(final String timeZone) {
+            this.timeZone = timeZone;
+            return this;
+        }
 
         @JsOverlay
         public final Props onChange(final Func.Run1<Moment> onChange) {
