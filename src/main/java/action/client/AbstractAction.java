@@ -17,7 +17,7 @@ import java.util.Date;
 public abstract class AbstractAction<IN, OUT> {
     private Bus bus;
     private long started;
-    private int timeoutMillis = 10000;
+    private int timeoutMillis = 10_000;
     private ActionCall<IN, OUT> call;
 
     public AbstractAction() {
