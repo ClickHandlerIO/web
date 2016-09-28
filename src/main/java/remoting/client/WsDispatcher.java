@@ -7,8 +7,10 @@ import common.client.Bus;
 import common.client.Func;
 import common.client.JSON;
 import common.client.Try;
+import elemental.client.Browser;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * Remoting Dispatcher.
@@ -20,7 +22,7 @@ public class WsDispatcher {
     private final String url;
     private final Queue<Outgoing> pendingQueue = new LinkedList<>();
     private final LinkedHashMap<Double, Outgoing> calls = new LinkedHashMap<>();
-    private final Map<String, AddressSubscription> subMap = new HashMap<>();
+    private final Map<String, PushManager<?>> pushMap = new HashMap<>();
     private final Map<String, PresenceManager> presenceMap = new HashMap<>();
     private Ws webSocket;
     private int reaperMillis = 1_000;
@@ -56,30 +58,6 @@ public class WsDispatcher {
 
     public void setConnectedCallback(Func.Run1<Func.Run1<Boolean>> connectedCallback) {
         this.connectedCallback = connectedCallback;
-    }
-
-    /**
-     * @param subscription
-     * @param <T>
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public <T> HandlerRegistration subscribe(PushSubscription<T> subscription) {
-        if (subscription == null)
-            return null;
-
-        final String addr = subscription.getAddress();
-        if (addr == null || addr.isEmpty()) {
-            return null;
-        }
-
-        AddressSubscription addressSubscription = subMap.get(addr);
-        if (addressSubscription == null) {
-            addressSubscription = new AddressSubscription<>(addr);
-            subMap.put(addr, addressSubscription);
-        }
-
-        return addressSubscription.subscribe(subscription);
     }
 
     public <T> void simulatePush(String address, T event) {
@@ -214,9 +192,14 @@ public class WsDispatcher {
 
                 if (body.isEmpty()) body = "{}";
 
-                final AddressSubscription addressSubscription = subMap.get(type);
-                if (addressSubscription != null) {
-                    addressSubscription.receive(body);
+                final PushManager<?> pushManager = pushMap.get(type);
+                if (pushManager != null) {
+                    try {
+                        bus.publish(pushManager.typeName, pushManager.supplier.apply(body));
+                    } catch (Throwable e) {
+                        // Ignore.
+                        Browser.getWindow().getConsole().log(e);
+                    }
                 }
                 break;
 
@@ -419,8 +402,11 @@ public class WsDispatcher {
         send(call);
     }
 
+    public <T> void registerPush(String name, Class<T> cls, Function<String, T> supplier) {
+        pushMap.put(name, new PushManager<>(cls, supplier));
+    }
+
     /**
-     *
      * @param key
      * @param listener
      * @return
@@ -468,72 +454,15 @@ public class WsDispatcher {
         }
     }
 
-    /**
-     * Manages the lifecycle of a single subscription to a single address.
-     * Multiple local listeners may be registered.
-     */
-    private class AddressSubscription<T> implements HandlerRegistration {
-        private final String name;
-        private ArrayList<PushSubscription> subs = new ArrayList<>();
+    private class PushManager<T> {
+        private final Class<T> eventClass;
+        private final String typeName;
+        private final Function<String, T> supplier;
 
-        public AddressSubscription(String name) {
-            this.name = name;
-        }
-
-        /**
-         *
-         */
-        @Override
-        public void removeHandler() {
-            final AddressSubscription addressSubscription = subMap.remove(name);
-            if (addressSubscription == null) {
-                return;
-            }
-
-            for (PushSubscription sub : subs) {
-                sub.removeHandler();
-            }
-        }
-
-        void receive(String json) {
-            final T event = JSON.parse(json);
-
-            final HashSet<Bus.TypeName<T>> typeNameSet = new HashSet<>();
-            for (PushSubscription subscription : subs) {
-                final Bus.TypeName<T> typeName = subscription.getTypeName();
-                final Bus.TypeName<T> scopedTypeName = subscription.getScopedTypeName();
-
-                if (typeName != null && !typeNameSet.contains(typeName)) {
-                    typeNameSet.add(typeName);
-                    bus.publish(typeName, event);
-                }
-                if (scopedTypeName != null && !typeNameSet.contains(scopedTypeName)) {
-                    typeNameSet.add(scopedTypeName);
-                    bus.publish(scopedTypeName, event);
-                }
-            }
-        }
-
-        /**
-         * @param subscription
-         * @return
-         */
-        HandlerRegistration subscribe(PushSubscription subscription) {
-            subs.add(subscription);
-            subscription.dispatcherReg = () -> unsubscribe(subscription);
-            subscription.subscribe(bus);
-            return subscription;
-        }
-
-        /**
-         * @param sub
-         */
-        void unsubscribe(PushSubscription sub) {
-            subs.remove(sub);
-            sub.removeHandler();
-
-            if (subs.isEmpty())
-                removeHandler();
+        public PushManager(Class<T> eventClass, Function<String, T> supplier) {
+            this.eventClass = eventClass;
+            this.supplier = supplier;
+            this.typeName = eventClass.getName();
         }
     }
 
