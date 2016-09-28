@@ -1,6 +1,5 @@
 package remoting.client;
 
-import com.google.common.base.Strings;
 import com.google.gwt.user.client.Timer;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import common.client.Bus;
@@ -516,7 +515,7 @@ public class WsDispatcher {
             if (presence == null) {
                 onOutOfSync();
             } else {
-                if (Strings.nullToEmpty(change.mod).equals(presence.mod)) {
+                if (change.mod != null && change.mod.equals(presence.mod)) {
                     if (change.seq < presence.seq
                         || change.seq > presence.seq + 1) {
                         onOutOfSync();

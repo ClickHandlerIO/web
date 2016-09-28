@@ -7,7 +7,13 @@ import common.client.*;
 import jsinterop.annotations.*;
 
 import javax.inject.Provider;
+import java.util.function.Consumer;
 
+/**
+ *
+ * @param <P>
+ * @param <S>
+ */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class ReactComponent<P, S> {
     @JsProperty
@@ -182,7 +188,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(Class<T> eventClass, EventCallback<T> callback) {
-        return register(bus.subscribe(eventClass, callback));
+        return bus.subscribe(eventClass, callback);
     }
 
     /**
@@ -193,7 +199,20 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(Bus.TypeName<T> named, EventCallback<T> callback) {
-        return register(bus.subscribe(named, callback));
+        return bus.subscribe(named, callback);
+    }
+
+    /**
+     *
+     * @param eventClass
+     * @param callback
+     * @param <T>
+     * @param <M>
+     * @return
+     */
+    @JsOverlay
+    public final <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, Consumer<M> callback) {
+        return bus.listen(eventClass, callback);
     }
 
     /**
@@ -204,7 +223,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(String name, EventCallback<T> callback) {
-        return register(bus.subscribe(name, callback));
+        return bus.subscribe(name, callback);
     }
 
     /**

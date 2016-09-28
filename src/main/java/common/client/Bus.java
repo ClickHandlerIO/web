@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.Map;
 @Singleton
 public class Bus {
     private final Map<String, GwtEvent.Type> map = new HashMap<>();
-    private EventBus eventBus = new SimpleEventBus();
+    private final EventBus eventBus = new SimpleEventBus();
 
     @Inject
     public Bus() {
@@ -30,6 +31,7 @@ public class Bus {
         return new TypeName<>();
     }
 
+    @Deprecated
     public static <T> TypeName<T> scoped(TypeName<T> typeName, String context) {
         if (typeName == null) return context == null ? new TypeName<>() : new TypeName<>();
         if (context == null) return typeName;
@@ -55,6 +57,22 @@ public class Bus {
         return eventBus.addHandler(type, (event) -> {
             if (callback != null) {
                 callback.call(event.message);
+            }
+        });
+    }
+
+    /**
+     * @param eventClass
+     * @param callback
+     * @param <T>
+     * @return
+     */
+    public <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, Consumer<M> callback) {
+        if (eventClass == null) return null;
+        GwtEvent.Type<EventCallback<InternalEvent<T>>> type = getType(eventClass.getName());
+        return eventBus.addHandler(type, (event) -> {
+            if (callback != null) {
+                callback.accept(event.message != null ? event.message.get() : null);
             }
         });
     }
@@ -145,12 +163,7 @@ public class Bus {
      */
     @SuppressWarnings("unchecked")
     protected <T> GwtEvent.Type<EventCallback<T>> getType(String key) {
-        GwtEvent.Type<EventCallback<T>> type = map.get(key);
-        if (type == null) {
-            type = new GwtEvent.Type<>();
-            map.put(key, type);
-        }
-        return type;
+        return (GwtEvent.Type<EventCallback<T>>) map.computeIfAbsent(key, k -> new GwtEvent.Type<>());
     }
 
     /**

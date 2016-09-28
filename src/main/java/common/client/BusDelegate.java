@@ -4,6 +4,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * Keeps track of local subscriptions which may be removed all at once.
@@ -33,6 +34,13 @@ public class BusDelegate implements HandlerRegistration {
     }
 
     /**
+     * @return
+     */
+    public EventBus eventBus() {
+        return delegate.getEventBus();
+    }
+
+    /**
      * @param eventClass
      * @param callback
      * @param <T>
@@ -40,6 +48,17 @@ public class BusDelegate implements HandlerRegistration {
      */
     public <T> HandlerRegistration subscribe(Class<T> eventClass, EventCallback<T> callback) {
         return register(delegate.subscribe(eventClass, callback));
+    }
+
+    /**
+     * @param eventClass
+     * @param callback
+     * @param <T>
+     * @param <M>
+     * @return
+     */
+    public <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, Consumer<M> callback) {
+        return register(delegate.listen(eventClass, callback));
     }
 
     /**
@@ -89,10 +108,10 @@ public class BusDelegate implements HandlerRegistration {
      *
      */
     public void clear() {
-        if (registrations == null) return;
-        for (HandlerRegistration registration : registrations) {
-            Try.silent(registration::removeHandler);
-        }
+        if (registrations == null)
+            return;
+
+        registrations.forEach(r -> Try.silent(r::removeHandler));
         registrations.clear();
         registrations = null;
     }
