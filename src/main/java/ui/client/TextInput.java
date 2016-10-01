@@ -50,6 +50,7 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
                         $this.props.onChange.run(((InputElement) formEvent.getTarget()).getValue());
                     }
                 })
+                .ref($this.props.inputRef)
         );
     }
 
@@ -73,6 +74,13 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
         public Func.Run1<KeyboardEvent> onKeyDown;
         public Func.Run1<FocusEvent> onFocus;
         public Func.Run1<FocusEvent> onBlur;
+        public Ref<InputElement> inputRef;
+
+        @JsOverlay
+        public final Props inputRef(final Ref<InputElement> inputRef) {
+            this.inputRef = inputRef;
+            return this;
+        }
 
         @JsOverlay
         public final Props onFocus(final Func.Run1<FocusEvent> onFocus) {
