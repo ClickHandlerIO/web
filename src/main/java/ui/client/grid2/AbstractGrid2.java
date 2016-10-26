@@ -151,6 +151,11 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
                                     })
                                     .build()
                     );
+
+                    ReactElement additional = renderAdditional($this);
+                    if (additional != null) {
+                        children.add(additional);
+                    }
                 }
         );
     }
@@ -184,6 +189,10 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
     }
 
     protected abstract GridColumn[] columns();
+
+    protected ReactElement renderAdditional(final ReactComponent<P, S> $this) {
+        return null;
+    }
 
     // Fetch Data
 
@@ -365,13 +374,13 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
 
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class State<D> {
-       public GridColumn[] columns;
-       public List<D> data;
-       public String pendingRequestGuid;
-       public boolean loading;
-       public boolean moreResults;
-       public double pageIdx;
-       public Map<Double, D> pageIdxMap;
-       public boolean firstLoad;
+        public GridColumn[] columns;
+        public List<D> data;
+        public String pendingRequestGuid;
+        public boolean loading;
+        public boolean moreResults;
+        public double pageIdx;
+        public Map<Double, D> pageIdxMap;
+        public boolean firstLoad;
     }
 }
