@@ -38,6 +38,12 @@ public class Bus {
         return new TypeName<>(typeName.name + "|" + context);
     }
 
+    public static <T> TypeName<T> name(Class<T> type, String name) {
+        if (type == null) return name == null ? new TypeName<>() : new TypeName<>();
+        if (name == null) return new TypeName<T>(type.getName());
+        return new TypeName<>(type.getName() + "|" + name);
+    }
+
     /**
      * @return
      */
@@ -54,6 +60,22 @@ public class Bus {
     public <T> HandlerRegistration subscribe(Class<T> eventClass, EventCallback<T> callback) {
         if (eventClass == null) return null;
         GwtEvent.Type<EventCallback<InternalEvent<T>>> type = getType(eventClass.getName());
+        return eventBus.addHandler(type, (event) -> {
+            if (callback != null) {
+                callback.call(event.message);
+            }
+        });
+    }
+
+    /**
+     * @param eventClass
+     * @param callback
+     * @param <T>
+     * @return
+     */
+    public <T> HandlerRegistration subscribe(Class<T> eventClass, String name, EventCallback<T> callback) {
+        if (eventClass == null) return null;
+        GwtEvent.Type<EventCallback<InternalEvent<T>>> type = getType(name(eventClass, name).name);
         return eventBus.addHandler(type, (event) -> {
             if (callback != null) {
                 callback.call(event.message);
@@ -133,6 +155,15 @@ public class Bus {
      */
     public <T> void publish(T event) {
         eventBus.fireEvent(new InternalEvent<>(event, getType(event.getClass().getName())));
+    }
+
+    /**
+     * @param event
+     * @param name
+     * @param <T>
+     */
+    public <T> void publish(T event, String name) {
+        eventBus.fireEvent(new InternalEvent<>(event, getType(name(event.getClass(), name).name)));
     }
 
     public <T extends HasBusName> void publish(T event) {
