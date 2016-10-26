@@ -92,7 +92,8 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
 
                                 if ($this.state.data != null && !$this.state.data.isEmpty()) {
                                     for (D d : $this.state.data) {
-                                        boolean selected = $this.props.selection != null && $this.props.selection.contains(d);
+//                                        $this.props.selection != null && $this.props.selection.contains(d)
+                                        boolean selected = isInSelection(d, $this.props.selection);
                                         bodyChildren.add(
                                                 cell.props()
                                                         .key(dataKey(d))
@@ -158,6 +159,25 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
                     }
                 }
         );
+    }
+
+    private boolean isInSelection(D data, List<D> selection) {
+        String dId = dataKey(data);
+        if (selection == null || selection.isEmpty() || dId == null || dId.isEmpty()) {
+            return false;
+        }
+        for (D s : selection) {
+            String sId = dataKey(s);
+            if (sId == null || sId.isEmpty()) {
+                continue;
+            }
+
+            if (sId.equals(dId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
