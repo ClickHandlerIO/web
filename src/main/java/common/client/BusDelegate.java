@@ -111,7 +111,11 @@ public class BusDelegate implements HandlerRegistration {
         if (registrations == null)
             return;
 
-        registrations.forEach(r -> Try.silent(r::removeHandler));
+        for (HandlerRegistration r : registrations) {
+            try {
+                r.removeHandler();
+            } catch (Throwable e) {}
+        }
         registrations.clear();
         registrations = null;
     }
