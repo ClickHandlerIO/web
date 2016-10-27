@@ -248,7 +248,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
         }, () -> {
 
             // clear selection before load
-            if ($this.props.onSelectionChanged != null) {
+            if ($this.props.onSelectionChanged != null && !$this.props.disableClearSelectionBeforeLoad) {
                 $this.props.onSelectionChanged.run(new ArrayList<D>());
             }
 
@@ -374,6 +374,7 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
     public static class Props<D> extends ComponentProps {
         public boolean loadOnMount;
         public boolean headerVisible; // todo test/build
+        public boolean disableClearSelectionBeforeLoad;
 
 // todo impl fixed height later. need to handle scrollbar width padding in header, and loading div over content, not scrolled away
 //        public boolean fullHeight;
