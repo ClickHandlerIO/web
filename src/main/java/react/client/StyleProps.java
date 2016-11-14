@@ -337,6 +337,8 @@ public class StyleProps {
     @JsProperty
     public Object maxHeight;
     @JsProperty
+    public Object minHeight;
+    @JsProperty
     public Object maxWidth;
     @JsProperty
     public Object minWidth;
@@ -1543,6 +1545,12 @@ public class StyleProps {
     @JsOverlay
     public final StyleProps maxHeight(Object value) {
         this.maxHeight = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps minHeight(Object value) {
+        this.minHeight = value;
         return this;
     }
 
