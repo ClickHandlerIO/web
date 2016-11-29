@@ -95,7 +95,9 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setEventColor("#3a87ad");
         options.setEventTextColor("#fff");
         options.setEventLimit(true);
-        options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
+        if(divRef != null && divRef.get($this) != null) {
+            options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
+        }
         options.setDayClick((arg1, arg2, arg3) -> {
             if ($this.props.getOnDayClicked() != null) {
                 $this.props.getOnDayClicked().run(arg1);
