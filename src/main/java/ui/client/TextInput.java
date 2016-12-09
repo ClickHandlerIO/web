@@ -30,6 +30,7 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
                 .zIndex($this.props.zIndex)
                 .placeholder($this.props.placeholder)
                 .value($this.props.value != null ? $this.props.value : "")
+                .min($this.props.min)
                 .onFocus(event -> {
                     if ($this.props.onFocus != null) {
                         $this.props.onFocus.run(event);
@@ -75,6 +76,7 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
         public Func.Run1<FocusEvent> onFocus;
         public Func.Run1<FocusEvent> onBlur;
         public Ref<InputElement> inputRef;
+        public String min;
 
         @JsOverlay
         public final Props inputRef(final Ref<InputElement> inputRef) {
@@ -157,6 +159,12 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
         @JsOverlay
         public final Props onKeyDown(final Func.Run1<KeyboardEvent> onKeyDown) {
             this.onKeyDown = onKeyDown;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props min(final String min) {
+            this.min = min;
             return this;
         }
     }
