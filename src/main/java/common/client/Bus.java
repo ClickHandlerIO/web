@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  *
@@ -89,12 +88,12 @@ public class Bus {
      * @param <T>
      * @return
      */
-    public <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, Consumer<M> callback) {
+    public <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, EventCallback<M> callback) {
         if (eventClass == null) return null;
         GwtEvent.Type<EventCallback<InternalEvent<T>>> type = getType(eventClass.getName());
         return eventBus.addHandler(type, (event) -> {
             if (callback != null) {
-                callback.accept(event.message != null ? event.message.get() : null);
+                callback.call(event.message != null ? event.message.get() : null);
             }
         });
     }

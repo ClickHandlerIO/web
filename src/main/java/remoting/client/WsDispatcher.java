@@ -176,6 +176,8 @@ public class WsDispatcher {
                 final Outgoing call = calls.remove(message.header.id());
                 if (call != null) {
                     Try.silent(call.callback, message);
+                } else {
+                    // Phantom response.
                 }
                 break;
             case WsHeader.Constants.PUSH:
@@ -204,7 +206,9 @@ public class WsDispatcher {
 
             case WsHeader.Constants.PRESENCE_JOINED: {
                 final String key = message.header.t == null ? "" : message.header.t.trim();
-                PresenceManager manager = presenceMap.get(key);
+                final PresenceManager manager = presenceMap.get(key);
+
+                // If the manager is null then leave immediately.
                 if (manager == null) {
                     send(new Outgoing(
                         null,
@@ -510,8 +514,6 @@ public class WsDispatcher {
          * @param change
          */
         void onChange(PresenceChange change) {
-            bus.publish(new PresenceChangedEvent(change, presence));
-
             if (presence == null) {
                 onOutOfSync();
             } else {
@@ -529,7 +531,29 @@ public class WsDispatcher {
         }
 
         void onOutOfSync() {
-            sendLeave();
+            // Get latest presence.
+            final Outgoing call = new Outgoing(
+                null,
+                null,
+                new Date().getTime(),
+                5_000,
+                new WsMessage(WsHeader.Factory.create(
+                    WsHeader.Constants.PRESENCE_GET,
+                    nextId(),
+                    0,
+                    key
+                ), null),
+                message -> {
+                    if (message.header.c != 200) {
+                        sendLeave();
+                        return;
+                    }
+
+                    presence = JSON.parse(message.body);
+                },
+                this::sendLeave
+            );
+            send(call);
         }
 
         void merge(PresenceChange change) {
@@ -593,6 +617,10 @@ public class WsDispatcher {
                     }
                 }
             }
+
+            // Notify change.
+            Try.run(() -> bus.publish(new PresenceChangedEvent(change, presence)));
+            Try.run(() -> subscriptions.forEach(s -> Try.run(() -> s.listener.onChange(change, presence))));
         }
 
         /**

@@ -3,6 +3,7 @@
 <module rename-to="app">
     <inherits name="ClickHandlerCore"/>
     <inherits name="ui.UI"/>
+    <inherits name="elemental.Collections" />
     <!--<inherits name="moment.Moment"/>-->
 
     <source path="client"/>

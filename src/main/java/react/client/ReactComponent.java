@@ -7,7 +7,6 @@ import common.client.*;
 import jsinterop.annotations.*;
 
 import javax.inject.Provider;
-import java.util.function.Consumer;
 
 /**
  *
@@ -211,7 +210,7 @@ public class ReactComponent<P, S> {
      * @return
      */
     @JsOverlay
-    public final <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, Consumer<M> callback) {
+    public final <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, EventCallback<M> callback) {
         return bus.listen(eventClass, callback);
     }
 

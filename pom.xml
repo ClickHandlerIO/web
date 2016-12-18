@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.clickhandler</groupId>
     <artifactId>clickhandler-web</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.3.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ClickHandler Web</name>
     <description>ClickHandler WebFramework</description>
@@ -57,7 +57,7 @@
         <dagger-gwt.version>2.1</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <moment-gwt.version>0.3.0-SNAPSHOT</moment-gwt.version>
-        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -158,11 +158,17 @@
             <version>${dagger-gwt.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.dagger</groupId>
-            <artifactId>dagger-compiler</artifactId>
-            <version>${dagger-gwt.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.dagger</groupId>-->
+            <!--<artifactId>dagger-compiler</artifactId>-->
+            <!--<version>${dagger-gwt.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.google.guava</groupId>-->
+                    <!--<artifactId>guava</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -172,6 +178,12 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-elemental</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-gwt.version}</version>
         </dependency>
 
         <dependency>
@@ -192,6 +204,32 @@
     <!-- ====================================================================== -->
     <!-- P R O F I L E S                                                        -->
     <!-- ====================================================================== -->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.dagger</groupId>
+                        <artifactId>dagger-compiler</artifactId>
+                        <version>${dagger-gwt.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showWarnings>true</showWarnings>
+                    <verbose>false</verbose>
+                    <compilerArgument>-nowarn</compilerArgument>
+                    <encoding>UTF-8</encoding>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
