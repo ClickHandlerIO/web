@@ -187,10 +187,14 @@ public interface Jso {
                 return;
             }
 
-            for (var p in obj) {
-                if (obj.hasOwnProperty(p)) {
-                    callback(p, obj[p]);
-                }
+            var props = Object.getOwnPropertyNames(obj);
+            if (!props) {
+                return;
+            }
+
+            for (var i = 0; i < props.length; i++) {
+                var p = props[i];
+                callback(p, obj[p]);
             }
         }-*/;
 

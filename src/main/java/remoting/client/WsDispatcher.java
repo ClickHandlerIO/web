@@ -159,6 +159,11 @@ public class WsDispatcher {
         stopPinger();
         stopFragmentationTimer();
 
+        // Cleanup Presence.
+        presenceMap.forEach((key, value) -> {
+            value.leave();
+        });
+
         if (!calls.isEmpty()) {
             for (ExpectingResponse outgoing : calls.values()) {
                 pendingQueue.add(outgoing);
@@ -984,6 +989,10 @@ public class WsDispatcher {
             } finally {
                 presence = null;
                 me = null;
+
+                if (!webSocket.isConnected()) {
+                    return;
+                }
 
                 // Tell server to leave presence.
                 send(new ExpectingResponse(

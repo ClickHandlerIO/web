@@ -51,13 +51,13 @@ public abstract class RoutesBuilder {
             new Reg(
                 new Route()
                     .path(proxy.path())
-//                    .onEnter((nextState, replaceState) -> {
-//                        proxy.toArgs(nextState.location.getQuery());
-//
-//                        if (proxy.onEnter(nextState, replaceState)) {
-//                            routeGatekeeperProvider.get().onEnter(proxy, nextState, replaceState);
-//                        }
-//                    })
+                    .onEnter((nextState, replaceState) -> {
+                        proxy.toArgs(nextState.location.getQuery());
+
+                        if (proxy.onEnter(nextState, replaceState)) {
+                            routeGatekeeperProvider.get().onEnter(proxy, nextState, replaceState);
+                        }
+                    })
                     .onLeave(
                         () -> {
                             final Object result = proxy.onLeave();
