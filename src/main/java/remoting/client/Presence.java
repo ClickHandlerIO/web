@@ -11,8 +11,9 @@ import jsinterop.annotations.JsType;
 public class Presence {
     public String key;
     public String mod;
-    public long seq;
+    public double seq;
     public PresenceOccupant[] occupants;
+    public PresenceOccupant me;
 
     @JsOverlay
     public final Presence key(final String key) {
@@ -27,7 +28,7 @@ public class Presence {
     }
 
     @JsOverlay
-    public final Presence seq(final long seq) {
+    public final Presence seq(final double seq) {
         this.seq = seq;
         return this;
     }

@@ -11,7 +11,7 @@ import jsinterop.annotations.JsType;
 public class PresenceChange {
     public String key;
     public String mod;
-    public long seq;
+    public double seq;
     public PresenceOccupant[] joined;
     public PresenceLeave[] left;
     public PresenceStateChanged[] changed;
@@ -29,7 +29,7 @@ public class PresenceChange {
     }
 
     @JsOverlay
-    public final PresenceChange seq(final long seq) {
+    public final PresenceChange seq(final double seq) {
         this.seq = seq;
         return this;
     }

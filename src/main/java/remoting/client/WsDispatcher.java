@@ -7,6 +7,7 @@ import common.client.Func;
 import common.client.JSON;
 import common.client.Try;
 import elemental.client.Browser;
+import logging.client.Logger;
 
 import java.util.*;
 import java.util.function.Function;
@@ -17,15 +18,28 @@ import java.util.function.Function;
  * @author Clay Molocznik
  */
 public class WsDispatcher {
+    public static final int MAX_PRESENCE_BACKLOG = 100;
+    /**
+     * The time in milliseconds to determine if a Change message
+     * is missing and may not show up. This will trigger the "Out of Sync"
+     * protocol.
+     */
+    public static final int PRESENCE_FRAGMENTATION_WINDOW_MILLIS = 5 * 1000; // 5 seconds.
+    private static final Logger LOG = Logger.get(WsDispatcher.class);
+
     private final Bus bus;
     private final String url;
-    private final Queue<Outgoing> pendingQueue = new LinkedList<>();
-    private final LinkedHashMap<Double, Outgoing> calls = new LinkedHashMap<>();
+    private final Queue<ExpectingResponse> pendingQueue = new LinkedList<>();
+    private final LinkedHashMap<Double, ExpectingResponse> calls = new LinkedHashMap<>();
     private final Map<String, PushManager<?>> pushMap = new HashMap<>();
     private final Map<String, PresenceManager> presenceMap = new HashMap<>();
     private Ws webSocket;
     private int reaperMillis = 1_000;
+    private int pingMillis = 30_000;
+    private int fragmentationMillis = PRESENCE_FRAGMENTATION_WINDOW_MILLIS;
     private Timer reaperTimer;
+    private Timer pingTimer;
+    private Timer fragmentationTimer;
     private int id = 0;
     private Func.Run1<Func.Run1<Boolean>> connectedCallback;
 
@@ -122,6 +136,9 @@ public class WsDispatcher {
     private void connected() {
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
 
+        ensurePinger();
+        ensureFragmentationTimer();
+
         // Try draining the queue.
         if (connectedCallback != null) {
             connectedCallback.run((success) -> {
@@ -139,8 +156,11 @@ public class WsDispatcher {
     private void closed() {
         Try.run(() -> bus.publish(new WsClosedEvent(this)));
 
+        stopPinger();
+        stopFragmentationTimer();
+
         if (!calls.isEmpty()) {
-            for (Outgoing outgoing : calls.values()) {
+            for (ExpectingResponse outgoing : calls.values()) {
                 pendingQueue.add(outgoing);
             }
             calls.clear();
@@ -171,16 +191,26 @@ public class WsDispatcher {
             case WsHeader.Constants.IN:
                 // Incoming request.
                 break;
+
+            case WsHeader.Constants.PING:
+                break;
+
             case WsHeader.Constants.OUT:
+            case WsHeader.Constants.PONG: {
                 // It's a response.
-                final Outgoing call = calls.remove(message.header.id());
+                final ExpectingResponse call = calls.remove(message.header.id());
                 if (call != null) {
-                    Try.silent(call.callback, message);
+                    if (call.callback != null) {
+                        Try.silent(call.callback, message);
+                    }
                 } else {
                     // Phantom response.
+                    LOG.error("Phantom response", message);
                 }
-                break;
-            case WsHeader.Constants.PUSH:
+            }
+            break;
+
+            case WsHeader.Constants.PUSH: {
                 // It's a push event.
                 // Fire on main event bus.
                 String type = message.header.type();
@@ -202,7 +232,8 @@ public class WsDispatcher {
                         Browser.getWindow().getConsole().log(e);
                     }
                 }
-                break;
+            }
+            break;
 
             case WsHeader.Constants.PRESENCE_JOINED: {
                 final String key = message.header.t == null ? "" : message.header.t.trim();
@@ -210,7 +241,7 @@ public class WsDispatcher {
 
                 // If the manager is null then leave immediately.
                 if (manager == null) {
-                    send(new Outgoing(
+                    send(new ExpectingResponse(
                         null,
                         null,
                         new Date().getTime(),
@@ -261,7 +292,7 @@ public class WsDispatcher {
     /**
      * @param call
      */
-    private void send(Outgoing call) {
+    private void send(ExpectingResponse call) {
         call.tries++;
         if (!webSocket.isConnected()) {
             pendingQueue.add(call);
@@ -292,6 +323,100 @@ public class WsDispatcher {
 
         // Return.
         return id;
+    }
+
+    /**
+     *
+     */
+    private void ensureFragmentationTimer() {
+        if (fragmentationTimer != null) {
+            return;
+        }
+        fragmentationTimer = new Timer() {
+            @Override
+            public void run() {
+                Try.silent(() -> checkForFragmentation());
+            }
+        };
+        fragmentationTimer.scheduleRepeating(fragmentationMillis);
+    }
+
+    private void checkForFragmentation() {
+        if (presenceMap.isEmpty()) {
+            return;
+        }
+
+        presenceMap.values().forEach($ -> Try.run($::checkForFragmentation));
+    }
+
+    /**
+     *
+     */
+    private void stopFragmentationTimer() {
+        if (fragmentationTimer == null) {
+            return;
+        }
+
+        fragmentationTimer.cancel();
+        fragmentationTimer = null;
+    }
+
+    /**
+     *
+     */
+    private void ensurePinger() {
+        if (pingTimer != null) {
+            return;
+        }
+        pingTimer = new Timer() {
+            @Override
+            public void run() {
+                Try.silent(() -> ping());
+            }
+        };
+        pingTimer.scheduleRepeating(pingMillis);
+    }
+
+    /**
+     *
+     */
+    private void stopPinger() {
+        if (pingTimer == null) {
+            return;
+        }
+
+        pingTimer.cancel();
+        pingTimer = null;
+    }
+
+    /**
+     *
+     */
+    private void ping() {
+        if (presenceMap.isEmpty()) {
+            // Get latest presence.
+            send(new ExpectingResponse(
+                null,
+                null,
+                new Date().getTime(),
+                5_000,
+                new WsMessage(WsHeader.Factory.create(
+                    WsHeader.Constants.PING,
+                    nextId(),
+                    0,
+                    null
+                ), null),
+                message -> {
+                    if (message.header.c != 200) {
+                        LOG.error("Ping returned error code " + message.header.c);
+                    }
+                },
+                () -> LOG.error("Ping timed out")
+            ));
+            return;
+        }
+
+        presenceMap.values().forEach($ -> Try.run($::sendPing));
     }
 
     /**
@@ -348,13 +473,13 @@ public class WsDispatcher {
     /**
      * @param iterator
      */
-    private void reap(Iterator<Outgoing> iterator) {
+    private void reap(Iterator<ExpectingResponse> iterator) {
         final long time = new Date().getTime();
-        List<Outgoing> timeoutList = null;
+        List<ExpectingResponse> timeoutList = null;
 
         // Check current calls.
         while (iterator.hasNext()) {
-            final Outgoing outgoing = iterator.next();
+            final ExpectingResponse outgoing = iterator.next();
 
             if (outgoing.isTimedOut(time)) {
                 if (timeoutList == null) {
@@ -366,7 +491,7 @@ public class WsDispatcher {
         }
 
         if (timeoutList != null && !timeoutList.isEmpty()) {
-            for (Outgoing call : timeoutList) {
+            for (ExpectingResponse call : timeoutList) {
                 Try.silent(call.timeoutCallback);
             }
         }
@@ -393,7 +518,7 @@ public class WsDispatcher {
             0,
             type
         );
-        final Outgoing call = new Outgoing(
+        final ExpectingResponse call = new ExpectingResponse(
             inType,
             outType,
             new Date().getTime(),
@@ -426,7 +551,7 @@ public class WsDispatcher {
     /**
      *
      */
-    private static final class Outgoing {
+    private static final class ExpectingResponse {
         private final Bus.TypeName inType;
         private final Bus.TypeName outType;
         private final long started;
@@ -436,13 +561,13 @@ public class WsDispatcher {
         private final Func.Run timeoutCallback;
         private int tries = 0;
 
-        public Outgoing(Bus.TypeName inType,
-                        Bus.TypeName outType,
-                        long started,
-                        int timeoutMillis,
-                        WsMessage message,
-                        Func.Run1<WsMessage> callback,
-                        Func.Run timeoutCallback) {
+        public ExpectingResponse(Bus.TypeName inType,
+                                 Bus.TypeName outType,
+                                 long started,
+                                 int timeoutMillis,
+                                 WsMessage message,
+                                 Func.Run1<WsMessage> callback,
+                                 Func.Run timeoutCallback) {
             this.inType = inType;
             this.outType = outType;
             this.started = started;
@@ -475,8 +600,13 @@ public class WsDispatcher {
     private class PresenceManager implements HandlerRegistration {
         private final String key;
         private final LinkedList<Subscription> subscriptions = new LinkedList<>();
+        private final List<PresenceChange> backlog = new LinkedList<>();
         private Presence presence;
         private PresenceOccupant me;
+        private boolean outOfSync = false;
+        private double lastPing;
+        private double lastChange;
+        private double lastMerge;
 
         /**
          * @param key
@@ -490,11 +620,7 @@ public class WsDispatcher {
          */
         @Override
         public void removeHandler() {
-            final PresenceManager addressSubscription = presenceMap.remove(key);
-            if (addressSubscription == null) {
-                return;
-            }
-
+            presenceMap.remove(key);
             subscriptions.forEach(Subscription::removeHandler);
         }
 
@@ -502,6 +628,7 @@ public class WsDispatcher {
          * @param joined
          */
         void onJoined(PresenceJoined joined) {
+            this.outOfSync = false;
             this.presence = joined.presence;
             this.me = joined.me;
 
@@ -515,24 +642,67 @@ public class WsDispatcher {
          */
         void onChange(PresenceChange change) {
             if (presence == null) {
+                LOG.error(
+                    "Received a PresenceChange for key '" +
+                        key +
+                        "' that was not expected."
+                );
                 onOutOfSync();
             } else {
-                if (change.mod != null && change.mod.equals(presence.mod)) {
-                    if (change.seq < presence.seq
-                        || change.seq > presence.seq + 1) {
-                        onOutOfSync();
-                    } else {
-                        merge(change);
-                    }
-                } else {
+                LOG.info("Presence onChange", change);
+
+                if (change.mod == null || !change.mod.equals(presence.mod)) {
+                    backlog.add(change);
                     onOutOfSync();
+                    return;
                 }
+
+                double nextSeq = change.seq;
+                lastChange = new Date().getTime();
+
+                // Was this a duplicate message?
+                if (nextSeq < presence.seq) {
+                    return;
+                }
+
+                // Is this a future message?
+                if (change.seq > presence.seq + 1) {
+                    backlog.add(change);
+                    backlog.sort(Comparator.comparingDouble(o -> o.seq));
+
+                    if (backlog.size() > MAX_PRESENCE_BACKLOG) {
+                        LOG.error(
+                            "Presence Backlog for key '" +
+                                key +
+                                "' reached the max size of " +
+                                MAX_PRESENCE_BACKLOG +
+                                ". Leaving presence."
+                        );
+                        leave();
+                    }
+                    return;
+                }
+
+                // Merge change.
+                merge(change);
+
+                // Clear backlog.
+                clearBacklog();
             }
         }
 
         void onOutOfSync() {
+            if (outOfSync) {
+                return;
+            }
+
+            LOG.info("Presence onOutOfSync", presence);
+
+            // Flag out of sync.
+            outOfSync = true;
+
             // Get latest presence.
-            final Outgoing call = new Outgoing(
+            send(new ExpectingResponse(
                 null,
                 null,
                 new Date().getTime(),
@@ -544,38 +714,162 @@ public class WsDispatcher {
                     key
                 ), null),
                 message -> {
+                    outOfSync = false;
+
                     if (message.header.c != 200) {
-                        sendLeave();
+                        LOG.error(
+                            "PRESENCE_GET returned error code " + message.header.c
+                        );
+                        leave();
                         return;
                     }
 
                     presence = JSON.parse(message.body);
+
+                    if (presence == null || presence.mod == null) {
+                        leave();
+                        return;
+                    }
+
+                    if (me == null) {
+                        onJoined(new PresenceJoined().presence(presence).me(presence.me));
+                    }
+
+                    clearBacklog();
                 },
-                this::sendLeave
-            );
-            send(call);
+                this::leave
+            ));
         }
 
+        void clearBacklog() {
+            if (backlog.isEmpty()) {
+                return;
+            }
+
+            final Presence presence = this.presence;
+            if (presence == null) {
+                return;
+            }
+
+            final String mod = presence.mod == null ? "" : presence.mod;
+
+            // Remove changes for a different Presence.
+            final Iterator<PresenceChange> iterator = backlog.iterator();
+            while (iterator.hasNext()) {
+                final PresenceChange change = iterator.next();
+                if (!mod.equals(change.mod)) {
+                    iterator.remove();
+                    continue;
+                }
+            }
+
+            if (backlog.isEmpty()) {
+                return;
+            }
+
+            // Sort based on seq from lowest to highest.
+            backlog.sort(Comparator.comparingDouble($ -> $.seq));
+
+            double nextSeq = presence.seq + 1;
+            while (!backlog.isEmpty()) {
+                final PresenceChange next = backlog.get(0);
+                if (next.seq == nextSeq) {
+                    nextSeq++;
+                    merge(next);
+                    backlog.remove(0);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        void sendPing() {
+            if (presence == null) {
+                return;
+            }
+
+            lastPing = new Date().getTime();
+
+            // Send presence ping.
+            send(new ExpectingResponse(
+                null,
+                null,
+                new Date().getTime(),
+                5_000,
+                new WsMessage(WsHeader.Factory.create(
+                    WsHeader.Constants.PING,
+                    nextId(),
+                    0,
+                    key
+                ), null),
+                message -> {
+                    if (message.header.c != 200) {
+                        leave();
+                    }
+                },
+                this::leave
+            ));
+        }
+
+        /**
+         *
+         */
+        void checkForFragmentation() {
+            if (outOfSync) {
+                return;
+            }
+
+            final double lastMerge = this.lastMerge;
+            if (lastMerge == 0L) {
+                return;
+            }
+
+            if (backlog.isEmpty()) {
+                return;
+            }
+
+            final double timestamp = new Date().getTime();
+
+            if ((timestamp - lastMerge) > PRESENCE_FRAGMENTATION_WINDOW_MILLIS) {
+                onOutOfSync();
+            }
+        }
+
+        /**
+         * @param change
+         */
         void merge(PresenceChange change) {
+            LOG.info("PresenceChange", change);
+
             if (change == null)
                 return;
+
+            // Set last merge.
+            lastMerge = new Date().getTime();
 
             // Update Seq on Presence.
             presence.seq = change.seq;
 
+            // New Occupant list.
             List<PresenceOccupant> newOccupants = null;
+
+            // Add joins to the list.
             if (change.joined != null && change.joined.length > 0) {
-                newOccupants = presence.occupants == null ?
+                newOccupants = presence.occupants == null || presence.occupants.length == 0 ?
                     new ArrayList<>() :
-                    Arrays.asList(presence.occupants);
+                    new ArrayList<>(Arrays.asList(presence.occupants));
                 newOccupants.addAll(Arrays.asList(change.joined));
             }
 
+            // Remove occupants that left.
             if (change.left != null && change.left.length > 0) {
                 if (newOccupants == null)
                     newOccupants = presence.occupants == null ?
                         new ArrayList<>() :
-                        Arrays.asList(presence.occupants);
+                        new ArrayList<>(Arrays.asList(presence.occupants));
 
                 final List<PresenceOccupant> removeList = new ArrayList<>();
 
@@ -598,12 +892,14 @@ public class WsDispatcher {
                 removeList.forEach(occupants::remove);
             }
 
+            // Update to the new Occupant list.
             if (newOccupants != null) {
                 presence.occupants = newOccupants.toArray(
                     new PresenceOccupant[newOccupants.size()]
                 );
             }
 
+            // Update Occupant's state.
             if (change.changed != null && change.changed.length > 0) {
                 for (PresenceStateChanged stateChanged : change.changed) {
                     final String id = stateChanged.id == null ? "" : stateChanged.id;
@@ -667,33 +963,44 @@ public class WsDispatcher {
             // Remove PresenceManager if necessary.
             if (subscriptions.isEmpty()) {
                 presenceMap.remove(key);
-                sendLeave();
+                leave();
             }
         }
 
         /**
          *
          */
-        void sendLeave() {
+        void leave() {
             if (presence == null) {
                 return;
             }
-            // Tell server to leave presence.
-            final Outgoing call = new Outgoing(
-                null,
-                null,
-                new Date().getTime(),
-                5_000,
-                new WsMessage(WsHeader.Factory.create(
-                    WsHeader.Constants.PRESENCE_LEAVE,
-                    nextId(),
-                    0,
-                    key
-                ), null),
-                null,
-                null
-            );
-            send(call);
+
+            try {
+                if (subscriptions.isEmpty()) {
+                    presenceMap.remove(key);
+                } else {
+                    subscriptions.forEach($ -> Try.run(() -> $.listener.onLeave(presence, me)));
+                }
+            } finally {
+                presence = null;
+                me = null;
+
+                // Tell server to leave presence.
+                send(new ExpectingResponse(
+                    null,
+                    null,
+                    new Date().getTime(),
+                    5_000,
+                    new WsMessage(WsHeader.Factory.create(
+                        WsHeader.Constants.PRESENCE_LEAVE,
+                        nextId(),
+                        0,
+                        key
+                    ), null),
+                    null,
+                    null
+                ));
+            }
         }
 
         /**
@@ -729,7 +1036,7 @@ public class WsDispatcher {
             @Override
             public void leave() {
                 // Tell server to leave presence.
-                sendLeave();
+                PresenceManager.this.leave();
             }
         }
     }
