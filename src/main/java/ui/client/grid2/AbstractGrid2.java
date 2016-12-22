@@ -6,10 +6,7 @@ import react.client.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
@@ -109,7 +106,15 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
                                                             if (checked) {
                                                                 updatedSelection.add(d);
                                                             } else {
-                                                                updatedSelection.remove(d);
+                                                                String dId = dataKey(d);
+                                                                Iterator<D> itr = updatedSelection.iterator();
+                                                                while (itr.hasNext()) {
+                                                                    String compareId = dataKey(itr.next());
+                                                                    if (Lodash.isEqual(dId, compareId)) {
+                                                                        itr.remove();
+                                                                        break;
+                                                                    }
+                                                                }
                                                             }
 
                                                             if ($this.props.onSelectionChanged != null) {
