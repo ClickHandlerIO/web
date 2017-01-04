@@ -29,44 +29,44 @@ public class TimePicker extends Component<TimePicker.Props, TimePicker.State> {
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return
-                div(className("flex-row align-items-center"), children -> {
-                            children.add(
-                                    HourSelect.props()
-                                            .clearable(false)
-                                            .style(new StyleProps().width("56px"))
-                                            .value($this.state.hours)
-                                            .onChange(v -> {
-                                                $this.setState(s -> s.hours(v));
-                                                fireUpdate($this, v, $this.state.minutes, $this.state.meridian);
-                                            }).build(),
-                                    div(style().margin("0 5px"), ":"),
-                                    MinuteSelect.props()
-                                            .clearable(false)
-                                            .style(new StyleProps().width("65px"))
-                                            .value($this.state.minutes)
-                                            .onChange(v -> {
-                                                $this.setState(s -> s.minutes(v));
-                                                fireUpdate($this, $this.state.hours, v, $this.state.meridian);
-                                            }).build(),
-                                    div(style().width("5px")),
-                                    MeridianSelect.props()
-                                            .clearable(false)
-                                            .style(new StyleProps().width("75px"))
-                                            .value($this.state.meridian)
-                                            .onChange(v -> {
-                                                $this.setState(s -> s.meridian(v));
-                                                fireUpdate($this, $this.state.hours, $this.state.minutes, v);
-                                            }).build()
-                            );
+            div(className("flex-row align-items-center"), children -> {
+                    children.add(
+                        HourSelect.props()
+                            .clearable(false)
+                            .style(new StyleProps().width("56px"))
+                            .value($this.state.hours)
+                            .onChange(v -> {
+                                $this.setState(s -> s.hours(v));
+                                fireUpdate($this, v, $this.state.minutes, $this.state.meridian);
+                            }).build(),
+                        div(style().margin("0 5px"), ":"),
+                        MinuteSelect.props()
+                            .clearable(false)
+                            .style(new StyleProps().width("65px"))
+                            .value($this.state.minutes)
+                            .onChange(v -> {
+                                $this.setState(s -> s.minutes(v));
+                                fireUpdate($this, $this.state.hours, v, $this.state.meridian);
+                            }).build(),
+                        div(style().width("5px")),
+                        MeridianSelect.props()
+                            .clearable(false)
+                            .style(new StyleProps().width("75px"))
+                            .value($this.state.meridian)
+                            .onChange(v -> {
+                                $this.setState(s -> s.meridian(v));
+                                fireUpdate($this, $this.state.hours, $this.state.minutes, v);
+                            }).build()
+                    );
 
-                            if ($this.props.timeZone != null && !$this.props.timeZone.isEmpty()) {
-                                children.add(
-                                        div(style().paddingLeft(5), Moment.moment().tz($this.props.timeZone).format("z"))
-                                );
-                            }
-                        }
+                    if ($this.props.timeZone != null && !$this.props.timeZone.isEmpty()) {
+                        children.add(
+                            div(style().paddingLeft(5), Moment.moment().tz($this.props.timeZone).format("z"))
+                        );
+                    }
+                }
 
-                );
+            );
     }
 
     @Override

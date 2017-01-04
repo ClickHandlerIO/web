@@ -27,137 +27,137 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
     @Override
     protected ReactElement render(final ReactComponent<P, S> $this) {
         return div((props, children) -> {
-                    props.className("grid2");
-                    // todo impl fixed height
+                props.className("grid2");
+                // todo impl fixed height
 
-                    children.add(
-                            header.props()
-                                    .columns($this.state.columns)
-                                    .headerVisible($this.props.headerVisible)
-                                    .selectionEnabled($this.props.onSelectionChanged != null)
-                                    .allSelected($this.props.selection != null && $this.state.data != null && !$this.state.data.isEmpty() && $this.props.selection.size() == $this.state.data.size()) // todo
-                                    .requestAllSelectedChange(checked -> {
-                                        if ($this.state.loading) {
-                                            return;
-                                        }
+                children.add(
+                    header.props()
+                        .columns($this.state.columns)
+                        .headerVisible($this.props.headerVisible)
+                        .selectionEnabled($this.props.onSelectionChanged != null)
+                        .allSelected($this.props.selection != null && $this.state.data != null && !$this.state.data.isEmpty() && $this.props.selection.size() == $this.state.data.size()) // todo
+                        .requestAllSelectedChange(checked -> {
+                            if ($this.state.loading) {
+                                return;
+                            }
 
-                                        List<D> updatedSelection = new ArrayList<>();
-                                        if (checked) {
-                                            updatedSelection.addAll($this.state.data);
-                                        }
-                                        if ($this.props.onSelectionChanged != null) {
-                                            $this.props.onSelectionChanged.run(updatedSelection);
-                                        }
-                                    })
-                                    .requestSortChange(gridColumn -> {
-                                        // changing sort can be done while loading
+                            List<D> updatedSelection = new ArrayList<>();
+                            if (checked) {
+                                updatedSelection.addAll($this.state.data);
+                            }
+                            if ($this.props.onSelectionChanged != null) {
+                                $this.props.onSelectionChanged.run(updatedSelection);
+                            }
+                        })
+                        .requestSortChange(gridColumn -> {
+                            // changing sort can be done while loading
 
-                                        // remove sort from other columns
-                                        final GridColumn[] columns = new GridColumn[$this.state.columns.length];
-                                        for (int i = 0; i < $this.state.columns.length; ++i) {
-                                            GridColumn c = $this.state.columns[i];
-                                            if (c.getOrdinal() != gridColumn.getOrdinal()) {
-                                                c.setSort(GridSort.NONE);
-                                            }
-                                            columns[i] = c;
-                                        }
-
-                                        // apply correct sort to new column
-                                        if (gridColumn.getSort().equals(GridSort.NONE)) {
-                                            gridColumn.setSort(GridSort.DESC);
-                                        } else if (gridColumn.getSort().equals(GridSort.DESC)) {
-                                            gridColumn.setSort(GridSort.ASC);
-                                        } else {
-                                            gridColumn.setSort(GridSort.NONE);
-                                        }
-                                        $this.setState(s -> {
-                                            s.columns = columns;
-                                            s.pageIdx = 0.;
-                                            s.pageIdxMap = new HashMap<>();
-                                        }, () -> load($this));
-                                    })
-                                    .build()
-                    );
-
-                    children.add(
-                            div(className("body" + ($this.state.loading ? " loading" : "")), bodyChildren -> {
-                                if ($this.state.loading) {
-                                    bodyChildren.add(
-                                            div(className("loading-container"),
-                                                    div(className("backdrop")),
-                                                    div(className("loader loader-default"))
-                                            )
-                                    );
+                            // remove sort from other columns
+                            final GridColumn[] columns = new GridColumn[$this.state.columns.length];
+                            for (int i = 0; i < $this.state.columns.length; ++i) {
+                                GridColumn c = $this.state.columns[i];
+                                if (c.getOrdinal() != gridColumn.getOrdinal()) {
+                                    c.setSort(GridSort.NONE);
                                 }
+                                columns[i] = c;
+                            }
 
-                                if ($this.state.data != null && !$this.state.data.isEmpty()) {
-                                    for (D d : $this.state.data) {
+                            // apply correct sort to new column
+                            if (gridColumn.getSort().equals(GridSort.NONE)) {
+                                gridColumn.setSort(GridSort.DESC);
+                            } else if (gridColumn.getSort().equals(GridSort.DESC)) {
+                                gridColumn.setSort(GridSort.ASC);
+                            } else {
+                                gridColumn.setSort(GridSort.NONE);
+                            }
+                            $this.setState(s -> {
+                                s.columns = columns;
+                                s.pageIdx = 0.;
+                                s.pageIdxMap = new HashMap<>();
+                            }, () -> load($this));
+                        })
+                        .build()
+                );
+
+                children.add(
+                    div(className("body" + ($this.state.loading ? " loading" : "")), bodyChildren -> {
+                        if ($this.state.loading) {
+                            bodyChildren.add(
+                                div(className("loading-container"),
+                                    div(className("backdrop")),
+                                    div(className("loader loader-default"))
+                                )
+                            );
+                        }
+
+                        if ($this.state.data != null && !$this.state.data.isEmpty()) {
+                            for (D d : $this.state.data) {
 //                                        $this.props.selection != null && $this.props.selection.contains(d)
-                                        boolean selected = isInSelection(d, $this.props.selection);
-                                        bodyChildren.add(
-                                                cell.props()
-                                                        .key(dataKey(d))
-                                                        .className((selected ? "selected " : "") + cellClassNameForData(d, selected))
-                                                        .contentView(contentViewForData($this, d, selected))
-                                                        .selected(selected)
-                                                        .selectionEnabled($this.props.onSelectionChanged != null)
-                                                        .requestSelectionChange(checked -> {
-                                                            List<D> updatedSelection = new ArrayList<>();
-                                                            if ($this.props.selection != null) {
-                                                                updatedSelection.addAll($this.props.selection);
-                                                            }
-                                                            if (checked) {
-                                                                updatedSelection.add(d);
-                                                            } else {
-                                                                updatedSelection.remove(d);
-                                                            }
+                                boolean selected = isInSelection(d, $this.props.selection);
+                                bodyChildren.add(
+                                    cell.props()
+                                        .key(dataKey(d))
+                                        .className((selected ? "selected " : "") + cellClassNameForData(d, selected))
+                                        .contentView(contentViewForData($this, d, selected))
+                                        .selected(selected)
+                                        .selectionEnabled($this.props.onSelectionChanged != null)
+                                        .requestSelectionChange(checked -> {
+                                            List<D> updatedSelection = new ArrayList<>();
+                                            if ($this.props.selection != null) {
+                                                updatedSelection.addAll($this.props.selection);
+                                            }
+                                            if (checked) {
+                                                updatedSelection.add(d);
+                                            } else {
+                                                updatedSelection.remove(d);
+                                            }
 
-                                                            if ($this.props.onSelectionChanged != null) {
-                                                                $this.props.onSelectionChanged.run(updatedSelection);
-                                                            }
-                                                        })
-                                                        .build()
-                                        );
-                                    }
-                                } else if (!$this.state.firstLoad) {
-                                    if ($this.props.noResultsElement != null) {
-                                        bodyChildren.add($this.props.noResultsElement);
-                                    } else {
-                                        bodyChildren.add(
-                                                div(className("no-results"), $this.props.noResultsText)
-                                        );
-                                    }
-                                }
-                            })
-                    );
+                                            if ($this.props.onSelectionChanged != null) {
+                                                $this.props.onSelectionChanged.run(updatedSelection);
+                                            }
+                                        })
+                                        .build()
+                                );
+                            }
+                        } else if (!$this.state.firstLoad) {
+                            if ($this.props.noResultsElement != null) {
+                                bodyChildren.add($this.props.noResultsElement);
+                            } else {
+                                bodyChildren.add(
+                                    div(className("no-results"), $this.props.noResultsText)
+                                );
+                            }
+                        }
+                    })
+                );
 
-                    children.add(
-                            footer.props()
-                                    .handleExcel($this.props.handleExcel)
-                                    .handlePDF($this.props.handlePDF)
-                                    .handlePrint($this.props.handlePrint)
-                                    .handleEmail($this.props.handleEmail)
-                                    .pagerVisible($this.state.pageIdx != 0 || $this.state.moreResults)
-                                    .pagerPreviousEnabled($this.state.pageIdx > 0)
-                                    .pagerNextEnabled($this.state.moreResults)
-                                    .handlePagerNext(() -> {
-                                        if ($this.state.loading) {
-                                            return;
-                                        }
-                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> load($this));
-                                    })
-                                    .handlePagerPrevious(() -> {
-                                        // paging backwards can be done while loading (we know LastRecord items that we have already passed)
-                                        $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1, () -> load($this));
-                                    })
-                                    .build()
-                    );
+                children.add(
+                    footer.props()
+                        .handleExcel($this.props.handleExcel)
+                        .handlePDF($this.props.handlePDF)
+                        .handlePrint($this.props.handlePrint)
+                        .handleEmail($this.props.handleEmail)
+                        .pagerVisible($this.state.pageIdx != 0 || $this.state.moreResults)
+                        .pagerPreviousEnabled($this.state.pageIdx > 0)
+                        .pagerNextEnabled($this.state.moreResults)
+                        .handlePagerNext(() -> {
+                            if ($this.state.loading) {
+                                return;
+                            }
+                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> load($this));
+                        })
+                        .handlePagerPrevious(() -> {
+                            // paging backwards can be done while loading (we know LastRecord items that we have already passed)
+                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1, () -> load($this));
+                        })
+                        .build()
+                );
 
-                    ReactElement additional = renderAdditional($this);
-                    if (additional != null) {
-                        children.add(additional);
-                    }
+                ReactElement additional = renderAdditional($this);
+                if (additional != null) {
+                    children.add(additional);
                 }
+            }
         );
     }
 
@@ -288,13 +288,9 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
 
     protected abstract void fetchData(final ReactComponent<P, S> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, D lastRecord, double pageSize, final CompletionHandler<D, P> completionHandler);
 
-    public interface CompletionHandler<D, P> {
-        void onFetchComplete(String requestGuid, List<D> data);
-    }
+    protected abstract String dataKey(D data);
 
     // Cell Render
-
-    protected abstract String dataKey(D data);
 
     protected abstract ReactElement contentViewForData(final ReactComponent<P, S> $this, D data, boolean selected);
 
@@ -366,6 +362,10 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
         }
 
         return style;
+    }
+
+    public interface CompletionHandler<D, P> {
+        void onFetchComplete(String requestGuid, List<D> data);
     }
 
     // Props and State

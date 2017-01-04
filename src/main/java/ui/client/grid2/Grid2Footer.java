@@ -40,77 +40,77 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
     protected ReactElement render(final ReactComponent<Props, State> $this) {
         return div(className("footer"), children -> {
             children.add(
-                    div(className("export-actions"), exportChildren -> {
-                        if ($this.props.handlePrint != null) {
-                            exportChildren.add(
-                                    iconButton.props()
-                                            .tooltip("Print")
-                                            .tooltipPosition("top-center")
-                                            .onTouchTap(() -> $this.props.handlePrint.run())
-                                            .build(printSvgIcon.props().color("#4C5660").build())
-                            );
-                        }
+                div(className("export-actions"), exportChildren -> {
+                    if ($this.props.handlePrint != null) {
+                        exportChildren.add(
+                            iconButton.props()
+                                .tooltip("Print")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> $this.props.handlePrint.run())
+                                .build(printSvgIcon.props().color("#4C5660").build())
+                        );
+                    }
 
-                        if ($this.props.handleEmail != null) {
-                            exportChildren.add(
-                                    iconButton.props()
-                                            .tooltip("Email")
-                                            .tooltipPosition("top-center")
-                                            .onTouchTap(() -> $this.props.handleEmail.run())
-                                            .build(emailSvgIcon.props().color("#4C5660").build())
-                            );
-                        }
+                    if ($this.props.handleEmail != null) {
+                        exportChildren.add(
+                            iconButton.props()
+                                .tooltip("Email")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> $this.props.handleEmail.run())
+                                .build(emailSvgIcon.props().color("#4C5660").build())
+                        );
+                    }
 
-                        if ($this.props.handlePDF != null) {
-                            exportChildren.add(
-                                    iconButton.props()
-                                            .tooltip("PDF")
-                                            .tooltipPosition("top-center")
-                                            .onTouchTap(() -> $this.props.handlePDF.run())
-                                            .build(importExportSvgIcon.props().color("#4C5660").build())
-                            );
-                        }
+                    if ($this.props.handlePDF != null) {
+                        exportChildren.add(
+                            iconButton.props()
+                                .tooltip("PDF")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> $this.props.handlePDF.run())
+                                .build(importExportSvgIcon.props().color("#4C5660").build())
+                        );
+                    }
 
-                        if ($this.props.handleExcel != null) {
-                            exportChildren.add(
-                                    iconButton.props()
-                                            .tooltip("XLS")
-                                            .tooltipPosition("top-center")
-                                            .onTouchTap(() -> $this.props.handleExcel.run())
-                                            .build(importExportSvgIcon.props().color("#4C5660").build())
-                            );
-                        }
-                    })
+                    if ($this.props.handleExcel != null) {
+                        exportChildren.add(
+                            iconButton.props()
+                                .tooltip("XLS")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> $this.props.handleExcel.run())
+                                .build(importExportSvgIcon.props().color("#4C5660").build())
+                        );
+                    }
+                })
             );
 
             if ($this.props.pagerVisible) {
                 children.add(
-                        div(className("pager"),
-                                flatButton.props()
-                                        .style(new StyleProps().marginRight("10px"))
-                                        .disabled(!$this.props.pagerPreviousEnabled)
-                                        .label("Prev")
-                                        .icon(chevronLeftSvgIcon.$())
-                                        .labelPosition("after")
-                                        .onTouchTap(() -> {
-                                            if ($this.props.handlePagerPrevious != null) {
-                                                $this.props.handlePagerPrevious.run();
-                                            }
-                                        })
-                                        .build(),
-                                flatButton.props()
-                                        .style(new StyleProps().marginRight("10px"))
-                                        .disabled(!$this.props.pagerNextEnabled)
-                                        .label("More")
-                                        .icon(chevronRightSvgIcon.$())
-                                        .labelPosition("before")
-                                        .onTouchTap(() -> {
-                                            if ($this.props.handlePagerNext != null) {
-                                                $this.props.handlePagerNext.run();
-                                            }
-                                        })
-                                        .build()
-                        )
+                    div(className("pager"),
+                        flatButton.props()
+                            .style(new StyleProps().marginRight("10px"))
+                            .disabled(!$this.props.pagerPreviousEnabled)
+                            .label("Prev")
+                            .icon(chevronLeftSvgIcon.$())
+                            .labelPosition("after")
+                            .onTouchTap(() -> {
+                                if ($this.props.handlePagerPrevious != null) {
+                                    $this.props.handlePagerPrevious.run();
+                                }
+                            })
+                            .build(),
+                        flatButton.props()
+                            .style(new StyleProps().marginRight("10px"))
+                            .disabled(!$this.props.pagerNextEnabled)
+                            .label("More")
+                            .icon(chevronRightSvgIcon.$())
+                            .labelPosition("before")
+                            .onTouchTap(() -> {
+                                if ($this.props.handlePagerNext != null) {
+                                    $this.props.handlePagerNext.run();
+                                }
+                            })
+                            .build()
+                    )
                 );
             }
         });

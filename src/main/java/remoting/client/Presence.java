@@ -38,4 +38,10 @@ public class Presence {
         this.occupants = occupants;
         return this;
     }
+
+    @JsOverlay
+    public final Presence me(final PresenceOccupant me) {
+        this.me = me;
+        return this;
+    }
 }

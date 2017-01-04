@@ -23,27 +23,27 @@ public class TextArea extends Component<TextArea.Props, TextArea.State> {
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return textarea(new HTMLProps()
-                .id($this.props.id)
-                .className("" + $this.props.className)
-                .style($this.props.style)
-                .cols($this.props.cols)
-                .readOnly($this.props.readOnly)
-                .disabled($this.props.disabled)
-                .zIndex($this.props.zIndex)
-                .placeholder($this.props.placeholder)
-                .rows($this.props.rows)
-                .value($this.props.value)
-                .ref($this.props.textAreaRef)
-                .onKeyDown(keyboardEvent -> {
-                    if ($this.props.onKeyDown != null) {
-                        $this.props.onKeyDown.run(keyboardEvent);
-                    }
-                })
-                .onChange(formEvent -> {
-                    if ($this.props.onChange != null) {
-                        $this.props.onChange.run(((InputElement) formEvent.getTarget()).getValue());
-                    }
-                })
+            .id($this.props.id)
+            .className("" + $this.props.className)
+            .style($this.props.style)
+            .cols($this.props.cols)
+            .readOnly($this.props.readOnly)
+            .disabled($this.props.disabled)
+            .zIndex($this.props.zIndex)
+            .placeholder($this.props.placeholder)
+            .rows($this.props.rows)
+            .value($this.props.value)
+            .ref($this.props.textAreaRef)
+            .onKeyDown(keyboardEvent -> {
+                if ($this.props.onKeyDown != null) {
+                    $this.props.onKeyDown.run(keyboardEvent);
+                }
+            })
+            .onChange(formEvent -> {
+                if ($this.props.onChange != null) {
+                    $this.props.onChange.run(((InputElement) formEvent.getTarget()).getValue());
+                }
+            })
         );
     }
 

@@ -28,66 +28,66 @@ public class JwReactSelect<P extends JwReactSelect.Props> extends ExternalCompon
 
     @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
     public static class Props<V> extends ComponentProps {
-       public String addLabelText;
-       public boolean allowCreate;
-       public boolean autoBlur;
-       public boolean autofocus;
-       public boolean autosize;
-       public boolean backspaceRemoves;
-       public String className;
-       public Object clearAllText;
-       public Object clearValueText;
-       public boolean clearable;
-       public String delimiter;
-       public boolean disabled;
-       public boolean escapeClearsValue;
-       public Func.Call2<Boolean, JwReactSelectOption<V>, String> filterOption; // <Boolean, Option, Filter>
-       public Object filterOptions;
-       public boolean ignoreAccents;
-       public boolean ignoreCase;
-       public StyleProps inputProps;
+        public String addLabelText;
+        public boolean allowCreate;
+        public boolean autoBlur;
+        public boolean autofocus;
+        public boolean autosize;
+        public boolean backspaceRemoves;
+        public String className;
+        public Object clearAllText;
+        public Object clearValueText;
+        public boolean clearable;
+        public String delimiter;
+        public boolean disabled;
+        public boolean escapeClearsValue;
+        public Func.Call2<Boolean, JwReactSelectOption<V>, String> filterOption; // <Boolean, Option, Filter>
+        public Object filterOptions;
+        public boolean ignoreAccents;
+        public boolean ignoreCase;
+        public StyleProps inputProps;
         // todo input renderer
-       public boolean loading;
-       public boolean joinValues;
-       public String labelKey;
-       public String matchPos;
-       public String getMatchProp; // 'any', 'label', 'ue'
-       public double menuBuffer;
-       public StyleProps menuContainerStyle;
+        public boolean loading;
+        public boolean joinValues;
+        public String labelKey;
+        public String matchPos;
+        public String getMatchProp; // 'any', 'label', 'ue'
+        public double menuBuffer;
+        public StyleProps menuContainerStyle;
         // todo menuRenderer (need Call5<>)
-       public StyleProps menuStyle;
-       public boolean multi;
-       public String name;
+        public StyleProps menuStyle;
+        public boolean multi;
+        public String name;
         // todo new option creator
-       public Object noResultsText;
-       public Func.Run1<BlurEvent> onBlur;
-       public boolean onBlurResetsInput;
-       public Func.Run1<Object> onChange;
-       public Func.Run onClose;
-       public Func.Run1<FocusEvent> onFocus;
-       public Func.Run1<String> onInputChange;
-       public Func.Run onOpen;
-       public Func.Run2<JwReactSelectOption<V>, ClickEvent> onValueClick;
-       public boolean openAfterFocus;
-       public boolean openOnFocus;
-       public String optionClassname;
-       // todo optionComponent func
-       public Func.Call1<ReactElement, JwReactSelectOption<V>> optionRenderer;
-       public JwReactSelectOption<V>[] options;
-       public Object placeholder;
-       public boolean required;
-       public JwReactSelectOption<V> resetValue;
-       public boolean scrollMenuIntoView;
-       public boolean searchable;
-       public boolean simpleValue;
-       public StyleProps style;
-       public String tabIndex;
-       public boolean abSelectsValue;
-       public Object value;
+        public Object noResultsText;
+        public Func.Run1<BlurEvent> onBlur;
+        public boolean onBlurResetsInput;
+        public Func.Run1<Object> onChange;
+        public Func.Run onClose;
+        public Func.Run1<FocusEvent> onFocus;
+        public Func.Run1<String> onInputChange;
+        public Func.Run onOpen;
+        public Func.Run2<JwReactSelectOption<V>, ClickEvent> onValueClick;
+        public boolean openAfterFocus;
+        public boolean openOnFocus;
+        public String optionClassname;
+        // todo optionComponent func
+        public Func.Call1<ReactElement, JwReactSelectOption<V>> optionRenderer;
+        public JwReactSelectOption<V>[] options;
+        public Object placeholder;
+        public boolean required;
+        public JwReactSelectOption<V> resetValue;
+        public boolean scrollMenuIntoView;
+        public boolean searchable;
+        public boolean simpleValue;
+        public StyleProps style;
+        public String tabIndex;
+        public boolean abSelectsValue;
+        public Object value;
         // todo value component
-       public String valueKey;
-       public Func.Call1<ReactElement, JwReactSelectOption<V>> valueRenderer; // <ReactElement, Value>
-       public StyleProps wrapperStyle;
+        public String valueKey;
+        public Func.Call1<ReactElement, JwReactSelectOption<V>> valueRenderer; // <ReactElement, Value>
+        public StyleProps wrapperStyle;
 
         // Custom setters for handling multiple types for same var
 

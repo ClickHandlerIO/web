@@ -15,7 +15,6 @@ import java.util.*;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
-import static react.client.DOM.select;
 
 public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends Component<P, AbstractGrid.State<D>> {
 
@@ -31,142 +30,142 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
         boolean allSelected = !($this.state.data == null || $this.props.selected == null || $this.state.data.isEmpty() || $this.props.selected.isEmpty()) && $this.state.data.size() == $this.props.selected.size();
 
         return div(className("camber-grid"),
-                childList -> {
-                    if (!$this.props.hideHeader) {
-                        childList.add(
-                                div(
-                                        gridHeader.$$()
-                                                .columns($this.state.columns)
-                                                .reorderEnabled($this.props.reorderEnabled)
-                                                .selectionEnabled($this.props.selectionEnabled)
-                                                .allSelected(allSelected)
-                                                .onAllSelectedChanged(selectAll -> handleSelectAll($this, selectAll))
-                                                .onSortChanged((column, sort) -> {
-                                                    List<GridColumn> cols = $this.state.columns;
-                                                    for (GridColumn c : cols) {
-                                                        if (!c.getId().equals(column.getId())) {
-                                                            c.setSort(GridSort.NONE);
-                                                        } else {
-                                                            c.setSort(sort);
-                                                        }
-                                                    }
-                                                    $this.setState(s -> {
-                                                        s.columns = cols;
-                                                        s.pageIdx = 0.;
-                                                        s.pageIdxMap = new HashMap<>();
-                                                    }, () -> {
-                                                        load($this);
-                                                    });
-                                                }).$()
-                                )
-                        );
-                    }
-
+            childList -> {
+                if (!$this.props.hideHeader) {
                     childList.add(
-                            div(className("grid-row-container"),
-                                    childList2 -> {
-                                        if ($this.state.loading && $this.state.firstLoad) {
-                                            childList2.add(
-                                                    div($ -> {
-                                                                $.className("first-load-div");
-                                                            },
-                                                            div(className("loader loader-default"))
-                                                    )
-                                            );
-                                        }
-
-                                        if (!$this.state.firstLoad && $this.state.showLoading) {
-                                            childList2.add(
-                                                    div($ -> {
-                                                                $.onClick(e -> {
-                                                                    e.preventDefault();
-                                                                    e.stopPropagation();
-                                                                });
-                                                                $.className("loading-div");
-                                                            },
-                                                            div(className("loader loader-default"))
-                                                    )
-                                            );
-                                        }
-
-                                        if ($this.state.data != null && !$this.state.data.isEmpty()) {
-                                            for (D data : $this.state.data) {
-                                                childList2.add(
-                                                        createCell($this, $this.props.reorderEnabled, $this.props.selectionEnabled, $this.state.columns, data, $this.props.selected != null && $this.props.selected.contains(data), (d, s) -> {
-                                                            if ($this.state.loading) {
-                                                                return;
-                                                            }
-
-                                                            if ($this.props.selected != null) {
-                                                                List<D> selected = new ArrayList<D>();
-                                                                selected.addAll($this.props.selected);
-                                                                if (s) {
-                                                                    selected.add(d);
-                                                                } else {
-                                                                    selected.remove(d);
-                                                                }
-                                                                if ($this.props.onSelectionChanged != null) {
-                                                                    $this.props.onSelectionChanged.run(selected);
-                                                                }
-                                                            }
-                                                        })
-                                                );
-                                            }
-                                        }
-
-                                        if (!$this.state.firstLoad && ($this.state.data == null || $this.state.data.isEmpty())) {
-                                            if ($this.props.noResultsComponent != null) {
-                                                childList2.add($this.props.noResultsComponent);
-                                            } else {
-                                                childList2.add(
-                                                        div(className("no-results"),
-                                                                $this.props.noResultsText
-                                                        )
-                                                );
-                                            }
+                        div(
+                            gridHeader.$$()
+                                .columns($this.state.columns)
+                                .reorderEnabled($this.props.reorderEnabled)
+                                .selectionEnabled($this.props.selectionEnabled)
+                                .allSelected(allSelected)
+                                .onAllSelectedChanged(selectAll -> handleSelectAll($this, selectAll))
+                                .onSortChanged((column, sort) -> {
+                                    List<GridColumn> cols = $this.state.columns;
+                                    for (GridColumn c : cols) {
+                                        if (!c.getId().equals(column.getId())) {
+                                            c.setSort(GridSort.NONE);
+                                        } else {
+                                            c.setSort(sort);
                                         }
                                     }
-                            )
+                                    $this.setState(s -> {
+                                        s.columns = cols;
+                                        s.pageIdx = 0.;
+                                        s.pageIdxMap = new HashMap<>();
+                                    }, () -> {
+                                        load($this);
+                                    });
+                                }).$()
+                        )
                     );
-
-                    childList.add(
-                            div(className("grid-footer"),
-                                    footerChildren -> {
-                                        footerChildren.add(actions.props()
-                                                .onPrint($this.props.onPrint)
-                                                .onEmail($this.props.onEmail)
-                                                .onPDF($this.props.onPDF)
-                                                .onExcel($this.props.onExcel)
-                                                .build());
-
-                                        if (!$this.state.firstLoad && !($this.state.pageIdx == 0 && !$this.state.moreResults)) {
-                                            footerChildren.add(
-                                                    pager.$($ -> {
-                                                        $.setNextEnabled($this.state.moreResults && !$this.state.loading);
-                                                        $.setPreviousEnabled($this.state.pageIdx > 0.);
-                                                        $.setOnNextPage(() -> {
-                                                            if ($this.state.loading) {
-                                                                return; // cannot page forward until we have the lastRecord
-                                                            }
-                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> {
-                                                                load($this);
-                                                            });
-                                                        });
-
-                                                        $.setOnPreviousPage(() -> {
-                                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1., () -> {
-                                                                load($this);
-                                                            });
-                                                        });
-                                                    })
-                                            );
-                                        }
-                                    }
-                            )
-                    );
-
-
                 }
+
+                childList.add(
+                    div(className("grid-row-container"),
+                        childList2 -> {
+                            if ($this.state.loading && $this.state.firstLoad) {
+                                childList2.add(
+                                    div($ -> {
+                                            $.className("first-load-div");
+                                        },
+                                        div(className("loader loader-default"))
+                                    )
+                                );
+                            }
+
+                            if (!$this.state.firstLoad && $this.state.showLoading) {
+                                childList2.add(
+                                    div($ -> {
+                                            $.onClick(e -> {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            });
+                                            $.className("loading-div");
+                                        },
+                                        div(className("loader loader-default"))
+                                    )
+                                );
+                            }
+
+                            if ($this.state.data != null && !$this.state.data.isEmpty()) {
+                                for (D data : $this.state.data) {
+                                    childList2.add(
+                                        createCell($this, $this.props.reorderEnabled, $this.props.selectionEnabled, $this.state.columns, data, $this.props.selected != null && $this.props.selected.contains(data), (d, s) -> {
+                                            if ($this.state.loading) {
+                                                return;
+                                            }
+
+                                            if ($this.props.selected != null) {
+                                                List<D> selected = new ArrayList<D>();
+                                                selected.addAll($this.props.selected);
+                                                if (s) {
+                                                    selected.add(d);
+                                                } else {
+                                                    selected.remove(d);
+                                                }
+                                                if ($this.props.onSelectionChanged != null) {
+                                                    $this.props.onSelectionChanged.run(selected);
+                                                }
+                                            }
+                                        })
+                                    );
+                                }
+                            }
+
+                            if (!$this.state.firstLoad && ($this.state.data == null || $this.state.data.isEmpty())) {
+                                if ($this.props.noResultsComponent != null) {
+                                    childList2.add($this.props.noResultsComponent);
+                                } else {
+                                    childList2.add(
+                                        div(className("no-results"),
+                                            $this.props.noResultsText
+                                        )
+                                    );
+                                }
+                            }
+                        }
+                    )
+                );
+
+                childList.add(
+                    div(className("grid-footer"),
+                        footerChildren -> {
+                            footerChildren.add(actions.props()
+                                .onPrint($this.props.onPrint)
+                                .onEmail($this.props.onEmail)
+                                .onPDF($this.props.onPDF)
+                                .onExcel($this.props.onExcel)
+                                .build());
+
+                            if (!$this.state.firstLoad && !($this.state.pageIdx == 0 && !$this.state.moreResults)) {
+                                footerChildren.add(
+                                    pager.$($ -> {
+                                        $.setNextEnabled($this.state.moreResults && !$this.state.loading);
+                                        $.setPreviousEnabled($this.state.pageIdx > 0.);
+                                        $.setOnNextPage(() -> {
+                                            if ($this.state.loading) {
+                                                return; // cannot page forward until we have the lastRecord
+                                            }
+                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx + 1, () -> {
+                                                load($this);
+                                            });
+                                        });
+
+                                        $.setOnPreviousPage(() -> {
+                                            $this.setState(s -> s.pageIdx = $this.state.pageIdx - 1., () -> {
+                                                load($this);
+                                            });
+                                        });
+                                    })
+                                );
+                            }
+                        }
+                    )
+                );
+
+
+            }
         );
     }
 
@@ -309,11 +308,11 @@ public abstract class AbstractGrid<D, P extends AbstractGrid.Props<D>> extends C
 
     protected abstract void fetchData(ReactComponent<P, State<D>> $this, String requestGuid, String sortColumnId, GridSort sortDirection, D lastRecord, double pageSize, CompletionHandler<D, P> completionHandler);
 
+    protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged);
+
     public interface CompletionHandler<D, P> {
         void onFetchComplete(ReactComponent<P, State<D>> $this, String requestGuid, List<D> data);
     }
-
-    protected abstract ReactElement createCell(ReactComponent<P, State<D>> $this, boolean reorderEnabled, boolean selectionEnabled, List<GridColumn> columns, D data, boolean isSelected, Func.Run2<D, Boolean> onSelectionChanged);
 
     /*
      * Props & State

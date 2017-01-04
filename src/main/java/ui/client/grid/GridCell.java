@@ -10,7 +10,6 @@ import ui.client.grid2.GridColumn;
 import javax.inject.Inject;
 import java.util.List;
 
-import static jsinterop.annotations.JsPackage.GLOBAL;
 import static react.client.DOM.div;
 
 
@@ -27,34 +26,34 @@ public abstract class GridCell<D, P extends GridCell.Props<D>, S extends GridCel
     protected ReactElement render(final ReactComponent<P, S> $this) {
 //        return div("cell here");
         return div(className("grid-cell" + " " + ($this.props.getClassName() != null ? $this.props.getClassName() : "") + ($this.props.isSelected() ? " selected" : "")),
-                childList -> {
-                    if ($this.props.isReorderEnabled()) {
-                        childList.add(
-                                div(className("reorder"),
-                                        "todo"
-                                )
-                        );
-                    }
+            childList -> {
+                if ($this.props.isReorderEnabled()) {
+                    childList.add(
+                        div(className("reorder"),
+                            "todo"
+                        )
+                    );
+                }
 
-                    if ($this.props.isSelectionEnabled()) {
-                        childList.add(
-                                div(className("checkbox"),
-                                        checkbox.$($ -> {
-                                            $.setChecked($this.props.isSelected());
+                if ($this.props.isSelectionEnabled()) {
+                    childList.add(
+                        div(className("checkbox"),
+                            checkbox.$($ -> {
+                                $.setChecked($this.props.isSelected());
 //                                            $.setOnCheck(() -> {
 //                                                if ($this.props.onSelectionChanged != null) {
 //                                                    $this.props.onSelectionChanged.run($this.props.data, !$this.props.selected);
 //                                                }
 //                                            });
-                                        })
-                                )
-                        );
-                    }
-
-                    childList.add(
-                            renderCell($this, $this.props.getData(), $this.props.getColumns())
+                            })
+                        )
                     );
                 }
+
+                childList.add(
+                    renderCell($this, $this.props.getData(), $this.props.getColumns())
+                );
+            }
         );
     }
 

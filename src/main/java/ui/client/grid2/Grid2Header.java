@@ -30,23 +30,23 @@ public class Grid2Header extends Component<Grid2Header.Props, Grid2Header.State>
             if ($this.props.headerVisible) {
                 if ($this.props.selectionEnabled) {
                     children.add(
-                            div(className("checkbox-container"),
-                                    checkbox.props()
-                                            .checked($this.props.allSelected)
-                                            .onCheck((sender, checked) -> $this.props.requestAllSelectedChange.run(checked))
-                                            .iconStyle(new StyleProps().marginRight(0))
-                                            .build()
-                            )
+                        div(className("checkbox-container"),
+                            checkbox.props()
+                                .checked($this.props.allSelected)
+                                .onCheck((sender, checked) -> $this.props.requestAllSelectedChange.run(checked))
+                                .iconStyle(new StyleProps().marginRight(0))
+                                .build()
+                        )
                     );
                 }
 
                 for (final GridColumn c : $this.props.columns) {
                     children.add(
-                            headerCell.props()
-                                    .key(String.valueOf(c.getOrdinal()))
-                                    .column(c)
-                                    .requestSortChange(() -> $this.props.requestSortChange.run(c))
-                                    .build()
+                        headerCell.props()
+                            .key(String.valueOf(c.getOrdinal()))
+                            .column(c)
+                            .requestSortChange(() -> $this.props.requestSortChange.run(c))
+                            .build()
                     );
                 }
             }

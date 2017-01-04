@@ -2,8 +2,8 @@
 
 <module>
     <inherits name="react.React"/>
-    <inherits name="moment.Moment" />
+    <inherits name="moment.Moment"/>
     <inherits name="common.Common"/>
     <source path="client"/>
-    <source path="resources" />
+    <source path="resources"/>
 </module>

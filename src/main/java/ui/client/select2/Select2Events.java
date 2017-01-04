@@ -2,10 +2,10 @@ package ui.client.select2;
 
 import com.google.gwt.dom.client.NativeEvent;
 import common.client.Func;
+import jsinterop.annotations.JsType;
 import ui.client.select2.events.Select2EventArgs;
 import ui.client.select2.events.Select2EventParams;
 import ui.client.select2.events.Select2NativeEvent;
-import jsinterop.annotations.JsType;
 
 @JsType
 public class Select2Events {

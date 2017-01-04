@@ -556,6 +556,8 @@ public class StyleProps {
     public Object wrapOption;
     @JsProperty
     public Object writingMode;
+    @JsProperty
+    public Object userSelect;
 
     @JsOverlay
     public final HTMLProps lift() {
@@ -2205,6 +2207,12 @@ public class StyleProps {
     @JsOverlay
     public final StyleProps writingMode(Object value) {
         this.writingMode = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps userSelect(Object userSelect) {
+        this.userSelect = userSelect;
         return this;
     }
 }

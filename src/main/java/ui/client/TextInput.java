@@ -22,36 +22,36 @@ public class TextInput extends Component<TextInput.Props, TextInput.State> {
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return input(new HTMLProps()
-                .id($this.props.id)
-                .className("" + $this.props.className)
-                .type($this.props.type)
-                .style($this.props.style)
-                .disabled($this.props.disabled)
-                .zIndex($this.props.zIndex)
-                .placeholder($this.props.placeholder)
-                .value($this.props.value != null ? $this.props.value : "")
-                .min($this.props.min)
-                .onFocus(event -> {
-                    if ($this.props.onFocus != null) {
-                        $this.props.onFocus.run(event);
-                    }
-                })
-                .onBlur(event -> {
-                    if ($this.props.onBlur != null) {
-                        $this.props.onBlur.run(event);
-                    }
-                })
-                .onKeyDown(keyboardEvent -> {
-                    if ($this.props.onKeyDown != null) {
-                        $this.props.onKeyDown.run(keyboardEvent);
-                    }
-                })
-                .onChange(formEvent -> {
-                    if ($this.props.onChange != null) {
-                        $this.props.onChange.run(((InputElement) formEvent.getTarget()).getValue());
-                    }
-                })
-                .ref($this.props.inputRef)
+            .id($this.props.id)
+            .className("" + $this.props.className)
+            .type($this.props.type)
+            .style($this.props.style)
+            .disabled($this.props.disabled)
+            .zIndex($this.props.zIndex)
+            .placeholder($this.props.placeholder)
+            .value($this.props.value != null ? $this.props.value : "")
+            .min($this.props.min)
+            .onFocus(event -> {
+                if ($this.props.onFocus != null) {
+                    $this.props.onFocus.run(event);
+                }
+            })
+            .onBlur(event -> {
+                if ($this.props.onBlur != null) {
+                    $this.props.onBlur.run(event);
+                }
+            })
+            .onKeyDown(keyboardEvent -> {
+                if ($this.props.onKeyDown != null) {
+                    $this.props.onKeyDown.run(keyboardEvent);
+                }
+            })
+            .onChange(formEvent -> {
+                if ($this.props.onChange != null) {
+                    $this.props.onChange.run(((InputElement) formEvent.getTarget()).getValue());
+                }
+            })
+            .ref($this.props.inputRef)
         );
     }
 
