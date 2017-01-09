@@ -1,8 +1,8 @@
 package ui.client.camberSelect;
 
 import common.client.Jso;
-import ui.client.select2.Select2Data;
 import react.client.ReactComponent;
+import ui.client.select2.Select2Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;

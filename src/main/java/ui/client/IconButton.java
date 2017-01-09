@@ -1,6 +1,7 @@
 package ui.client;
 
 import common.client.Func;
+import common.client.Jso;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -131,6 +132,12 @@ public class IconButton extends ExternalComponent<IconButton.Props> {
         @JsOverlay
         default Props onTouchTap(Func.Run onTouchTap) {
             setOnTouchTap(onTouchTap);
+            return this;
+        }
+
+        @JsOverlay
+        default Props disableTouchRipple(boolean value) {
+            Jso.set(this, "disableTouchRipple", value);
             return this;
         }
 

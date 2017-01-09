@@ -118,6 +118,15 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
     // Args / Props / State / Route
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @JsType(isNative = true)
+    public interface State {
+        @JsProperty
+        double getMaxRowIdx();
+
+        @JsProperty
+        void setMaxRowIdx(double maxRowIdx);
+    }
+
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
     public static class Props extends ComponentProps {
         public boolean selectionEnabled;
@@ -126,7 +135,7 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
         public List<GridColumn> columns;
         public Func.Run1<Boolean> onAllSelectedChanged;
         public Func.Run2<GridColumn, GridSort> onSortChanged;
-        
+
         @JsOverlay
         public final boolean isSelectionEnabled() {
             return selectionEnabled;
@@ -222,14 +231,5 @@ public class GridHeader extends Component<GridHeader.Props, GridHeader.State> {
             this.onSortChanged = onSortChanged;
             return this;
         }
-    }
-
-    @JsType(isNative = true)
-    public interface State {
-        @JsProperty
-        double getMaxRowIdx();
-
-        @JsProperty
-        void setMaxRowIdx(double maxRowIdx);
     }
 }

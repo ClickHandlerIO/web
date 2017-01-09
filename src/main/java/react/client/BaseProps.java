@@ -36,6 +36,12 @@ public interface BaseProps {
     }
 
     @JsOverlay
+    default BaseProps ref(Func.Run1<Object> callback) {
+        setRef(callback);
+        return this;
+    }
+
+    @JsOverlay
     default ReactElement $() {
         return build();
     }

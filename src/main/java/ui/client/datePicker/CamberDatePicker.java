@@ -3,14 +3,14 @@ package ui.client.datePicker;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import common.client.Func;
-import ui.client.util.UUID;
-import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import moment.client.Moment;
 import react.client.BaseProps;
 import react.client.Component;
 import react.client.ReactComponent;
 import react.client.ReactElement;
+import ui.client.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

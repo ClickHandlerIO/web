@@ -107,6 +107,17 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      * @param callback
      * @return
      */
+    public ActionCall<IN, OUT> request(RequestCallback<IN> callback) {
+        this.request = requestProvider.get();
+        callback.run(this.request);
+        enqueueSend();
+        return this;
+    }
+
+    /**
+     * @param callback
+     * @return
+     */
     public ActionCall<IN, OUT> buildRequest(RequestCallback<IN> callback) {
         this.request = requestProvider.get();
         callback.run(this.request);

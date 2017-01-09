@@ -5,15 +5,15 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 import common.client.Func;
-import ui.client.util.DateUtil;
-import ui.client.util.UUID;
-import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import moment.client.Moment;
 import react.client.BaseProps;
 import react.client.Component;
 import react.client.ReactComponent;
 import react.client.ReactElement;
+import ui.client.util.DateUtil;
+import ui.client.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -1,7 +1,6 @@
 package ui.client.grid;
 
 import common.client.Func;
-import elemental.client.Browser;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import react.client.BaseProps;

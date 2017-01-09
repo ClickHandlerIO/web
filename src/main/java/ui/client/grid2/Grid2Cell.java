@@ -26,20 +26,20 @@ public class Grid2Cell extends Component<Grid2Cell.Props, Grid2Cell.State> {
     protected ReactElement render(final ReactComponent<Props, State> $this) {
         return div(className("grid2-cell " + $this.props.className), children -> {
 
-                    if ($this.props.selectionEnabled) {
-                        children.add(
-                                div(className("checkbox-container"),
-                                        checkbox.props()
-                                                .checked($this.props.selected)
-                                                .onCheck((sender, checked) -> $this.props.requestSelectionChange.run(checked))
-                                                .iconStyle(new StyleProps().marginRight(0))
-                                                .build()
-                                )
-                        );
-                    }
-
-                    children.add(div(className("content-container"), $this.props.contentView));
+                if ($this.props.selectionEnabled) {
+                    children.add(
+                        div(className("checkbox-container"),
+                            checkbox.props()
+                                .checked($this.props.selected)
+                                .onCheck((sender, checked) -> $this.props.requestSelectionChange.run(checked))
+                                .iconStyle(new StyleProps().marginRight(0))
+                                .build()
+                        )
+                    );
                 }
+
+                children.add(div(className("content-container"), $this.props.contentView));
+            }
         );
     }
 

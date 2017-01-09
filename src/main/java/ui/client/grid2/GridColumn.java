@@ -7,6 +7,8 @@ public class GridColumn {
     private Display defaultDisplay;
     private boolean sortable;
     private GridSort sort = GridSort.NONE;
+    // For legacy grid support
+    private String id;
 
     public GridColumn(Enum enumValue, String title, Integer flexGrow, boolean sortable) {
         this.ordinal = enumValue.ordinal();
@@ -17,6 +19,7 @@ public class GridColumn {
         resetDisplay();
     }
 
+
     public GridColumn(Enum enumValue, String title, Double width, boolean sortable) {
         this.ordinal = enumValue.ordinal();
         this.title = title;
@@ -24,14 +27,6 @@ public class GridColumn {
         this.defaultDisplay = new Display();
         this.defaultDisplay.setWidth(width);
         resetDisplay();
-    }
-
-
-    // For legacy grid support
-    private String id;
-
-    public String getId() {
-        return id;
     }
 
     public GridColumn(String id, String title, int flexGrow, boolean ignoreThis, boolean sortable) {
@@ -52,7 +47,9 @@ public class GridColumn {
         resetDisplay();
     }
 
-
+    public String getId() {
+        return id;
+    }
 
     public void resetDisplay() {
         this.display = defaultDisplay.copy();

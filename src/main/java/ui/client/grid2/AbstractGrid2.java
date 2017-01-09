@@ -293,13 +293,9 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
 
     protected abstract void fetchData(final ReactComponent<P, S> $this, String requestGuid, GridSort sortDirection, Integer sortColumnOrdinal, Double startRecordIdx, D lastRecord, double pageSize, final CompletionHandler<D, P> completionHandler);
 
-    public interface CompletionHandler<D, P> {
-        void onFetchComplete(String requestGuid, List<D> data);
-    }
+    protected abstract String dataKey(D data);
 
     // Cell Render
-
-    protected abstract String dataKey(D data);
 
     protected abstract ReactElement contentViewForData(final ReactComponent<P, S> $this, D data, boolean selected);
 
@@ -371,6 +367,10 @@ public abstract class AbstractGrid2<D, P extends AbstractGrid2.Props<D>, S exten
         }
 
         return style;
+    }
+
+    public interface CompletionHandler<D, P> {
+        void onFetchComplete(String requestGuid, List<D> data);
     }
 
     // Props and State

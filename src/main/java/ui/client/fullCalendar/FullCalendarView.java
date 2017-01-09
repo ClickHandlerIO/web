@@ -1,8 +1,8 @@
 package ui.client.fullCalendar;
 
-import moment.client.Moment;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import moment.client.Moment;
 
 @JsType(isNative = true)
 public interface FullCalendarView {

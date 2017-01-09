@@ -4,10 +4,10 @@ import com.google.gwt.user.client.Window;
 import common.client.Func;
 import common.client.Jso;
 import elemental.html.DivElement;
-import moment.client.Moment;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import moment.client.Moment;
 import react.client.*;
 
 import javax.inject.Inject;
@@ -95,7 +95,7 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setEventColor("#3a87ad");
         options.setEventTextColor("#fff");
         options.setEventLimit(true);
-        if(divRef != null && divRef.get($this) != null) {
+        if (divRef != null && divRef.get($this) != null) {
             options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
         }
         options.setDayClick((arg1, arg2, arg3) -> {

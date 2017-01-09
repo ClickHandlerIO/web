@@ -29,30 +29,30 @@ public class Grid2HeaderCell extends Component<Grid2HeaderCell.Props, Grid2Heade
     protected ReactElement render(ReactComponent<Props, State> $this) {
         final GridColumn column = $this.props.column;
         return div(props -> {
-                    props.className("header-cell" + (column.isSortable() ? "" : " not-sortable"));
-                    props.onClick(e -> {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        if (column.isSortable() && $this.props.requestSortChange != null) {
-                            $this.props.requestSortChange.run();
-                        }
-                    });
-
-                    StyleProps s = new StyleProps();
-                    s.overflow("hidden");
-                    s.minWidth(column.getDisplay().getMinWidth());
-                    if (column.getDisplay().getWidth() != null) {
-                        s.width(column.getDisplay().getWidth());
-                    } else {
-                        s.flexGrow(column.getDisplay().getFlexGrow());
-                        s.flexShrink(column.getDisplay().getFlexShrink());
-                        s.flexBasis(column.getDisplay().getFlexBasis());
+                props.className("header-cell" + (column.isSortable() ? "" : " not-sortable"));
+                props.onClick(e -> {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (column.isSortable() && $this.props.requestSortChange != null) {
+                        $this.props.requestSortChange.run();
                     }
-                    props.style(s);
-                },
-                div(className("title"), column.getTitle()),
-                !column.isSortable() || column.getSort().equals(GridSort.NONE) ? null :
-                        column.getSort().equals(GridSort.ASC) ? arrowDropUpSvgIcon.props().color("#5f5f5f").build() : arrowDropDownSvgIcon.props().color("#5f5f5f").build()
+                });
+
+                StyleProps s = new StyleProps();
+                s.overflow("hidden");
+                s.minWidth(column.getDisplay().getMinWidth());
+                if (column.getDisplay().getWidth() != null) {
+                    s.width(column.getDisplay().getWidth());
+                } else {
+                    s.flexGrow(column.getDisplay().getFlexGrow());
+                    s.flexShrink(column.getDisplay().getFlexShrink());
+                    s.flexBasis(column.getDisplay().getFlexBasis());
+                }
+                props.style(s);
+            },
+            div(className("title"), column.getTitle()),
+            !column.isSortable() || column.getSort().equals(GridSort.NONE) ? null :
+                column.getSort().equals(GridSort.ASC) ? arrowDropUpSvgIcon.props().color("#5f5f5f").build() : arrowDropDownSvgIcon.props().color("#5f5f5f").build()
         );
     }
 

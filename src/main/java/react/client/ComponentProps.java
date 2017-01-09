@@ -22,8 +22,20 @@ public class ComponentProps {
     }
 
     @JsOverlay
+    public final ComponentProps ref(String callback) {
+        this.ref = callback;
+        return this;
+    }
+
+    @JsOverlay
     public final <T> ComponentProps ref(Ref<T> ref) {
         this.ref = ref.getName();
+        return this;
+    }
+
+    @JsOverlay
+    public final ComponentProps ref(Func.Run1<Object> callback) {
+        this.ref = callback;
         return this;
     }
 

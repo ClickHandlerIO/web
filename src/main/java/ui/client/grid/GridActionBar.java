@@ -36,65 +36,65 @@ public class GridActionBar extends Component<GridActionBar.Props, GridActionBar.
     @Override
     protected ReactElement render(ReactComponent<Props, State> $this) {
         return
-                div(className("grid-action-bar"),
-                        childList -> {
-                            if ($this.props.onPrint != null) {
-                                childList.add(
-                                        iconButton.props()
-                                                .tooltip("Print")
-                                                .tooltipPosition("top-center")
-                                                .onTouchTap(() -> {
-                                                    if ($this.props.onPrint != null) {
-                                                        $this.props.onPrint.run();
-                                                    }
-                                                })
-                                                .build(printSvgIcon.props().build())
-                                );
-                            }
+            div(className("grid-action-bar"),
+                childList -> {
+                    if ($this.props.onPrint != null) {
+                        childList.add(
+                            iconButton.props()
+                                .tooltip("Print")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> {
+                                    if ($this.props.onPrint != null) {
+                                        $this.props.onPrint.run();
+                                    }
+                                })
+                                .build(printSvgIcon.props().build())
+                        );
+                    }
 
-                            if ($this.props.onEmail != null) {
-                                childList.add(
-                                        iconButton.props()
-                                                .tooltip("Email")
-                                                .tooltipPosition("top-center")
-                                                .onTouchTap(() -> {
-                                                    if ($this.props.onEmail != null) {
-                                                        $this.props.onEmail.run();
-                                                    }
-                                                })
-                                                .build(emailSvgIcon.props().build())
-                                );
-                            }
+                    if ($this.props.onEmail != null) {
+                        childList.add(
+                            iconButton.props()
+                                .tooltip("Email")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> {
+                                    if ($this.props.onEmail != null) {
+                                        $this.props.onEmail.run();
+                                    }
+                                })
+                                .build(emailSvgIcon.props().build())
+                        );
+                    }
 
-                            if ($this.props.onPDF != null) {
-                                childList.add(
-                                        iconButton.props()
-                                                .tooltip("PDF")
-                                                .tooltipPosition("top-center")
-                                                .onTouchTap(() -> {
-                                                    if ($this.props.onPDF != null) {
-                                                        $this.props.onPDF.run();
-                                                    }
-                                                })
-                                                .build(importExportSvgIcon.props().build())
-                                );
-                            }
+                    if ($this.props.onPDF != null) {
+                        childList.add(
+                            iconButton.props()
+                                .tooltip("PDF")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> {
+                                    if ($this.props.onPDF != null) {
+                                        $this.props.onPDF.run();
+                                    }
+                                })
+                                .build(importExportSvgIcon.props().build())
+                        );
+                    }
 
-                            if ($this.props.onExcel != null) {
-                                childList.add(
-                                        iconButton.props()
-                                                .tooltip("XLS")
-                                                .tooltipPosition("top-center")
-                                                .onTouchTap(() -> {
-                                                    if ($this.props.onExcel != null) {
-                                                        $this.props.onExcel.run();
-                                                    }
-                                                })
-                                                .build(importExportSvgIcon.props().build())
-                                );
-                            }
-                        }
-                );
+                    if ($this.props.onExcel != null) {
+                        childList.add(
+                            iconButton.props()
+                                .tooltip("XLS")
+                                .tooltipPosition("top-center")
+                                .onTouchTap(() -> {
+                                    if ($this.props.onExcel != null) {
+                                        $this.props.onExcel.run();
+                                    }
+                                })
+                                .build(importExportSvgIcon.props().build())
+                        );
+                    }
+                }
+            );
     }
 
     /*

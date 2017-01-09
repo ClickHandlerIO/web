@@ -98,7 +98,7 @@ import SearchSvgIcon from "material-ui/svg-icons/action/search";
 import SendSvgIcon from "material-ui/svg-icons/content/send";
 import StorageSvgIcon from "material-ui/svg-icons/device/storage";
 import UnarchiveSvgIcon from "material-ui/svg-icons/content/unarchive";
-import ReactDatepicker from 'react-datepicker';
+import ReactDatepicker from "react-datepicker";
 import Lodash from "lodash";
 import ReactSelect from "react-select";
 

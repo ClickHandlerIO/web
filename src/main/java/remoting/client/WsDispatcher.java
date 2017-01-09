@@ -40,6 +40,7 @@ public class WsDispatcher {
     private Timer reaperTimer;
     private Timer pingTimer;
     private Timer fragmentationTimer;
+    private boolean started;
     private int id = 0;
     private Func.Run1<Func.Run1<Boolean>> connectedCallback;
 
@@ -71,6 +72,12 @@ public class WsDispatcher {
 
     public void setConnectedCallback(Func.Run1<Func.Run1<Boolean>> connectedCallback) {
         this.connectedCallback = connectedCallback;
+
+        if (connectedCallback != null) {
+            if (webSocket != null && webSocket.isConnected()) {
+                dispatchConnectedCallback();
+            }
+        }
     }
 
     public <T> void simulatePush(String address, T event) {
@@ -111,6 +118,11 @@ public class WsDispatcher {
      *
      */
     private void drainQueue() {
+        if (webSocket == null) {
+            start();
+            return;
+        }
+
         if (!webSocket.isConnected()) {
             return;
         }
@@ -141,13 +153,20 @@ public class WsDispatcher {
 
         // Try draining the queue.
         if (connectedCallback != null) {
-            connectedCallback.run((success) -> {
-                if (success)
-                    drainQueue();
-            });
+            dispatchConnectedCallback();
         } else {
             drainQueue();
         }
+    }
+
+    private void dispatchConnectedCallback() {
+        if (connectedCallback == null) {
+            return;
+        }
+        connectedCallback.run((success) -> {
+            if (success)
+                drainQueue();
+        });
     }
 
     /**
@@ -299,19 +318,27 @@ public class WsDispatcher {
      */
     private void send(ExpectingResponse call) {
         call.tries++;
+
+        if (webSocket == null) {
+            pendingQueue.add(call);
+            start();
+            return;
+        }
+
         if (!webSocket.isConnected()) {
             pendingQueue.add(call);
-        } else {
+            return;
+        }
+
+        try {
+            calls.put(call.message.header.id(), call);
             try {
-                calls.put(call.message.header.id(), call);
-                try {
-                    webSocket.send(WsEncoding.encode(call.message));
-                } catch (Throwable e) {
-                    pendingQueue.add(call);
-                }
-            } finally {
-                ensureReaper();
+                webSocket.send(WsEncoding.encode(call.message));
+            } catch (Throwable e) {
+                pendingQueue.add(call);
             }
+        } finally {
+            ensureReaper();
         }
     }
 
@@ -646,6 +673,11 @@ public class WsDispatcher {
          * @param change
          */
         void onChange(PresenceChange change) {
+            if (outOfSync) {
+                backlog.add(change);
+                return;
+            }
+
             if (presence == null) {
                 LOG.error(
                     "Received a PresenceChange for key '" +
@@ -736,10 +768,12 @@ public class WsDispatcher {
                         return;
                     }
 
+                    // Do we need to send a JOINED notification.
                     if (me == null) {
                         onJoined(new PresenceJoined().presence(presence).me(presence.me));
                     }
 
+                    // Clear backlog.
                     clearBacklog();
                 },
                 this::leave
@@ -920,8 +954,13 @@ public class WsDispatcher {
             }
 
             // Notify change.
-            Try.run(() -> bus.publish(new PresenceChangedEvent(change, presence)));
-            Try.run(() -> subscriptions.forEach(s -> Try.run(() -> s.listener.onChange(change, presence))));
+            final Presence p = new Presence()
+                .key(presence.key)
+                .mod(presence.mod)
+                .me(presence.me)
+                .occupants(presence.occupants);
+            Try.later(() -> bus.publish(new PresenceChangedEvent(change, p)));
+            Try.later(() -> subscriptions.forEach(s -> Try.run(() -> s.listener.onChange(change, p))));
         }
 
         /**
@@ -976,6 +1015,8 @@ public class WsDispatcher {
          *
          */
         void leave() {
+            outOfSync = false;
+
             if (presence == null) {
                 return;
             }
@@ -1006,8 +1047,12 @@ public class WsDispatcher {
                         0,
                         key
                     ), null),
-                    null,
-                    null
+                    m -> {
+
+                    },
+                    () -> {
+
+                    }
                 ));
             }
         }

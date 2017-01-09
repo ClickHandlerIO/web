@@ -16,29 +16,34 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 @JsType
 public abstract class Select<D, P extends Select.Props<D>, S> extends Component<P, S> {
     protected final Ref<SelectComponent> selectRef = Ref.make();
-
+    public Func.Run focus = Func.bind(this::focusInternal);
+    public Func.Run clearCache = Func.bind(this::clearCacheInternal);
     @Inject
     JwReactSelectAsync<D> SelectAsync;
+
+    /*
+     * Expose component methods, JavaScript
+     */
 
     @Override
     protected ReactElement render(ReactComponent<P, S> $this) {
         P p = $this.props;
         return SelectAsync.$(props -> {
             props.cache(null)
-                    .minimumInput(-1.)
-                    .className(p.className)
-                    .style(p.style)
-                    .multi(p.multi)
-                    .disabled(p.disabled)
-                    .clearable(p.clearable)
-                    .openAfterFocus(true)
-                    .placeholder(p.placeholderText)
-                    .ref(selectRef);
+                .minimumInput(-1.)
+                .className(p.className)
+                .style(p.style)
+                .multi(p.multi)
+                .disabled(p.disabled)
+                .clearable(p.clearable)
+                .openAfterFocus(true)
+                .placeholder(p.placeholderText)
+                .ref(selectRef);
 
             if (getCustomRenderer() != null) {
                 props.optionRenderer(value -> getCustomRenderer().call(value.getValueObject()));
                 props.valueRenderer(value -> getCustomRenderer().call(value.getValueObject()));
-            }else {
+            } else {
                 if (getOptionRenderer() != null) {
                     props.optionRenderer(value -> getOptionRenderer().call(value.getValueObject()));
                 }
@@ -109,17 +114,9 @@ public abstract class Select<D, P extends Select.Props<D>, S> extends Component<
         });
     }
 
-    /*
-     * Expose component methods, JavaScript
-     */
-
-    public Func.Run focus = Func.bind(this::focusInternal);
-
     private void focusInternal(ReactComponent<P, S> $this) {
         selectRef.get($this).focus();
     }
-
-    public Func.Run clearCache = Func.bind(this::clearCacheInternal);
 
     private void clearCacheInternal(ReactComponent<P, S> $this) {
         selectRef.get($this).clearCache();

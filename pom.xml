@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.clickhandler</groupId>
     <artifactId>clickhandler-web</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ClickHandler Web</name>
     <description>ClickHandler WebFramework</description>
@@ -54,7 +54,7 @@
         <java.version>1.8</java.version>
         <gwt.version>2.8.0</gwt.version>
         <guava-gwt.version>20.0</guava-gwt.version>
-        <dagger-gwt.version>2.1</dagger-gwt.version>
+        <dagger-gwt.version>2.8</dagger-gwt.version>
         <gwt-lumberjack.version>0.1.0-SNAPSHOT</gwt-lumberjack.version>
         <moment-gwt.version>0.3.0-SNAPSHOT</moment-gwt.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -192,11 +192,11 @@
             <version>${guava-gwt.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.clickhandler</groupId>
-            <artifactId>moment-gwt</artifactId>
-            <version>${moment-gwt.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.clickhandler</groupId>-->
+            <!--<artifactId>moment-gwt</artifactId>-->
+            <!--<version>${moment-gwt.version}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 

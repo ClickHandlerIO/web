@@ -21,7 +21,7 @@ gulp.task('scss', function () {
     gulp.src(sources)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(postcss([ autoprefixer({ browsers: [autoprefixVersions] }) ]))
+        .pipe(postcss([autoprefixer({browsers: [autoprefixVersions]})]))
         .pipe(concat(outputFile))
         .pipe(nano({"zindex": false, "reduceIdents": false}))
         .pipe(sourcemaps.write("./../"))

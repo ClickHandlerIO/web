@@ -1,9 +1,8 @@
 package ui.client;
 
 import common.client.Func;
-import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import common.client.Jso;
+import jsinterop.annotations.*;
 import react.client.*;
 
 import javax.inject.Inject;
@@ -12,7 +11,6 @@ import javax.inject.Singleton;
 /**
  * Deprecated, should use TextInput control instead
  */
-@Deprecated
 @Singleton
 public class TextField extends ExternalComponent<TextField.Props> {
 
@@ -28,334 +26,214 @@ public class TextField extends ExternalComponent<TextField.Props> {
     /**
      *
      */
-    @JsType(isNative = true)
-    public interface Props extends BaseProps {
-        @JsProperty
-        String getClassName();
-
-        @JsProperty
-        void setClassName(String className);
-
-        @JsProperty
-        Object getDefaultValue();
-
-        @JsProperty
-        void setDefaultValue(Object defaultValue);
-
-        @JsProperty
-        boolean isDisabled();
-
-        @JsProperty
-        void setDisabled(boolean disabled);
-
-        @JsProperty
-        StyleProps getErrorStyle();
-
-        @JsProperty
-        void setErrorStyle(StyleProps errorStyle);
-
-        @JsProperty
-        String getErrorText();
-
-        @JsProperty
-        void setErrorText(String errorText);
-
-        @JsProperty
-        StyleProps getFloatingLabelStyle();
-
-        @JsProperty
-        void setFloatingLabelStyle(StyleProps floatingLabelStyle);
-
-        @JsProperty
-        String getFloatingLabelText();
-
-        @JsProperty
-        void setFloatingLabelText(String floatingLabelText);
-
-        @JsProperty
-        boolean isFullWidth();
-
-        @JsProperty
-        void setFullWidth(boolean fullWidth);
-
-        @JsProperty
-        StyleProps getHintStyle();
-
-        @JsProperty
-        void setHintStyle(StyleProps hintStyle);
-
-        @JsProperty
-        String getHintText();
-
-        @JsProperty
-        void setHintText(String hintText);
-
-        @JsProperty
-        String getId();
-
-        @JsProperty
-        void setId(String id);
-
-        @JsProperty
-        StyleProps getInputStyle();
-
-        @JsProperty
-        void setInputStyle(StyleProps inputStyle);
-
-        @JsProperty
-        boolean isMultiLine();
-
-        @JsProperty
-        void setMultiLine(boolean multiLine);
-
-        @JsProperty
-        FocusEventHandler getOnBlur();
-
-        @JsProperty
-        void setOnBlur(FocusEventHandler onBlur);
-
-        @JsProperty
-        Func.Run1<FormEvent> getOnChange();
-
-        @JsProperty
-        void setOnChange(Func.Run1<FormEvent> onChange);
-
-        @JsProperty
-        KeyboardEventHandler getOnEnterKeyDown();
-
-        @JsProperty
-        void setOnEnterKeyDown(KeyboardEventHandler onEnterKeyDown);
-
-        @JsProperty
-        FocusEventHandler getOnFocus();
-
-        @JsProperty
-        void setOnFocus(FocusEventHandler onFocus);
-
-        @JsProperty
-        KeyboardEventHandler getOnKeyDown();
-
-        @JsProperty
-        void setOnKeyDown(KeyboardEventHandler onKeyDown);
-
-        @JsProperty
-        double getRows();
-
-        @JsProperty
-        void setRows(double rows);
-
-        @JsProperty
-        double getRowsMax();
-
-        @JsProperty
-        void setRowsMax(double rowsMax);
-
-        @JsProperty
-        StyleProps getStyle();
-
-        @JsProperty
-        void setStyle(StyleProps style);
-
-        @JsProperty
-        String getType();
-
-        @JsProperty
-        void setType(String type);
-
-        @JsProperty
-        StyleProps getUnderlineDisabledStyle();
-
-        @JsProperty
-        void setUnderlineDisabledStyle(StyleProps underlineDisabledStyle);
-
-        @JsProperty
-        StyleProps getUnderlineFocusStyle();
-
-        @JsProperty
-        void setUnderlineFocusStyle(StyleProps underlineFocusStyle);
-
-        @JsProperty
-        boolean isUnderlineShow();
-
-        @JsProperty
-        void setUnderlineShow(boolean underlineShow);
-
-        @JsProperty
-        StyleProps getUnderlineStyle();
-
-        @JsProperty
-        void setUnderlineStyle(StyleProps underlineStyle);
-
-        @JsProperty
-        Object getValue();
-
-        @JsProperty
-        void setValue(Object value);
-
-
-        ////////////////////
-        // fluent setters
-        ////////////////////
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+    public static class Props extends ComponentProps {
+        public String className;
+        public Object defaultValue;
+        public boolean disabled;
+        public StyleProps errorStyle;
+        public String errorText;
+        public StyleProps floatingLabelStyle;
+        public String floatingLabelText;
+        public boolean floatingLabelFixed;
+        public boolean fullWidth;
+        public StyleProps hintStyle;
+        public Object hintText;
+        public String id;
+        public StyleProps inputStyle;
+        public boolean multiLine;
+        public FocusEventHandler onBlur;
+        public Func.Run2<SyntheticEvent, String> onChange;
+        public KeyboardEventHandler onEnterKeyDown;
+        public FocusEventHandler onFocus;
+        public KeyboardEventHandler onKeyDown;
+        public double rows;
+        public double rowsMax;
+        public StyleProps style;
+        public String type;
+        public StyleProps underlineDisabledStyle;
+        public StyleProps underlineFocusStyle;
+        public boolean underlineShow;
+        public StyleProps underlineStyle;
+        public Object value;
 
         @JsOverlay
-        default Props className(String className) {
-            setClassName(className);
+        public final Props className(final String className) {
+            this.className = className;
             return this;
         }
 
         @JsOverlay
-        default Props defaultValue(Object defaultValue) {
-            setDefaultValue(defaultValue);
+        public final Props defaultValue(final Object defaultValue) {
+            this.defaultValue = defaultValue;
             return this;
         }
 
         @JsOverlay
-        default Props disabled(boolean disabled) {
-            setDisabled(disabled);
+        public final Props disabled(final boolean disabled) {
+            this.disabled = disabled;
             return this;
         }
 
         @JsOverlay
-        default Props errorStyle(StyleProps errorStyle) {
-            setErrorStyle(errorStyle);
+        public final Props errorStyle(final StyleProps errorStyle) {
+            this.errorStyle = errorStyle;
             return this;
         }
 
         @JsOverlay
-        default Props errorText(String errorText) {
-            setErrorText(errorText);
+        public final Props errorText(final String errorText) {
+            this.errorText = errorText;
             return this;
         }
 
         @JsOverlay
-        default Props floatingLabelStyle(StyleProps floatingLabelStyle) {
-            setFloatingLabelStyle(floatingLabelStyle);
+        public final Props min(final String value) {
+            Jso.set(this, "min", value);
             return this;
         }
 
         @JsOverlay
-        default Props floatingLabelText(String floatingLabelText) {
-            setFloatingLabelText(floatingLabelText);
+        public final Props floatingLabelStyle(final StyleProps floatingLabelStyle) {
+            this.floatingLabelStyle = floatingLabelStyle;
             return this;
         }
 
         @JsOverlay
-        default Props fullWidth(boolean fullWidth) {
-            setFullWidth(fullWidth);
+        public final Props floatingLabelText(final String floatingLabelText) {
+            this.floatingLabelText = floatingLabelText;
             return this;
         }
 
         @JsOverlay
-        default Props hintStyle(StyleProps hintStyle) {
-            setHintStyle(hintStyle);
+        public final Props floatingLabelFixed(final boolean floatingLabelFixed) {
+            this.floatingLabelFixed = floatingLabelFixed;
             return this;
         }
 
         @JsOverlay
-        default Props hintText(String hintText) {
-            setHintText(hintText);
+        public final Props fullWidth(final boolean fullWidth) {
+            this.fullWidth = fullWidth;
             return this;
         }
 
         @JsOverlay
-        default Props id(String id) {
-            setId(id);
+        public final Props hintStyle(final StyleProps hintStyle) {
+            this.hintStyle = hintStyle;
             return this;
         }
 
         @JsOverlay
-        default Props inputStyle(StyleProps inputStyle) {
-            setInputStyle(inputStyle);
+        public final Props hintText(final Object hintText) {
+            this.hintText = hintText;
             return this;
         }
 
         @JsOverlay
-        default Props multiLine(boolean multiLine) {
-            setMultiLine(multiLine);
+        public final Props placeholder(final Object hintText) {
+            this.hintText = hintText;
             return this;
         }
 
         @JsOverlay
-        default Props onBlur(FocusEventHandler onBlur) {
-            setOnBlur(onBlur);
+        public final Props id(final String id) {
+            this.id = id;
             return this;
         }
 
         @JsOverlay
-        default Props onChange(Func.Run1<FormEvent> onChange) {
-            setOnChange(onChange);
+        public final Props inputStyle(final StyleProps inputStyle) {
+            this.inputStyle = inputStyle;
             return this;
         }
 
         @JsOverlay
-        default Props onEnterKeyDown(KeyboardEventHandler onEnterKeyDown) {
-            setOnEnterKeyDown(onEnterKeyDown);
+        public final Props multiLine(final boolean multiLine) {
+            this.multiLine = multiLine;
             return this;
         }
 
         @JsOverlay
-        default Props onFocus(FocusEventHandler onFocus) {
-            setOnFocus(onFocus);
+        public final Props onBlur(final FocusEventHandler onBlur) {
+            this.onBlur = onBlur;
             return this;
         }
 
         @JsOverlay
-        default Props onKeyDown(KeyboardEventHandler onKeyDown) {
-            setOnKeyDown(onKeyDown);
+        public final Props onChange(final Func.Run2<SyntheticEvent, String> onChange) {
+            this.onChange = onChange;
             return this;
         }
 
         @JsOverlay
-        default Props rows(double rows) {
-            setRows(rows);
+        public final Props onEnterKeyDown(final KeyboardEventHandler onEnterKeyDown) {
+            this.onEnterKeyDown = onEnterKeyDown;
             return this;
         }
 
         @JsOverlay
-        default Props rowsMax(double rowsMax) {
-            setRowsMax(rowsMax);
+        public final Props onFocus(final FocusEventHandler onFocus) {
+            this.onFocus = onFocus;
             return this;
         }
 
         @JsOverlay
-        default Props style(StyleProps style) {
-            setStyle(style);
+        public final Props onKeyDown(final KeyboardEventHandler onKeyDown) {
+            this.onKeyDown = onKeyDown;
             return this;
         }
 
         @JsOverlay
-        default Props type(String type) {
-            setType(type);
+        public final Props rows(final double rows) {
+            this.rows = rows;
             return this;
         }
 
         @JsOverlay
-        default Props underlineDisabledStyle(StyleProps underlineDisabledStyle) {
-            setUnderlineDisabledStyle(underlineDisabledStyle);
+        public final Props rowsMax(final double rowsMax) {
+            this.rowsMax = rowsMax;
             return this;
         }
 
         @JsOverlay
-        default Props underlineFocusStyle(StyleProps underlineFocusStyle) {
-            setUnderlineFocusStyle(underlineFocusStyle);
+        public final Props style(final StyleProps style) {
+            this.style = style;
             return this;
         }
 
         @JsOverlay
-        default Props underlineShow(boolean underlineShow) {
-            setUnderlineShow(underlineShow);
+        public final Props type(final String type) {
+            this.type = type;
             return this;
         }
 
         @JsOverlay
-        default Props underlineStyle(StyleProps underlineStyle) {
-            setUnderlineStyle(underlineStyle);
+        public final Props underlineDisabledStyle(final StyleProps underlineDisabledStyle) {
+            this.underlineDisabledStyle = underlineDisabledStyle;
             return this;
         }
 
         @JsOverlay
-        default Props value(Object value) {
-            setValue(value);
+        public final Props underlineFocusStyle(final StyleProps underlineFocusStyle) {
+            this.underlineFocusStyle = underlineFocusStyle;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props underlineShow(final boolean underlineShow) {
+            this.underlineShow = underlineShow;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props underlineStyle(final StyleProps underlineStyle) {
+            this.underlineStyle = underlineStyle;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props value(final Object value) {
+            this.value = value;
             return this;
         }
     }
