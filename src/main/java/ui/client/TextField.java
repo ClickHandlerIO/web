@@ -1,6 +1,7 @@
 package ui.client;
 
 import common.client.Func;
+import common.client.Jso;
 import jsinterop.annotations.*;
 import react.client.*;
 
@@ -37,7 +38,7 @@ public class TextField extends ExternalComponent<TextField.Props> {
         public boolean floatingLabelFixed;
         public boolean fullWidth;
         public StyleProps hintStyle;
-        public String hintText;
+        public Object hintText;
         public String id;
         public StyleProps inputStyle;
         public boolean multiLine;
@@ -87,6 +88,12 @@ public class TextField extends ExternalComponent<TextField.Props> {
         }
 
         @JsOverlay
+        public final Props min(final String value) {
+            Jso.set(this, "min", value);
+            return this;
+        }
+
+        @JsOverlay
         public final Props floatingLabelStyle(final StyleProps floatingLabelStyle) {
             this.floatingLabelStyle = floatingLabelStyle;
             return this;
@@ -117,7 +124,13 @@ public class TextField extends ExternalComponent<TextField.Props> {
         }
 
         @JsOverlay
-        public final Props hintText(final String hintText) {
+        public final Props hintText(final Object hintText) {
+            this.hintText = hintText;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props placeholder(final Object hintText) {
             this.hintText = hintText;
             return this;
         }

@@ -54,7 +54,7 @@ public class AutoComplete extends ExternalComponent<AutoComplete.Props> {
         public StyleProps floatingLabelStyle;
         public boolean floatingLabelFixed;
         public StyleProps hintStyle;
-        public String hintText;
+        public Object hintText;
         public String id;
         public StyleProps inputStyle;
         public FocusEventHandler onBlur;
@@ -237,7 +237,7 @@ public class AutoComplete extends ExternalComponent<AutoComplete.Props> {
         }
 
         @JsOverlay
-        public final Props hintText(String hintText) {
+        public final Props hintText(Object hintText) {
             this.hintText = hintText;
             return this;
         }
