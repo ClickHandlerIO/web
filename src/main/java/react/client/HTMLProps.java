@@ -293,7 +293,30 @@ public class HTMLProps extends DOMProps {
     public String security;
     @JsProperty
     public boolean unselectable;
-    
+    @JsProperty
+    public String innerHtml;
+    @JsProperty
+    public DangerousHtmlWrapper dangerouslySetInnerHTML;
+
+    @JsOverlay
+    public final HTMLProps innerHtml(String innerHtml) {
+        this.innerHtml = innerHtml;
+        return this;
+    }
+
+    @JsOverlay
+    public final HTMLProps dangerouslySetInnerHTML(String innerHtml) {
+        DangerousHtmlWrapper wrapper = Jso.create();
+        wrapper.__html = innerHtml;
+        this.dangerouslySetInnerHTML = wrapper;
+        return this;
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+    public static class DangerousHtmlWrapper {
+        public String __html;
+    }
+
     @JsOverlay
     public final HTMLProps children(Object children) {
         this.children = children;
