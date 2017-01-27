@@ -58,6 +58,7 @@ public class DatePicker extends ExternalComponent<DatePicker.Props> {
         //        public Object[] tetherConstraints; // todo defaultValue: [ { to: 'window', attachment: 'together' } ]
         public String title;
         public String todayButton;
+        public Double utcOffset;
 
         @JsOverlay
         public final Props key(final String key) {
@@ -242,6 +243,12 @@ public class DatePicker extends ExternalComponent<DatePicker.Props> {
         @JsOverlay
         public final Props todayButton(final String todayButton) {
             this.todayButton = todayButton;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props utcOffset(final Double utcOffset) {
+            this.utcOffset = utcOffset;
             return this;
         }
     }
