@@ -129,7 +129,7 @@
 .select2-dropdown {
   position: absolute;
   left: -100000px;
-  z-index: 1200;
+  z-index: 4200;
   display: block;
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -203,7 +203,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1800;
+  z-index: 4800;
   display: block;
   width: auto;
   min-width: 100%;
