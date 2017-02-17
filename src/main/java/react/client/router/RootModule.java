@@ -45,7 +45,13 @@ public abstract class RootModule extends ModuleLoader {
             .path("/")
             .component(root)
             .getChildRoutes(
-                (partialNextState, callback) -> handle(partialNextState.location.getPathname(), partialNextState.location, callback))
+                (partialNextState, callback) -> {
+                    RoutesCallback internal = (error, routes) -> {
+//                        Route wildcard = new Route().path("*").component(root);
+                        callback.run(error, routes);
+                    };
+                    handle(partialNextState.location.getPathname(), partialNextState.location, internal);
+                })
             .onEnter(
                 (nextState, replaceState) -> routeGatekeeper.get().onEnter(rootRoute, nextState, replaceState))
             .onLeave(

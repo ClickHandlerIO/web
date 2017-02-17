@@ -1,5 +1,6 @@
 package remoting.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import common.client.Bus;
@@ -43,6 +44,7 @@ public class WsDispatcher {
     private boolean started;
     private int id = 0;
     private Func.Run1<Func.Run1<Boolean>> connectedCallback;
+    private Func.Run onResetSuccess;
 
     public WsDispatcher(Bus bus, String url) {
         this(bus, url, null);
@@ -106,12 +108,22 @@ public class WsDispatcher {
      *
      */
     public void start() {
+        GWT.log("start1");
         if (webSocket != null) {
             return;
         }
-
+        GWT.log("start2");
         webSocket = new Ws(bus, url, this::connected, this::closed, this::error, this::data);
+        GWT.log("start3");
         webSocket.connect();
+        GWT.log("start4");
+    }
+
+    public void reset(Func.Run onResetSuccess) {
+        this.onResetSuccess = onResetSuccess;
+        webSocket.close();
+        webSocket = null;
+        Try.later(this::start);
     }
 
     /**
@@ -146,16 +158,25 @@ public class WsDispatcher {
      *
      */
     private void connected() {
+        GWT.log("connected1");
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
-
+        GWT.log("connected2");
         ensurePinger();
         ensureFragmentationTimer();
 
+        GWT.log("connected3");
         // Try draining the queue.
         if (connectedCallback != null) {
             dispatchConnectedCallback();
         } else {
             drainQueue();
+        }
+
+        GWT.log("connected4");
+        if (onResetSuccess != null) {
+            GWT.log("connected5");
+            onResetSuccess.run();
+            onResetSuccess = null;
         }
     }
 
