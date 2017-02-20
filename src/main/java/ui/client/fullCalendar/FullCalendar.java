@@ -86,6 +86,7 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         header.setRight("");
 
         FullCalendarOptions options = Jso.create();
+        options.setTimezone($this.props.getTimezone());
         options.setHeader(header);
         options.setDefaultView($this.props.getView().getId());
         options.setDefaultDate($this.props.getMoment());
@@ -174,6 +175,12 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
 
         @JsProperty
         void setMoment(Moment moment);
+
+        @JsProperty
+        String getTimezone();
+
+        @JsProperty
+        void setTimezone(String timezone);
 
         @JsProperty
         FullCalendarViewType getView();
