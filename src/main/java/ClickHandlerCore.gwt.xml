@@ -11,4 +11,5 @@
     <inherits name="action.Action"/>
     <inherits name="react.React"/>
     <inherits name="remoting.Remoting"/>
+    <inherits name="moment.Moment"/>
 </module>
