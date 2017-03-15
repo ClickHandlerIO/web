@@ -551,19 +551,19 @@ public class Moment {
     @JsMethod(namespace = "moment")
     public static native Moment tz(Date date, String timeZone);
 
-    @JsMethod(namespace = "tz")
+    @JsMethod(namespace = "moment.tz")
     public static native void setDefault(String timeZone);
 
-    @JsMethod(namespace = "tz")
+    @JsMethod(namespace = "moment.tz")
     public static native String guess(); // not a reliable method per documentation
 
-    @JsMethod(namespace = "tz")
+    @JsMethod(namespace = "moment.tz")
     public static native String zoneName(String timeZone);
 
-    @JsMethod(namespace = "tz")
+    @JsMethod(namespace = "moment.tz")
     public static native String zoneAbbr();
 
-    @JsMethod(namespace = "tz")
+    @JsMethod(namespace = "moment.tz")
     public static native String[] names(); // get names of timezones
 
 
