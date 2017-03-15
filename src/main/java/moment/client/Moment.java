@@ -552,10 +552,10 @@ public class Moment {
     public static native Moment tz(Date date, String timeZone);
 
     @JsMethod(namespace = "tz")
-    public static native Zone setDefault(String timeZone);
+    public static native void setDefault(String timeZone);
 
     @JsMethod(namespace = "tz")
-    public static native Zone guess(); // not a reliable method per documentation
+    public static native String guess(); // not a reliable method per documentation
 
     @JsMethod(namespace = "tz")
     public static native String zoneName(String timeZone);
