@@ -4,6 +4,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Keeps track of local subscriptions which may be removed all at once.
@@ -90,8 +91,13 @@ public class BusDelegate implements HandlerRegistration {
         final HandlerRegistration r = new HandlerRegistration() {
             @Override
             public void removeHandler() {
-                registrations.remove(this);
-                registration.removeHandler();
+                try {
+                    registrations.remove(this);
+                } catch (Throwable e) {
+                    // Ignore.
+                } finally {
+                    registration.removeHandler();
+                }
             }
         };
         getRegistrations().add(r);
@@ -107,14 +113,16 @@ public class BusDelegate implements HandlerRegistration {
      *
      */
     public void clear() {
-        if (registrations == null)
+        if (registrations == null || registrations.isEmpty())
             return;
 
-        for (HandlerRegistration r : registrations) {
-            try {
-                r.removeHandler();
-            } catch (Throwable e) {}
+        final Iterator<HandlerRegistration> handlerRegistrations = registrations.iterator();
+        while (handlerRegistrations.hasNext()) {
+            final HandlerRegistration registration = handlerRegistrations.next();
+            handlerRegistrations.remove();
+            registration.removeHandler();
         }
+
         registrations.clear();
         registrations = null;
     }

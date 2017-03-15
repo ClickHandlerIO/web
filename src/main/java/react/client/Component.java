@@ -1,10 +1,7 @@
 package react.client;
 
 import com.google.gwt.dom.client.InputElement;
-import common.client.Bus;
-import common.client.BusDelegate;
-import common.client.Func;
-import common.client.Jso;
+import common.client.*;
 import elemental.client.Browser;
 import elemental.dom.Document;
 import elemental.html.Console;
@@ -290,14 +287,18 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     private void componentWillMountInternal(final ReactComponent<P, S> $this) {
-        log.trace("componentWillMount");
-        $this.bus = new BusDelegate(bus);
+//        log.trace("componentWillMount");
+        if ($this.bus != null) {
+            Try.run(() -> $this.bus.clear());
+        } else {
+            $this.bus = new BusDelegate(bus);
+        }
         componentWillMount($this);
     }
 
     @JsIgnore
     private void componentDidMountInternal(final ReactComponent<P, S> $this) {
-        log.trace("componentDidMount");
+//        log.trace("componentDidMount");
         try {
             componentDidMount($this);
         } finally {
@@ -307,7 +308,7 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     private void componentWillReceivePropsInternal(final ReactComponent<P, S> $this, P nextProps) {
-        log.trace("componentWillReceiveProps");
+//        log.trace("componentWillReceiveProps");
         try {
             componentWillReceiveProps($this, nextProps);
         } finally {
@@ -317,13 +318,13 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     private boolean shouldComponentUpdateInternal(final ReactComponent<P, S> $this, P nextProps, S nextState) {
-        log.trace("shouldComponentUpdateInternal");
+//        log.trace("shouldComponentUpdateInternal");
         return shouldComponentUpdate($this, nextProps, nextState);
     }
 
     @JsIgnore
     private void componentWillUpdateInternal(final ReactComponent<P, S> $this, P nextProps, S nextState) {
-        log.trace("componentWillUpdate");
+//        log.trace("componentWillUpdate");
         componentWillUpdate($this, nextProps, nextState);
     }
 
@@ -331,19 +332,19 @@ public abstract class Component<P, S> implements Jso {
 
     @JsIgnore
     private ReactElement renderInternal(final ReactComponent<P, S> $this) {
-        log.trace("render");
+//        log.trace("render");
         return render($this);
     }
 
     @JsIgnore
     private void componentDidUpdateInternal(final ReactComponent<P, S> $this, P prevProps, S prevState) {
-        log.trace("componentDidUpdate");
+//        log.trace("componentDidUpdate");
         componentDidUpdate($this, prevProps, prevState);
     }
 
     @JsIgnore
     private void componentWillUnmountInternal(final ReactComponent<P, S> $this) {
-        log.trace("componentWillUnmount");
+//        log.trace("componentWillUnmount");
         try {
             $this.eventRegistrationCleanup();
         } finally {
