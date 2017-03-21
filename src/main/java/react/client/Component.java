@@ -25,15 +25,15 @@ public abstract class Component<P, S> implements Jso {
 
     @JsProperty
     public String displayName;
+
     /**
      * Lifecycle
      */
+
     @JsProperty
     public Func.Call getDefaultProps = Func.bind(this::getDefaultPropsInternal);
-    //    public Func.Run getDefaultProps = this::getDefaultProps;
     @JsProperty
     public Func.Call getInitialState = Func.bind(this::getInitialStateInternal);
-    //    public Func.Run getInitialState = this::getInitialState;
     @JsProperty
     public Func.Run componentDidMount = Func.bind(this::componentDidMountInternal);
     @JsProperty
@@ -42,26 +42,17 @@ public abstract class Component<P, S> implements Jso {
     public Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.bind(this::shouldComponentUpdateInternal);
     @JsProperty
     public Func.Run2<P, S> componentWillUpdate = Func.bind(this::componentWillUpdateInternal);
-    //    @JsProperty(name = "render") // todo test if we need the property name declaration
-
-
-    //    @JsProperty(name = "render")
     @JsProperty
     public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
-
-//    @JsMethod(name = "render")
-//    public ReactElement render() {
-//        return Func.bind(this::renderInternal).call();
-//    }
-
-    //    @JsProperty(name = "componentDidUpdate") // todo test if we need the property name declaration
     @JsProperty
     public Func.Run2<P, S> componentDidUpdate = Func.bind(this::componentDidUpdateInternal);
     @JsProperty
     public Func.Run componentWillUnmount = Func.bind(this::componentWillUnmountInternal);
+
     /*
      * Context
      */
+
     @JsProperty
     public Func.Call getChildContext = this::getChildContext;
     @JsProperty
@@ -73,6 +64,7 @@ public abstract class Component<P, S> implements Jso {
     protected Bus bus;
     @JsProperty
     public Func.Run componentWillMount = Func.bind(this::componentWillMountInternal);
+
     // Shorthand syntax
     @JsIgnore
     private ReactClass reactClass;
@@ -129,6 +121,7 @@ public abstract class Component<P, S> implements Jso {
     /*
      * Factory Methods
      */
+
     @JsIgnore
     public ReactElement createElement() {
         log.trace("createElement()");
@@ -296,6 +289,8 @@ public abstract class Component<P, S> implements Jso {
         componentWillMount($this);
     }
 
+    private boolean ignoreNextIntakePropsCall = false; // Stops intakeProps from being called twice on mount - need to use intakeProps because componentWillReceiveProps is not called on back button, but componentDidMount is called.
+
     @JsIgnore
     private void componentDidMountInternal(final ReactComponent<P, S> $this) {
 //        log.trace("componentDidMount");
@@ -303,16 +298,20 @@ public abstract class Component<P, S> implements Jso {
             componentDidMount($this);
         } finally {
             intakeProps($this, $this.props);
+            ignoreNextIntakePropsCall = true;
         }
     }
 
     @JsIgnore
     private void componentWillReceivePropsInternal(final ReactComponent<P, S> $this, P nextProps) {
-//        log.trace("componentWillReceiveProps");
         try {
             componentWillReceiveProps($this, nextProps);
         } finally {
-            intakeProps($this, nextProps);
+            if (ignoreNextIntakePropsCall) {
+                ignoreNextIntakePropsCall = false;
+            } else {
+                intakeProps($this, nextProps);
+            }
         }
     }
 
@@ -340,6 +339,7 @@ public abstract class Component<P, S> implements Jso {
     private void componentDidUpdateInternal(final ReactComponent<P, S> $this, P prevProps, S prevState) {
 //        log.trace("componentDidUpdate");
         componentDidUpdate($this, prevProps, prevState);
+        ignoreNextIntakePropsCall = false; // If back button was used willReceiveProps was not called, need to reset this bool so subsequent calls are not ignored
     }
 
     @JsIgnore
