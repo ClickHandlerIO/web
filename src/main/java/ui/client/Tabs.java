@@ -60,12 +60,6 @@ public class Tabs extends ExternalComponent<Tabs.Props> {
         void setInkBarStyle(StyleProps inkBarStyle);
 
         @JsProperty
-        Func.Run1<String> getOnChange2();
-
-        @JsProperty
-        void setOnChange2(Func.Run1<String> onChange2);
-
-        @JsProperty
         Func.Run1<String> getOnChange();
 
         @JsProperty
