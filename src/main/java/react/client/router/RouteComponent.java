@@ -1,6 +1,6 @@
 package react.client.router;
 
-import react.client.Component;
+import react.client.PageComponent;
 import react.client.React;
 import react.client.ReactComponent;
 
@@ -11,7 +11,7 @@ import javax.inject.Provider;
  *
  */
 
-public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends RouteProps, S> extends Component<P, S> implements HasRouter {
+public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends RouteProps, S> extends PageComponent<P, S> implements HasRouter {
     private Provider<R> routeProxyProvider;
     private R routeProxy;
 

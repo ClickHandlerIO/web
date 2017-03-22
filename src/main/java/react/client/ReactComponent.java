@@ -21,6 +21,8 @@ public class ReactComponent<P, S> {
     public P props;
     @JsProperty
     public S state;
+    @JsProperty
+    public boolean ignoreNextIntakePropsCall;
 
     private ReactComponent() {}
 

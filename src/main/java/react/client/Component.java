@@ -12,7 +12,7 @@ import logging.client.Logger;
 import javax.inject.Inject;
 import java.util.List;
 
-//@JsType
+
 public abstract class Component<P, S> implements Jso {
     @JsIgnore
     protected final Console console = Browser.getWindow().getConsole();
@@ -289,29 +289,27 @@ public abstract class Component<P, S> implements Jso {
         componentWillMount($this);
     }
 
-    private boolean ignoreNextIntakePropsCall = false; // Stops intakeProps from being called twice on mount - need to use intakeProps because componentWillReceiveProps is not called on back button, but componentDidMount is called.
-
     @JsIgnore
-    private void componentDidMountInternal(final ReactComponent<P, S> $this) {
+    protected void componentDidMountInternal(final ReactComponent<P, S> $this) {
 //        log.trace("componentDidMount");
         try {
             componentDidMount($this);
         } finally {
             intakeProps($this, $this.props);
-            ignoreNextIntakePropsCall = true;
+//            $this.ignoreNextIntakePropsCall = true;
         }
     }
 
     @JsIgnore
-    private void componentWillReceivePropsInternal(final ReactComponent<P, S> $this, P nextProps) {
+    protected void componentWillReceivePropsInternal(final ReactComponent<P, S> $this, P nextProps) {
         try {
             componentWillReceiveProps($this, nextProps);
         } finally {
-            if (ignoreNextIntakePropsCall) {
-                ignoreNextIntakePropsCall = false;
-            } else {
+//            if ($this.ignoreNextIntakePropsCall) {
+//                $this.ignoreNextIntakePropsCall = false;
+//            } else {
                 intakeProps($this, nextProps);
-            }
+//            }
         }
     }
 
@@ -336,10 +334,9 @@ public abstract class Component<P, S> implements Jso {
     }
 
     @JsIgnore
-    private void componentDidUpdateInternal(final ReactComponent<P, S> $this, P prevProps, S prevState) {
+    protected void componentDidUpdateInternal(final ReactComponent<P, S> $this, P prevProps, S prevState) {
 //        log.trace("componentDidUpdate");
         componentDidUpdate($this, prevProps, prevState);
-        ignoreNextIntakePropsCall = false; // If back button was used willReceiveProps was not called, need to reset this bool so subsequent calls are not ignored
     }
 
     @JsIgnore
