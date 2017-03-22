@@ -60,10 +60,10 @@ public class Tabs extends ExternalComponent<Tabs.Props> {
         void setInkBarStyle(StyleProps inkBarStyle);
 
         @JsProperty
-        Func.Run getOnChange();
+        Func.Run1<String> getOnChange();
 
         @JsProperty
-        void setOnChange(Func.Run onChange);
+        void setOnChange(Func.Run1<String> onChange);
 
         @JsProperty
         StyleProps getStyle();
@@ -131,7 +131,7 @@ public class Tabs extends ExternalComponent<Tabs.Props> {
         }
 
         @JsOverlay
-        default Props onChange(Func.Run onChange) {
+        default Props onChange(Func.Run1<String> onChange) {
             setOnChange(onChange);
             return this;
         }
