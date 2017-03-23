@@ -25,13 +25,17 @@ public class GridColumn {
         resetDisplay();
     }
 
-
     public GridColumn(Enum enumValue, String title, Double width, boolean sortable) {
+        this(enumValue, title, width, sortable, false);
+    }
+
+    public GridColumn(Enum enumValue, String title, Double width, boolean sortable, boolean alignCenter) {
         this.ordinal = enumValue.ordinal();
         this.title = title;
         this.sortable = sortable;
         this.defaultDisplay = new Display();
         this.defaultDisplay.setWidth(width);
+        this.alignCenter = alignCenter;
         resetDisplay();
     }
 
