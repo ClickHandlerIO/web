@@ -7,15 +7,21 @@ public class GridColumn {
     private Display defaultDisplay;
     private boolean sortable;
     private GridSort sort = GridSort.NONE;
+    private boolean alignCenter;
     // For legacy grid support
     private String id;
 
     public GridColumn(Enum enumValue, String title, Integer flexGrow, boolean sortable) {
+        this(enumValue, title, flexGrow, sortable, false);
+    }
+
+    public GridColumn(Enum enumValue, String title, Integer flexGrow, boolean sortable, boolean alignCenter) {
         this.ordinal = enumValue.ordinal();
         this.title = title;
         this.sortable = sortable;
         this.defaultDisplay = new Display();
         this.defaultDisplay.setFlexGrow(flexGrow);
+        this.alignCenter = alignCenter;
         resetDisplay();
     }
 
@@ -49,6 +55,10 @@ public class GridColumn {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isAlignCenter() {
+        return alignCenter;
     }
 
     public void resetDisplay() {

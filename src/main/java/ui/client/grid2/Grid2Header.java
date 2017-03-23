@@ -45,6 +45,7 @@ public class Grid2Header extends Component<Grid2Header.Props, Grid2Header.State>
                         headerCell.props()
                             .key(String.valueOf(c.getOrdinal()))
                             .column(c)
+                                .alignCenter(c.isAlignCenter())
                             .requestSortChange(() -> $this.props.requestSortChange.run(c))
                             .build()
                     );

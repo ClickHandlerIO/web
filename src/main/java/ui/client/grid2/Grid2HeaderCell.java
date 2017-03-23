@@ -48,6 +48,11 @@ public class Grid2HeaderCell extends Component<Grid2HeaderCell.Props, Grid2Heade
                     s.flexShrink(column.getDisplay().getFlexShrink());
                     s.flexBasis(column.getDisplay().getFlexBasis());
                 }
+
+                if ($this.props.alignCenter) {
+                    s.textAlign("center");
+                }
+
                 props.style(s);
             },
             div(className("title"), column.getTitle()),
@@ -60,6 +65,7 @@ public class Grid2HeaderCell extends Component<Grid2HeaderCell.Props, Grid2Heade
     public static class Props extends ComponentProps {
         public GridColumn column;
         public Func.Run requestSortChange;
+        public boolean alignCenter;
 
         @JsOverlay
         public final Props key(final String key) {
@@ -76,6 +82,12 @@ public class Grid2HeaderCell extends Component<Grid2HeaderCell.Props, Grid2Heade
         @JsOverlay
         public final Props requestSortChange(final Func.Run requestSortChange) {
             this.requestSortChange = requestSortChange;
+            return this;
+        }
+
+        @JsOverlay
+        public final Props alignCenter(final boolean alignCenter) {
+            this.alignCenter = alignCenter;
             return this;
         }
     }
