@@ -4,6 +4,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
 import common.client.BusDelegate;
 import common.client.Func;
 import common.client.Try;
+import react.client.Component;
 
 import javax.inject.Provider;
 
@@ -109,7 +110,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      */
     public ActionCall<IN, OUT> request(RequestCallback<IN> callback) {
         this.request = requestProvider.get();
-        callback.run(this.request);
+        Component.bind(callback).run(this.request);
         enqueueSend();
         return this;
     }
@@ -120,7 +121,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      */
     public ActionCall<IN, OUT> buildRequest(RequestCallback<IN> callback) {
         this.request = requestProvider.get();
-        callback.run(this.request);
+        Component.bind(callback).run(this.request);
         enqueueSend();
         return this;
     }
@@ -130,7 +131,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      * @return
      */
     public ActionCall<IN, OUT> onResponse(ResponseCallback<OUT> callback) {
-        this.response = callback;
+        this.response = Component.bind(callback);
         return this;
     }
 
@@ -148,7 +149,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      * @return
      */
     public ActionCall onError(ErrorCallback errorCallback) {
-        this.errorCallback = errorCallback;
+        this.errorCallback = Component.bind(errorCallback);
         return this;
     }
 
@@ -157,7 +158,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      * @return
      */
     public ActionCall<IN, OUT> always(AlwaysCallback alwaysCallback) {
-        this.alwaysCallback = alwaysCallback;
+        this.alwaysCallback = Component.bind(alwaysCallback);
         return this;
     }
 
@@ -166,7 +167,7 @@ public class ActionCall<IN, OUT> implements HandlerRegistration {
      * @return
      */
     public ActionCall<IN, OUT> disposed(Func.Run disposedCallback) {
-        this.disposedCallback = disposedCallback;
+        this.disposedCallback = Component.bind(disposedCallback);
         return this;
     }
 

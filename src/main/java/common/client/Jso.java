@@ -127,6 +127,11 @@ public interface Jso {
         return Native.isSameType(obj1, obj2);
     }
 
+    @JsOverlay
+    static boolean isFunction(Object value) {
+        return Native.isFunction(value);
+    }
+
     /**
      * @param value
      * @return
@@ -178,6 +183,10 @@ public interface Jso {
     }
 
     class Native {
+        public static native boolean isFunction(Object v) /*-{
+            return typeof v === "function";
+        }-*/;
+
         public static native <T> T create() /*-{
             return {};
         }-*/;

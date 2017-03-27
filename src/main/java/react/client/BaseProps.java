@@ -36,8 +36,14 @@ public interface BaseProps {
     }
 
     @JsOverlay
+    default BaseProps ref(String name) {
+        setRef(name);
+        return this;
+    }
+
+    @JsOverlay
     default BaseProps ref(Func.Run1<Object> callback) {
-        setRef(callback);
+        setRef(Component.bind(callback));
         return this;
     }
 
@@ -50,6 +56,7 @@ public interface BaseProps {
     default ReactElement build() {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         if (getChildren() == null) {
             return React.createElement(spec, this);
@@ -67,6 +74,7 @@ public interface BaseProps {
     default ReactElement build(ReactElement element) {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         if (element == null) {
             return React.createElement(spec, this);
@@ -84,6 +92,7 @@ public interface BaseProps {
     default ReactElement build(ReactElement... elements) {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         if (elements == null || elements.length == 0) {
             return React.createElement(spec, this);
@@ -104,7 +113,7 @@ public interface BaseProps {
         }
 
         Children children = new Children();
-        callback.run(children);
+        Component.bind(callback).run(children);
 
         setChildren(children.toArray());
         return build();

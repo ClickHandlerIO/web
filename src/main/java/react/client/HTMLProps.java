@@ -1035,7 +1035,7 @@ public class HTMLProps extends DOMProps {
             return this;
         }
         this.style = new StyleProps();
-        callback.run(this.style);
+        Component.bind(callback).run(this.style);
         return this;
     }
 
@@ -1216,441 +1216,441 @@ public class HTMLProps extends DOMProps {
     
     @JsOverlay
     public final HTMLProps onCopy(Func.Run1<ClipboardEvent> value) {
-        this.onCopy = value;
+        this.onCopy = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCut(Func.Run1<ClipboardEvent> value) {
-        this.onCut = value;
+        this.onCut = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onPaste(Func.Run1<ClipboardEvent> value) {
-        this.onPaste = value;
+        this.onPaste = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCompositionEnd(Func.Run1<CompositionEvent> value) {
-        this.onCompositionEnd = value;
+        this.onCompositionEnd = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCompositionStart(Func.Run1<CompositionEvent> value) {
-        this.onCompositionStart = value;
+        this.onCompositionStart = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCompositionUpdate(Func.Run1<CompositionEvent> value) {
-        this.onCompositionUpdate = value;
+        this.onCompositionUpdate = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onFocus(Func.Run1<FocusEvent> value) {
-        this.onFocus = value;
+        this.onFocus = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onBlur(Func.Run1<FocusEvent> value) {
-        this.onBlur = value;
+        this.onBlur = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onChange(Func.Run1<FormEvent> value) {
-        this.onChange = value;
+        this.onChange = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onInput(Func.Run1<FormEvent> value) {
-        this.onInput = value;
+        this.onInput = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onSubmit(Func.Run1<FormEvent> value) {
-        this.onSubmit = value;
+        this.onSubmit = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onLoad(Func.Run1<SyntheticEvent> value) {
-        this.onLoad = value;
+        this.onLoad = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onError(Func.Run1<SyntheticEvent> value) {
-        this.onError = value;
+        this.onError = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onKeyDown(Func.Run1<KeyboardEvent> value) {
-        this.onKeyDown = value;
+        this.onKeyDown = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onKeyPress(Func.Run1<KeyboardEvent> value) {
-        this.onKeyPress = value;
+        this.onKeyPress = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onKeyUp(Func.Run1<KeyboardEvent> value) {
-        this.onKeyUp = value;
+        this.onKeyUp = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onAbort(Func.Run1<SyntheticEvent> value) {
-        this.onAbort = value;
+        this.onAbort = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCanPlay(Func.Run1<SyntheticEvent> value) {
-        this.onCanPlay = value;
+        this.onCanPlay = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onCanPlayThrough(Func.Run1<SyntheticEvent> value) {
-        this.onCanPlayThrough = value;
+        this.onCanPlayThrough = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDurationChange(Func.Run1<SyntheticEvent> value) {
-        this.onDurationChange = value;
+        this.onDurationChange = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onEmptied(Func.Run1<SyntheticEvent> value) {
-        this.onEmptied = value;
+        this.onEmptied = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onEncrypted(Func.Run1<SyntheticEvent> value) {
-        this.onEncrypted = value;
+        this.onEncrypted = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onEnded(Func.Run1<SyntheticEvent> value) {
-        this.onEnded = value;
+        this.onEnded = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onLoadedData(Func.Run1<SyntheticEvent> value) {
-        this.onLoadedData = value;
+        this.onLoadedData = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onLoadedMetadata(Func.Run1<SyntheticEvent> value) {
-        this.onLoadedMetadata = value;
+        this.onLoadedMetadata = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onLoadStart(Func.Run1<SyntheticEvent> value) {
-        this.onLoadStart = value;
+        this.onLoadStart = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onPause(Func.Run1<SyntheticEvent> value) {
-        this.onPause = value;
+        this.onPause = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onPlay(Func.Run1<SyntheticEvent> value) {
-        this.onPlay = value;
+        this.onPlay = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onPlaying(Func.Run1<SyntheticEvent> value) {
-        this.onPlaying = value;
+        this.onPlaying = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onProgress(Func.Run1<SyntheticEvent> value) {
-        this.onProgress = value;
+        this.onProgress = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onRateChange(Func.Run1<SyntheticEvent> value) {
-        this.onRateChange = value;
+        this.onRateChange = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onSeeked(Func.Run1<SyntheticEvent> value) {
-        this.onSeeked = value;
+        this.onSeeked = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onSeeking(Func.Run1<SyntheticEvent> value) {
-        this.onSeeking = value;
+        this.onSeeking = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onStalled(Func.Run1<SyntheticEvent> value) {
-        this.onStalled = value;
+        this.onStalled = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onSuspend(Func.Run1<SyntheticEvent> value) {
-        this.onSuspend = value;
+        this.onSuspend = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onTimeUpdate(Func.Run1<SyntheticEvent> value) {
-        this.onTimeUpdate = value;
+        this.onTimeUpdate = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onVolumeChange(Func.Run1<SyntheticEvent> value) {
-        this.onVolumeChange = value;
+        this.onVolumeChange = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onWaiting(Func.Run1<SyntheticEvent> value) {
-        this.onWaiting = value;
+        this.onWaiting = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onClick(Func.Run1<MouseEvent> value) {
-        this.onClick = value;
+        this.onClick = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onContextMenu(Func.Run1<MouseEvent> value) {
-        this.onContextMenu = value;
+        this.onContextMenu = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDoubleClick(Func.Run1<MouseEvent> value) {
-        this.onDoubleClick = value;
+        this.onDoubleClick = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDrag(Func.Run1<DragEvent> value) {
-        this.onDrag = value;
+        this.onDrag = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragEnd(Func.Run1<DragEvent> value) {
-        this.onDragEnd = value;
+        this.onDragEnd = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragEnter(Func.Run1<DragEvent> value) {
-        this.onDragEnter = value;
+        this.onDragEnter = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragExit(Func.Run1<DragEvent> value) {
-        this.onDragExit = value;
+        this.onDragExit = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragLeave(Func.Run1<DragEvent> value) {
-        this.onDragLeave = value;
+        this.onDragLeave = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragOver(Func.Run1<DragEvent> value) {
-        this.onDragOver = value;
+        this.onDragOver = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDragStart(Func.Run1<DragEvent> value) {
-        this.onDragStart = value;
+        this.onDragStart = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onDrop(Func.Run1<DragEvent> value) {
-        this.onDrop = value;
+        this.onDrop = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseDown(Func.Run1<MouseEvent> value) {
-        this.onMouseDown = value;
+        this.onMouseDown = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseEnter(Func.Run1<MouseEvent> value) {
-        this.onMouseEnter = value;
+        this.onMouseEnter = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseLeave(Func.Run1<MouseEvent> value) {
-        this.onMouseLeave = value;
+        this.onMouseLeave = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseMove(Func.Run1<MouseEvent> value) {
-        this.onMouseMove = value;
+        this.onMouseMove = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseOut(Func.Run1<MouseEvent> value) {
-        this.onMouseOut = value;
+        this.onMouseOut = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseOver(Func.Run1<MouseEvent> value) {
-        this.onMouseOver = value;
+        this.onMouseOver = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onMouseUp(Func.Run1<MouseEvent> value) {
-        this.onMouseUp = value;
+        this.onMouseUp = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onSelect(Func.Run1<SyntheticEvent> value) {
-        this.onSelect = value;
+        this.onSelect = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onTouchCancel(Func.Run1<TouchEvent> value) {
-        this.onTouchCancel = value;
+        this.onTouchCancel = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onTouchEnd(Func.Run1<TouchEvent> value) {
-        this.onTouchEnd = value;
+        this.onTouchEnd = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onTouchMove(Func.Run1<TouchEvent> value) {
-        this.onTouchMove = value;
+        this.onTouchMove = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onTouchStart(Func.Run1<TouchEvent> value) {
-        this.onTouchStart = value;
+        this.onTouchStart = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onScroll(Func.Run1<UIEvent> value) {
-        this.onScroll = value;
+        this.onScroll = Component.bind(value);
         return this;
     }
 
     
     @JsOverlay
     public final HTMLProps onWheel(Func.Run1<WheelEvent> value) {
-        this.onWheel = value;
+        this.onWheel = Component.bind(value);
         return this;
     }
 

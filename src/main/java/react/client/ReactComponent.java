@@ -9,26 +9,32 @@ import jsinterop.annotations.*;
 import javax.inject.Provider;
 
 /**
- *
  * @param <P>
  * @param <S>
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class ReactComponent<P, S> {
     @JsProperty
+    public Component<P, S> spec;
+    @JsProperty
     public BusDelegate bus;
     @JsProperty
     public P props;
     @JsProperty
     public S state;
-    @JsProperty
     public boolean ignoreNextIntakePropsCall;
 
-    private ReactComponent() {}
+    private ReactComponent() {
+    }
 
     @JsOverlay
     public final BusDelegate getBus() {
         return bus;
+    }
+
+    @JsOverlay
+    public final <T> T refs() {
+        return Jso.get(this, "refs");
     }
 
     /**
@@ -53,6 +59,12 @@ public class ReactComponent<P, S> {
     }
 
     /**
+     * @param state
+     */
+    @JsMethod
+    public final native void setState(S state);
+
+    /**
      * @param stateCallback
      */
     @JsOverlay
@@ -62,9 +74,10 @@ public class ReactComponent<P, S> {
 
     /**
      * @param state
+     * @param callback
      */
-    @JsMethod
-    public final native void setState(S state);
+//    @JsMethod
+//    public final native void setState(S state, Func.Run callback);
 
     @JsOverlay
     public final S state() {
@@ -85,8 +98,10 @@ public class ReactComponent<P, S> {
      * @param state
      * @param callback
      */
-    @JsMethod
-    public final native void setState(S state, Func.Run callback);
+    @JsOverlay
+    public final void setState(S state, Func.Run callback) {
+        React.setState(this, state, Component.bind(callback));
+    }
 
     /**
      * @param stateCallback
@@ -96,7 +111,7 @@ public class ReactComponent<P, S> {
     public final void setState(Func.Run1<S> stateCallback, Func.Run callback) {
         final S state = Jso.create();
         if (stateCallback != null) {
-            stateCallback.run(state);
+            Component.bind(stateCallback).run(state);
         }
         if (callback != null) {
             setState(state, callback);
@@ -115,8 +130,10 @@ public class ReactComponent<P, S> {
      * @param state
      * @param callback
      */
-    @JsMethod
-    public final native void replaceState(S state, Func.Run callback);
+    @JsOverlay
+    public final void replaceState(S state, Func.Run callback) {
+        React.replaceState(this, state, Component.bind(callback));
+    }
 
     /**
      * @param stateCallback
@@ -204,7 +221,6 @@ public class ReactComponent<P, S> {
     }
 
     /**
-     *
      * @param eventClass
      * @param callback
      * @param <T>

@@ -35,7 +35,7 @@ public class ComponentProps {
 
     @JsOverlay
     public final ComponentProps ref(Func.Run1<Object> callback) {
-        this.ref = callback;
+        this.ref = Component.bind(callback);
         return this;
     }
 
@@ -48,6 +48,7 @@ public class ComponentProps {
     public final ReactElement build() {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         if (children == null) {
             return React.createElement(spec, this);
@@ -65,6 +66,7 @@ public class ComponentProps {
     public final ReactElement build(ReactElement element) {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         Object obj = this;
 
@@ -84,6 +86,7 @@ public class ComponentProps {
     public final ReactElement build(ReactElement... elements) {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
+        Component.bind(this);
 
         Object obj = this;
 
@@ -106,7 +109,7 @@ public class ComponentProps {
         }
 
         Children children = new Children();
-        callback.run(children);
+        Component.bind(callback).run(children);
 
         this.children = children.toArray();
         return build();

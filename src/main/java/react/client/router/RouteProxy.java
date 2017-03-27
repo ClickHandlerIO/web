@@ -125,7 +125,7 @@ public class RouteProxy<T> {
      * @return
      */
     private static native boolean smartSet(Object target, String name, Object value) /*-{
-        if (value == null) {
+        if (!value) {
             return true;
         }
         var toStringValue = value.toString();
@@ -136,7 +136,7 @@ public class RouteProxy<T> {
             switch (typeof(defaultValue)) {
                 case "boolean":
                     toStringValue = toStringValue.toLowerCase();
-                    target[name] = toStringValue == "true" || toStringValue == "1" || toStringValue == "yes" || toStringValue == "y";
+                    target[name] = toStringValue === "true" || toStringValue === "1" || toStringValue === "yes" || toStringValue === "y";
                     break;
                 case "string":
                     target[name] = toStringValue;
@@ -179,6 +179,11 @@ public class RouteProxy<T> {
      */
     public void setSecured(boolean secured) {
         this.secured = secured;
+    }
+
+    public RouteProxy secured(final boolean secured) {
+        this.secured = secured;
+        return this;
     }
 
     /**

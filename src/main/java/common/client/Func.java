@@ -48,6 +48,18 @@ public class Func {
         };
     }-*/;
 
+    public static native Object invoke(Func.Call before, Object func, Func.Run1 after) /*-{
+        return function (a1, a2, a3, a4) {
+            var _v = before();
+            try {
+                func.apply(this, arguments);
+            } finally {
+                after(_v);
+            }
+        };
+    }-*/;
+
+
     /**
      *
      */

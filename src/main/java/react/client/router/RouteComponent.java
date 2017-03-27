@@ -1,6 +1,6 @@
 package react.client.router;
 
-import react.client.PageComponent;
+import react.client.Component;
 import react.client.React;
 import react.client.ReactComponent;
 
@@ -11,7 +11,7 @@ import javax.inject.Provider;
  *
  */
 
-public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends RouteProps, S> extends PageComponent<P, S> implements HasRouter {
+public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends RouteProps, S> extends Component<P, S> implements HasRouter {
     private Provider<R> routeProxyProvider;
     private R routeProxy;
 
@@ -36,14 +36,18 @@ public abstract class RouteComponent<R extends RouteProxy<A>, A, P extends Route
     }
 
     @Override
-    protected void componentDidMount(ReactComponent<P, S> $this) {
-        super.componentDidMount($this);
+    protected void componentDidMount() {
+        super.componentDidMount();
 
         // Set Route Leave Hook.
         getRouter($this).setRouteLeaveHook(
-                $this.props.route,
-                nextLocation -> routerWillLeave($this, nextLocation)
+            $this.props.route,
+            Component.bind((RouteHook) this::routerWillLeave)
         );
+    }
+
+    protected String routerWillLeave(Location nextLocation) {
+        return routerWillLeave($this, nextLocation);
     }
 
     protected String routerWillLeave(ReactComponent<P, S> $this, Location nextLocation) {

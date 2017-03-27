@@ -1,5 +1,6 @@
 package react.client;
 
+import common.client.Func;
 import jsinterop.annotations.JsMethod;
 
 /**
@@ -24,6 +25,14 @@ public class React {
 
     @JsMethod(namespace = "React", name = "createElement")
     public static native ReactElement createElement(Object component, Object props, ReactElement... children);
+
+    public static native void setState(ReactComponent obj, Object state, Func.Run callback) /*-{
+        obj.setState(state, callback);
+    }-*/;
+
+    public static native void replaceState(ReactComponent obj, Object state, Func.Run callback) /*-{
+        obj.replaceState(state, callback);
+    }-*/;
 
     public static class PropTypes {
         public static native Object object(boolean required) /*-{

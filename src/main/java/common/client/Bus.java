@@ -99,24 +99,6 @@ public class Bus {
     }
 
     /**
-     * @param type
-     * @param callback
-     * @param <T>
-     * @return
-     */
-    public <T extends HasBusName<T>> HandlerRegistration subscribe(T type, EventCallback<T> callback) {
-        if (type == null) return null;
-        final TypeName<T> name;
-        try {
-            name = Jso.call(type, "$busName$");
-        } catch (Throwable e) {
-            return null;
-        }
-
-        return subscribe(name, callback);
-    }
-
-    /**
      * @param named
      * @param callback
      * @param <T>
@@ -163,17 +145,6 @@ public class Bus {
      */
     public <T> void publish(T event, String name) {
         eventBus.fireEvent(new InternalEvent<>(event, getType(name(event.getClass(), name).name)));
-    }
-
-    public <T extends HasBusName> void publish(T event) {
-        final TypeName<T> name;
-        try {
-            name = Jso.call(event, "$busName$");
-        } catch (Throwable e) {
-            return;
-        }
-        if (name != null)
-            publish(name, event);
     }
 
     public <T> void publish(TypeName<T> name, T event) {

@@ -559,6 +559,32 @@ public class StyleProps {
     @JsProperty
     public Object userSelect;
 
+
+    @JsProperty
+    public String justifyContent;
+    @JsProperty
+    public Object bottom;
+    @JsProperty
+    public Object overflowY;
+
+    @JsOverlay
+    public final StyleProps justifyContent(String value) {
+        this.justifyContent = value;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps bottom(final Object bottom) {
+        this.bottom = bottom;
+        return this;
+    }
+
+    @JsOverlay
+    public final StyleProps overflowY(final Object overflowY) {
+        this.overflowY = overflowY;
+        return this;
+    }
+
     @JsOverlay
     public final HTMLProps lift() {
         final HTMLProps props = new HTMLProps();
