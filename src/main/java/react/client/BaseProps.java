@@ -56,7 +56,7 @@ public interface BaseProps {
     default ReactElement build() {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         if (getChildren() == null) {
             return React.createElement(spec, this);
@@ -74,7 +74,7 @@ public interface BaseProps {
     default ReactElement build(ReactElement element) {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         if (element == null) {
             return React.createElement(spec, this);
@@ -92,7 +92,7 @@ public interface BaseProps {
     default ReactElement build(ReactElement... elements) {
         final ReactClass spec = Jso.get(this, "__cls");
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         if (elements == null || elements.length == 0) {
             return React.createElement(spec, this);

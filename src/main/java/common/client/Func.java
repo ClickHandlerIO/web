@@ -6,50 +6,50 @@ import jsinterop.annotations.JsFunction;
  *
  */
 public class Func {
-    public static native <R, A1> Call<R> bind(Call1<R, A1> proxy) /*-{
+    public static native <R, A1> Call<R> unbind(Call1<R, A1> proxy) /*-{
         return function () {
             return proxy(this);
         };
     }-*/;
 
-    public static native <R, T, A1> Call1<R, A1> bind(Call2<R, T, A1> proxy) /*-{
+    public static native <R, T, A1> Call1<R, A1> unbind(Call2<R, T, A1> proxy) /*-{
         return function () {
             return proxy(this, arguments[0]);
         };
     }-*/;
 
-    public static native <R, T, A1, A2> Call2<R, A1, A2> bind(Call3<R, T, A1, A2> proxy) /*-{
+    public static native <R, T, A1, A2> Call2<R, A1, A2> unbind(Call3<R, T, A1, A2> proxy) /*-{
         return function () {
             return proxy(this, arguments[0], arguments[1]);
         };
     }-*/;
 
-    public static native <R, T, A1, A2, A3> Call3<R, A1, A2, A3> bind(Call4<R, T, A1, A2, A3> proxy) /*-{
+    public static native <R, T, A1, A2, A3> Call3<R, A1, A2, A3> unbind(Call4<R, T, A1, A2, A3> proxy) /*-{
         return function () {
             return proxy(this, arguments[0], arguments[1], arguments[2]);
         };
     }-*/;
 
-    public static native <T> Run bind(Run1<T> proxy) /*-{
+    public static native <T> Run unbind(Run1<T> proxy) /*-{
         return function () {
             proxy(this);
         };
     }-*/;
 
-    public static native <T, A1> Run1<A1> bind(Run2<T, A1> proxy) /*-{
+    public static native <T, A1> Run1<A1> unbind(Run2<T, A1> proxy) /*-{
         return function () {
             proxy(this, arguments[0]);
         };
     }-*/;
 
-    public static native <T, A1, A2> Run2<A1, A2> bind(Run3<T, A1, A2> proxy) /*-{
+    public static native <T, A1, A2> Run2<A1, A2> unbind(Run3<T, A1, A2> proxy) /*-{
         return function () {
             proxy(this, arguments[0], arguments[1]);
         };
     }-*/;
 
-    public static native Object invoke(Func.Call before, Object func, Func.Run1 after) /*-{
-        return function (a1, a2, a3, a4) {
+    public static native Object bind(Func.Call before, Object func, Func.Run1 after) /*-{
+        return function () {
             var _v = before();
             try {
                 func.apply(this, arguments);

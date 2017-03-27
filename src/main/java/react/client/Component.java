@@ -1,6 +1,7 @@
 package react.client;
 
-import action.client.*;
+import action.client.AbstractAction;
+import action.client.ActionCall;
 import com.google.gwt.dom.client.InputElement;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import common.client.*;
@@ -8,36 +9,32 @@ import elemental.client.Browser;
 import elemental.dom.Document;
 import elemental.html.Console;
 import elemental.html.Window;
-import jsinterop.annotations.*;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 import logging.client.Logger;
-import react.client.router.RouteHook;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import java.util.ArrayDeque;
 import java.util.List;
 
+@SuppressWarnings("all")
 public abstract class Component<P, S> implements Jso {
     private static ReactComponent<?, ?> CURRENT = null;
 
-    @JsIgnore
     protected final Console console = Browser.getWindow().getConsole();
-    @JsIgnore
     protected final Document document = Browser.getDocument();
-    @JsIgnore
     protected final Window window = Browser.getWindow();
-    @JsIgnore
     protected final Logger log = Logger.get(getClass());
-    @JsProperty
-    public String displayName;
+
     /**
-     * Lifecycle
+     * Display name used by React.
      */
     @JsProperty
-    public Func.Call getDefaultProps = Func.bind(this::getDefaultPropsInternal);
-    @JsProperty
-    public Func.Call getInitialState = Func.bind(this::getInitialStateInternal);
-    /*
+    public String displayName;
+
+    /**
      * Context
      */
     @JsProperty
@@ -46,399 +43,119 @@ public abstract class Component<P, S> implements Jso {
     public ContextTypes contextTypes = new ContextTypes();
     @JsProperty
     public ContextTypes childContextTypes = new ContextTypes();
-    protected ReactComponent<P, S> $this;
     @Inject
     protected Bus bus;
+
+    // Scoped variables.
+    // These are used for convenience for autobind.
+    protected ReactComponent<P, S> $this;
     protected P props;
     protected S state;
-    protected Object refs;
     protected BusDelegate busDelegate;
+
+    /**
+     * React Lifecycle methods. React binds "this" keyword to the ReactComponent instance.
+     * Since Java does not allow that feature we pass "this" as the first argument.
+     */
     @JsProperty
-    public Func.Run2<P, S> componentDidUpdate = Func.bind(this::componentDidUpdateInternal);
+    private Func.Call getDefaultProps = Func.unbind(this::getDefaultPropsInternal);
     @JsProperty
-    public Func.Run componentDidMount = Func.bind(this::componentDidMountInternal);
+    private Func.Call getInitialState = Func.unbind(this::getInitialStateInternal);
     @JsProperty
-    public Func.Run1<P> componentWillReceiveProps = Func.bind(this::componentWillReceivePropsInternal);
+    private Func.Run2<P, S> componentDidUpdate = Func.unbind(this::componentDidUpdateInternal);
     @JsProperty
-    public Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.bind(this::shouldComponentUpdateInternal);
+    private Func.Run componentDidMount = Func.unbind(this::componentDidMountInternal);
     @JsProperty
-    public Func.Run2<P, S> componentWillUpdate = Func.bind(this::componentWillUpdateInternal);
+    private Func.Run1<P> componentWillReceiveProps = Func.unbind(this::componentWillReceivePropsInternal);
     @JsProperty
-    public Func.Call<ReactElement> render = Func.bind(this::renderInternal);
+    private Func.Call2<Boolean, P, S> shouldComponentUpdate = Func.unbind(this::shouldComponentUpdateInternal);
     @JsProperty
-    public Func.Run componentWillUnmount = Func.bind(this::componentWillUnmountInternal);
+    private Func.Run2<P, S> componentWillUpdate = Func.unbind(this::componentWillUpdateInternal);
     @JsProperty
-    public Func.Run componentWillMount = Func.bind(this::componentWillMountInternal);
+    private Func.Call<ReactElement> render = Func.unbind(this::renderInternal);
+    @JsProperty
+    private Func.Run componentWillUnmount = Func.unbind(this::componentWillUnmountInternal);
+    @JsProperty
+    private Func.Run componentWillMount = Func.unbind(this::componentWillMountInternal);
 
     private ReactClass reactClass;
     private Logger logger;
 
+    /**
+     *
+     */
     public Component() {
+        // Default React's display name to be the simple name of this class.
+        // Component Specs are GWT java objects so we can use the java class name.
         displayName = getClass().getSimpleName();
-        // todo context stuff needed?
+
+        // Setup context types.
         addContextTypes(contextTypes);
         addChildContextTypes(childContextTypes);
     }
 
-    public static Func.Run bind(Func.Run run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return () -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run();
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static <A1> Func.Run1<A1> bind(Func.Run1<A1> run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static <A1, A2> Func.Run2<A1, A2> bind(Func.Run2<A1, A2> run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1, a2) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run(a1, a2);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static <RETURN, A1> Func.Call1<RETURN, A1> bind(Func.Call1<RETURN, A1> run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                return run.call(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static RouteHook bind(RouteHook run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                return run.call(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static <A1> RequestCallback<A1> bind(RequestCallback<A1> run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static <A1> ResponseCallback<A1> bind(ResponseCallback<A1> run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.call(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static ErrorCallback bind(ErrorCallback run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static AlwaysCallback bind(AlwaysCallback run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.run(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static MouseEventHandler bind(MouseEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static FocusEventHandler bind(FocusEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static FormEventHandler bind(FormEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static KeyboardEventHandler bind(KeyboardEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static TouchEventHandler bind(TouchEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static ValueChangeHandler bind(ValueChangeHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.call(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static WheelEventHandler bind(WheelEventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    public static EventHandler bind(EventHandler run) {
-        if (run == null) {
-            return null;
-        }
-        final ReactComponent<?, ?> _$this = CURRENT;
-
-        return (a1) -> {
-            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
-            try {
-                run.handle(a1);
-            } finally {
-                _$this.spec.set$This(old);
-            }
-        };
-    }
-
-    private static Object bind0(Object func) {
+    /**
+     * @param func
+     * @param <T>
+     * @return
+     */
+    public static <T> T bind(T func) {
+        // Return if null.
         if (func == null) {
             return null;
         }
-        final ReactComponent<?, ?> _$this = CURRENT;
 
+        // Ensure it's a function.
+        if (!Jso.isFunction(func)) {
+            bindProps(func);
+            return func;
+        }
+
+        // Scope ReactComponent.
+        final ReactComponent<?, ?> _$this = CURRENT;
         Func.Call before = () -> _$this.spec.set$This(_$this);
         Func.Run1<ReactComponent<?, ?>> after = (a1) -> _$this.spec.set$This(a1);
 
-        return Func.invoke(before, func, after);
+        // Intercept function.
+        return (T) Func.bind(before, func, after);
     }
 
+    /**
+     * @return
+     */
     public static ReactComponent<?, ?> get() {
         return CURRENT;
     }
 
-    public static void main(String[] args) {
-        final ArrayDeque<String> deque = new ArrayDeque<>();
-        deque.add("ONE");
-        deque.add("TWO");
-
-        System.out.println(deque.getFirst());
-        System.out.println(deque.getLast());
-    }
-
-    @JsIgnore
-    protected static native boolean shallowEqual(Object objA, Object objB) /*-{
-        if (objA === objB) {
-            return true;
-        }
-
-        var keysA = Object.keys(objA);
-        var keysB = Object.keys(objB);
-
-        if (keysA.length !== keysB.length) {
-            return false;
-        }
-
-        // Test for A's keys different from B.
-        var hasOwn = Object.prototype.hasOwnProperty;
-        for (var i = 0; i < keysA.length; ++i) {
-            if (!hasOwn.call(objB, keysA[i]) ||
-                objA[keysA[i]] !== objB[keysA[i]]) {
-                return false;
-            }
-
-            var valA = objA[keysA[i]];
-            var valB = objB[keysA[i]];
-
-            if (valA !== valB) {
-                return false;
-            }
-        }
-
-        return true;
-    }-*/;
-
-    public static void bind(ComponentProps props) {
-        Jso.iterate(props, (name, value) -> {
-            if (Jso.isFunction(value)) {
-//                Browser.getWindow().getConsole().log(props.getClass().getName() + "." + name + " bound");
-                Jso.set(props, name, bind0(value));
+    /**
+     * @param props
+     */
+    public static void bindProps(Object props) {
+        Jso.Native.iterate(props, (name, value) -> {
+            switch (Jso.Native.typeOf(value)) {
+                case "function":
+                    Jso.set(props, name, bind(value));
+                    break;
+                case "object":
+                    bindProps(value);
+                    break;
             }
         });
     }
 
-    public static void bind(BaseProps props) {
-        Jso.iterate(props, (name, value) -> {
-            if (Jso.isFunction(value)) {
-//                Browser.getWindow().getConsole().log(props.getClass().getName() + "." + name + " bound");
-                Jso.set(props, name, bind0(value));
-            }
-        });
+    /**
+     * @return
+     */
+    public ReactComponent<?, ?> get$This() {
+        return $this;
     }
 
-    private static void bind(Object props) {
-        Jso.iterate(props, (name, value) -> {
-            if (Jso.isFunction(value)) {
-//                Browser.getWindow().getConsole().log(props.getClass().getName() + "." + name + " bound");
-                Jso.set(props, name, bind0(value));
-            }
-        });
-    }
-
-    @SuppressWarnings("all")
+    /**
+     * @param $this
+     * @return
+     */
     private ReactComponent<?, ?> set$This(ReactComponent<?, ?> $this) {
-        final ReactComponent<?, ?> current = CURRENT;
+        final ReactComponent<?, ?> previous = CURRENT;
         CURRENT = $this;
         if ($this != null) {
             this.props = (P) $this.props;
@@ -450,11 +167,14 @@ public abstract class Component<P, S> implements Jso {
             this.busDelegate = null;
         }
         this.$this = (ReactComponent<P, S>) $this;
-        return current;
+        return previous;
     }
 
-    @JsIgnore
+    /**
+     * @return
+     */
     public ReactClass getReactClass() {
+        // Lazily set reactClass.
         if (reactClass == null) {
             reactClass = React.createClass(this);
         }
@@ -465,70 +185,110 @@ public abstract class Component<P, S> implements Jso {
      * Factory Methods
      */
     public ReactElement createElement() {
-        log.trace("createElement()");
         return React.createElement(getReactClass(), Jso.create());
     }
 
+    /**
+     * @param key
+     * @return
+     */
     public ReactElement createElement(String key) {
         return React.createElement(getReactClass(), createPropsWithKey(key));
     }
 
+    /**
+     * @param children
+     * @return
+     */
     public ReactElement createElement(Object... children) {
         return React.createElement(getReactClass(), Jso.create(), children);
     }
 
+    /**
+     * @param key
+     * @param children
+     * @return
+     */
     public ReactElement createElement(String key, Object... children) {
         return React.createElement(getReactClass(), createPropsWithKey(key), children);
     }
 
+    /**
+     * @param props
+     * @return
+     */
     public ReactElement createElement(P props) {
         if (props == null) {
             props = Jso.create();
+        } else {
+            bindProps(props);
         }
-        bind(props);
         return React.createElement(getReactClass(), props);
     }
 
+    /**
+     * @param propsCallback
+     * @return
+     */
     public ReactElement createElement(Func.Run1<P> propsCallback) {
-        final P props = Jso.create();
+        final P props = getDefaultProps();
         if (propsCallback != null) {
             bind(propsCallback).run(props);
         }
-        bind(props);
+        bindProps(props);
         return React.createElement(getReactClass(), props);
     }
 
+    /**
+     * @param propsCallback
+     * @param children
+     * @return
+     */
     public ReactElement createElement(Func.Run1<P> propsCallback, Object... children) {
-        final P props = Jso.create();
+        final P props = getDefaultProps();
         if (propsCallback != null) {
             bind(propsCallback).run(props);
         }
-        bind(props);
+        bindProps(props);
         return React.createElement(getReactClass(), props, children);
     }
 
+    /**
+     * @param callback
+     * @return
+     */
     public ReactElement createElement(Func.Run2<P, Children> callback) {
-        final P props = Jso.create();
+        final P props = getDefaultProps();
         final Children children = new Children();
         if (callback != null) {
             bind(callback).run(props, children);
         }
-        bind(props);
+        bindProps(props);
         return React.createElement(getReactClass(), props, children.toArray());
     }
 
-    private P createPropsWithKey(String key) {
-        final P props = Jso.create();
+    /**
+     * @param key
+     * @return
+     */
+    public P createPropsWithKey(String key) {
+        final P props = getDefaultProps();
         if (key != null) {
             Jso.set(props, "key", key);
         }
         return props;
     }
 
+    /**
+     * @return
+     */
     public StyleProps css() {
         return new StyleProps();
     }
 
+    /**
+     * @return
+     */
     public P props() {
         P props = getDefaultProps();
         if (props == null) {
@@ -539,6 +299,9 @@ public abstract class Component<P, S> implements Jso {
         return props;
     }
 
+    /**
+     * @return
+     */
     public P $$() {
         P props = getDefaultProps();
         if (props == null) {
@@ -548,6 +311,9 @@ public abstract class Component<P, S> implements Jso {
         return props;
     }
 
+    /**
+     * @return
+     */
     public P builder() {
         P props = getDefaultProps();
         if (props == null) {
@@ -557,49 +323,74 @@ public abstract class Component<P, S> implements Jso {
         return props;
     }
 
-
+    /**
+     * @return
+     */
     public ReactElement $() {
         return createElement();
     }
 
-
+    /**
+     * @param key
+     * @return
+     */
     public ReactElement $(String key) {
         return createElement(key);
     }
 
-
+    /**
+     * @param children
+     * @return
+     */
     public ReactElement $(Object... children) {
         return createElement(children);
     }
 
-
+    /**
+     * @param key
+     * @param children
+     * @return
+     */
     public ReactElement $(String key, Object... children) {
         return createElement(key, children);
     }
 
-
+    /**
+     * @param props
+     * @return
+     */
     public ReactElement $(P props) {
         return createElement(props);
     }
 
-    // Internal pass through
-
-
+    /**
+     * @param propsCallback
+     * @return
+     */
     public ReactElement $(Func.Run1<P> propsCallback) {
         return createElement(propsCallback);
     }
 
-
+    /**
+     * @param propsCallback
+     * @param children
+     * @return
+     */
     public ReactElement $(Func.Run1<P> propsCallback, Object... children) {
         return createElement(propsCallback, children);
     }
 
-
+    /**
+     * @param callback
+     * @return
+     */
     public ReactElement $(Func.Run2<P, Children> callback) {
         return createElement(callback);
     }
 
-
+    /**
+     * @param $this
+     */
     private void componentWillMountInternal(final ReactComponent<P, S> $this) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -615,7 +406,9 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
-
+    /**
+     * @param $this
+     */
     private void componentDidMountInternal(final ReactComponent<P, S> $this) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -633,7 +426,10 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
-
+    /**
+     * @param $this
+     * @param nextProps
+     */
     private void componentWillReceivePropsInternal(final ReactComponent<P, S> $this, P nextProps) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -651,6 +447,12 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     * @param nextProps
+     * @param nextState
+     * @return
+     */
     private boolean shouldComponentUpdateInternal(final ReactComponent<P, S> $this, P nextProps, S nextState) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -660,6 +462,11 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     * @param nextProps
+     * @param nextState
+     */
     private void componentWillUpdateInternal(final ReactComponent<P, S> $this, P nextProps, S nextState) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -670,6 +477,10 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     * @return
+     */
     private ReactElement renderInternal(final ReactComponent<P, S> $this) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -679,6 +490,11 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     * @param prevProps
+     * @param prevState
+     */
     private void componentDidUpdateInternal(final ReactComponent<P, S> $this, P prevProps, S prevState) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -688,6 +504,9 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     */
     private void componentWillUnmountInternal(final ReactComponent<P, S> $this) {
         final ReactComponent<?, ?> old = set$This($this);
         try {
@@ -701,22 +520,39 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param $this
+     * @return
+     */
     private P getDefaultPropsInternal(Object $this) {
         return getDefaultProps();
     }
 
+    /**
+     * @return
+     */
     public P getDefaultProps() {
         return Jso.create();
     }
 
+    /**
+     * @param $this
+     * @return
+     */
     private S getInitialStateInternal(Object $this) {
         return getInitialState();
     }
 
+    /**
+     * @return
+     */
     public S getInitialState() {
         return Jso.create();
     }
 
+    /**
+     *
+     */
     protected void componentWillMount() {
         componentWillMount($this);
     }
@@ -725,6 +561,9 @@ public abstract class Component<P, S> implements Jso {
     protected void componentWillMount(final ReactComponent<P, S> $this) {
     }
 
+    /**
+     *
+     */
     protected void componentDidMount() {
         componentDidMount($this);
     }
@@ -733,6 +572,9 @@ public abstract class Component<P, S> implements Jso {
     protected void componentDidMount(final ReactComponent<P, S> $this) {
     }
 
+    /**
+     * @param nextProps
+     */
     protected void componentWillReceiveProps(P nextProps) {
         componentWillReceiveProps($this, nextProps);
     }
@@ -741,6 +583,9 @@ public abstract class Component<P, S> implements Jso {
     protected void componentWillReceiveProps(final ReactComponent<P, S> $this, P nextProps) {
     }
 
+    /**
+     * @param nextProps
+     */
     protected void intakeProps(P nextProps) {
         intakeProps($this, nextProps);
     }
@@ -748,6 +593,11 @@ public abstract class Component<P, S> implements Jso {
     protected void intakeProps(ReactComponent<P, S> $this, P nextProps) {
     }
 
+    /**
+     * @param nextProps
+     * @param nextState
+     * @return
+     */
     protected boolean shouldComponentUpdate(P nextProps, S nextState) {
         return shouldComponentUpdate($this, nextProps, nextState);
     }
@@ -762,6 +612,10 @@ public abstract class Component<P, S> implements Jso {
         return !Lodash.isEqual($this.props, nextProps) || !Lodash.isEqual($this.state, nextState);
     }
 
+    /**
+     * @param nextProps
+     * @param nextState
+     */
     protected void componentWillUpdate(P nextProps, S nextState) {
         componentWillUpdate($this, nextProps, nextState);
     }
@@ -770,6 +624,9 @@ public abstract class Component<P, S> implements Jso {
     protected void componentWillUpdate(ReactComponent<P, S> $this, P nextProps, S nextState) {
     }
 
+    /**
+     * @return
+     */
     protected ReactElement render() {
         return render($this);
     }
@@ -779,6 +636,10 @@ public abstract class Component<P, S> implements Jso {
         return null;
     }
 
+    /**
+     * @param prevProps
+     * @param prevState
+     */
     protected void componentDidUpdate(P prevProps, S prevState) {
         componentDidUpdate($this, prevProps, prevState);
     }
@@ -787,6 +648,9 @@ public abstract class Component<P, S> implements Jso {
     protected void componentDidUpdate(final ReactComponent<P, S> $this, P prevProps, S prevState) {
     }
 
+    /**
+     *
+     */
     protected void componentWillUnmount() {
         componentWillUnmount($this);
     }
@@ -839,7 +703,10 @@ public abstract class Component<P, S> implements Jso {
         return elements.toArray(new ReactElement[elements.size()]);
     }
 
-
+    /**
+     * @param event
+     * @return
+     */
     public String getInputValue(SyntheticEvent event) {
         try {
             return ((InputElement) event.getTarget()).getValue();
@@ -906,6 +773,10 @@ public abstract class Component<P, S> implements Jso {
         }
     }
 
+    /**
+     * @param <T>
+     * @return
+     */
     protected <T> T refs() {
         return $this.refs();
     }

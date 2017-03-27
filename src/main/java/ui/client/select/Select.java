@@ -16,8 +16,8 @@ import static jsinterop.annotations.JsPackage.GLOBAL;
 @JsType
 public abstract class Select<D, P extends Select.Props<D>, S> extends Component<P, S> {
     protected final Ref<SelectComponent> selectRef = Ref.make();
-    public Func.Run focus = Func.bind(this::focusInternal);
-    public Func.Run clearCache = Func.bind(this::clearCacheInternal);
+    public Func.Run focus = Func.unbind(this::focusInternal);
+    public Func.Run clearCache = Func.unbind(this::clearCacheInternal);
     @Inject
     JwReactSelectAsync<D> SelectAsync;
 

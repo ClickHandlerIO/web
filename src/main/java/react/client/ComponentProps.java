@@ -48,7 +48,7 @@ public class ComponentProps {
     public final ReactElement build() {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         if (children == null) {
             return React.createElement(spec, this);
@@ -66,7 +66,7 @@ public class ComponentProps {
     public final ReactElement build(ReactElement element) {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         Object obj = this;
 
@@ -86,7 +86,7 @@ public class ComponentProps {
     public final ReactElement build(ReactElement... elements) {
         final ReactClass spec = __cls;
         Jso.delete(this, "__cls");
-        Component.bind(this);
+        Component.bindProps(this);
 
         Object obj = this;
 

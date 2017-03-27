@@ -73,13 +73,6 @@ public class ReactComponent<P, S> {
         setState(stateCallback, null);
     }
 
-    /**
-     * @param state
-     * @param callback
-     */
-//    @JsMethod
-//    public final native void setState(S state, Func.Run callback);
-
     @JsOverlay
     public final S state() {
         return state;

@@ -1,10 +1,8 @@
 package common.client;
 
-import com.google.common.base.Splitter;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -182,13 +180,79 @@ public interface Jso {
         return Native.delete(this, name);
     }
 
+    @JsOverlay
+    default boolean shallowEqual(Object objA, Object objB) {
+        return Native.shallowEqual(objA, objB);
+    }
+
+    @JsOverlay
+    default String typeOf(Object value) {
+        return Native.typeOf(value);
+    }
+
     class Native {
         public static native boolean isFunction(Object v) /*-{
             return typeof v === "function";
         }-*/;
 
+        public static native boolean isObject(Object v) /*-{
+            return typeof v === "object";
+        }-*/;
+
+        public static native String typeOf(Object v) /*-{
+            return typeof v;
+        }-*/;
+
         public static native <T> T create() /*-{
             return {};
+        }-*/;
+
+        /**
+         * @param objA
+         * @param objB
+         * @return
+         */
+        protected static native boolean shallowEqual(Object objA, Object objB) /*-{
+            if (objA === objB) {
+                return true;
+            }
+
+            if (!objA && !objB) {
+                return true;
+            }
+
+            if (!objA) {
+                return false;
+            }
+
+            if (!objB) {
+                return false;
+            }
+
+            var keysA = Object.keys(objA);
+            var keysB = Object.keys(objB);
+
+            if (keysA.length !== keysB.length) {
+                return false;
+            }
+
+            // Test for A's keys different from B.
+            var hasOwn = Object.prototype.hasOwnProperty;
+            for (var i = 0; i < keysA.length; ++i) {
+                if (!hasOwn.call(objB, keysA[i]) ||
+                    objA[keysA[i]] !== objB[keysA[i]]) {
+                    return false;
+                }
+
+                var valA = objA[keysA[i]];
+                var valB = objB[keysA[i]];
+
+                if (valA !== valB) {
+                    return false;
+                }
+            }
+
+            return true;
         }-*/;
 
         public static native void iterate(Object obj, Func.Run2<String, Object> callback) /*-{
