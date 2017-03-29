@@ -1014,7 +1014,7 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> dispatch(Provider<H> action) {
-        return ActionCall.create($this.bus, action);
+        return ActionCall.create($this != null ? $this.bus : null, action);
     }
 
     /**
@@ -1025,7 +1025,7 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> ask(Provider<H> action) {
-        return ActionCall.create($this.bus, action);
+        return ActionCall.create($this != null ? $this.bus : null, action);
     }
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
