@@ -48,7 +48,7 @@ public class Func {
         };
     }-*/;
 
-    public static native Object bind(Func.Call before, Object func, Func.Run1 after) /*-{
+    public static native <T> T bind(Func.Call before, T func, Func.Run1 after) /*-{
         return function () {
             var _v = before();
             try {

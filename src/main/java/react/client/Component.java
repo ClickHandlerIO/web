@@ -51,7 +51,6 @@ public abstract class Component<P, S> implements Jso {
     protected ReactComponent<P, S> $this;
     protected P props;
     protected S state;
-    protected BusDelegate busDelegate;
 
     /**
      * React Lifecycle methods. React binds "this" keyword to the ReactComponent instance.
@@ -99,6 +98,29 @@ public abstract class Component<P, S> implements Jso {
      * @param <T>
      * @return
      */
+    public static <T> EventCallback<T> bind(EventCallback<T> func) {
+        // Return if null.
+        if (func == null) {
+            return null;
+        }
+
+        final ReactComponent<?, ?> _$this = CURRENT;
+
+        return (event) -> {
+            final ReactComponent<?, ?> old = _$this.spec.set$This(_$this);
+            try {
+                func.call(event);
+            } finally {
+                _$this.spec.set$This(old);
+            }
+        };
+    }
+
+    /**
+     * @param func
+     * @param <T>
+     * @return
+     */
     public static <T> T bind(T func) {
         // Return if null.
         if (func == null) {
@@ -106,10 +128,12 @@ public abstract class Component<P, S> implements Jso {
         }
 
         // Ensure it's a function.
-        if (!Jso.isFunction(func)) {
-            bindProps(func);
-            return func;
-        }
+//        if (!Jso.isFunction(func)) {
+////            bindProps(func);
+//            Browser.getWindow().getConsole().log("Not Func");
+//            Browser.getWindow().getConsole().log(func);
+//            return func;
+//        }
 
         // Scope ReactComponent.
         final ReactComponent<?, ?> _$this = CURRENT;
@@ -117,7 +141,7 @@ public abstract class Component<P, S> implements Jso {
         Func.Run1<ReactComponent<?, ?>> after = (a1) -> _$this.spec.set$This(a1);
 
         // Intercept function.
-        return (T) Func.bind(before, func, after);
+        return Func.bind(before, func, after);
     }
 
     /**
@@ -137,7 +161,7 @@ public abstract class Component<P, S> implements Jso {
                     Jso.set(props, name, bind(value));
                     break;
                 case "object":
-                    bindProps(value);
+//                    bindProps(value);
                     break;
             }
         });
@@ -155,16 +179,17 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     private ReactComponent<?, ?> set$This(ReactComponent<?, ?> $this) {
+        if ($this == CURRENT) {
+            return $this;
+        }
         final ReactComponent<?, ?> previous = CURRENT;
         CURRENT = $this;
         if ($this != null) {
             this.props = (P) $this.props;
             this.state = (S) $this.state;
-            this.busDelegate = $this.bus;
         } else {
             this.props = null;
             this.state = null;
-            this.busDelegate = null;
         }
         this.$this = (ReactComponent<P, S>) $this;
         return previous;
@@ -416,7 +441,7 @@ public abstract class Component<P, S> implements Jso {
                 componentDidMount();
             } finally {
                 try {
-                    intakeProps($this, $this.props);
+                    intakeProps($this.props);
                 } finally {
                     $this.ignoreNextIntakePropsCall = true;
                 }
@@ -439,7 +464,7 @@ public abstract class Component<P, S> implements Jso {
                 if ($this.ignoreNextIntakePropsCall) {
                     $this.ignoreNextIntakePropsCall = false;
                 } else {
-                    intakeProps($this, nextProps);
+                    intakeProps(nextProps);
                 }
             } finally {
                 set$This(old);
@@ -554,7 +579,7 @@ public abstract class Component<P, S> implements Jso {
      *
      */
     protected void componentWillMount() {
-        componentWillMount($this);
+//        componentWillMount($this);
     }
 
     @Deprecated
@@ -565,7 +590,7 @@ public abstract class Component<P, S> implements Jso {
      *
      */
     protected void componentDidMount() {
-        componentDidMount($this);
+//        componentDidMount($this);
     }
 
     @Deprecated
@@ -576,7 +601,7 @@ public abstract class Component<P, S> implements Jso {
      * @param nextProps
      */
     protected void componentWillReceiveProps(P nextProps) {
-        componentWillReceiveProps($this, nextProps);
+//        componentWillReceiveProps($this, nextProps);
     }
 
     @Deprecated
@@ -587,7 +612,7 @@ public abstract class Component<P, S> implements Jso {
      * @param nextProps
      */
     protected void intakeProps(P nextProps) {
-        intakeProps($this, nextProps);
+//        intakeProps($this, nextProps);
     }
 
     protected void intakeProps(ReactComponent<P, S> $this, P nextProps) {
@@ -617,7 +642,7 @@ public abstract class Component<P, S> implements Jso {
      * @param nextState
      */
     protected void componentWillUpdate(P nextProps, S nextState) {
-        componentWillUpdate($this, nextProps, nextState);
+//        componentWillUpdate($this, nextProps, nextState);
     }
 
     @Deprecated
@@ -628,7 +653,8 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected ReactElement render() {
-        return render($this);
+//        return render($this);
+        return null;
     }
 
     @Deprecated
@@ -652,7 +678,6 @@ public abstract class Component<P, S> implements Jso {
      *
      */
     protected void componentWillUnmount() {
-        componentWillUnmount($this);
     }
 
     @Deprecated
@@ -879,8 +904,8 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <T> HandlerRegistration subscribe(Class<T> eventClass, EventCallback<T> callback) {
-        if (busDelegate != null) {
-            return busDelegate.subscribe(eventClass, callback);
+        if ($this != null) {
+            return $this.subscribe(eventClass, callback);
         } else {
             return bus.subscribe(eventClass, callback);
         }
@@ -893,9 +918,10 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <T> HandlerRegistration subscribe(Bus.TypeName<T> named, EventCallback<T> callback) {
-        if (busDelegate != null) {
-            return busDelegate.subscribe(named, callback);
+        if ($this != null) {
+            return $this.subscribe(named, callback);
         } else {
+            console.log("Not $this");
             return bus.subscribe(named, callback);
         }
     }
@@ -908,9 +934,10 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, EventCallback<M> callback) {
-        if (busDelegate != null) {
-            return busDelegate.listen(eventClass, callback);
+        if ($this != null) {
+            return $this.listen(eventClass, callback);
         } else {
+            console.log("Not $this");
             return bus.listen(eventClass, callback);
         }
     }
@@ -922,9 +949,10 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     public final <T> HandlerRegistration subscribe(String name, EventCallback<T> callback) {
-        if (busDelegate != null) {
-            return busDelegate.subscribe(name, callback);
+        if ($this != null) {
+            return $this.subscribe(name, callback);
         } else {
+            console.log("Not $this");
             return bus.subscribe(name, callback);
         }
     }
@@ -934,8 +962,8 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected HandlerRegistration register(HandlerRegistration registration) {
-        if (busDelegate != null) {
-            return busDelegate.register(registration);
+        if ($this != null) {
+            return $this.register(registration);
         }
         return registration;
     }
@@ -945,8 +973,8 @@ public abstract class Component<P, S> implements Jso {
      * @param <T>
      */
     protected <T> void publish(T event) {
-        if (busDelegate != null) {
-            busDelegate.publish(event);
+        if ($this != null) {
+            $this.publish(event);
         } else {
             bus.publish(event);
         }
@@ -958,8 +986,8 @@ public abstract class Component<P, S> implements Jso {
      * @param <T>
      */
     protected <T> void publish(Bus.TypeName<T> name, T event) {
-        if (busDelegate != null) {
-            busDelegate.publish(name, event);
+        if ($this != null) {
+            $this.publish(name, event);
         } else {
             bus.publish(name, event);
         }
@@ -971,8 +999,8 @@ public abstract class Component<P, S> implements Jso {
      * @param <T>
      */
     protected <T> void publish(String name, T event) {
-        if (busDelegate != null) {
-            busDelegate.publish(name, event);
+        if ($this != null) {
+            $this.publish(name, event);
         } else {
             bus.publish(name, event);
         }
@@ -986,7 +1014,7 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> dispatch(Provider<H> action) {
-        return ActionCall.create(busDelegate, action);
+        return ActionCall.create($this.bus, action);
     }
 
     /**
@@ -997,7 +1025,7 @@ public abstract class Component<P, S> implements Jso {
      * @return
      */
     protected <H extends AbstractAction<IN, OUT>, IN, OUT> ActionCall<IN, OUT> ask(Provider<H> action) {
-        return ActionCall.create(busDelegate, action);
+        return ActionCall.create($this.bus, action);
     }
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")

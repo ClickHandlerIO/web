@@ -72,7 +72,7 @@ public interface DOM {
 
     static ReactElement create(String tagName, Func.Run1<HTMLProps> callback, String html) {
         final HTMLProps props = props(tagName);
-        callback.run(props);
+        Component.bind(callback).run(props);
         return React.createElement(
             tagName,
             props,
@@ -82,7 +82,7 @@ public interface DOM {
 
     static ReactElement create(String tagName, Func.Run1<HTMLProps> callback) {
         final HTMLProps props = props(tagName);
-        callback.run(props);
+        Component.bind(callback).run(props);
         return React.createElement(
             tagName,
             props
@@ -91,7 +91,7 @@ public interface DOM {
 
     static ReactElement create(String tagName, Func.Run1<HTMLProps> callback, ReactElement... children) {
         final HTMLProps props = props(tagName);
-        callback.run(props);
+        Component.bind(callback).run(props);
         return React.createElement(
             tagName,
             props,
@@ -103,9 +103,9 @@ public interface DOM {
                                Func.Run1<HTMLProps> callback,
                                Func.Run1<Children> childrenCallback) {
         final HTMLProps props = props(tagName);
-        callback.run(props);
+        Component.bind(callback).run(props);
         final Children components = new Children();
-        childrenCallback.run(components);
+        Component.bind(childrenCallback).run(components);
 
 //        switch (components.list.size()) {
 //            case 0:
@@ -127,7 +127,7 @@ public interface DOM {
                                HTMLProps props,
                                Func.Run1<Children> childrenCallback) {
         final Children components = new Children();
-        childrenCallback.run(components);
+        Component.bind(childrenCallback).run(components);
 
 //        switch (components.list.size()) {
 //            case 0:
@@ -157,7 +157,7 @@ public interface DOM {
         final HTMLProps props = new HTMLProps();
         final Children children = new Children();
 
-        callback.run(props, children);
+        Component.bind(callback).run(props, children);
 
         return React.createElement(
             tagName,

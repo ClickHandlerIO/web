@@ -29,11 +29,6 @@ public class ReactComponent<P, S> {
     }
 
     @JsOverlay
-    public final BusDelegate getBus() {
-        return bus;
-    }
-
-    @JsOverlay
     public final <T> T refs() {
         return Jso.get(this, "refs");
     }
@@ -145,7 +140,7 @@ public class ReactComponent<P, S> {
     public final void replaceState(Func.Run1<S> stateCallback, Func.Run callback) {
         final S state = Jso.create();
         if (stateCallback != null) {
-            stateCallback.run(state);
+            Component.bind(stateCallback).run(state);
         }
 
         if (callback != null) {
@@ -200,7 +195,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(Class<T> eventClass, EventCallback<T> callback) {
-        return bus.subscribe(eventClass, callback);
+        return bus.subscribe(eventClass, Component.bind(callback));
     }
 
     /**
@@ -211,7 +206,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(Bus.TypeName<T> named, EventCallback<T> callback) {
-        return bus.subscribe(named, callback);
+        return bus.subscribe(named, Component.bind(callback));
     }
 
     /**
@@ -223,7 +218,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T extends MessageProvider<M>, M> HandlerRegistration listen(Class<T> eventClass, EventCallback<M> callback) {
-        return bus.listen(eventClass, callback);
+        return bus.listen(eventClass, Component.bind(callback));
     }
 
     /**
@@ -234,7 +229,7 @@ public class ReactComponent<P, S> {
      */
     @JsOverlay
     public final <T> HandlerRegistration subscribe(String name, EventCallback<T> callback) {
-        return bus.subscribe(name, callback);
+        return bus.subscribe(name, Component.bind(callback));
     }
 
     /**
