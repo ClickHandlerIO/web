@@ -215,6 +215,11 @@ public class Popover extends ExternalComponent<Popover.Props> {
             return this;
         }
 
+        @JsOverlay
+        default Props key(final String key) {
+            setKey(key);
+            return this;
+        }
     }
 
 
