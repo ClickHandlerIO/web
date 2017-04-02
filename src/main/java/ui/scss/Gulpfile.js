@@ -6,7 +6,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var nano = require('gulp-cssnano');
 
-var sources = ['./ClickhandlerWeb.scss', './../client/**/*.scss', './../client/**/*.css'];
+var sources = ['./bootstrap.css', './../client/**/*.scss', './../client/**/*.css'];
 var autoprefixVersions = 'last 2 versions';
 var outputLocation = './../public/css/';
 var outputFile = 'clickhandler-web.min.css';
