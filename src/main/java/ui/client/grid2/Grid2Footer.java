@@ -41,8 +41,8 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
         return div(className("footer"), children -> {
             if ($this.props.showLoading) {
                 children.add(
-                        div(className("flex-row align-items-center").style(new StyleProps().padding(5)),
-                                div(className("loader loader-default")),
+                        div(className("flex-row align-items-center").style(new StyleProps().paddingLeft(10)),
+                                div(className("loader loader-default").style(s -> s.height(20).width(20))),
                                 div(new StyleProps().marginLeft(10), "Loading...")
                         )
                 );
