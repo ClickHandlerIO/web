@@ -39,6 +39,15 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
     @Override
     protected ReactElement render(final ReactComponent<Props, State> $this) {
         return div(className("footer"), children -> {
+            if ($this.props.showLoading) {
+                children.add(
+                        div(className("flex-row align-items-center").style(new StyleProps().padding(5)),
+                                div(className("loader loader-default")),
+                                div(new StyleProps().marginLeft(10), "Loading...")
+                        )
+                );
+            }
+
             children.add(
                 div(className("export-actions"), exportChildren -> {
                     if ($this.props.handlePrint != null) {
@@ -119,6 +128,8 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
     @JsType(isNative = true, name = "Object", namespace = GLOBAL)
     public static class Props extends ComponentProps {
 
+        public boolean showLoading;
+
         // actions
         public Func.Run handleExcel;
         public Func.Run handlePDF;
@@ -131,6 +142,12 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
         public boolean pagerNextEnabled;
         public Func.Run handlePagerPrevious;
         public Func.Run handlePagerNext;
+
+        @JsOverlay
+        public final Props showLoading(final boolean showLoading) {
+            this.showLoading = showLoading;
+            return this;
+        }
 
         @JsOverlay
         public final Props handleExcel(final Func.Run handleExcel) {
