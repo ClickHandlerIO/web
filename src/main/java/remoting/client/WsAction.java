@@ -76,7 +76,12 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
                 if (message == null) {
                     return;
                 }
-                if (message.header.code() != 200) {
+
+                if (message.header.code() == 403) {
+                    // attempt to log back in and re-send request
+                    dispatcher.resetIfConnected(null);
+                    handle(request); // re-queue request to be sent in on reconnect
+                } else if (message.header.code() != 200) {
                     error(new StatusCodeException((int) message.header.code()));
                 } else {
                     OUT out = parseOut(message.body);

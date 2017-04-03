@@ -119,6 +119,12 @@ public class WsDispatcher {
 //        GWT.log("start4");
     }
 
+    public void resetIfConnected(Func.Run onResetSuccess) {
+        if (webSocket != null && webSocket.isConnected()){
+            reset(onResetSuccess);
+        }
+    }
+
     public void reset(Func.Run onResetSuccess) {
         this.onResetSuccess = onResetSuccess;
         webSocket.close();
