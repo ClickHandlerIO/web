@@ -2,6 +2,7 @@ package remoting.client;
 
 import action.client.AbstractAction;
 import action.client.TimedOutException;
+import com.google.gwt.core.client.GWT;
 import common.client.Bus;
 import common.client.JSON;
 
@@ -60,6 +61,7 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
         if (inTypeName != null) {
             bus.publish(inTypeName(), request);
         }
+
         dispatcher.request(
             // In TypeName for Bus.
             inTypeName(),
@@ -78,9 +80,8 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
                 }
 
                 if (message.header.code() == 403) {
-                    // attempt to log back in and re-send request
-                    dispatcher.resetIfConnected(null);
-                    handle(request); // re-queue request to be sent in on reconnect
+                    GWT.log("Received 403 - publishing event");
+                    bus.publish(new Ws403Event());
                 } else if (message.header.code() != 200) {
                     error(new StatusCodeException((int) message.header.code()));
                 } else {
