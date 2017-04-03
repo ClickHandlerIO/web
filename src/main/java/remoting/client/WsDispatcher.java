@@ -164,7 +164,7 @@ public class WsDispatcher {
      *
      */
     private void connected() {
-//        GWT.log("connected1");
+        GWT.log("WsDispatcher Connected!");
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
 //        GWT.log("connected2");
         ensurePinger();
@@ -200,6 +200,7 @@ public class WsDispatcher {
      *
      */
     private void closed() {
+        GWT.log("WsDispatcher Closed!");
         Try.run(() -> bus.publish(new WsClosedEvent(this)));
 
         stopPinger();
