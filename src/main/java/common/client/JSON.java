@@ -16,4 +16,12 @@ public class JSON {
     public static native <T> String stringify(T object) /*-{
         return $wnd.JSON.stringify(object);
     }-*/;
+
+    public static native <T> String stringify(T object, int spaces) /*-{
+        return $wnd.JSON.stringify(object, undefined, spaces);
+    }-*/;
+
+    public static native <T> String pretty(T object) /*-{
+        return $wnd.JSON.stringify(object, undefined, 2);
+    }-*/;
 }
