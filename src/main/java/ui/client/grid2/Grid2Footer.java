@@ -31,6 +31,8 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
     EmailSvgIcon emailSvgIcon;
     @Inject
     ImportExportSvgIcon importExportSvgIcon;
+    @Inject
+    CloudDownloadSvgIcon cloudDownloadSvgIcon;
 
     @Inject
     public Grid2Footer() {
@@ -53,8 +55,8 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handlePrint != null) {
                         exportChildren.add(
                             iconButton.props()
-                                .tooltip("Print")
-                                .tooltipPosition("top-center")
+//                                .tooltip("Print")
+//                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handlePrint.run())
                                 .build(printSvgIcon.props().color("#4C5660").build())
                         );
@@ -63,8 +65,8 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handleEmail != null) {
                         exportChildren.add(
                             iconButton.props()
-                                .tooltip("Email")
-                                .tooltipPosition("top-center")
+//                                .tooltip("Email")
+//                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handleEmail.run())
                                 .build(emailSvgIcon.props().color("#4C5660").build())
                         );
@@ -73,20 +75,20 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handlePDF != null) {
                         exportChildren.add(
                             iconButton.props()
-                                .tooltip("PDF")
-                                .tooltipPosition("top-center")
+//                                .tooltip("PDF")
+//                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handlePDF.run())
-                                .build(importExportSvgIcon.props().color("#4C5660").build())
+                                .build(cloudDownloadSvgIcon.props().color("#4C5660").build())
                         );
                     }
 
                     if ($this.props.handleExcel != null) {
                         exportChildren.add(
                             iconButton.props()
-                                .tooltip("XLS")
-                                .tooltipPosition("top-center")
+//                                .tooltip("XLS")
+//                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handleExcel.run())
-                                .build(importExportSvgIcon.props().color("#4C5660").build())
+                                .build(cloudDownloadSvgIcon.props().color("#4C5660").build())
                         );
                     }
                 })
