@@ -55,6 +55,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handlePrint != null) {
                         exportChildren.add(
                             iconButton.props()
+                                    .style(new StyleProps().marginLeft(10))
 //                                .tooltip("Print")
 //                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handlePrint.run())
@@ -65,6 +66,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handleEmail != null) {
                         exportChildren.add(
                             iconButton.props()
+                                    .style(new StyleProps().marginLeft(10))
 //                                .tooltip("Email")
 //                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handleEmail.run())
@@ -75,6 +77,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handlePDF != null) {
                         exportChildren.add(
                             iconButton.props()
+                                    .style(new StyleProps().marginLeft(10))
 //                                .tooltip("PDF")
 //                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handlePDF.run())
@@ -85,6 +88,7 @@ public class Grid2Footer extends Component<Grid2Footer.Props, Grid2Footer.State>
                     if ($this.props.handleExcel != null) {
                         exportChildren.add(
                             iconButton.props()
+                                    .style(new StyleProps().marginLeft(10))
 //                                .tooltip("XLS")
 //                                .tooltipPosition("top-center")
                                 .onTouchTap(() -> $this.props.handleExcel.run())
