@@ -96,8 +96,10 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
         options.setEventColor("#3a87ad");
         options.setEventTextColor("#fff");
         options.setEventLimit(true);
-        if (divRef != null && divRef.get($this) != null) {
-            options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
+        DivElement divEl = divRef != null ? divRef.get($this) : null;
+        if (divEl != null && divEl.getParentElement() != null) {
+//            options.setHeight(Window.getClientHeight() - divRef.get($this).getOffsetTop() - 15); // 15 is padding
+            options.setHeight(divEl.getParentElement().getClientHeight() - ($this.props.getPaddingTopBottom() * 2));
         }
         options.setDayClick((arg1, arg2, arg3) -> {
             if ($this.props.getOnDayClicked() != null) {
@@ -181,6 +183,12 @@ public class FullCalendar extends Component<FullCalendar.Props, FullCalendar.Sta
 
         @JsProperty
         void setTimezone(String timezone);
+
+        @JsProperty
+        Double getPaddingTopBottom();
+
+        @JsProperty
+        void setPaddingTopBottom(Double paddingTopBottom);
 
         @JsProperty
         FullCalendarViewType getView();
