@@ -170,6 +170,12 @@ public class RaisedButton extends ExternalComponent<RaisedButton.Props> {
         @JsProperty
         void setOnTouchTap(Func.Run touchTap);
 
+        @JsProperty
+        String getId();
+
+        @JsProperty
+        void setId(String id);
+
         ////////////////////
         // fluent setters
         ////////////////////
@@ -322,6 +328,12 @@ public class RaisedButton extends ExternalComponent<RaisedButton.Props> {
         @JsOverlay
         default Props style(StyleProps style) {
             setStyle(style);
+            return this;
+        }
+
+        @JsOverlay
+        default Props id(String id) {
+            setId(id);
             return this;
         }
     }
