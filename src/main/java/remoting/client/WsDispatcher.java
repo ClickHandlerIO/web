@@ -128,9 +128,10 @@ public class WsDispatcher {
     public void reset(Func.Run onResetSuccess) {
         this.onResetSuccess = onResetSuccess;
         webSocket.close();
+        webSocket = null;
 //        webSocket.connect();
-        Try.later(webSocket::connect);
-//        Try.later(this::start);
+//        Try.later(webSocket::connect);
+        Try.later(this::start);
     }
 
     /**
@@ -231,12 +232,15 @@ public class WsDispatcher {
      * @param payload
      */
     private void data(String payload) {
+        LOG.error("payload:" + payload);
         final WsMessage message = WsEncoding.decode(payload);
 
         if (message == null) {
+            LOG.error("payload msg is null");
             return;
         }
 
+        LOG.error("payload 2");
         // Publish a new WsMessageEvent to the Bus.
         bus.publish(new WsMessageEvent(this, message));
 
