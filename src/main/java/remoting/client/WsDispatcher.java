@@ -108,15 +108,15 @@ public class WsDispatcher {
      *
      */
     public void start() {
-//        GWT.log("start1");
+        GWT.log("start1");
         if (webSocket != null) {
             return;
         }
-//        GWT.log("start2");
+        GWT.log("start2");
         webSocket = new Ws(bus, url, this::connected, this::closed, this::error, this::data);
-//        GWT.log("start3");
+        GWT.log("start3");
         webSocket.connect();
-//        GWT.log("start4");
+        GWT.log("start4");
     }
 
     public void resetIfConnected(Func.Run onResetSuccess) {
@@ -128,8 +128,9 @@ public class WsDispatcher {
     public void reset(Func.Run onResetSuccess) {
         this.onResetSuccess = onResetSuccess;
         webSocket.close();
-        webSocket = null;
-        Try.later(this::start);
+//        webSocket.connect();
+        Try.later(webSocket::connect);
+//        Try.later(this::start);
     }
 
     /**
@@ -166,11 +167,11 @@ public class WsDispatcher {
     private void connected() {
         GWT.log("WsDispatcher Connected!");
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
-//        GWT.log("connected2");
+        GWT.log("connected2");
         ensurePinger();
         ensureFragmentationTimer();
 
-//        GWT.log("connected3");
+        GWT.log("connected3");
         // Try draining the queue.
         if (connectedCallback != null) {
             dispatchConnectedCallback();
@@ -178,9 +179,9 @@ public class WsDispatcher {
             drainQueue();
         }
 
-//        GWT.log("connected4");
+        GWT.log("connected4");
         if (onResetSuccess != null) {
-//            GWT.log("connected5");
+            GWT.log("connected5");
             onResetSuccess.run();
             onResetSuccess = null;
         }
