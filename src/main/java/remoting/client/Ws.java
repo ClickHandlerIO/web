@@ -1,6 +1,5 @@
 package remoting.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
 import common.client.Bus;
 import common.client.Func;
@@ -71,28 +70,23 @@ public class Ws {
         }
 
         connecting = true;
-        GWT.log("ws: Connect!");
         webSocket = Browser.getWindow().newWebSocket(url);
 
         wireOnOpen(webSocket, (event) -> {
-            GWT.log("ws: onOpen");
             onOpen();
         });
 
         wireOnClose(webSocket, event -> {
-            GWT.log("ws: onClose");
             onClose();
         });
 
         wireOnError(webSocket, event -> {
-            GWT.log("ws: onError");
             connected = false;
             close(false);
             Try.silent(errorCallback);
         });
 
         wireOnMessage(webSocket, event -> {
-            GWT.log("ws: onMessage");
             final String payload = getData(event);
             Try.silent(dataCallback, payload);
         });
@@ -113,18 +107,17 @@ public class Ws {
         closing = false;
         Try.silent(closedCallback);
 
-//        if (!autoConnect) {
+        if (!autoConnect) {
             cancelConnectTimer();
-//            return;
-//        }
+            return;
+        }
 
         if (forceClosed) {
             forceClosed = false;
-            GWT.log("ws: force closed!");
             Try.run(() -> connect());
-        }/* else {
+        } else {
             ensureConnectTimer();
-        }*/
+        }
     }
 
     private void ensureConnectTimer() {
