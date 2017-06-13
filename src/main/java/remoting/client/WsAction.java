@@ -5,6 +5,7 @@ import action.client.TimedOutException;
 import com.google.gwt.core.client.GWT;
 import common.client.Bus;
 import common.client.JSON;
+import logging.client.Logger;
 
 import javax.inject.Inject;
 
@@ -16,6 +17,8 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
     Bus bus;
     @Inject
     WsDispatcher dispatcher;
+
+    private static final Logger LOG = Logger.get(WsAction.class);
 
     public Bus getBus() {
         return bus;
@@ -75,30 +78,35 @@ public abstract class WsAction<IN, OUT> extends AbstractAction<IN, OUT> {
             stringify(request),
             // Handle response.
             message -> {
-                if (message == null) {
-                    return;
-                }
 
-                if (message.header.code() == 403) {
-                    GWT.log("Received 403 - publishing event");
-                    bus.publish(new Ws403Event());
-                } else if (message.header.code() != 200) {
-                    error(new StatusCodeException((int) message.header.code()));
-                } else {
-                    OUT out = parseOut(message.body);
-                    try {
-                        respond(out);
-                    } finally {
+                try {
+                    if (message == null) {
+                        return;
+                    }
+
+                    if (message.header.code() == 403) {
+                        GWT.log("Received 403 - publishing event");
+                        bus.publish(new Ws403Event());
+                    } else if (message.header.code() != 200) {
+                        error(new StatusCodeException((int) message.header.code()));
+                    } else {
+                        OUT out = parseOut(message.body);
                         try {
-                            final Bus.TypeName<OUT> outTypeName = outTypeName();
-                            if (outTypeName != null)
-                                bus.publish(outTypeName, out);
+                            respond(out);
                         } finally {
-                            final ResponseEvent<IN, OUT> responseEvent = responseEvent(request, out);
-                            if (responseEvent != null)
-                                bus.publish(responseEvent);
+                            try {
+                                final Bus.TypeName<OUT> outTypeName = outTypeName();
+                                if (outTypeName != null)
+                                    bus.publish(outTypeName, out);
+                            } finally {
+                                final ResponseEvent<IN, OUT> responseEvent = responseEvent(request, out);
+                                if (responseEvent != null)
+                                    bus.publish(responseEvent);
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    LOG.error("message handler exception: " + e.getLocalizedMessage(), e);
                 }
             },
             // Handle timeout.
