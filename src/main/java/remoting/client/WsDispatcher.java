@@ -83,18 +83,18 @@ public class WsDispatcher {
     }
 
     public <T> void simulatePush(String address, T event) {
-        data(WsEncoding.encode(new WsMessage(new WsHeader()
-            .method(WsHeader.Constants.PUSH)
-            .type(address)
-            .code(200), JSON.stringify(event))));
+//        data(WsEncoding.encode(new WsMessage(new WsHeader()
+//            .method(WsHeader.Constants.PUSH)
+//            .type(address)
+//            .code(200), JSON.stringify(event))));
     }
 
     public void simulateData(String json) {
-        data(json);
+//        data(json);
     }
 
     public void simulate(WsHeader envelope) {
-        if (envelope != null) data(JSON.stringify(envelope));
+//        if (envelope != null) data(JSON.stringify(envelope));
     }
 
     /**
@@ -109,62 +109,62 @@ public class WsDispatcher {
      */
     public void start() {
 //        GWT.log("start1");
-        if (webSocket != null) {
-            return;
-        }
+//        if (webSocket != null) {
+//            return;
+//        }
 //        GWT.log("start2");
-        webSocket = new Ws(bus, url, this::connected, this::closed, this::error, this::data);
+//        webSocket = new Ws(bus, url, this::connected, this::closed, this::error, this::data);
 //        GWT.log("start3");
-        webSocket.connect();
+//        webSocket.connect();
 //        GWT.log("start4");
     }
 
     public void resetIfConnected(Func.Run onResetSuccess) {
-        if (webSocket != null && webSocket.isConnected()){
-            reset(onResetSuccess);
-        }
+//        if (webSocket != null && webSocket.isConnected()){
+//            reset(onResetSuccess);
+//        }
     }
 
     public void reset(Func.Run onResetSuccess) {
         this.onResetSuccess = onResetSuccess;
-        webSocket.close();
-        webSocket = null;
-        Try.later(this::start);
+//        webSocket.close();
+//        webSocket = null;
+//        Try.later(this::start);
     }
 
     /**
      *
      */
     private void drainQueue() {
-        if (webSocket == null) {
-            start();
-            return;
-        }
+//        if (webSocket == null) {
+//            start();
+//            return;
+//        }
 
-        if (!webSocket.isConnected()) {
-            return;
-        }
-
-        int count = 0;
-        while (!pendingQueue.isEmpty()) {
-            if (count > 50) {
-                break;
-            }
-            send(pendingQueue.remove());
-            count++;
-        }
-
-        // Give a little break.
-        if (!pendingQueue.isEmpty()) {
-            Try.later(this::drainQueue);
-        }
+//        if (!webSocket.isConnected()) {
+//            return;
+//        }
+//
+//        int count = 0;
+//        while (!pendingQueue.isEmpty()) {
+//            if (count > 50) {
+//                break;
+//            }
+//            send(pendingQueue.remove());
+//            count++;
+//        }
+//
+//        // Give a little break.
+//        if (!pendingQueue.isEmpty()) {
+//            Try.later(this::drainQueue);
+//        }
     }
 
     /**
      *
      */
     private void connected() {
-        GWT.log("WsDispatcher Connected!");
+        /*GWT.log("WsDispatcher Connected!");
         Try.run(() -> bus.publish(new WsConnectedEvent(this)));
 //        GWT.log("connected2");
         ensurePinger();
@@ -183,24 +183,24 @@ public class WsDispatcher {
 //            GWT.log("connected5");
             onResetSuccess.run();
             onResetSuccess = null;
-        }
+        }*/
     }
 
     private void dispatchConnectedCallback() {
-        if (connectedCallback == null) {
+       /* if (connectedCallback == null) {
             return;
         }
         connectedCallback.run((success) -> {
             if (success)
                 drainQueue();
-        });
+        });*/
     }
 
     /**
      *
      */
     private void closed() {
-        GWT.log("WsDispatcher Closed!");
+        /*GWT.log("WsDispatcher Closed!");
         Try.run(() -> bus.publish(new WsClosedEvent(this)));
 
         stopPinger();
@@ -216,7 +216,7 @@ public class WsDispatcher {
                 pendingQueue.add(outgoing);
             }
             calls.clear();
-        }
+        }*/
     }
 
     /**
@@ -230,7 +230,7 @@ public class WsDispatcher {
      * @param payload
      */
     private void data(String payload) {
-        final WsMessage message = WsEncoding.decode(payload);
+        /*final WsMessage message = WsEncoding.decode(payload);
 
         if (message == null) {
             return;
@@ -338,36 +338,36 @@ public class WsDispatcher {
                 }
             }
             break;
-        }
+        }*/
     }
 
     /**
      * @param call
      */
     private void send(ExpectingResponse call) {
-        call.tries++;
-
-        if (webSocket == null) {
-            pendingQueue.add(call);
-            start();
-            return;
-        }
-
-        if (!webSocket.isConnected()) {
-            pendingQueue.add(call);
-            return;
-        }
-
-        try {
-            calls.put(call.message.header.id(), call);
-            try {
-                webSocket.send(WsEncoding.encode(call.message));
-            } catch (Throwable e) {
-                pendingQueue.add(call);
-            }
-        } finally {
-            ensureReaper();
-        }
+//        call.tries++;
+//
+//        if (webSocket == null) {
+//            pendingQueue.add(call);
+//            start();
+//            return;
+//        }
+//
+//        if (!webSocket.isConnected()) {
+//            pendingQueue.add(call);
+//            return;
+//        }
+//
+//        try {
+//            calls.put(call.message.header.id(), call);
+//            try {
+//                webSocket.send(WsEncoding.encode(call.message));
+//            } catch (Throwable e) {
+//                pendingQueue.add(call);
+//            }
+//        } finally {
+//            ensureReaper();
+//        }
     }
 
     /**
@@ -389,7 +389,7 @@ public class WsDispatcher {
      *
      */
     private void ensureFragmentationTimer() {
-        if (fragmentationTimer != null) {
+        /*if (fragmentationTimer != null) {
             return;
         }
         fragmentationTimer = new Timer() {
@@ -398,34 +398,34 @@ public class WsDispatcher {
                 Try.silent(() -> checkForFragmentation());
             }
         };
-        fragmentationTimer.scheduleRepeating(fragmentationMillis);
+        fragmentationTimer.scheduleRepeating(fragmentationMillis);*/
     }
 
     private void checkForFragmentation() {
-        if (presenceMap.isEmpty()) {
+       /* if (presenceMap.isEmpty()) {
             return;
         }
 
-        presenceMap.values().forEach($ -> Try.run($::checkForFragmentation));
+        presenceMap.values().forEach($ -> Try.run($::checkForFragmentation));*/
     }
 
     /**
      *
      */
     private void stopFragmentationTimer() {
-        if (fragmentationTimer == null) {
+        /*if (fragmentationTimer == null) {
             return;
         }
 
         fragmentationTimer.cancel();
-        fragmentationTimer = null;
+        fragmentationTimer = null;*/
     }
 
     /**
      *
      */
     private void ensurePinger() {
-        if (pingTimer != null) {
+        /*if (pingTimer != null) {
             return;
         }
         pingTimer = new Timer() {
@@ -434,26 +434,26 @@ public class WsDispatcher {
                 Try.silent(() -> ping());
             }
         };
-        pingTimer.scheduleRepeating(pingMillis);
+        pingTimer.scheduleRepeating(pingMillis);*/
     }
 
     /**
      *
      */
     private void stopPinger() {
-        if (pingTimer == null) {
+        /*if (pingTimer == null) {
             return;
         }
 
         pingTimer.cancel();
-        pingTimer = null;
+        pingTimer = null;*/
     }
 
     /**
      *
      */
     private void ping() {
-        if (presenceMap.isEmpty()) {
+        /*if (presenceMap.isEmpty()) {
             // Get latest presence.
             send(new ExpectingResponse(
                 null,
@@ -476,14 +476,14 @@ public class WsDispatcher {
             return;
         }
 
-        presenceMap.values().forEach($ -> Try.run($::sendPing));
+        presenceMap.values().forEach($ -> Try.run($::sendPing));*/
     }
 
     /**
      *
      */
     private void ensureReaper() {
-        if (calls.isEmpty()) {
+        /*if (calls.isEmpty()) {
             stopReaper();
             return;
         }
@@ -496,27 +496,27 @@ public class WsDispatcher {
                 Try.silent(() -> reap());
             }
         };
-        reaperTimer.scheduleRepeating(reaperMillis);
+        reaperTimer.scheduleRepeating(reaperMillis);*/
     }
 
     /**
      *
      */
     private void stopReaper() {
-        if (reaperTimer != null) {
+        /*if (reaperTimer != null) {
             try {
                 reaperTimer.cancel();
             } finally {
                 reaperTimer = null;
             }
-        }
+        }*/
     }
 
     /**
      *
      */
     private void reap() {
-        if (isEmpty()) {
+        /*if (isEmpty()) {
             stopReaper();
             return;
         }
@@ -527,14 +527,14 @@ public class WsDispatcher {
 
         if (!pendingQueue.isEmpty()) {
             reap(pendingQueue.iterator());
-        }
+        }*/
     }
 
     /**
      * @param iterator
      */
     private void reap(Iterator<ExpectingResponse> iterator) {
-        final long time = new Date().getTime();
+        /*final long time = new Date().getTime();
         List<ExpectingResponse> timeoutList = null;
 
         // Check current calls.
@@ -554,7 +554,7 @@ public class WsDispatcher {
             for (ExpectingResponse call : timeoutList) {
                 Try.silent(call.timeoutCallback);
             }
-        }
+        }*/
     }
 
 
@@ -680,28 +680,28 @@ public class WsDispatcher {
          */
         @Override
         public void removeHandler() {
-            presenceMap.remove(key);
-            subscriptions.forEach(Subscription::removeHandler);
+//            presenceMap.remove(key);
+//            subscriptions.forEach(Subscription::removeHandler);
         }
 
         /**
          * @param joined
          */
         void onJoined(PresenceJoined joined) {
-            this.outOfSync = false;
+           /* this.outOfSync = false;
             this.presence = joined.presence;
             this.me = joined.me;
 
             bus.publish(new PresenceJoinedEvent(joined));
 
-            subscriptions.forEach(subscription -> Try.later(() -> subscription.listener.onJoin(joined)));
+            subscriptions.forEach(subscription -> Try.later(() -> subscription.listener.onJoin(joined)));*/
         }
 
         /**
          * @param change
          */
         void onChange(PresenceChange change) {
-            if (outOfSync) {
+           /* if (outOfSync) {
                 backlog.add(change);
                 return;
             }
@@ -753,11 +753,11 @@ public class WsDispatcher {
 
                 // Clear backlog.
                 clearBacklog();
-            }
+            }*/
         }
 
         void onOutOfSync() {
-            if (outOfSync) {
+            /*if (outOfSync) {
                 return;
             }
 
@@ -805,11 +805,11 @@ public class WsDispatcher {
                     clearBacklog();
                 },
                 this::leave
-            ));
+            ));*/
         }
 
         void clearBacklog() {
-            if (backlog.isEmpty()) {
+            /*if (backlog.isEmpty()) {
                 return;
             }
 
@@ -847,14 +847,14 @@ public class WsDispatcher {
                 } else {
                     break;
                 }
-            }
+            }*/
         }
 
         /**
          *
          */
         void sendPing() {
-            if (presence == null) {
+            /*if (presence == null) {
                 return;
             }
 
@@ -878,14 +878,14 @@ public class WsDispatcher {
                     }
                 },
                 this::leave
-            ));
+            ));*/
         }
 
         /**
          *
          */
         void checkForFragmentation() {
-            if (outOfSync) {
+            /*if (outOfSync) {
                 return;
             }
 
@@ -902,14 +902,14 @@ public class WsDispatcher {
 
             if ((timestamp - lastMerge) > PRESENCE_FRAGMENTATION_WINDOW_MILLIS) {
                 onOutOfSync();
-            }
+            }*/
         }
 
         /**
          * @param change
          */
         void merge(PresenceChange change) {
-            LOG.info("PresenceChange", change);
+           /* LOG.info("PresenceChange", change);
 
             if (change == null)
                 return;
@@ -988,25 +988,25 @@ public class WsDispatcher {
                 .me(presence.me)
                 .occupants(presence.occupants);
             Try.later(() -> bus.publish(new PresenceChangedEvent(change, p)));
-            Try.later(() -> subscriptions.forEach(s -> Try.run(() -> s.listener.onChange(change, p))));
+            Try.later(() -> subscriptions.forEach(s -> Try.run(() -> s.listener.onChange(change, p))));*/
         }
 
         /**
          *
          */
         void onLeave() {
-            bus.publish(new PresenceLeaveEvent(key, presence, me));
-
-            try {
-                if (subscriptions.isEmpty()) {
-                    presenceMap.remove(key);
-                } else {
-                    subscriptions.forEach(s -> s.listener.onLeave(presence, me));
-                }
-            } finally {
-                presence = null;
-                me = null;
-            }
+//            bus.publish(new PresenceLeaveEvent(key, presence, me));
+//
+//            try {
+//                if (subscriptions.isEmpty()) {
+//                    presenceMap.remove(key);
+//                } else {
+//                    subscriptions.forEach(s -> s.listener.onLeave(presence, me));
+//                }
+//            } finally {
+//                presence = null;
+//                me = null;
+//            }
         }
 
         /**
@@ -1015,13 +1015,13 @@ public class WsDispatcher {
          */
         Subscription add(PresenceListener listener) {
             final Subscription subscription = new Subscription(listener);
-            subscriptions.add(subscription);
+            /*subscriptions.add(subscription);
 
             if (presence != null) {
                 Try.later(() -> listener.onJoin(new PresenceJoined()
                     .presence(presence)
                     .me(me)));
-            }
+            }*/
 
             return subscription;
         }
@@ -1030,20 +1030,20 @@ public class WsDispatcher {
          * @param subscription
          */
         void remove(Subscription subscription) {
-            subscriptions.remove(subscription);
-
-            // Remove PresenceManager if necessary.
-            if (subscriptions.isEmpty()) {
-                presenceMap.remove(key);
-                leave();
-            }
+//            subscriptions.remove(subscription);
+//
+//            // Remove PresenceManager if necessary.
+//            if (subscriptions.isEmpty()) {
+//                presenceMap.remove(key);
+//                leave();
+//            }
         }
 
         /**
          *
          */
         void leave() {
-            outOfSync = false;
+            /*outOfSync = false;
 
             if (presence == null) {
                 return;
@@ -1082,7 +1082,7 @@ public class WsDispatcher {
 
                     }
                 ));
-            }
+            }*/
         }
 
         /**
